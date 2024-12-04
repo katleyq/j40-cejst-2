@@ -42,6 +42,10 @@ will allow us to test the deploy process, website improvements, and the
 display of the updated data using a staging URL like
 <random-string-of-letters>.cloudfront.net.
 
+TODO: Get new AWS resources
+  - A new website S3 bucket
+  - A new Cloudfront distribution that serves that S3 bucket
+
 ## Release day
 
 When the 2.0 CEJST is ready to release to the public, we can change the
