@@ -1,7 +1,7 @@
 [![Staging](https://github.com/usds/justice40-tool/actions/workflows/deploy_fe_staging.yml/badge.svg)](https://github.com/usds/justice40-tool/actions/workflows/deploy_fe_staging.yml)
 [![Production](https://github.com/usds/justice40-tool/actions/workflows/deploy_fe_main.yml/badge.svg)](https://github.com/usds/justice40-tool/actions/workflows/deploy_fe_main.yml)
 
-# Justice40 Client
+# Justice40 Clientss
 
 This README contains the following content:
 
@@ -212,8 +212,6 @@ When developing, to use a flag:
 4. Run the _Debug Chrome_ configuration by hitting the green play button
 5. Install the [CORS chrome extension](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en) in the browser that is launched by the debugger.
 6. Set breakpoints in VS code!
-
-
 
 ## Package Versions
 

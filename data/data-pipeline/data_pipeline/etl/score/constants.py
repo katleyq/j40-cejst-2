@@ -282,6 +282,7 @@ TILES_SCORE_COLUMNS = {
     # The NEW final score value INCLUDES the adjacency index.
     field_names.FINAL_SCORE_N_BOOLEAN: "SN_C",
     field_names.FINAL_SCORE_N_BOOLEAN_V1_0: "SN_C_V10",
+    field_names.GRANDFATHERED_N_COMMUNITIES_V1_0: "SN_GRAND",
     field_names.IS_TRIBAL_DAC: "SN_T",
     field_names.DIABETES_LOW_INCOME_FIELD: "DLI",
     field_names.ASTHMA_LOW_INCOME_FIELD: "ALI",
@@ -346,6 +347,8 @@ TILES_SCORE_COLUMNS = {
     # These are the booleans for socioeconomic indicators
     ## this measures low income boolean
     field_names.FPL_200_SERIES_IMPUTED_AND_ADJUSTED: "FPL200S",
+    # Percentile FPL 200 for islands only
+    field_names.CENSUS_DECENNIAL_POVERTY_LESS_THAN_200_FPL_PERCENTILE: "FPL200P",
     ## Low high school for t&wd
     field_names.WORKFORCE_SOCIO_INDICATORS_EXCEEDED: "N_WKFC_EBSI",
     field_names.DOT_BURDEN_PCTILE_THRESHOLD: "TD_ET",

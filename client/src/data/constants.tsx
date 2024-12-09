@@ -71,6 +71,7 @@ export const TOTAL_NUMBER_OF_INDICATORS = "THRHLD";
 export const COUNT_OF_CATEGORIES_DISADV = "CC";
 export const SCORE_N_COMMUNITIES = "SN_C";
 export const SCORE_N_TRIBAL = "SN_T";
+export const IS_GRANDFATHERED = "SN_GRAND";
 
 export const SIDE_PANEL_STATE = "UI_EXP";
 export const SIDE_PANEL_STATE_VALUES = {
@@ -109,6 +110,8 @@ export const IS_EXCEED_BOTH_SOCIO_INDICATORS = "N_EBSI";
 
 export const POVERTY_BELOW_200_PERCENTILE = "P200_I_PFS";
 export const IS_FEDERAL_POVERTY_LEVEL_200 = "FPL200S";
+// Percentile FPL 200 for islands only
+export const CENSUS_DECENNIAL_POVERTY_LESS_THAN_200_FPL_PERCENTILE = "FPL200P";
 
 export const HIGHER_ED_PERCENTILE = "CA";
 export const IS_HIGHER_ED_PERCENTILE = "CA_LT20";
@@ -387,6 +390,8 @@ process.env.GATSBY_CDN_TILES_BASE_URL;
 
 export const TILE_PATH = process.env.DATA_SOURCE === "local" ?
 process.env.GATSBY_DATA_PIPELINE_SCORE_PATH_LOCAL :
-process.env.GATSBY_1_0_SCORE_PATH;
+process.env.GATSBY_2_0_SCORE_PATH;
 
-export const MAP_TRACT_SEARCH_PATH = "data_pipeline/data/score/search/tracts.json";
+export const MAP_TRACT_SEARCH_PATH = process.env.DATA_SOURCE === "local" ?
+process.env.GATSBY_DATA_PIPELINE_SEARCH_PATH_LOCAL :
+process.env.GATSBY_2_0_MAP_TRACT_SEARCH_PATH;

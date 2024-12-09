@@ -660,6 +660,14 @@ export const PRIORITIZATION_COPY = {
       bold: boldFn,
     }}
   />,
+  PRIO_GRANDFATHERED_LI: <FormattedMessage
+    id={'explore.map.page.side.panel.prio.copy.prio.grandfathered'}
+    defaultMessage={'This tract is considered disadvantaged because it was identified as disadvantaged in version 1.0 of the tool.'}
+    description={`Navigate to the explore the map page. Click on tract, The side panel will show This tract is considered disadvantaged. This tract is considered disadvantaged because it was identified as disadvantaged in version 1.0 of the tool.`}
+    values={{
+      bold: boldFn,
+    }}
+  />,
 };
 
 export const getPrioNBurdenCopy = (burdens:string) => {
@@ -761,6 +769,13 @@ export const DONUT_COPY = defineMessages({
   ADJ_LOW_INC: {
     id: 'explore.map.page.side.panel.donut.copy.adj.low.income',
     defaultMessage: 'Adjusted low income',
+    description: `Navigate to the explore the map page. Click on side panel, this copy may show up`,
+  },
+});
+export const ISLAND_COPY = defineMessages({
+  LOW_INC: {
+    id: 'explore.map.page.side.panel.island.copy.low.income',
+    defaultMessage: 'Low income',
     description: `Navigate to the explore the map page. Click on side panel, this copy may show up`,
   },
 });
