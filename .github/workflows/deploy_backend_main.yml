@@ -1,9 +1,5 @@
 name: Deploy Backend Main
-on:
-  push:
-    branches: [main]
-    paths:
-      - "data/**"
+on: workflow_dispatch
 env:
   CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
   J40_VERSION_LABEL_STRING: ${{ vars.SCORE_VERSION }}
