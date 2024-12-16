@@ -24,7 +24,6 @@ jobs:
       uses: Jtalk/url-health-check-action@v4
       with:
         url: ${{ secrets.SITE_URL }}
-        basic-auth: '${{ secrets.STG_USER }}:${{ secrets.STG_PASSWORD }}'
     - name: Failure Notification
       uses: ravsamhq/notify-slack-action@2.5.0
       if:  ${{ failure() }}
