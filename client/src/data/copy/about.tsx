@@ -1,16 +1,17 @@
 /* eslint-disable max-len */
+import {FormattedMessage} from 'gatsby-plugin-intl';
 import React from 'react';
 import {defineMessages} from 'react-intl';
-import {FormattedMessage} from 'gatsby-plugin-intl';
 
+import {CONTACT_SURVEY_LINKS, DATA_SURVEY_LINKS, PAGES_ENDPOINTS, SITE_SATISFACTION_SURVEY_LINKS} from '../constants';
 import {italicFn, linkFn} from './common';
 import {VERSION_NUMBER} from './methodology';
-import {PAGES_ENDPOINTS, DATA_SURVEY_LINKS, SITE_SATISFACTION_SURVEY_LINKS, CONTACT_SURVEY_LINKS} from '../constants';
 
 export const EXEC_ORDER_LINK = 'https://www.federalregister.gov/documents/2021/02/01/2021-02177/tackling-the-climate-crisis-at-home-and-abroad#:~:text=Sec.%20223.%20Justice40,40-percent%20goal.';
 export const FAQS_LINK = 'https://www.whitehouse.gov/wp-content/uploads/2022/02/CEQ-CEJST-QandA.pdf';
 export const FED_RECOGNIZED_INDIAN_ENTITIES = `https://www.federalregister.gov/documents/2022/01/28/2022-01789/indian-entities-recognized-by-and-eligible-to-receive-services-from-the-united-states-bureau-of`;
 export const EJSCREEN = 'https://www.epa.gov/ejscreen/how-does-epa-use-ejscreen';
+export const WHEJAC_RECOMMENDATIONS = 'https://www.epa.gov/environmentaljustice/white-house-environmental-justice-advisory-council';
 
 export const CEJST_INSTRUCT = process.env.GATSBY_CDN_TILES_BASE_URL +`/data-versions/2.0/data/score/downloadable/CEQ-CEJST-Instructions.pdf`;
 export const CEJST_INSTRUCT_ES = process.env.GATSBY_CDN_TILES_BASE_URL +`/data-versions/2.0/data/score/downloadable/CEQ-CEJST-Instructions-es.pdf`;
@@ -35,10 +36,7 @@ export const CONTENT = {
   PARA1:
   <FormattedMessage
     id={'about.page.paragraph.1'}
-    defaultMessage={`
-      In January of 2021, President Biden issued <link1>Executive Order 14008</link1>. The order directed the Council on Environmental Quality (CEQ) to develop a new tool. This tool is called the Climate and Economic Justice Screening Tool. The tool has an interactive map and uses datasets that are indicators of burdens in eight categories: climate change, energy, health, housing, legacy pollution, transportation, water and wastewater, and workforce development. The tool uses this information to identify communities that are experiencing these burdens. These are the communities that are disadvantaged because they are overburdened and underserved.
-
-    `}
+    defaultMessage={`In January of 2021, President Biden issued <link1>Executive Order 14008</link1>. The order directed the Council on Environmental Quality (CEQ) to develop a new tool. This tool is called the Climate and Economic Justice Screening Tool. The tool has an interactive map and uses datasets that are indicators of burdens in eight categories: climate change, energy, health, housing, legacy pollution, transportation, water and wastewater, and workforce development. The tool uses this information to identify communities that are experiencing these burdens. These are the communities that are disadvantaged because they are marginalized by underinvestment and overburdened by pollution.`}
     description={'Navigate to the About page. This is the paragraph 1'}
     values={{
       link1: linkFn(EXEC_ORDER_LINK, false, true),
@@ -48,9 +46,7 @@ export const CONTENT = {
   PARA2:
   <FormattedMessage
     id={'about.page.paragraph.2'}
-    defaultMessage={`
-      Federal agencies will use the tool to help identify disadvantaged communities that will benefit from programs included in the <link1>Justice40 Initiative</link1>. The Justice40 Initiative seeks to deliver 40% of the overall benefits of investments in climate, clean energy, and related areas to disadvantaged communities.
-    `}
+    defaultMessage={`Federal agencies will use the tool to help identify disadvantaged communities that will benefit from programs included in the <link1>Justice40 Initiative</link1>. The Justice40 Initiative seeks to deliver 40% of the overall benefits of investments in climate, clean energy, and related areas to disadvantaged communities.`}
     description={'Navigate to the About page. This is the paragraph 2'}
     values={{
       link1: linkFn(EXEC_ORDER_LINK, false, true),
@@ -92,12 +88,13 @@ export const CONTENT = {
   <FormattedMessage
     id={'about.page.paragraph.4'}
     defaultMessage={`
-      CEQ will update the tool each year based on public feedback, research, and the availability of new data. The current version of the tool is version {version}. <link1>Sign-up</link1> for updates from CEQ.
+      CEQ will continue to update the tool, after reviewing public feedback, 
+      research, and the availability of new data. The current version of the 
+      tool is version {version}.
     `}
     description={'Navigate to the About page. This is the paragraph 4'}
     values={{
       version: VERSION_NUMBER,
-      link1: linkFn('https://lp.constantcontactpages.com/su/Vm8pCFj/spring', false, true),
     }}
   />,
   PARA5:
@@ -112,7 +109,7 @@ export const CONTENT = {
   <FormattedMessage
     id={'about.page.use.data.paragraph'}
     defaultMessage={`
-      The tool's data is available for <link1>download</link1>. This data can be used to filter by state or county. 
+      The tool’s data is available for <link1>download</link1>. This data can be used to filter by state or county.
     `}
     description={'Navigate to the About page. This is the paragraph 4'}
     values={{
@@ -123,8 +120,7 @@ export const CONTENT = {
   <FormattedMessage
     id={'about.page.how.to.use.tool.para1'}
     defaultMessage={`
-      The tool shows information about the burdens that communities experience. It uses datasets to identify indicators of burdens. The tool shows these burdens in census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. This was chosen because many of the data sources in the tool currently use the 2010 census boundaries.  The tool also shows land within the boundaries of Federally Recognized Tribes and point locations for Alaska Native Villages.
-    `}
+      The tool shows information about the burdens that communities experience. It uses datasets to identify indicators of burdens. The tool shows these burdens in census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2020. This was chosen because many of the data sources in the tool currently use the 2010 census boundaries.  The tool also shows land within the boundaries of Federally Recognized Tribes and point locations for Alaska Native Villages and landless Tribes in the lower 48 states.`}
     description={'Navigate to the About page. This is the paragraph 4'}
     values={{
       link1: linkFn('https://www.census.gov/programs-surveys/acs/geography-acs/geography-boundaries-by-year.html', false, true),
@@ -279,7 +275,7 @@ export const HOW_YOU_CAN_HELP_LIST_ITEMS = {
   PARA1: <FormattedMessage
     id={'about.page.how.you.can.help.para.1'}
     defaultMessage={`
-      The Council on Environmental Quality plans to issue a Request for Information in 2023. This will give the public time to use the tool before providing comments.    
+      The Council on Environmental Quality plans to issue a Request for Information in 2023. This will give the public time to use the tool before providing comments.
     `}
     description={`Navigate to the about page. You will see How you can help list item 3`}
   />,
