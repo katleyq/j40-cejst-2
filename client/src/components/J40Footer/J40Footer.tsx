@@ -33,14 +33,6 @@ const J40Footer = () => {
           COMMON_COPY.FOOTER_CEQ_ADDRESS.PHONE,
         ]}
       />,
-      <LinkTypeWrapper
-        linkText={intl.formatMessage(COMMON_COPY.FOOTER.SIGN_UP)}
-        internal={false}
-        url={COMMON_COPY.FOOTER.SIGN_UP_LINK}
-        openUrlNewTab={true}
-        key={'signup'}
-        dataCy={hyphenizeString(COMMON_COPY.FOOTER.SIGN_UP.defaultMessage)}
-      />,
     ],
     [
       intl.formatMessage(COMMON_COPY.FOOTER.MORE_INFO),
@@ -55,9 +47,9 @@ const J40Footer = () => {
       />,
       <LinkTypeWrapper
         linkText={intl.formatMessage(COMMON_COPY.FOOTER.PRIVACY)}
-        internal={false}
+        internal={true}
         url={intl.formatMessage(COMMON_COPY.FOOTER.PRIVACY_LINK)}
-        openUrlNewTab={true}
+        openUrlNewTab={false}
         key={'privacylink'}
         dataCy={hyphenizeString(COMMON_COPY.FOOTER.PRIVACY.defaultMessage)}
       />,

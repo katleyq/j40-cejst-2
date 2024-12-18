@@ -195,28 +195,11 @@
     "description": "Navigate to the about page. This is Footer column header"
   },
   "common.pages.footer.privacy.link": {
-    "defaultMessage": "https://www.whitehouse.gov/privacy/",
     "description": "Navigate to the about page. This is Footer privacy policy link text"
   },
   "common.pages.footer.privacy.text": {
     "defaultMessage": "Privacy Policy",
     "description": "Navigate to the about page. This is Footer privacy policy link text"
-  },
-  "common.pages.footer.sign.up": {
-    "defaultMessage": "Sign up for updates",
-    "description": "Navigate to the about page. This is Footer under Sign-up for updates"
-  },
-  "common.pages.footer.sign.up.link": {
-    "defaultMessage": "https://lp.constantcontactpages.com/su/Vm8pCFj/spring",
-    "description": "Navigate to the about page. This is Footer link under Sign-up for updates"
-  },
-  "common.pages.footer.whitehouse.link": {
-    "defaultMessage": "https://www.whitehouse.gov/",
-    "description": "Navigate to the about page. This is Footer Whitehouse.gov link text"
-  },
-  "common.pages.footer.whitehouse.text": {
-    "defaultMessage": "Whitehouse.gov",
-    "description": "Navigate to the about page. This is Footer Whitehouse.gov link text"
   },
   "common.pages.footer.whitehouselogoalt": {
     "defaultMessage": "Whitehouse logo",
@@ -326,293 +309,53 @@
     "defaultMessage": "Version {version} file formats",
     "description": "Navigate to the download page. This is first download file link"
   },
-  "download.page.release.update.SECTION1": {
-    "defaultMessage": "New & improved",
-    "description": "Navigate to the download page. This is first section of the release update SECTION1"
-  },
-  "download.page.release.update.SECTION1_B1": {
-    "defaultMessage": "Added lands within the boundaries of Federally Recognized Tribes and locations of Alaska Native Villages using data from the Bureau of Indian Affairs at the U.S. Department of the Interior",
-    "description": "Navigate to the download page. This is SECTION1_B1"
-  },
-  "download.page.release.update.SECTION1_B10": {
-    "defaultMessage": "Added a link to sign up for email mailing list managed by CEQ",
-    "description": "Navigate to the download page. This is SECTION1_B10 "
-  },
-  "download.page.release.update.SECTION1_B2": {
-    "defaultMessage": "Added new data for indicators of burden",
-    "description": "Navigate to the download page. This is SECTION1_B2"
-  },
-  "download.page.release.update.SECTION1_B2_1": {
-    "defaultMessage": "Climate change",
-    "description": "Navigate to the download page. This is SECTION1_B2_1"
-  },
-  "download.page.release.update.SECTION1_B2_1_1": {
-    "defaultMessage": "Projected flood risk",
-    "description": "Navigate to the download page. This is SECTION1_B2_1_1"
-  },
-  "download.page.release.update.SECTION1_B2_1_2": {
-    "defaultMessage": "Projected wildfire risk",
-    "description": "Navigate to the download page. This is SECTION1_B2_1_2"
-  },
-  "download.page.release.update.SECTION1_B2_1_3": {
-    "defaultMessage": "Historic underinvestment due to redlining",
-    "description": "Navigate to the download page. This is SECTION1_B2_1_3"
-  },
-  "download.page.release.update.SECTION1_B2_2": {
-    "defaultMessage": "Housing",
-    "description": "Navigate to the download page. This is SECTION1_B2_2"
-  },
-  "download.page.release.update.SECTION1_B2_2_1": {
-    "defaultMessage": "Lack of plumbing",
-    "description": "Navigate to the download page. This is SECTION1_B2_2_1"
-  },
-  "download.page.release.update.SECTION1_B2_2_2": {
-    "defaultMessage": "Lack of green space",
-    "description": "Navigate to the download page. This is SECTION1_B2_2_2"
-  },
-  "download.page.release.update.SECTION1_B2_2_3": {
-    "defaultMessage": "Historic underinvestment (due to redlining)",
-    "description": "Navigate to the download page. This is SECTION1_B2_2_3"
-  },
-  "download.page.release.update.SECTION1_B2_3": {
-    "defaultMessage": "Legacy pollution",
-    "description": "Navigate to the download page. This is SECTION1_B2_3"
-  },
-  "download.page.release.update.SECTION1_B2_3_1": {
-    "defaultMessage": "Abandoned mine lands",
-    "description": "Navigate to the download page. This is SECTION1_B2_3_1"
-  },
-  "download.page.release.update.SECTION1_B2_3_2": {
-    "defaultMessage": "Formerly used defense sites",
-    "description": "Navigate to the download page. This is SECTION1_B2_3_2"
-  },
-  "download.page.release.update.SECTION1_B2_4": {
-    "defaultMessage": "Transportation",
-    "description": "Navigate to the download page. This is SECTION1_B2_4"
-  },
-  "download.page.release.update.SECTION1_B2_4_1": {
-    "defaultMessage": "Transportation barriers",
-    "description": "Navigate to the download page. This is SECTION1_B2_4_1"
-  },
-  "download.page.release.update.SECTION1_B2_5": {
-    "defaultMessage": "Water and wastewater",
-    "description": "Navigate to the download page. This is SECTION1_B2_5"
-  },
-  "download.page.release.update.SECTION1_B2_5_1": {
-    "defaultMessage": "Underground storage tanks and releases",
-    "description": "Navigate to the download page. This is SECTION1_B2_5_1"
-  },
-  "download.page.release.update.SECTION1_B3": {
-    "defaultMessage": "Included communities that are completely surrounded by other disadvantaged communities and that meet an adjusted low income threshold",
-    "description": "Navigate to the download page. This is SECTION1_B3"
-  },
-  "download.page.release.update.SECTION1_B4": {
-    "defaultMessage": "Made technical changes to enhance accuracy of the tool",
-    "description": "Navigate to the download page. This is SECTION1_B4"
-  },
-  "download.page.release.update.SECTION1_B4_1": {
-    "defaultMessage": "Removed income data for students enrolled in higher education in the low income indicator",
-    "description": "Navigate to the download page. This is SECTION1_B4_1"
-  },
-  "download.page.release.update.SECTION1_B4_2": {
-    "defaultMessage": "Imputed income for census tracts missing income data",
-    "description": "Navigate to the download page. This is SECTION1_B4_2"
-  },
-  "download.page.release.update.SECTION1_B4_3": {
-    "defaultMessage": "Used transportation barriers and expected population loss rate data burdens only for census tracts with populations of 20 or more to exclude areas such as airports",
-    "description": "Navigate to the download page. This is SECTION1_B4_3"
-  },
-  "download.page.release.update.SECTION1_B5": {
-    "defaultMessage": "Improved the user interface",
-    "description": "Navigate to the download page. This is SECTION1_B5"
-  },
-  "download.page.release.update.SECTION1_B5_1": {
-    "defaultMessage": "Added demographics (race & age) for census tracts to map side panel",
-    "description": "Navigate to the download page. This is SECTION1_B5_1"
-  },
-  "download.page.release.update.SECTION1_B5_2": {
-    "defaultMessage": "Improved the design of the map side panel",
-    "description": "Navigate to the download page. This is SECTION1_B5_2"
-  },
-  "download.page.release.update.SECTION1_B5_3": {
-    "defaultMessage": "Updated the site copy of the website",
-    "description": "Navigate to the download page. This is SECTION1_B5_3"
-  },
-  "download.page.release.update.SECTION1_B6": {
-    "defaultMessage": "Added new data for all the U.S. Territories, and also made a small methodology change for Puerto Rico",
-    "description": "Navigate to the download page. This is SECTION1_B6"
-  },
-  "download.page.release.update.SECTION1_B6_1": {
-    "defaultMessage": "USVI",
-    "description": "Navigate to the download page. This is SECTION1_B6_1"
-  },
-  "download.page.release.update.SECTION1_B6_1_1": {
-    "defaultMessage": "Included data from 2010 decennial census for US Virgin Islands",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_1"
-  },
-  "download.page.release.update.SECTION1_B6_1_2": {
-    "defaultMessage": "New data from EJScreen 2.1",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_2"
-  },
-  "download.page.release.update.SECTION1_B6_1_2_1": {
-    "defaultMessage": "Sustainable Housing:",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_2_1"
-  },
-  "download.page.release.update.SECTION1_B6_1_2_1_1": {
-    "defaultMessage": "Lead paint",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_2_1_1"
-  },
-  "download.page.release.update.SECTION1_B6_1_2_2": {
-    "defaultMessage": "Legacy pollution:",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_2_2"
-  },
-  "download.page.release.update.SECTION1_B6_1_2_2_1": {
-    "defaultMessage": "Proximity to Superfund (National Priorities List (NPL)) sites",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_2_2_1"
-  },
-  "download.page.release.update.SECTION1_B6_1_2_2_2": {
-    "defaultMessage": "Proximity to Risk Management Plan (RMP) sites",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_2_2_2"
-  },
-  "download.page.release.update.SECTION1_B6_1_2_2_3": {
-    "defaultMessage": "Proximity to hazardous waste facilities",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_2_2_3"
-  },
-  "download.page.release.update.SECTION1_B6_1_2_2_4": {
-    "defaultMessage": "Leaking underground storage tanks",
-    "description": "Navigate to the download page. This is SECTION1_B6_1_2_2_4"
-  },
-  "download.page.release.update.SECTION1_B6_2": {
-    "defaultMessage": "Guam",
-    "description": "Navigate to the download page. This is SECTION1_B6_2"
-  },
-  "download.page.release.update.SECTION1_B6_2_1": {
-    "defaultMessage": "Included data from 2010 decennial census for Guam",
-    "description": "Navigate to the download page. This is SECTION1_B6_2_1"
-  },
-  "download.page.release.update.SECTION1_B6_3": {
-    "defaultMessage": "Samoa",
-    "description": "Navigate to the download page. This is SECTION1_B6_3"
-  },
-  "download.page.release.update.SECTION1_B6_4": {
-    "defaultMessage": "Marianna Islands",
-    "description": "Navigate to the download page. This is SECTION1_B6_4"
-  },
-  "download.page.release.update.SECTION1_B6_5": {
-    "defaultMessage": "Puerto Rico",
-    "description": "Navigate to the download page. This is SECTION1_B6_5"
-  },
-  "download.page.release.update.SECTION1_B6_5_1": {
-    "defaultMessage": "Removed linguistic isolation as an indicator in the methodology for Puerto Rico",
-    "description": "Navigate to the download page. This is SECTION1_B6_5_1"
-  },
-  "download.page.release.update.SECTION1_B6_5_2": {
-    "defaultMessage": "Imported additional available data for Puerto Rico",
-    "description": "Navigate to the download page. This is SECTION1_B6_5_2"
-  },
-  "download.page.release.update.SECTION1_B6_5_2_1": {
-    "defaultMessage": "Energy cost",
-    "description": "Navigate to the download page. This is SECTION1_B6_5_2_1"
-  },
-  "download.page.release.update.SECTION1_B6_5_2_2": {
-    "defaultMessage": "Housing cost",
-    "description": "Navigate to the download page. This is SECTION1_B6_5_2_2"
-  },
-  "download.page.release.update.SECTION1_B6_5_2_3": {
-    "defaultMessage": "Abandoned mine lands",
-    "description": "Navigate to the download page. This is SECTION1_B6_5_2_3"
-  },
-  "download.page.release.update.SECTION1_B6_5_2_4": {
-    "defaultMessage": "Proximity to hazardous waste sites",
-    "description": "Navigate to the download page. This is SECTION1_B6_5_2_4"
-  },
-  "download.page.release.update.SECTION1_B7": {
-    "defaultMessage": "Updated data from EJScreen 2.1 across the entire tool:",
-    "description": "Navigate to the download page. This is SECTION1_B7"
-  },
-  "download.page.release.update.SECTION1_B7_1_1": {
-    "defaultMessage": "Lead paint - 2016-2020",
-    "description": "Navigate to the download page. This is SECTION1_B7_1_1"
-  },
-  "download.page.release.update.SECTION1_B7_2_1": {
-    "defaultMessage": "Proximity to Superfund (National Priorities List (NPL)) sites - 2022",
-    "description": "Navigate to the download page. This is SECTION1_B7_2_1"
-  },
-  "download.page.release.update.SECTION1_B7_2_2": {
-    "defaultMessage": "Proximity to Risk Management Plans (RMP) facilities - 2022",
-    "description": "Navigate to the download page. This is SECTION1_B7_2_2"
-  },
-  "download.page.release.update.SECTION1_B7_2_3": {
-    "defaultMessage": "Proximity to hazardous waste facilities - 2022",
-    "description": "Navigate to the download page. This is SECTION1_B7_2_3"
-  },
-  "download.page.release.update.SECTION1_B7_3": {
-    "defaultMessage": "Water and wastewater",
-    "description": "Navigate to the download page. This is SECTION1_B7_3"
-  },
-  "download.page.release.update.SECTION1_B7_3_1": {
-    "defaultMessage": "Leaking underground storage tanks - 2022",
-    "description": "Navigate to the download page. This is SECTION1_B7_3_1"
-  },
-  "download.page.release.update.SECTION1_B8": {
-    "defaultMessage": "Enhanced the technical files:",
-    "description": "Navigate to the download page. This is SECTION1_B8"
-  },
-  "download.page.release.update.SECTION1_B8_1": {
-    "defaultMessage": "Added all new data indicators and demographics to .xls, .csv, and shapefiles",
-    "description": "Navigate to the download page. This is SECTION1_B8_1"
-  },
-  "download.page.release.update.SECTION1_B8_2": {
-    "defaultMessage": "Added previous versions page to access the beta version’s download files",
-    "description": "Navigate to the download page. This is SECTION1_B8_2"
-  },
-  "download.page.release.update.SECTION1_B8_3": {
-    "defaultMessage": "Updated codebook",
-    "description": "Navigate to the download page. This is SECTION1_B8_3"
-  },
-  "download.page.release.update.SECTION1_B8_4": {
-    "defaultMessage": "Updated Technical Support Document",
-    "description": "Navigate to the download page. This is SECTION1_B8_4"
-  },
-  "download.page.release.update.SECTION1_B9": {
-    "defaultMessage": "Improved the way that users provide feedback on the tool:",
-    "description": "Navigate to the download page. This is SECTION1_B9"
-  },
-  "download.page.release.update.SECTION1_B9_1": {
-    "defaultMessage": "Data survey",
-    "description": "Navigate to the download page. This is SECTION1_B9_1"
-  },
-  "download.page.release.update.SECTION1_B9_2": {
-    "defaultMessage": "Site experience survey",
-    "description": "Navigate to the download page. This is SECTION1_B9_2"
-  },
-  "download.page.release.update.SECTION1_B9_3": {
-    "defaultMessage": "Census tract feedback",
-    "description": "Navigate to the download page. This is SECTION1_B9_3"
-  },
-  "download.page.release.update.SECTION1_B9_4": {
-    "defaultMessage": "General contact form",
-    "description": "Navigate to the download page. This is SECTION1_B9_4 "
-  },
-  "download.page.release.update.footer": {
-    "defaultMessage": "release version {version}",
-    "description": "Navigate to the download page. This is second section of the release update section"
-  },
-  "download.page.release.update.section.2": {
-    "defaultMessage": "Fixes",
-    "description": "Navigate to the download page. This is second section of the release update section"
-  },
-  "download.page.release.update.section.2.p1": {
-    "defaultMessage": "Bug fix: loaded missing life expectancy data for Maine and Wisconsin",
-    "description": "Navigate to the download page. This is second section of the release update section"
-  },
-  "download.page.release.update.section.2.p2": {
-    "defaultMessage": "Bug fix: Census tracts that are 100% water should not be included on the map",
-    "description": "Navigate to the download page. This is second section of the release update section"
-  },
-  "download.page.release.update.title.1": {
+  "download.page.release.2_0.update.HEADER": {
     "defaultMessage": "Version {release} Release update - {date}",
     "description": "Navigate to the download page. This is first download file link"
+  },
+  "download.page.release.2_0.update.NEW_IMPROVED_SECTION": {
+    "defaultMessage": "New & improved",
+    "description": "Navigate to the download page. This is new and improved section"
+  },
+  "download.page.release.2_0.update.SCORING_CONTENT_1": {
+    "defaultMessage": "Updated to use Census Decennial 2020 data for the U.S. territories of Guam, Virgin Islands, Northern Mariana Islands, and American Samoa",
+    "description": "Navigate to the download page. This is release content"
+  },
+  "download.page.release.2_0.update.SCORING_CONTENT_2": {
+    "defaultMessage": "U.S. territories of Guam, Virgin Islands, Northern Mariana Islands, and American Samoa qualify as disadvantaged communities based on a low-income threshold at or above the 65th percentile, in addition to any existing qualification pathways",
+    "description": "Navigate to the download page. This is release content"
+  },
+  "download.page.release.2_0.update.SCORING_CONTENT_3": {
+    "defaultMessage": "Apply a donut hole disadvantaged community qualification to U.S. territories of Guam, Virgin Islands, Northern Mariana Islands, American Samoa, and Puerto Rico based on adjacency to already qualifying disadvantaged community tracts and meeting a 50th percentile low-income threshold",
+    "description": "Navigate to the download page. This is release content"
+  },
+  "download.page.release.2_0.update.SCORING_CONTENT_4": {
+    "defaultMessage": "Improved donut hole disadvantaged community qualification by adding tracts that are fully surrounded and have water boundaries",
+    "description": "Navigate to the download page. This is release content"
+  },
+  "download.page.release.2_0.update.SCORING_CONTENT_5": {
+    "defaultMessage": "The poverty percentage calculation excludes college students, ensuring it reflects the economic conditions of the non-college population",
+    "description": "Navigate to the download page. This is release content"
+  },
+  "download.page.release.2_0.update.SCORING_CONTENT_6": {
+    "defaultMessage": "Grandfathering of Census tracts that were designated as disadvantaged communities in version 1.0 of this tool",
+    "description": "Navigate to the download page. This is release content"
+  },
+  "download.page.release.2_0.update.SCORING_SUBSECTION": {
+    "defaultMessage": "Scoring improvements",
+    "description": "Navigate to the download page. This is scorig improvement section"
+  },
+  "download.page.release.2_0.update.UI_CONTENT_1": {
+    "defaultMessage": "Users can now search on the map by Census tract ID",
+    "description": "Navigate to the download page. This is release content"
+  },
+  "download.page.release.2_0.update.UI_CONTENT_2": {
+    "defaultMessage": "Show island and territory low-income percentiles in the sidebar",
+    "description": "Navigate to the download page. This is release content"
+  },
+  "download.page.release.2_0.update.UI_SUBSECTION": {
+    "defaultMessage": "User interface improvements",
+    "description": "Navigate to the download page. This is the UI improvements section"
   },
   "downloads.page.change.log.text": {
     "defaultMessage": "release notes",
@@ -1514,10 +1257,6 @@
     "defaultMessage": "This decision was made after meaningful and robust consultation with Tribal Nations. This is consistent with CEQ’s <link1>Action Plan</link1> for Consultation and Coordination with Tribal Nations, President Biden’s <link3>Memorandum</link3> on Tribal Consultation and Strengthening Nation-to-Nation Consultation, and <link2>Executive Order 13175</link2> on Consultation and Coordination With Indian Tribal Governments.",
     "description": "Navigate to the explore the map page. Under the map, you will see tribal nations paragraph 2"
   },
-  "fab.survey.text": {
-    "defaultMessage": "Help improve the site & data",
-    "description": "Navigate to the public engagement page, this will be the text for floating action button"
-  },
   "faqs.page.Q1": {
     "defaultMessage": "What is the Climate and Economic Justice Screening Tool (CEJST)?",
     "description": "Navigate to the FAQs page, this will be Q1"
@@ -1599,7 +1338,7 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q12_P3"
   },
   "faqs.page.answers.Q13_P1": {
-    "defaultMessage": "Several states that have environmental justice screening tools. CalEnviroScreen is an environmental justice screening tool for California. Other states, like New York and Michigan have screening tools as well. The Climate and Economic Justice Screening Tool (CEJST) incorporates lessons learned from these efforts.",
+    "defaultMessage": "Several states have environmental justice screening tools. CalEnviroScreen is an environmental justice screening tool for California. Other states, like New York and Michigan have screening tools as well. The Climate and Economic Justice Screening Tool (CEJST) incorporates lessons learned from these efforts.",
     "description": "Navigate to the FAQs page, this will be an answer, Q13_P1"
   },
   "faqs.page.answers.Q13_P2": {
@@ -1659,7 +1398,7 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q20_P1"
   },
   "faqs.page.answers.Q20_P2": {
-    "defaultMessage": "The <link1>shapefile</link1> format is <link2>a geospatial vector data format</link2> for geographic information system (GIS) software. It can be loaded into any software that works with Esri, ArcGIS or any other compatible GIS software. You may choose to download the data in this format so that you can load the data from the Climate and Economic Justice Screening Tool (CEJST) into other tools and use those tools to combine the CEJST data with other datasets and sources.",
+    "defaultMessage": "The <link1>shapefile</link1> format is <link2>a geospatial vector data format</link2> for geographic information system (GIS) software. It can be loaded into any software that works with Esri, ArcGIS or any other compatible GIS software. You may choose to download the data in this format so that you can load the data from the Climate and Economic Justice Screening Tool (CEJST) into other tools and use those tools to combine the CEJST data with other datasets and alternative data sources.",
     "description": "Navigate to the FAQs page, this will be an answer, Q20_P2"
   },
   "faqs.page.answers.Q21": {
@@ -1667,7 +1406,7 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q21"
   },
   "faqs.page.answers.Q22": {
-    "defaultMessage": "Because some nationally-consistent datasets on indicators of environmental burden used in the tool do not currently include data from certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold.",
+    "defaultMessage": "Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data from certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.",
     "description": "Navigate to the FAQs page, this will be an answer, Q22"
   },
   "faqs.page.answers.Q2_P1": {
@@ -1687,7 +1426,7 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q2_P2_2"
   },
   "faqs.page.answers.Q2_P3": {
-    "defaultMessage": "Not all disadvantaged communities can be shown on the map. The map shows point locations for Alaska Native Villages and landless Federally Recognized Tribes in the lower 48 states. Some communities do not live in just one place. This tool focuses on identifying communities that can be geographically defined.",
+    "defaultMessage": "Not all disadvantaged communities can be shown on the map. The map shows point locations for Alaska Native Villages. Some communities do not live in just one place. This tool focuses on identifying communities that can be geographically defined.",
     "description": "Navigate to the FAQs page, this will be an answer, Q2_P3"
   },
   "faqs.page.answers.Q2_P4": {
@@ -1719,7 +1458,7 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q4_P2"
   },
   "faqs.page.answers.Q4_P3": {
-    "defaultMessage": "<boldtag>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</boldtag> For these U.S. Territories, the tool uses the following data: unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income only.",
+    "defaultMessage": "<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income threshold only.",
     "description": "Navigate to the FAQs page, this will be an answer, Q4_P3"
   },
   "faqs.page.answers.Q5_P1": {
@@ -1903,7 +1642,7 @@
     "description": "Navigate to the Methodology page. This is the description text for exp pop loss rate"
   },
   "methodology.page.category.exp.pop.loss.rate.note.text": {
-    "defaultMessage": "<boldtag>Note: </boldtag>this burden only applies for census tracts with populations greater than 20 people.",
+    "defaultMessage": "<boldtag>Note: </boldtag> This burden only applies for census tracts with populations greater than 20 people.",
     "description": "Navigate to the Methodology page. This is the note text for low life expectancy"
   },
   "methodology.page.category.flood.risk.rate.description.text": {
@@ -2099,7 +1838,7 @@
     "description": "Navigate to the Methodology page. This is the description text for Transportation barriers"
   },
   "methodology.page.category.trans.barrier.note.text": {
-    "defaultMessage": "<boldtag>Note: </boldtag> this burden only applies for census tracts with populations greater than 20 people.",
+    "defaultMessage": "<boldtag>Note: </boldtag> This burden only applies for census tracts with populations greater than 20 people.",
     "description": "Navigate to the Methodology page. This is the note text for trans.barrier"
   },
   "methodology.page.category.tribal.lands.description.text": {
@@ -2519,8 +2258,8 @@
     "description": "page not found title text"
   },
   "previous.versions.page.body.text": {
-    "defaultMessage": "The beta version of the methodology and data was used during the public beta period to get feedback on the tool from {betaDate} - {releaseDate}.",
-    "description": "Navigate to the previous version page. This is the Cards body text"
+    "defaultMessage": "The 1.0 versions of the methodology and data were available on the tool’s website from {startDate} – {endDate}.",
+    "description": "Navigate to the previous version page. This is the Version 1.0 Card body text"
   },
   "previous.versions.page.button1.alt.tag.text": {
     "defaultMessage": "a button that allows to download the data and documentation to the tool",
@@ -2539,180 +2278,156 @@
     "description": "Navigate to the previous version page. This is the Cards button2 text"
   },
   "previous.versions.page.card.text": {
-    "defaultMessage": "Beta version",
-    "description": "Navigate to the previous version page. This is the Cards title text"
+    "defaultMessage": "Version 1.0",
+    "description": "Navigate to the previous version page. This is the Version 1.0 Card title text"
   },
   "previous.versions.page.title.text": {
     "defaultMessage": "Previous versions",
     "description": "Navigate to the previous version page. This is the page title text"
   },
-  "public.eng.page.button.img.alt.tag": {
-    "defaultMessage": "an icon that represents a calendar",
-    "description": "Navigate to the public engagement page, this will be the public engagement button icon alt tag text"
+  "privacy.children.body": {
+    "defaultMessage": "We believe in the importance of protecting the privacy of children online. The <coppa>Children’s Online Privacy Protection Act (COPPA)</coppa> governs information gathered online from or about children under the age of 13. A website must obtain verifiable consent from a child’s parent or guardian before collecting, using, or disclosing personal information from a child under age 13. Our site is not intended to solicit information of any kind from children under age 13. If you believe that we have received information from or about children under age 13, please <contact>contact us</contact>.",
+    "description": "Privacy policy children's privacy text"
   },
-  "public.eng.page.button.label": {
+  "privacy.children.heading": {
+    "defaultMessage": "Children’s Online Privacy",
+    "description": "Privacy policy children's privacy heading"
+  },
+  "privacy.contact.body": {
+    "defaultMessage": "If you have any questions or concerns about our privacy practices, please contact us at {privacy_email}",
+    "description": "Privacy policy contact information"
+  },
+  "privacy.contact.heading": {
+    "defaultMessage": "Contact Us",
+    "description": "Privacy policy contact heading"
+  },
+  "privacy.cookies.body1": {
+    "defaultMessage": "A cookie is a small file that a website you visit transfers to your computer to allow it to remember specific information about your visit.",
+    "description": "Privacy policy cookie definition"
+  },
+  "privacy.cookies.body2": {
+    "defaultMessage": "The CEJST uses cookies for technical purposes, such as to enable better navigation through the site or to allow you to customize your preferences for interacting with the website, and to monitor and analyze traffic to the website.",
+    "description": "Privacy policy CEJST cookie usage"
+  },
+  "privacy.cookies.body3": {
+    "defaultMessage": "<link1>USA.gov</link1> provides instructions for \"opting out\" from cookies if you do not want to receive them.",
+    "description": "Privacy policy cookie opt-out info"
+  },
+  "privacy.cookies.heading": {
+    "defaultMessage": "Information Collected for Website Measurement and Customization Technologies (Cookies)",
+    "description": "Privacy policy cookies heading"
+  },
+  "privacy.effective.date": {
+    "defaultMessage": "Effective Date: {last_updated}",
+    "description": "Privacy policy effective date display"
+  },
+  "privacy.external.links.body": {
+    "defaultMessage": "The CEJST includes links to other federal agencies’ and non-federal organizations’ websites. If you access another website through a link that we provide, that website’s privacy policy applies to your interaction with that website, instead of this privacy policy.",
+    "description": "Privacy policy external links text"
+  },
+  "privacy.external.links.heading": {
+    "defaultMessage": "Links to External Sites",
+    "description": "Privacy policy external links heading"
+  },
+  "privacy.info.collect.body": {
+    "defaultMessage": "When you visit the CEJST, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. (See below for more details about cookies.) Additionally, we may collect information about how you use the CEJST tool, including the census tracts you search for and view.",
+    "description": "Privacy policy automatic data collection text"
+  },
+  "privacy.info.collect.heading": {
+    "defaultMessage": "Information We Collect",
+    "description": "Privacy policy information collection heading"
+  },
+  "privacy.intro": {
+    "defaultMessage": "The Council on Environmental Quality (CEQ, we, or us) is committed to protecting the privacy and security of the information we collect from users (you) of the Climate and Economic Justice Screening Tool (CEJST), including the interactive map and the other features of the CEJST website. This Privacy Policy explains our practices for collecting, using, and disclosing information that we obtain from your use of the CEJST.",
+    "description": "Privacy policy overall intro"
+  },
+  "privacy.personal.info.body1": {
+    "defaultMessage": "You can voluntarily provide us certain information, such as your email address, if you choose give us feedback about the CEJST. You do not have to provide personal information to visit the CEJST. If you choose to provide personal information by sending a message to an email address on this website, submitting a form through this website, or filling out a questionnaire, we will use the information you provide to respond to you or provide the service you requested.",
+    "description": "Privacy policy voluntary information text"
+  },
+  "privacy.personal.info.body2": {
+    "defaultMessage": "Please do not send us sensitive information, such as social security numbers or financial information, through this website or by email.",
+    "description": "Privacy policy sensitive information warning"
+  },
+  "privacy.personal.info.heading": {
+    "defaultMessage": "Personal Information You Voluntarily Provide",
+    "description": "Privacy policy voluntary information heading"
+  },
+  "privacy.security.body": {
+    "defaultMessage": "We implement reasonable security measures to help protect the security of your information. However, no system can be completely secure, so we cannot guarantee the absolute security of information you provide or of information you access from the CEJST.",
+    "description": "Privacy policy security measures text"
+  },
+  "privacy.security.heading": {
+    "defaultMessage": "Data Security",
+    "description": "Privacy policy security heading"
+  },
+  "privacy.sharing.info.body1": {
+    "defaultMessage": "We do not sell or rent your personal information to third parties for their own marketing purposes.",
+    "description": "Privacy policy data brokering text"
+  },
+  "privacy.sharing.info.body2": {
+    "defaultMessage": "In some cases, we may share information you have provided or automatically generated information with other government agencies in response to a lawful request from law enforcement, to protect the website from security threats, or as otherwise required by law.",
+    "description": "Privacy policy government sharing text"
+  },
+  "privacy.sharing.info.body3": {
+    "defaultMessage": "We may share your information with third-party service providers who assist us in operating the CEJST tool. These providers are contractually obligated to protect the privacy and security of the data.",
+    "description": "Privacy policy third-party sharing text"
+  },
+  "privacy.use.info.body1": {
+    "defaultMessage": "We use the information we collect to:",
+    "description": "Privacy policy usage list intro"
+  },
+  "privacy.use.info.heading": {
+    "defaultMessage": "How We Use Your Information",
+    "description": "Privacy policy information usage heading"
+  },
+  "privacy.use.info.list.item1": {
+    "defaultMessage": "Operate, maintain, and improve the CEJST tool;",
+    "description": "Privacy policy usage list item 1"
+  },
+  "privacy.use.info.list.item2": {
+    "defaultMessage": "Analyze how the tool is being used to inform future improvements;",
+    "description": "Privacy policy usage list item 2"
+  },
+  "privacy.use.info.list.item3": {
+    "defaultMessage": "Communicate with you about the tool, if you send us feedback by filling out a form or questionnaire; and",
+    "description": "Privacy policy usage list item 3"
+  },
+  "privacy.use.info.list.item4": {
+    "defaultMessage": "Comply with legal obligations and enforce our policies.",
+    "description": "Privacy policy usage list item 4"
+  },
+  "public.eng.page.redirect.text": {
+    "defaultMessage": "The public engagement content has moved to the <link1>Previous Version</link1> page. <link1>Click here</link1> if you are not redirected after 5 seconds.",
+    "description": "Navigate to the public engagement page. This is the redirect message."
+  },
+  "public.eng.page.redirect.title": {
     "defaultMessage": "Public engagement",
-    "description": "Navigate to the public engagement page, this will be the public engagement button label"
-  },
-  "public.eng.page.coming.soon.text": {
-    "defaultMessage": "Coming soon!",
-    "description": "Navigate to the public engagement page, this will be the publiceng page coming soon text"
-  },
-  "public.eng.page.description1.text": {
-    "defaultMessage": "The Council on Environmental Quality (CEQ) is hosting engagement opportunities to connect with the public about the current versions of the Climate and Economic Justice Screening Tool (CEJST). These sessions are an opportunity to obtain training on the tool or to provide the feedback on the latest version of the tool. CEQ hopes that members of the public will join these engagements to learn about the tool, ask questions, an share feedback.",
-    "description": "Navigate to the public engagement page, this will be the publiceng page description 1 text"
-  },
-  "public.eng.page.description2.text": {
-    "defaultMessage": "Pre-registration is required to participate and speak at the sessions.",
-    "description": "Navigate to the public engagement page, this will be the publiceng page description 2 text"
-  },
-  "public.eng.page.description3.text": {
-    "defaultMessage": "As they become available, additional public trainings and engagement opportunities on the Climate and Economic Justice Screening Tool will also be posted on this page. <link1>Sign-up</link1> for updates from CEQ.",
-    "description": "Navigate to the public engagement page, this will be the publiceng page description 3 text"
-  },
-  "public.eng.page.event.info.label": {
-    "defaultMessage": "Event info",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event info label"
-  },
-  "public.eng.page.event.listening.1.info": {
-    "defaultMessage": "March 22nd (4:00 - 5:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event listening session 1 date"
-  },
-  "public.eng.page.event.listening.2.info": {
-    "defaultMessage": "April 15th (4:00 - 5:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event listening session 2 date"
-  },
-  "public.eng.page.event.listening.3.info": {
-    "defaultMessage": "May 10th (4:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event listening session 3 date"
-  },
-  "public.eng.page.event.listening.4.info": {
-    "defaultMessage": "May 19th (4:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event listening session 4 date"
-  },
-  "public.eng.page.event.listening.sess.description": {
-    "defaultMessage": "CEQ is hosting public listening sessions to seek input and feedback on the beta version of the tool, including on the datasets it includes and the methodology it uses. This feedback is critical to the development and enhancement of the tool. This feedback will help CEQ update and refine the tool to ensure that it reflects the environmental, climate and other challenges that communities are experiencing.",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event listening session description"
-  },
-  "public.eng.page.event.listening.sess.name": {
-    "defaultMessage": "listening session",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event listening session name"
-  },
-  "public.eng.page.event.reglink.label": {
-    "defaultMessage": "Registration link",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event registration link label"
-  },
-  "public.eng.page.event.training.1.info": {
-    "defaultMessage": "March 9th (4:00 - 5:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event training session 1 date"
-  },
-  "public.eng.page.event.training.2.info": {
-    "defaultMessage": "March 10th (4:00 - 5:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event training session 2 date"
-  },
-  "public.eng.page.event.training.3.info": {
-    "defaultMessage": "March 16th (4:00 - 5:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event training session 3 date"
-  },
-  "public.eng.page.event.training.4.info": {
-    "defaultMessage": "October 4th (4:00 - 5:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event training session 4 date"
-  },
-  "public.eng.page.event.training.5.info": {
-    "defaultMessage": "October 9th (4:00 - 5:00 PM EST)",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event training session 5 date"
-  },
-  "public.eng.page.event.training.description": {
-    "defaultMessage": "The White House Council on Environmental Quality (CEQ), in partnership with the U.S. Digital Service, is hosting a series of 'Training Webinars' for users of the Climate and Economic Justice Screening Tool. These webinars are an opportunity for members of the public to learn how to use the current version of the tool. The presenters at these webinars will be available to provide technical support and address issues related to accessing and using the tool.",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event training session description"
-  },
-  "public.eng.page.event.training.sess.name": {
-    "defaultMessage": "training session",
-    "description": "Navigate to the public engagement page, this will be the public engagement page event training session name"
-  },
-  "public.eng.page.event.whejac.meeting.day.1.description": {
-    "defaultMessage": "The White House Environmental Justice Advisory Council is also soliciting feedback on the beta version of the Climate and Economic Justice Screening Tool at its public meeting. The link above has additional details.",
-    "description": "public engagement page event WHEJAC day 1 description"
-  },
-  "public.eng.page.event.whejac.meeting.day.1.name": {
-    "defaultMessage": "Public WHEJAC meeting day one",
-    "description": "public engagement page event WHEJAC meeting day 1 name"
-  },
-  "public.eng.page.event.whejac.meeting.day.2.description": {
-    "defaultMessage": "The White House Environmental Justice Advisory Council is also soliciting feedback on the beta version of the Climate and Economic Justice Screening Tool at its public meeting. The link above has additional details.",
-    "description": "public engagement page event WHEJAC day 2 description"
-  },
-  "public.eng.page.event.whejac.meeting.day.2.name": {
-    "defaultMessage": "Public WHEJAC meeting day two",
-    "description": "public engagement page event WHEJAC meeting day 2 name"
-  },
-  "public.eng.page.heading1.text": {
-    "defaultMessage": "Public engagement opportunities",
-    "description": "Navigate to the public engagement page, this will be the publiceng page header text"
-  },
-  "public.eng.page.sub.header2.text": {
-    "defaultMessage": "Upcoming events for CEJST version {version}",
-    "description": "Navigate to the public engagement page, this will be the publiceng page sub header text"
-  },
-  "public.eng.page.sub.header3.text": {
-    "defaultMessage": "Previous events for public beta",
-    "description": "Navigate to the public engagement page, this will be the publiceng page sub header text"
-  },
-  "public.eng.page.tag.label": {
-    "defaultMessage": "UPDATED",
-    "description": "Navigate to the public engagement page, this will be the public engagement tag label"
-  },
-  "public.eng.page.title.text": {
-    "defaultMessage": "Public engagement opportunities",
-    "description": "Navigate to the public engagement page, this will be the publiceng page title text"
-  },
-  "public.eng.page.video.box.body.text": {
-    "defaultMessage": "Watch a recorded update from CEQ on the changes in the 1.0 version of the tool.",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is that box body text."
-  },
-  "public.eng.page.video.box.body2.text": {
-    "defaultMessage": "Watch a recorded version of the beta version of the CEJST training on YouTube.",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is that box body text."
+    "description": "Navigate to the public engagement page. This is the redirect title."
   },
   "public.eng.page.video.box.button.img.alt.text1": {
     "defaultMessage": "the icon to show that this button will open in a new tab",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is alt tag of the image in the button."
+    "description": "Navigate to the previous version page. This is alt tag of the image in the button."
   },
   "public.eng.page.video.box.button.img.alt.text2": {
     "defaultMessage": "the icon to show that this button will download the file",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is alt tag of the image in the 2nd button."
+    "description": "Navigate to the previous version page. This is alt tag of the image in the 2nd button."
+  },
+  "public.eng.page.video.box.button1.1_0.text": {
+    "defaultMessage": "Watch v1.0 demo",
+    "description": "Navigate to the previous version page. This is that box button text."
   },
   "public.eng.page.video.box.button1.beta.text": {
     "defaultMessage": "Watch on beta demo",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is that box button text."
-  },
-  "public.eng.page.video.box.button1.text": {
-    "defaultMessage": "Watch on YouTube",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is that box button text."
+    "description": "Navigate to the previous version page. This is that box button text."
   },
   "public.eng.page.video.box.button2.beta.text": {
     "defaultMessage": "Download beta slide deck",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is the button text for the second button."
+    "description": "Navigate to the previous version page. This is the button text for the second button."
   },
   "public.eng.page.video.box.button2.text": {
     "defaultMessage": "Download slide deck",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is the button text for the second button."
-  },
-  "public.eng.page.video.box.title.beta.text": {
-    "defaultMessage": "Need information about the public beta?",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is that box title text."
-  },
-  "public.eng.page.video.box.title.text": {
-    "defaultMessage": "What's new overview",
-    "description": "Navigate to the public engagement page, there will be box that allows users to watch previously recorded videos. This is that box title text."
-  },
-  "public.eng.page.whejac.meeting.day.1.info": {
-    "defaultMessage": "March 30th (3:00 - 7:00 PM EST)",
-    "description": "public engagement page event WHEJAC"
-  },
-  "public.eng.page.whejac.meeting.day.2.info": {
-    "defaultMessage": "March 31th (3:00 - 7:30 PM EST)",
-    "description": "public engagement page event WHEJAC"
+    "description": "Navigate to the previous version page. This is the button text for the second button."
   },
   "technical.support.doc.page.coming.soon.text": {
     "defaultMessage": "Coming Soon!",

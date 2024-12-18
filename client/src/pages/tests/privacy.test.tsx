@@ -1,16 +1,16 @@
-import * as React from 'react';
 import {render} from '@testing-library/react';
+import * as React from 'react';
 import {LocalizedComponent} from '../../test/testHelpers';
-import PublicEngageButton from './PublicEngageButton';
+import Privacy from '../privacy';
 
-describe('rendering of the PublicEngageButton', () => {
+describe('rendering of the Privacy Policy page', () => {
   const {asFragment} = render(
       <LocalizedComponent>
-        <PublicEngageButton/>
+        <Privacy location={window.location}/>
       </LocalizedComponent>,
   );
 
-  it('checks if component renders', () => {
+  it('matches Privacy Policy page snapshot', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 });

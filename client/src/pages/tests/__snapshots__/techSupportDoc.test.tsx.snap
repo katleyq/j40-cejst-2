@@ -322,16 +322,6 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                     class="usa-nav__submenu-item"
                   >
                     <a
-                      data-cy="nav-link-public-engagement"
-                      href="/en/public-engagement"
-                    >
-                      Engagement calendar
-                    </a>
-                  </li>
-                  <li
-                    class="usa-nav__submenu-item"
-                  >
-                    <a
                       data-cy="nav-link-faqs"
                       href="/en/frequently-asked-questions"
                     >
@@ -460,19 +450,6 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                     </div>
                   </address>
                 </li>
-                <li
-                  class="usa-footer__secondary-link"
-                >
-                  <a
-                    class="usa-link usa-link--external"
-                    data-cy="sign-up-for-updates"
-                    href="https://lp.constantcontactpages.com/su/Vm8pCFj/spring"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    Sign up for updates
-                  </a>
-                </li>
               </ul>
             </section>
           </div>
@@ -505,11 +482,8 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   class="usa-footer__secondary-link"
                 >
                   <a
-                    class="usa-link usa-link--external"
-                    data-cy="privacy-policy"
-                    href="https://www.whitehouse.gov/privacy/"
-                    rel="noreferrer"
-                    target="_blank"
+                    class="usa-link"
+                    href="/en/privacy"
                   >
                     Privacy Policy
                   </a>
@@ -598,7 +572,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
       data-testid="gridContainer"
     >
       <a
-        href="https://eop.gov1.qualtrics.com/jfe/form/SV_eA0ZLaxP8gxLfoO"
+        href="https://eop.gov1.qualtrics.com/jfe/form/SV_2mF9GXOhDKKjxcy"
         rel="noreferrer"
         target="_blank"
       >

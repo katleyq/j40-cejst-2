@@ -6,6 +6,7 @@ import {defineMessages} from 'react-intl';
 import DownloadLink from '../../components/DownloadLink';
 import LinkTypeWrapper from '../../components/LinkTypeWrapper';
 import {GITHUB_LINK} from '../../constants';
+import {PAGES_ENDPOINTS} from '../constants';
 
 export interface IDefineMessage {
   id: string,
@@ -29,6 +30,7 @@ export const linkFn = (to:string | IDefineMessage, isInternal:boolean, isOpenNew
 
 export const FEEDBACK_EMAIL = 'Screeningtool-Support@omb.eop.gov';
 
+export const METH_BETA_RELEASE_DATE = new Date(2022, 1, 18, 11, 59, 59); // Feb 18 2022
 export const METH_1_0_RELEASE_DATE = new Date(2022, 10, 22, 11, 59, 59); // Nov 22 2022
 export const METH_2_0_RELEASE_DATE = new Date(2024, 11, 19, 11, 59, 59); // Dec 19 2024
 
@@ -188,30 +190,10 @@ export const FOOTER = defineMessages({
     defaultMessage: 'Council on Environmental Quality',
     description: 'Navigate to the about page. This is Footer under logo',
   },
-  SIGN_UP: {
-    id: 'common.pages.footer.sign.up',
-    defaultMessage: 'Sign up for updates',
-    description: 'Navigate to the about page. This is Footer under Sign-up for updates',
-  },
-  SIGN_UP_LINK: {
-    id: 'common.pages.footer.sign.up.link',
-    defaultMessage: 'https://lp.constantcontactpages.com/su/Vm8pCFj/spring',
-    description: 'Navigate to the about page. This is Footer link under Sign-up for updates',
-  },
   MORE_INFO: {
     id: 'common.pages.footer.moreinfoheader',
     defaultMessage: 'More information',
     description: 'Navigate to the about page. This is Footer column header',
-  },
-  WHITEHOUSE: {
-    id: 'common.pages.footer.whitehouse.text',
-    defaultMessage: 'Whitehouse.gov',
-    description: 'Navigate to the about page. This is Footer Whitehouse.gov link text',
-  },
-  WHITEHOUSE_LINK: {
-    id: 'common.pages.footer.whitehouse.link',
-    defaultMessage: 'https://www.whitehouse.gov/',
-    description: 'Navigate to the about page. This is Footer Whitehouse.gov link text',
   },
   FOIA: {
     id: 'common.pages.footer.foia.text',
@@ -225,7 +207,7 @@ export const FOOTER = defineMessages({
   },
   PRIVACY_LINK: {
     id: 'common.pages.footer.privacy.link',
-    defaultMessage: 'https://www.whitehouse.gov/privacy/',
+    defaultMessage: PAGES_ENDPOINTS.PRIVACY,
     description: 'Navigate to the about page. This is Footer privacy policy link text',
   },
   LOGO_ALT: {

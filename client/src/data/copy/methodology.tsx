@@ -6,6 +6,9 @@ import {boldFn, linkFn, simpleLink} from './common';
 
 export const VERSION_NUMBER = (2.0).toFixed(1);
 
+// eslint-disable-next-line no-unused-vars
+export enum VERSIONS {BETA, V1_0, V2_0}
+
 export const PAGE = defineMessages({
   TITLE: {
     id: 'methodology.page.title.text',
@@ -1000,7 +1003,7 @@ export const INDICATORS: IIndicators[] = [
     note: <FormattedMessage
       id={'methodology.page.category.exp.pop.loss.rate.note.text'}
       defaultMessage={`
-        <boldtag>Note: </boldtag>this burden only applies for census tracts with populations greater than 20 people.
+        <boldtag>Note: </boldtag> This burden only applies for census tracts with populations greater than 20 people.
       `}
       description={'Navigate to the Methodology page. This is the note text for low life expectancy'}
       values={{
@@ -1504,7 +1507,7 @@ export const INDICATORS: IIndicators[] = [
     note: <FormattedMessage
       id={'methodology.page.category.trans.barrier.note.text'}
       defaultMessage={`
-      <boldtag>Note: </boldtag> this burden only applies for census tracts with populations greater than 20 people.
+      <boldtag>Note: </boldtag> This burden only applies for census tracts with populations greater than 20 people.
     `}
       description={'Navigate to the Methodology page. This is the note text for trans.barrier'}
       values={{
