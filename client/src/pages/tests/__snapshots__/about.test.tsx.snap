@@ -140,6 +140,24 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
             </div>
           </div>
         </section>
+        <div>
+          <img
+            alt="language icon for selecting language"
+            src="test-file-stub"
+          />
+          <a
+            class="usa-link"
+            href="#"
+          >
+            English
+          </a>
+          <a
+            class="usa-link"
+            href="#"
+          >
+            Español
+          </a>
+        </div>
       </div>
     </div>
     <div>
@@ -426,11 +444,6 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
       tool is version 2.0.
     
             </p>
-            <p>
-              
-      A Spanish version of the site will be available in the near future.
-    
-            </p>
           </section>
         </div>
         <div
@@ -465,7 +478,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
             >
               statistical areas
             </a>
-             are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. The tool also shows land within the boundaries of Federally Recognized Tribes and point locations for Alaska Native Villages and landless Tribes in the lower 48 states.
+             are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. The tool also shows land within the boundaries of Federally Recognized Tribes and point locations for Alaska Native Villages.
           </p>
           <p>
             The tool ranks most of the burdens using percentiles. Percentiles show how much burden each tract experiences compared to other tracts. Certain burdens use percentages or a simple yes/no.

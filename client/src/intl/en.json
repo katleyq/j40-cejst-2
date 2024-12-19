@@ -8,7 +8,7 @@
     "description": "Navigate to the About page. This is the paragraph 4"
   },
   "about.page.how.to.use.tool.para1": {
-    "defaultMessage": "The tool shows information about the burdens that communities experience. It uses datasets to identify indicators of burdens. The tool shows these burdens in census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. The tool also shows land within the boundaries of Federally Recognized Tribes and point locations for Alaska Native Villages and landless Tribes in the lower 48 states.",
+    "defaultMessage": "The tool shows information about the burdens that communities experience. It uses datasets to identify indicators of burdens. The tool shows these burdens in census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. The tool also shows land within the boundaries of Federally Recognized Tribes and point locations for Alaska Native Villages.",
     "description": "Navigate to the About page. This is the paragraph 4"
   },
   "about.page.how.to.use.tool.para2": {
@@ -58,10 +58,6 @@
   "about.page.paragraph.2": {
     "defaultMessage": "CEQ will update the tool, after reviewing public feedback, research, and the availability of new data. The current version of the tool is version {version}.",
     "description": "Navigate to the About page. This is the paragraph 4"
-  },
-  "about.page.paragraph.3": {
-    "defaultMessage": "A Spanish version of the site will be available in the near future.",
-    "description": "Navigate to the About page. This is the paragraph 5"
   },
   "about.page.send.feedback.email.link": {
     "defaultMessage": "Contact",
@@ -1176,11 +1172,11 @@
     "description": "\n      Navigate to the explore the map page. Under the map, you will see a link that is placed below the\n      map that will download the data packet\n    "
   },
   "explore.map.page.under.map.note.on.territories.intro": {
-    "defaultMessage": "U.S. territories note",
+    "defaultMessage": "U.S. Territories note",
     "description": "Navigate to the explore the map page. Under the map, you will see territories intro text"
   },
   "explore.map.page.under.map.note.on.territories.para.0": {
-    "defaultMessage": "Not all the data used in the tool are available or used for all U.S. Territories.",
+    "defaultMessage": "Not all the data used in the tool are available or used for all U.S. Territories, and there is one dataset not used in Puerto Rico.",
     "description": "Navigate to the explore the map page. Under the map, you will see territories paragraph 0"
   },
   "explore.map.page.under.map.note.on.territories.para.1": {
@@ -1188,11 +1184,11 @@
     "description": "Navigate to the explore the map page. Under the map, you will see territories paragraph 1"
   },
   "explore.map.page.under.map.note.on.territories.para.2": {
-    "defaultMessage": "<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: expected agriculture loss rate, expected building loss rate, expected population loss rate, abandoned mine lands, low income, unemployment, poverty, low median income, and high school education. These burdens are in the climate change, legacy pollution, and workforce development categories.",
+    "defaultMessage": "<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: low income, unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income threshold only.",
     "description": "Navigate to the explore the map page. Under the map, you will see territories paragraph 2"
   },
   "explore.map.page.under.map.note.on.tribal.nations.intro": {
-    "defaultMessage": "A note on Tribal Nations",
+    "defaultMessage": "Tribal Nations note",
     "description": "Navigate to the explore the map page. Under the map, you will see tribal nations intro text"
   },
   "explore.map.page.under.map.note.on.tribal.nations.para.1": {
@@ -1200,7 +1196,7 @@
     "description": "Navigate to the explore the map page. Under the map, you will see tribal nations paragraph 1"
   },
   "explore.map.page.under.map.note.on.tribal.nations.para.2": {
-    "defaultMessage": "This decision was made after meaningful and robust consultation with Tribal Nations. This is consistent with CEQ’s <link1>Action Plan</link1> for Consultation and Coordination with Tribal Nations, President Biden’s <link3>Memorandum</link3> on Tribal Consultation and Strengthening Nation-to-Nation Consultation, and <link2>Executive Order 13175</link2> on Consultation and Coordination With Indian Tribal Governments.",
+    "defaultMessage": "This decision was made after meaningful and robust consultation with Tribal Nations. This is consistent with CEQ’s <link1>Action Plan</link1> for Consultation and Coordination with Tribal Nations, the <link3>Memorandum</link3> on Tribal Consultation and Strengthening Nation-to-Nation Consultation, and <link2>Executive Order 13175</link2> on Consultation and Coordination With Indian Tribal Governments.",
     "description": "Navigate to the explore the map page. Under the map, you will see tribal nations paragraph 2"
   },
   "faqs.page.Q1": {
