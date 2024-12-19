@@ -51,19 +51,11 @@ export const CONTENT = {
       version: VERSION_NUMBER,
     }}
   />,
-  PARA3:
-  <FormattedMessage
-    id={'about.page.paragraph.3'}
-    defaultMessage={`
-      A Spanish version of the site will be available in the near future.
-    `}
-    description={'Navigate to the About page. This is the paragraph 5'}
-  />,
   HOW_TO_USE_PARA1:
   <FormattedMessage
     id={'about.page.how.to.use.tool.para1'}
     defaultMessage={`
-      The tool shows information about the burdens that communities experience. It uses datasets to identify indicators of burdens. The tool shows these burdens in census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. The tool also shows land within the boundaries of Federally Recognized Tribes and point locations for Alaska Native Villages and landless Tribes in the lower 48 states.`}
+      The tool shows information about the burdens that communities experience. It uses datasets to identify indicators of burdens. The tool shows these burdens in census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. The tool also shows land within the boundaries of Federally Recognized Tribes and point locations for Alaska Native Villages.`}
     description={'Navigate to the About page. This is the paragraph 4'}
     values={{
       link1: linkFn('https://www.census.gov/programs-surveys/acs/geography-acs/geography-boundaries-by-year.html', false, true),

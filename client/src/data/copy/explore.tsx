@@ -1448,13 +1448,13 @@ export const DOWNLOAD_DRAFT = {
 export const NOTE_ON_TERRITORIES = {
   INTRO: <FormattedMessage
     id={'explore.map.page.under.map.note.on.territories.intro'}
-    defaultMessage={`U.S. territories note`}
+    defaultMessage={`U.S. Territories note`}
     description={`Navigate to the explore the map page. Under the map, you will see territories intro text`}
   />,
   PARA_0: <FormattedMessage
     id={'explore.map.page.under.map.note.on.territories.para.0'}
     defaultMessage={`
-      Not all the data used in the tool are available or used for all U.S. Territories.
+      Not all the data used in the tool are available or used for all U.S. Territories, and there is one dataset not used in Puerto Rico.
     `}
     description={`Navigate to the explore the map page. Under the map, you will see territories paragraph 0`}
   />,
@@ -1472,7 +1472,7 @@ export const NOTE_ON_TERRITORIES = {
   PARA_2: <FormattedMessage
     id={'explore.map.page.under.map.note.on.territories.para.2'}
     defaultMessage={`
-    <bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: expected agriculture loss rate, expected building loss rate, expected population loss rate, abandoned mine lands, low income, unemployment, poverty, low median income, and high school education. These burdens are in the climate change, legacy pollution, and workforce development categories.
+    <bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: low income, unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income threshold only.
   `}
     description={`Navigate to the explore the map page. Under the map, you will see territories paragraph 2`}
     values={{
@@ -1484,7 +1484,7 @@ export const NOTE_ON_TERRITORIES = {
 export const NOTE_ON_TRIBAL_NATIONS = {
   INTRO: <FormattedMessage
     id={'explore.map.page.under.map.note.on.tribal.nations.intro'}
-    defaultMessage={`A note on Tribal Nations`}
+    defaultMessage={`Tribal Nations note`}
     description={`Navigate to the explore the map page. Under the map, you will see tribal nations intro text`}
   />,
   PARA_1: <FormattedMessage
@@ -1497,7 +1497,7 @@ export const NOTE_ON_TRIBAL_NATIONS = {
   PARA_2: <FormattedMessage
     id={'explore.map.page.under.map.note.on.tribal.nations.para.2'}
     defaultMessage={`
-      This decision was made after meaningful and robust consultation with Tribal Nations. This is consistent with CEQ’s <link1>Action Plan</link1> for Consultation and Coordination with Tribal Nations, President Biden’s <link3>Memorandum</link3> on Tribal Consultation and Strengthening Nation-to-Nation Consultation, and <link2>Executive Order 13175</link2> on Consultation and Coordination With Indian Tribal Governments.
+      This decision was made after meaningful and robust consultation with Tribal Nations. This is consistent with CEQ’s <link1>Action Plan</link1> for Consultation and Coordination with Tribal Nations, the <link3>Memorandum</link3> on Tribal Consultation and Strengthening Nation-to-Nation Consultation, and <link2>Executive Order 13175</link2> on Consultation and Coordination With Indian Tribal Governments.
     `}
     description={`Navigate to the explore the map page. Under the map, you will see tribal nations paragraph 2`}
     values={{
