@@ -1036,6 +1036,12 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
     properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS] === 0;
   const showIslandCopy = isTerritory && !showDonutCopy;
 
+  // For territories we use the poverty percentile from the census decennial data
+  const poveryPercentile = isTerritory ?
+    properties[constants.CENSUS_DECENNIAL_POVERTY_LESS_THAN_200_FPL_PERCENTILE] :
+    properties[constants.POVERTY_BELOW_200_PERCENTILE] > 0 ?
+    properties[constants.POVERTY_BELOW_200_PERCENTILE] :
+    null;
   /**
    * Create the AccoridionItems by mapping over the categories array. In this array we define the
    * various indicators for a specific category. This is an array which then maps over the
@@ -1198,15 +1204,11 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
       </div>
 
       {showIslandCopy &&
-        <IslandCopy povertyPercentile={properties[constants.CENSUS_DECENNIAL_POVERTY_LESS_THAN_200_FPL_PERCENTILE]} />}
+        <IslandCopy povertyPercentile={poveryPercentile} />}
       {showDonutCopy &&
         <DonutCopy
           isAdjacent={properties[constants.ADJACENCY_EXCEEDS_THRESH]}
-          povertyBelow200Percentile={
-            properties[constants.POVERTY_BELOW_200_PERCENTILE] > 0 ?
-              properties[constants.POVERTY_BELOW_200_PERCENTILE] :
-              null
-          }
+          povertyBelow200Percentile={poveryPercentile}
         />
       }
 
