@@ -578,6 +578,18 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
               rel="noreferrer"
               target="_blank"
             >
+              Technical support document
+            </a>
+             (.pdf 79kB)
+          </p>
+          <p>
+            <a
+              class="usa-link usa-link--external"
+              data-cy=""
+              href="//"
+              rel="noreferrer"
+              target="_blank"
+            >
               Instructions to Federal agencies on using the CEJST
             </a>
              (.pdf 228.4kB)
