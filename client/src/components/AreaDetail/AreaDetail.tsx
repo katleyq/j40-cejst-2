@@ -1025,6 +1025,23 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
     categories[0].indicators = [lowMedInc, unemploy, poverty];
   }
 
+  const isTerritory = constants.TILES_ISLAND_AREA_FIPS_CODES.some((code) => {
+    return properties[constants.GEOID_PROPERTY].startsWith(code);
+  });
+
+  const isGrandfathered = properties[constants.IS_GRANDFATHERED];
+  // Show Donut information !isGrandfathered
+  const showDonutCopy = !isGrandfathered &&
+    properties[constants.ADJACENCY_EXCEEDS_THRESH] &&
+    properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS] === 0;
+  const showIslandCopy = isTerritory && !showDonutCopy;
+
+  // For territories we use the poverty percentile from the census decennial data
+  const poveryPercentile = isTerritory ?
+    properties[constants.CENSUS_DECENNIAL_POVERTY_LESS_THAN_200_FPL_PERCENTILE] :
+    properties[constants.POVERTY_BELOW_200_PERCENTILE] > 0 ?
+    properties[constants.POVERTY_BELOW_200_PERCENTILE] :
+    null;
   /**
    * Create the AccoridionItems by mapping over the categories array. In this array we define the
    * various indicators for a specific category. This is an array which then maps over the
@@ -1064,12 +1081,6 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
         <div className={styles.categorySpacer}>
           {EXPLORE_COPY.SIDE_PANEL_SPACERS.AND}
         </div>
-
-        {/* Exceeds both socioeconomic burdens */}
-        {/* <ExceedBurden
-          text={EXPLORE_COPY.SIDE_PANEL_SPACERS.EXCEED_BOTH_SOCIO}
-          isBurdened={category.isExceedBothSocioBurdens}
-        /> */}
 
         {/* socioeconomic indicators */}
         {category.socioEcIndicators.map((indicator: any, index: number) => {
@@ -1192,27 +1203,14 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
         </div>
       </div>
 
-      {/* Show IslandCopy if the GeoID matches an island prefix */}
-      {constants.TILES_ISLAND_AREA_FIPS_CODES.some((code) => {
-        return properties[constants.GEOID_PROPERTY].startsWith(code);
-      }) && (
-        <IslandCopy povertyPercentile={ properties[constants.CENSUS_DECENNIAL_POVERTY_LESS_THAN_200_FPL_PERCENTILE]} />
-      )}
-
-      {/* Only show the DonutCopy if Adjacency index is true, the total number of disadv ind == 0,
-          and not grandfathered. */}
-      {properties[constants.ADJACENCY_EXCEEDS_THRESH] &&
-        properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS] === 0 &&
-        !properties[constants.IS_GRANDFATHERED] && (
+      {showIslandCopy &&
+        <IslandCopy povertyPercentile={poveryPercentile} />}
+      {showDonutCopy &&
         <DonutCopy
           isAdjacent={properties[constants.ADJACENCY_EXCEEDS_THRESH]}
-          povertyBelow200Percentile={
-              properties[constants.POVERTY_BELOW_200_PERCENTILE] > 0 ?
-                properties[constants.POVERTY_BELOW_200_PERCENTILE] :
-                null
-          }
+          povertyBelow200Percentile={poveryPercentile}
         />
-      )}
+      }
 
       {/* Send Feedback button */}
       <a
