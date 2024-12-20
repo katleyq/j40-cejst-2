@@ -60,7 +60,7 @@ export const DOWNLOAD_FILES = {
       LAST_UPDATED: COMMON_COPY.METH_2_0_RELEASE_DATE,
     },
     TSD: {
-      SIZE: 4.4, // MB
+      SIZE: 79, // KB
       URL: getDownloadFileUrl(process.env.GATSBY_FILE_DL_PATH_2_0_TSD_PDF),
       LAST_UPDATED: COMMON_COPY.METH_2_0_RELEASE_DATE,
     },
@@ -210,22 +210,22 @@ export const DOWNLOAD_LINKS = {
         />,
       }}
     />,
-    // <FormattedMessage
-    //   id={'download.page.download.file.4'}
-    //   key={'download.page.download.file.4'}
-    //   defaultMessage={`<link4>Technical support document</link4> (.pdf {tsdFileSize})`}
-    //   description={'Navigate to the download page. This is fourth download file link'}
-    //   values={{
-    //     link4: COMMON_COPY.linkFn(DOWNLOAD_FILES.NARWAL.TSD.URL, false, true),
-    //     link4es: COMMON_COPY.linkFn(DOWNLOAD_FILES.NARWAL.TSD_ES.URL, false, true),
-    //     tsdFileSize: <FormattedNumber
-    //       value={DOWNLOAD_FILES.NARWAL.TSD.SIZE}
-    //       style="unit"
-    //       unit="megabyte"
-    //       unitDisplay="narrow"
-    //     />,
-    //   }}
-    // />,
+    <FormattedMessage
+      id={'download.page.download.file.4'}
+      key={'download.page.download.file.4'}
+      defaultMessage={`<link4>Technical support document</link4> (.pdf {tsdFileSize})`}
+      description={'Navigate to the download page. This is fourth download file link'}
+      values={{
+        link4: COMMON_COPY.linkFn(DOWNLOAD_FILES.NARWAL.TSD.URL, false, true),
+        link4es: COMMON_COPY.linkFn(DOWNLOAD_FILES.NARWAL.TSD_ES.URL, false, true),
+        tsdFileSize: <FormattedNumber
+          value={DOWNLOAD_FILES.NARWAL.TSD.SIZE}
+          style="unit"
+          unit="kilobyte"
+          unitDisplay="narrow"
+        />,
+      }}
+    />,
     <FormattedMessage
       id={'download.page.download.file.5'}
       key={'download.page.download.file.5'}

@@ -239,6 +239,10 @@
     "defaultMessage": "<link3>Shapefile</link3> (Codebook included with shapefile {shapeFileSize} unzipped)",
     "description": "Navigate to the download page. This is third download file link"
   },
+  "download.page.download.file.4": {
+    "defaultMessage": "<link4>Technical support document</link4> (.pdf {tsdFileSize})",
+    "description": "Navigate to the download page. This is fourth download file link"
+  },
   "download.page.download.file.5": {
     "defaultMessage": "<link5>Instructions to Federal agencies on using the CEJST</link5> (.pdf {instructions})",
     "description": "Navigate to the download page. This is sixth download file link"
