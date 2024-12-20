@@ -961,7 +961,13 @@ class ScoreNarwhal(Score):
             self.df[
                 field_names.POVERTY_LESS_THAN_200_FPL_IMPUTED_FIELD
                 + field_names.PERCENTILE_FIELD_SUFFIX
-            ]
+            ].fillna(
+                # low income percentile field null in non-PR territories,
+                # need to fill in with the territory-specific percentiles
+                self.df[
+                    field_names.CENSUS_DECENNIAL_POVERTY_LESS_THAN_200_FPL_PERCENTILE
+                ]
+            )
             >= self.LOW_INCOME_THRESHOLD_DONUT
         )
 
