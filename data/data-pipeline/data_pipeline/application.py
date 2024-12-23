@@ -88,10 +88,11 @@ def data_cleanup():
     log_info("Cleaning up all data folders")
     census_reset(data_path)
     data_folder_cleanup()
-    tribal_reset(data_path)
+    downloadable_cleanup()
     score_folder_cleanup()
     temp_folder_cleanup()
     geo_score_folder_cleanup()
+    tribal_reset(data_path)
 
     log_goodbye()
 
@@ -304,45 +305,67 @@ def data_full_run(check: bool, data_source: str, use_cache: bool):
     log_title("Full Run", "Census DL, ETL, Score, Combine, Generate Tiles")
 
     data_path = settings.APP_ROOT / "data"
+    first_run = False
 
     if check:
         if not check_first_run():
             # check if the data full run has been run before
-            log_info("The data full run was already executed")
-            sys.exit()
+            first_run = True
+
+    if first_run:
+        log_info("The data full run was already executed")
+        sys.exit()
 
     else:
-        # census directories
+        # Directory cleanup
         log_info("Cleaning up data folders")
         census_reset(data_path)
         data_folder_cleanup()
+        downloadable_cleanup()
         score_folder_cleanup()
+        geo_score_folder_cleanup()
         temp_folder_cleanup()
+        tribal_reset(data_path)
 
         if data_source == "local":
             log_info("Downloading census data")
             etl_runner("census", use_cache)
 
-        log_info("Running all ETLs")
-        etl_runner(use_cache=use_cache)
+            log_info("Running all ETLs")
+            etl_runner(use_cache=True)
+
+            log_info("Running tribal ETL")
+            etl_runner("tribal", use_cache)
+
+        else:
+            log_info("Downloading census data")
+            etl_runner("census", use_cache=False)
+
+            log_info("Running all ETLs")
+            etl_runner(use_cache=False)
+
+            log_info("Running tribal ETL")
+            etl_runner("tribal", use_cache=False)
 
         log_info("Generating score")
         score_generate()
 
         log_info("Running post score")
-        downloadable_cleanup()
         score_post(data_source)
 
-    log_info("Combining score with census GeoJSON")
-    score_geo(data_source)
+        log_info("Combining score with census GeoJSON")
+        score_geo(data_source)
 
-    log_info("Generating map tiles")
-    generate_tiles(data_path, True)
+        log_info("Generating map tiles")
+        generate_tiles(data_path, False)
 
-    log_info("Completing pipeline")
-    file = "first_run.txt"
-    cmd = f"touch {data_path}/{file}"
-    call(cmd, shell=True)
+        log_info("Generating tribal map tiles")
+        generate_tiles(data_path, True)
+
+        log_info("Completing pipeline")
+        file = "first_run.txt"
+        cmd = f"touch {data_path}/{file}"
+        call(cmd, shell=True)
 
     log_goodbye()
 
@@ -427,6 +450,7 @@ def full_post_etl(ctx):
     ctx.invoke(generate_score_post, data_source=None)
     ctx.invoke(geo_score, data_source=None)
     ctx.invoke(generate_map_tiles, generate_tribal_layer=False)
+    ctx.invoke(generate_map_tiles, generate_tribal_layer=True)
 
 
 @cli.command(
@@ -440,6 +464,7 @@ def full_run(ctx, use_cache):
         ctx.invoke(data_cleanup)
     ctx.invoke(census_data_download, zip_compress=False, use_cache=use_cache)
     ctx.invoke(etl_run, dataset=None, use_cache=use_cache)
+    ctx.invoke(etl_run, dataset="tribal", use_cache=use_cache)
     ctx.invoke(full_post_etl)
 
 

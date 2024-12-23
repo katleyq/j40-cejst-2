@@ -21,5 +21,9 @@ def reset_data_directories(
     )
 
     # geojson
-    geojson_path = tribal_data_path / "geojson"
+    geojson_path = tribal_data_path / "geographic_data"
     remove_all_from_dir(geojson_path)
+
+    # tiles
+    tiles_path = tribal_data_path / "tiles"
+    remove_all_from_dir(tiles_path)

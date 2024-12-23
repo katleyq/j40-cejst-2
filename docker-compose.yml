@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   # The j40_data_pipeline service runs the ETL pipeline to create the score
   score:
@@ -15,6 +14,9 @@ services:
       ENV_FOR_DYNACONF: development
       PYTHONUNBUFFERED: 1
       TZ: America/Los_Angeles
+    # The argument (and options) for the scoring step you want to run. Replace "full-run" with "etl-run" or whatever step you want to run
+    # To add arguments follow this example: command: ["generate-map-tiles", "--arg1", "value1", "--arg2", "value2"]
+    command: ["full-run", "--help"]
 
   # The score_server serves the data-pipeline volume as a URL
   j40_score_server:
@@ -23,26 +25,21 @@ services:
     build: data/data-serve/.
     volumes:
       - ./data/data-pipeline/data_pipeline/data/score:/data/data-pipeline/data_pipeline/data/score
+      - ./data/data-pipeline/data_pipeline/data/tribal:/data/data-pipeline/data_pipeline/data/tribal
     ports:
       - 5000:8080
     environment:
       TZ: America/Los_Angeles
 
-
   #The j40_website service runs the web app / map / site
   j40_website:
     image: j40_website
     container_name: j40_website_1
-    build: ./client
+    build: client
     environment:
     # See the client readme for more info on environment variables:
     # https://github.com/usds/justice40-tool/blob/main/client/README.md
       DATA_SOURCE: local
-
-      # If you want the map to render a MapBox base map (as opposed to the
-      # open source one from CartoDB), please create your own API TOKEN from
-      # your MapBox account and add the token here:
-      MAPBOX_STYLES_READ_TOKEN: ""
       TZ: America/Los_Angeles
     volumes:
       - ./client/src:/client/src
