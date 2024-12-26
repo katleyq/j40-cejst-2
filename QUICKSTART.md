@@ -19,7 +19,10 @@ Use `docker compose` to run the application:
 ```sh
 $ docker compose up
 ```
+Docker compose will spin up three containers: A data pipeline container, a data server, and a web server. 
 
-> Note: This may take a while – possibly even an hour or two – since it has to build the containers and then download and process all the data.
+The data pipeline container can run the entire data pipeline, or any individual step. By default it will simply display the options for the full pipeline run. To have it actually run the pipeline, remove the `, "--help"` from the `[command]` in the `docker-compose.yml` file before launch. Note that it can take an hour or more to run the full pipeline. Furthermore, the data container mounts your local repo directory to read and write files so if you've previously run the pipeline manually on your local system, your score and map tile files will get overwritten.
 
-After it initializes, you should be able to open the application in your browser at [http://localhost:8000](http://localhost:8000).
+The data server will make the files created by the data pipeline container available to the web server
+
+The web server will run the application website. After it initializes, you should be able to open the web server in your browser at [http://localhost:8000](http://localhost:8000).

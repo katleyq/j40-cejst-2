@@ -41,6 +41,7 @@ xlsxwriter = "^2.0.0"
 pydantic = "^1.9.0"
 Rtree = "^1.0.0"
 fiona = "~1.8.21"
+tenacity = ">=5.0.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^21"
