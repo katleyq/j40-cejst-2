@@ -990,7 +990,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   >
                     downloads
                   </a>
-                   for the current version available. Spreadsheets (.xlxs) and (.csv) contain the tool’s definitions and data. These data can be used for analysis. Shapefiles and GeoJSON files can be uploaded into other mapping programs such as Esri. The downloads include information on how to use the files. Information from previous versions of the tool is available on the 
+                   for the current version available. Spreadsheets (.xlxs) and (.csv) contain the tool’s definitions and data. These data can be used for analysis. Shapefiles and GeoJSON files can be uploaded into other mapping programs such as Esri. The downloads include information on how to use the files (columns.csv). Information from previous versions of the tool is available on the 
                   <a
                     class="usa-link"
                     href="/en/previous-versions"
@@ -1099,7 +1099,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                 id="faq-id-15"
               >
                 <p>
-                  Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data from certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.
+                  Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data for certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.
                 </p>
               </div>
             </div>

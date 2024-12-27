@@ -978,7 +978,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                     rel="noreferrer"
                     target="_blank"
                   >
-                    The Trust for Public Lands
+                    The Trust for Public Land
                   </a>
                    and 
                   <a
@@ -1079,7 +1079,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
               </div>
               <div>
                 
-        Share of homes built before 1960, which indicates potential lead paint exposure. Tracts with extremely high home values (i.e. median home values above the 90th percentile) that are less likely to face health risks from lead paint exposure are not included.
+        Share of homes built before 1960, which indicates potential lead paint exposure. Tracts with extremely high home values (i.e., median home values above the 90th percentile) that are less likely to face health risks from lead paint exposure are not included.
       
               </div>
               <ul>
@@ -2058,6 +2058,10 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                     Note: 
                   </strong>
                   The LAR dataset depicts the exterior extent of a Federal Indian land area.  Not all Federally Recognized Tribes have a designated land area; therefore, they may not have an associated land area represented in the land area dataset.
+        
+                  <br />
+                  <br />
+                  The Department of the Interior makes no warrant for legal application of this data such as a legal boundary.
       
                 </p>
               </div>

@@ -37,21 +37,21 @@ export const PAGE = defineMessages({
   PARA1_BULLET2: {
     id: 'methodology.page.paragraph.1.bullet.2',
     defaultMessage: `
-      If they are on land within the boundaries of Federally Recognized Tribes.
+      If they are on land within the boundaries of Federally Recognized Tribes
     `,
     description: 'Navigate to the methodology page. This is the methodology paragraph 1, bullet 2',
   },
   PARA1_BULLET3: {
     id: 'methodology.page.paragraph.1.bullet.3',
     defaultMessage: `
-      For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged.
+      For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged
     `,
     description: 'Navigate to the methodology page. This is the methodology paragraph 1, bullet 3',
   },
   PARA1_BULLET4: {
     id: 'methodology.page.paragraph.1.bullet.4',
     defaultMessage: `
-      Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens currently used in the tool.
+      Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool
     `,
     description: 'Navigate to the methodology page. This is the methodology paragraph 1, bullet 5',
   },
@@ -581,7 +581,7 @@ export const RESPONSIBLE_PARTIES = {
   GREEN_SPACE: <FormattedMessage
     id={'methodology.page.cat.res.part.GREEN_SPACE'}
     defaultMessage={`
-      Data from <link1>Multi-Resolution Land Characteristics</link1> (MRLC) consortium; data analysis provided by <link2>The Trust for Public Lands</link2> and <link3>American Forests</link3>
+      Data from <link1>Multi-Resolution Land Characteristics</link1> (MRLC) consortium; data analysis provided by <link2>The Trust for Public Land</link2> and <link3>American Forests</link3>
     `}
     description={'responsible party text'}
     values={{
@@ -1338,7 +1338,7 @@ export const INDICATORS: IIndicators[] = [
     description: <FormattedMessage
       id={'methodology.page.category.lead.paint.description.text'}
       defaultMessage={`
-        Share of homes built before 1960, which indicates potential lead paint exposure. Tracts with extremely high home values (i.e. median home values above the 90th percentile) that are less likely to face health risks from lead paint exposure are not included.
+        Share of homes built before 1960, which indicates potential lead paint exposure. Tracts with extremely high home values (i.e., median home values above the 90th percentile) that are less likely to face health risks from lead paint exposure are not included.
       `}
       description={'Navigate to the Methodology page. This is the description text for lead paint'}
     />,
@@ -1776,10 +1776,12 @@ export const INDICATORS: IIndicators[] = [
       id={'methodology.page.category.tribal.lands.note.text'}
       defaultMessage={`
         <boldtag>Note: </boldtag>The LAR dataset depicts the exterior extent of a Federal Indian land area.  Not all Federally Recognized Tribes have a designated land area; therefore, they may not have an associated land area represented in the land area dataset.
+        {linebreak}{linebreak}The Department of the Interior makes no warrant for legal application of this data such as a legal boundary.
       `}
       description={'Navigate to the Methodology page. This is the note text for low median expectancy'}
       values={{
         boldtag: boldFn,
+        linebreak: <br />,
       }}
     />,
     usedIn: CATEGORIES.TRIBAL_LANDS.METHODOLOGY,
@@ -1791,53 +1793,6 @@ export const INDICATORS: IIndicators[] = [
       },
     ],
   },
-  // Unused burdens:
-  // {
-  //   domID: 'high-ed-enroll-rate',
-  //   indicator: <FormattedMessage
-  //     id={'methodology.page.dataset.indicator.high.ed.enroll.title.text'}
-  //     defaultMessage={`Higher education non-enrollment`}
-  //     description={'Navigate to the Methodology page. This is the title text for the high ed enrollment dataset'}
-  //   />,
-  //   description: <FormattedMessage
-  //     id={'methodology.page.category.high.ed.enroll.rate.description.text'}
-  //     defaultMessage={`
-  //       Percent of people 15 or older who are not currently enrolled in college, university, or graduate school.
-  //     `}
-  //     description={'Navigate to the Methodology page. This is the description text for high ed enrollment'}
-  //   />,
-  //   usedIn: CATEGORIES.ALL,
-  //   responsibleParty: RESPONSIBLE_PARTIES.CENSUS,
-  //   sources: [
-  //     {
-  //       source: SOURCE_LINKS.CENSUS_ACS_15_19,
-  //       availableFor: AVAILABLE_FOR.ALL_US_DC_PR,
-  //     },
-  //   ],
-  // },
-  // {
-  //   domID: 'median-home',
-  //   indicator: <FormattedMessage
-  //     id={'methodology.page.dataset.indicator.median.home.title.text'}
-  //     defaultMessage={`Median home value`}
-  //     description={'Navigate to the Methodology page. This is the title text for the median home dataset'}
-  //   />,
-  //   description: <FormattedMessage
-  //     id={'methodology.page.category.median.home.value.description.text'}
-  //     defaultMessage={`
-  //       Median home value of owner-occupied housing units in the census tract.
-  //      `}
-  //     description={'Navigate to the Methodology page. This is the description text for lead paint'}
-  //   />,
-  //   usedIn: CATEGORIES.AFFORDABLE_HOUSING.METHODOLOGY,
-  //   responsibleParty: RESPONSIBLE_PARTIES.CENSUS,
-  //   sources: [
-  //     {
-  //       source: SOURCE_LINKS.CENSUS_ACS_15_19,
-  //       availableFor: AVAILABLE_FOR.ALL_US_DC,
-  //     },
-  //   ],
-  // },
 ];
 
 export const RETURN_TO_TOP = {

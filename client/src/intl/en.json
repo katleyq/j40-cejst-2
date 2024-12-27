@@ -816,7 +816,7 @@
     "description": "Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show low income"
   },
   "explore.map.page.side.panel.indicator.low.income.tooltip.IMP_YES_POP_NOT_NULL": {
-    "defaultMessage": "Tracts with missing income data<br />are given estimated incomes<br />based on an average of the<br />incomes of the surrounding tracts.",
+    "defaultMessage": "Tracts with known populations<br />that are missing income data<br />are given estimated incomes based<br />on an average of the incomes<br />in the surrounding tracts.",
     "description": "Hover over the low income icon and it will show Tracts with missing income data are given estimated incomes based on an average of the incomes of the surrounding tracts."
   },
   "explore.map.page.side.panel.indicator.low.income.tooltip.IMP_YES_POP_NULL": {
@@ -1132,7 +1132,7 @@
     "description": "Navigate to the explore the map page. Click on tract, The side panel will show This tract is considered disadvantaged. This tract is considered disadvantaged because it was identified as disadvantaged in version 1.0 of the tool."
   },
   "explore.map.page.side.panel.prio.copy.prio.island.li": {
-    "defaultMessage": "This tract is considered disadvantaged because it meets the low income threshold <bold>AND</bold> is located in a U.S. Territory.",
+    "defaultMessage": "This tract is considered disadvantaged because it meets the low income threshold <bold>AND</bold> is in a U.S. Territory that is not included in each of the nationally-consistent datasets on environmental and climate burdens currently used in the tool.",
     "description": "Navigate to the explore the map page. Click on tract, The side panel will show This tract is considered disadvantaged. It is an island territory that meets an adjusted low income threshold."
   },
   "explore.map.page.side.panel.prio.copy.prio.n.burden": {
@@ -1320,7 +1320,7 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q16_P2"
   },
   "faqs.page.answers.Q19": {
-    "defaultMessage": "The Climate and Economic Justice Screening Tool (CEJST) has <link1>downloads</link1> for the current version available. Spreadsheets (.xlxs) and (.csv) contain the tool’s definitions and data. These data can be used for analysis. Shapefiles and GeoJSON files can be uploaded into other mapping programs such as Esri. The downloads include information on how to use the files. Information from previous versions of the tool is available on the <link2>previous versions</link2> page.",
+    "defaultMessage": "The Climate and Economic Justice Screening Tool (CEJST) has <link1>downloads</link1> for the current version available. Spreadsheets (.xlxs) and (.csv) contain the tool’s definitions and data. These data can be used for analysis. Shapefiles and GeoJSON files can be uploaded into other mapping programs such as Esri. The downloads include information on how to use the files (columns.csv). Information from previous versions of the tool is available on the <link2>previous versions</link2> page.",
     "description": "Navigate to the FAQs page, this will be an answer, Q19"
   },
   "faqs.page.answers.Q1_P1": {
@@ -1344,7 +1344,7 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q21"
   },
   "faqs.page.answers.Q22": {
-    "defaultMessage": "Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data from certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.",
+    "defaultMessage": "Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data for certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.",
     "description": "Navigate to the FAQs page, this will be an answer, Q22"
   },
   "faqs.page.answers.Q2_P1": {
@@ -1516,7 +1516,7 @@
     "description": "responsible party text"
   },
   "methodology.page.cat.res.part.GREEN_SPACE": {
-    "defaultMessage": "Data from <link1>Multi-Resolution Land Characteristics</link1> (MRLC) consortium; data analysis provided by <link2>The Trust for Public Lands</link2> and <link3>American Forests</link3>",
+    "defaultMessage": "Data from <link1>Multi-Resolution Land Characteristics</link1> (MRLC) consortium; data analysis provided by <link2>The Trust for Public Land</link2> and <link3>American Forests</link3>",
     "description": "responsible party text"
   },
   "methodology.page.cat.res.part.HUD": {
@@ -1612,7 +1612,7 @@
     "description": "Navigate to the Methodology page. This is the description text for housing burden"
   },
   "methodology.page.category.lead.paint.description.text": {
-    "defaultMessage": "Share of homes built before 1960, which indicates potential lead paint exposure. Tracts with extremely high home values (i.e. median home values above the 90th percentile) that are less likely to face health risks from lead paint exposure are not included.",
+    "defaultMessage": "Share of homes built before 1960, which indicates potential lead paint exposure. Tracts with extremely high home values (i.e., median home values above the 90th percentile) that are less likely to face health risks from lead paint exposure are not included.",
     "description": "Navigate to the Methodology page. This is the description text for lead paint"
   },
   "methodology.page.category.leaky.uwt.description.text": {
@@ -1784,7 +1784,7 @@
     "description": "Navigate to the Methodology page. This is the description text for Tribal lands"
   },
   "methodology.page.category.tribal.lands.note.text": {
-    "defaultMessage": "<boldtag>Note: </boldtag>The LAR dataset depicts the exterior extent of a Federal Indian land area. Not all Federally Recognized Tribes have a designated land area; therefore, they may not have an associated land area represented in the land area dataset.",
+    "defaultMessage": "<boldtag>Note: </boldtag>The LAR dataset depicts the exterior extent of a Federal Indian land area. Not all Federally Recognized Tribes have a designated land area; therefore, they may not have an associated land area represented in the land area dataset. {linebreak}{linebreak}The Department of the Interior makes no warrant for legal application of this data such as a legal boundary.",
     "description": "Navigate to the Methodology page. This is the note text for low median expectancy"
   },
   "methodology.page.category.unemploy.description.text": {
@@ -2132,15 +2132,15 @@
     "description": "Navigate to the methodology page. This is the methodology paragraph 1, bullet 1"
   },
   "methodology.page.paragraph.1.bullet.2": {
-    "defaultMessage": "If they are on land within the boundaries of Federally Recognized Tribes.",
+    "defaultMessage": "If they are on land within the boundaries of Federally Recognized Tribes",
     "description": "Navigate to the methodology page. This is the methodology paragraph 1, bullet 2"
   },
   "methodology.page.paragraph.1.bullet.3": {
-    "defaultMessage": "For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged.",
+    "defaultMessage": "For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged",
     "description": "Navigate to the methodology page. This is the methodology paragraph 1, bullet 3"
   },
   "methodology.page.paragraph.1.bullet.4": {
-    "defaultMessage": "Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens currently used in the tool.",
+    "defaultMessage": "Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool",
     "description": "Navigate to the methodology page. This is the methodology paragraph 1, bullet 5"
   },
   "methodology.page.paragraph.2": {

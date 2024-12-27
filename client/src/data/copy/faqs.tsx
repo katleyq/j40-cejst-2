@@ -370,7 +370,7 @@ export const FAQ_ANSWERS = {
   />,
   Q19: <FormattedMessage
     id={ 'faqs.page.answers.Q19'}
-    defaultMessage={ `The Climate and Economic Justice Screening Tool (CEJST) has <link1>downloads</link1> for the current version available. Spreadsheets (.xlxs) and (.csv) contain the tool’s definitions and data. These data can be used for analysis. Shapefiles and GeoJSON files can be uploaded into other mapping programs such as Esri. The downloads include information on how to use the files. Information from previous versions of the tool is available on the <link2>previous versions</link2> page.`}
+    defaultMessage={ `The Climate and Economic Justice Screening Tool (CEJST) has <link1>downloads</link1> for the current version available. Spreadsheets (.xlxs) and (.csv) contain the tool’s definitions and data. These data can be used for analysis. Shapefiles and GeoJSON files can be uploaded into other mapping programs such as Esri. The downloads include information on how to use the files (columns.csv). Information from previous versions of the tool is available on the <link2>previous versions</link2> page.`}
     description={ 'Navigate to the FAQs page, this will be an answer, Q19'}
     values={{
       link1: linkFn(PAGES_ENDPOINTS.DOWNLOADS, true, false),
@@ -401,7 +401,7 @@ export const FAQ_ANSWERS = {
   />,
   Q22: <FormattedMessage
     id={ 'faqs.page.answers.Q22'}
-    defaultMessage={ 'Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data from certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.'}
+    defaultMessage={ 'Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data for certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.'}
     description={ 'Navigate to the FAQs page, this will be an answer, Q22'}
   />,
 };
