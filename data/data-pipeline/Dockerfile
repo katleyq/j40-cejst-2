@@ -53,6 +53,6 @@ RUN poetry config virtualenvs.create false \
     && poetry install --only main --no-interaction --no-ansi
 RUN pip install openpyxl
 
-# Default behavior is to output the options for "full-run". This prevents the entire pipeline from running unintentionally.
-ENTRYPOINT [ "poetry", "run", "python3", "-m", "data_pipeline.application"]  
-CMD ["full-run", "--help"]
+# Default behavior is to output the options for the base application. This prevents the entire pipeline from running unintentionally.
+ENV PIPELINE_CMD="data_pipeline.application --help"
+CMD ["sh", "-c", "poetry run python3 -m $PIPELINE_CMD"]

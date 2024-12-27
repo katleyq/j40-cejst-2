@@ -14,9 +14,7 @@ services:
       ENV_FOR_DYNACONF: development
       PYTHONUNBUFFERED: 1
       TZ: America/Los_Angeles
-    # The argument (and options) for the scoring step you want to run. Replace "full-run" with "etl-run" or whatever step you want to run
-    # To add arguments follow this example: command: ["generate-map-tiles", "--arg1", "value1", "--arg2", "value2"]
-    command: ["full-run", "--help"]
+      PIPELINE_CMD: $PIPELINE_CMD
 
   # The score_server serves the data-pipeline volume as a URL
   j40_score_server:
@@ -37,8 +35,8 @@ services:
     container_name: j40_website_1
     build: client
     environment:
-    # See the client readme for more info on environment variables:
-    # https://github.com/usds/justice40-tool/blob/main/client/README.md
+      # See the client readme for more info on environment variables:
+      # https://github.com/usds/justice40-tool/blob/main/client/README.md
       DATA_SOURCE: local
       TZ: America/Los_Angeles
     volumes:
