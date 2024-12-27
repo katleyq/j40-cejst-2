@@ -17,6 +17,8 @@ import * as FAQS_COPY from '../data/copy/faqs';
 import censusDotIcon from '../images/sidePanelIcons/census-tract.svg';
 // @ts-ignore
 import tribalDotIcon from '../images/sidePanelIcons/tribal-tract.svg';
+// @ts-ignore
+import grandfatheredDotIcon from '../images/sidePanelIcons/grandfathered-tract.svg';
 
 interface IFAQPageProps {
   location: Location;
@@ -101,7 +103,13 @@ const FAQPage = ({location}: IFAQPageProps) => {
           />
           <div style={dotStyles.p}>{FAQS_COPY.FAQ_ANSWERS.Q6_P3}</div>
         </div>
-        <p>{FAQS_COPY.FAQ_ANSWERS.Q6_P4}</p>
+        <div style={dotStyles}>
+          <img style={dotStylesTribal} src={grandfatheredDotIcon}
+            alt={intl.formatMessage(SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.DAC_CIRCLE)}
+          />
+          <div style={dotStyles.p}>{FAQS_COPY.FAQ_ANSWERS.Q6_P4}</div>
+        </div>
+        <p>{FAQS_COPY.FAQ_ANSWERS.Q6_P5}</p>
       </>
     ),
     (
@@ -140,8 +148,8 @@ const FAQPage = ({location}: IFAQPageProps) => {
     ),
     (
       <>
-        <p key={16}>{FAQS_COPY.FAQ_ANSWERS.Q16_P1}</p>
-        <p key={16}>{FAQS_COPY.FAQ_ANSWERS.Q16_P2}</p>
+        <p key={16-1}>{FAQS_COPY.FAQ_ANSWERS.Q16_P1}</p>
+        <p key={16-2}>{FAQS_COPY.FAQ_ANSWERS.Q16_P2}</p>
       </>
     ),
     (

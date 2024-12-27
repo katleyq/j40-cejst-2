@@ -130,6 +130,19 @@ const MapTractLayers = ({
           minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
         />
 
+        {/* High zoom layer (static) - grandfathered features only */}
+        <Layer
+          id={constants.GRANDFATHERED_HIGH_ZOOM_LAYER_ID}
+          source-layer={constants.SCORE_SOURCE_LAYER}
+          filter={['==', constants.IS_GRANDFATHERED, true]}
+          type='fill'
+          paint={{
+            'fill-color': constants.GRANDFATHERED_FEATURE_FILL_COLOR,
+            'fill-opacity': constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+          }}
+          minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+        />
+
         {/* High zoom layer (static) - controls the border between features */}
         <Layer
           id={constants.FEATURE_BORDER_LAYER_ID}

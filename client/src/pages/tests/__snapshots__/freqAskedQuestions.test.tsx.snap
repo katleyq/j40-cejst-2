@@ -672,7 +672,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                 id="faq-id-5"
               >
                 <p>
-                  Some census tracts that contain land within the boundaries of Federally Recognized Tribes are also considered disadvantaged because they meet the burden thresholds for at least one of the categories on the tool. When this happens, the areas appear darker on the tool’s map.
+                  Different areas of the map will have different colors because they are identified as disadvantaged in different ways. Some census tracts that contain land within the boundaries of Federally Recognized Tribes are also considered disadvantaged because they meet the burden thresholds for at least one of the categories on the tool. When this happens, the areas appear darker on the tool’s map.
                 </p>
                 <div
                   style="display: flex;"
@@ -704,6 +704,23 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                     style="padding-left: 2px;"
                   >
                      : Disadvantaged census tracts and land within the boundaries of Federally Recognized Tribes (meets threshold methodology AND contains lands of Tribes)
+    
+                  </div>
+                </div>
+                <div
+                  style="display: flex;"
+                >
+                  <img
+                    alt="
+      a blue circle icon informing the user of what a disadvantaged community is depicted as
+    "
+                    src="test-file-stub"
+                    style="align-self: baseline; padding-top: 5px;"
+                  />
+                  <div
+                    style="padding-left: 2px;"
+                  >
+                     : Disadvantaged census tracts (grandfathered)
     
                   </div>
                 </div>

@@ -241,7 +241,7 @@ export const FAQ_ANSWERS = {
   />,
   Q6_P1: <FormattedMessage
     id={ 'faqs.page.answers.Q6_P1'}
-    defaultMessage={ `Some census tracts that contain land within the boundaries of Federally Recognized Tribes are also considered disadvantaged because they meet the burden thresholds for at least one of the categories on the tool. When this happens, the areas appear darker on the tool’s map.`}
+    defaultMessage={ `Different areas of the map will have different colors because they are identified as disadvantaged in different ways. Some census tracts that contain land within the boundaries of Federally Recognized Tribes are also considered disadvantaged because they meet the burden thresholds for at least one of the categories on the tool. When this happens, the areas appear darker on the tool’s map.`}
     description={ 'Navigate to the FAQs page, this will be an answer, Q6_P1'}
   />,
   Q6_P2: <FormattedMessage
@@ -257,6 +257,12 @@ export const FAQ_ANSWERS = {
   />,
   Q6_P4: <FormattedMessage
     id={ 'faqs.page.answers.Q6_P4'}
+    defaultMessage={ ` : Disadvantaged census tracts (grandfathered)
+    `}
+    description={ 'Navigate to the FAQs page, this will be an answer, Q6_P4'}
+  />,
+  Q6_P5: <FormattedMessage
+    id={ 'faqs.page.answers.Q6_P5'}
     defaultMessage={ `Any area that is highlighted is considered disadvantaged, regardless of whether it is a light shade or dark shade. The tool will show if a whole census tract is considered disadvantaged or just the parts that contain land within the boundaries of Federally Recognized Tribes.`}
     description={ 'Navigate to the FAQs page, this will be an answer, Q6_P4'}
   />,
