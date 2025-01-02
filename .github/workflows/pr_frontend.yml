@@ -55,10 +55,11 @@ jobs:
         run: ls -la public
       - name: Lint
         run: npm run lint
-        # Disabling for now due to jsonlint - TODO: put this back
-      # - name: License Check
-      #   run: npm run licenses
-      - name: Test
+      - name: License Check
+        run: npm run licenses
+      - name: Unit tests
         run: npm test
+      - name: Spanish translation test
+        run: npm run test:intl-translations
       # - name: Check for security vulnerabilities
       #   run: npm audit --production

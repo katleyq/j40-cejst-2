@@ -348,9 +348,9 @@ export const FAQ_ANSWERS = {
     }}
   />,
   Q16_P1: <FormattedMessage
-    id={ 'faqs.page.answers.Q16'}
+    id={ 'faqs.page.answers.Q16_P1'}
     defaultMessage={ `CEQ launched a beta—or draft—version of the CEJST in February 2022 with support from the U.S. Digital Service (USDS), and in collaboration with other Federal agencies and departments. The CEJST was released in a beta version in order to seek <link1>feedback</link1> from Federal agencies, Tribal Nations, State and local governments, Members of Congress, environmental justice stakeholders, and the public. The 90 day public comment period <link2>closed</link2> on May 25, 2022. CEQ and the USDS hosted several <link3>public training</link3> sessions on the beta version of the CEJST. All of this feedback on the beta version of the CEJST helped to inform the release of version 1.0 of the CEJST.`}
-    description={ 'Navigate to the FAQs page, this will be an answer, Q16'}
+    description={ 'Navigate to the FAQs page, this will be an answer, Q16_P1'}
     values={{
       link1: linkFn('https://www.federalregister.gov/documents/2022/02/23/2022-03920/climate-and-economic-justice-screening-tool-beta-version', false, true),
       link2: linkFn('https://www.whitehouse.gov/ceq/news-updates/2022/04/21/ceq-extends-public-comment-period-on-beta-version-of-the-climate-and-economic-justice-screening-tool/', false, true),
