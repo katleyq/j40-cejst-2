@@ -4,6 +4,7 @@ import React from 'react';
 import {defineMessages} from 'react-intl';
 import * as COMMON_COPY from './common';
 import {VERSION_NUMBER, VERSIONS} from './methodology';
+import {TILE_BASE_URL} from '../constants';
 
 export const PAGE_INTRO = defineMessages({
   PAGE_TILE: {
@@ -29,19 +30,26 @@ export const PAGE_INTRO = defineMessages({
 });
 
 export const getDownloadFileUrl = (filePath: string | undefined, version: VERSIONS = VERSIONS.V2_0) => {
-  const scorePath = version === VERSIONS.BETA ?
-  process.env.GATSBY_BETA_SCORE_PATH :
-  version === VERSIONS.V1_0 ?
-  process.env.GATSBY_1_0_SCORE_PATH :
-  process.env.GATSBY_2_0_SCORE_PATH;
+  let scorePath;
+
+  if (process.env.DATA_SOURCE === 'local') {
+    scorePath = process.env.GATSBY_DATA_PIPELINE_SCORE_PATH_LOCAL;
+  } else {
+    scorePath = version === VERSIONS.BETA ?
+      process.env.GATSBY_BETA_SCORE_PATH :
+      version === VERSIONS.V1_0 ?
+      process.env.GATSBY_1_0_SCORE_PATH :
+      process.env.GATSBY_2_0_SCORE_PATH;
+  }
+
   return [
-    process.env.GATSBY_CDN_TILES_BASE_URL,
+    TILE_BASE_URL,
     scorePath,
     filePath,
   ].join('/');
 };
 
-// Define meta data on dowload files
+// Define meta data on download files
 export const DOWNLOAD_FILES = {
   NARWAL: {
     COMMUNITIES_LIST_XLS: {

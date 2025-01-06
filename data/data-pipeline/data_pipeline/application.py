@@ -29,8 +29,6 @@ from data_pipeline.utils import geo_score_folder_cleanup
 
 logger = get_module_logger(__name__)
 
-dataset_cli_help = "Grab the data from either 'local' for local access or 'aws' to retrieve from Justice40 S3 repository"
-
 LOG_LINE_WIDTH = 60
 
 use_cache_option = click.option(
@@ -38,7 +36,7 @@ use_cache_option = click.option(
     "--use-cache",
     is_flag=True,
     default=False,
-    help="Check if data source has been downloaded already, and if it has, use the cached version of the data source.",
+    help="When set, will check for cached data sources to use before downloading new ones.",
 )
 
 dataset_option = click.option(
@@ -46,7 +44,7 @@ dataset_option = click.option(
     "--dataset",
     required=False,
     type=str,
-    help=dataset_cli_help,
+    help="Name of dataset to run. If not provided, all datasets will be run.",
 )
 
 data_source_option = click.option(
@@ -55,7 +53,7 @@ data_source_option = click.option(
     default="local",
     required=False,
     type=str,
-    help=dataset_cli_help,
+    help="Grab the data from either 'local' for local access or 'aws' to retrieve from Justice40 S3 repository. Default is 'local'.",
 )
 
 
@@ -290,10 +288,10 @@ def generate_map_tiles(generate_tribal_layer):
 @data_source_option
 @use_cache_option
 def data_full_run(check: bool, data_source: str, use_cache: bool):
-    """CLI command to run ETL, score, JSON combine and generate tiles in one command
+    """CLI command to run ETL, score, JSON combine and generate tiles including tribal layer in one command
 
     Args:
-        check (bool): Run the full data run only if the first run sempahore file is not set (optional)
+        check (bool): Run the full data run only if the first run semaphore file is not set (optional)
         data_source (str): Source for the census data (optional)
                            Options:
                            - local: fetch census and score data from the local data directory
@@ -445,7 +443,7 @@ def clear_data_source_cache(dataset: str):
 )
 @click.pass_context
 def full_post_etl(ctx):
-    """Generate scoring and tiles"""
+    """Generate scoring and tiles including tribal layer"""
     ctx.invoke(score_run)
     ctx.invoke(generate_score_post, data_source=None)
     ctx.invoke(geo_score, data_source=None)
@@ -459,7 +457,7 @@ def full_post_etl(ctx):
 @use_cache_option
 @click.pass_context
 def full_run(ctx, use_cache):
-    """Run all downloads, ETLs, and generate scores and tiles"""
+    """Run all downloads, ETLs, and generate scores and tiles including tribal layer"""
     if not use_cache:
         ctx.invoke(data_cleanup)
     ctx.invoke(census_data_download, zip_compress=False, use_cache=use_cache)

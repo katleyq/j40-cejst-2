@@ -52,7 +52,7 @@ DATA_TILES_SEARCH_DIR = DATA_SCORE_DIR / "search"
 
 # Downloadable paths
 if not os.environ.get("J40_VERSION_LABEL_STRING"):
-    version_str = "beta"
+    version_str = "2.0"
 else:
     version_str = os.environ.get("J40_VERSION_LABEL_STRING")
 

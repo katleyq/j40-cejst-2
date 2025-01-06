@@ -517,7 +517,6 @@ class PostScoreETL(ExtractTransformLoad):
                 num_cols = len(excel_df.columns)
                 worksheet.set_column(0, num_cols - 1, num_excel_cols_width)
 
-            writer.save()
         return excel_csv_config
 
     def _load_tile_csv(

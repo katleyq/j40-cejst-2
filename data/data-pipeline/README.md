@@ -48,7 +48,7 @@ The detailed steps for performing [local environment installation can be found i
 
 ## Running the Data Pipeline and Scoring Application
 
-The Justice40 Data Pipeline and Scoring Application is a multistep process that,
+The Justice40 Data Pipeline and Scoring Application is a multi-step process that,
 
 1. Retrieves input data sources (extract), standardizes those input data sources' data into an intermediate format (transform), and saves the results to the file system (load). It performs those steps for each configured input data source (found at [`data_pipeline/etl/sources`](data_pipeline/etl/sources))
 2. Calculates a score
