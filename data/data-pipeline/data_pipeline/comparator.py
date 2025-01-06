@@ -257,6 +257,7 @@ def _generate_delta(prod_df: pd.DataFrame, local_df: pd.DataFrame):
             f" There are {len(comparison_results_df.index):,} tracts with at least one difference.\n"
         )
 
+        WORKING_PATH.mkdir(parents=True, exist_ok=True)
         comparison_path = WORKING_PATH / "deltas.csv"
         comparison_results_df.to_csv(path_or_buf=comparison_path)
 

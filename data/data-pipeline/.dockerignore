@@ -1,0 +1,17 @@
+./data_pipeline/data/census/csv/*
+./data_pipeline/data/census/geojson/*
+./data_pipeline/data/census/shp/*
+./data_pipeline/data/dataset/*
+./data_pipeline/data/score/csv/*
+./data_pipeline/data/score/downloadable/*
+./data_pipeline/data/score/geojson/*
+./data_pipeline/data/score/search/*
+./data_pipeline/data/score/shapefile/*
+./data_pipeline/data/score/tiles/*
+./data_pipeline/data/sources/*
+./data_pipeline/data/tmp/*
+./data_pipeline/data/tribal/csv/*
+./data_pipeline/data/tribal/geographic_data/*
+./data_pipeline/data/tribal/geojson/*
+./data_pipeline/data/tribal/tiles/*
+

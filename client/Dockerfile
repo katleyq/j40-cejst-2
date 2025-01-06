@@ -4,16 +4,13 @@ FROM node:14
 # this working directory
 WORKDIR /client
 
-# Copy the package.json and package_lock.json files from local to the docker image / container
-COPY package*.json ./
-
-# install all packages as a layer in the docker image / container
-RUN npm install
-
 # copy all local files from the working directory to the docker image/container however we must use 
 # dockerignore to ignore node_modules so that the image can use what what was just installed from the above
 # step.
 COPY . .
+
+# install all packages as a layer in the docker image / container
+RUN npm ci
 
 ENV PORT=6000
 

@@ -449,21 +449,21 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                 <li>
                   <p>
                     
-      If they are on land within the boundaries of Federally Recognized Tribes.
+      If they are on land within the boundaries of Federally Recognized Tribes
     
                   </p>
                 </li>
                 <li>
                   <p>
                     
-      For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged.
+      For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged
     
                   </p>
                 </li>
                 <li>
                   <p>
                     
-      Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens currently used in the tool.
+      Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool
     
                   </p>
                 </li>
@@ -2017,7 +2017,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                       rel="noreferrer"
                       target="_blank"
                     >
-                      The Trust for Public Lands
+                      The Trust for Public Land
                     </a>
                      and 
                     <a
@@ -2118,7 +2118,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                 </div>
                 <div>
                   
-        Share of homes built before 1960, which indicates potential lead paint exposure. Tracts with extremely high home values (i.e. median home values above the 90th percentile) that are less likely to face health risks from lead paint exposure are not included.
+        Share of homes built before 1960, which indicates potential lead paint exposure. Tracts with extremely high home values (i.e., median home values above the 90th percentile) that are less likely to face health risks from lead paint exposure are not included.
       
                 </div>
                 <ul>
@@ -3097,6 +3097,10 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                       Note: 
                     </strong>
                     The LAR dataset depicts the exterior extent of a Federal Indian land area.  Not all Federally Recognized Tribes have a designated land area; therefore, they may not have an associated land area represented in the land area dataset.
+        
+                    <br />
+                    <br />
+                    The Department of the Interior makes no warrant for legal application of this data such as a legal boundary.
       
                   </p>
                 </div>

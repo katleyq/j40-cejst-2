@@ -672,7 +672,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                 id="faq-id-5"
               >
                 <p>
-                  Some census tracts that contain land within the boundaries of Federally Recognized Tribes are also considered disadvantaged because they meet the burden thresholds for at least one of the categories on the tool. When this happens, the areas appear darker on the tool’s map.
+                  Different areas of the map will have different colors because they are identified as disadvantaged in different ways. Some census tracts that contain land within the boundaries of Federally Recognized Tribes are also considered disadvantaged because they meet the burden thresholds for at least one of the categories on the tool. When this happens, the areas appear darker on the tool’s map.
                 </p>
                 <div
                   style="display: flex;"
@@ -704,6 +704,23 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                     style="padding-left: 2px;"
                   >
                      : Disadvantaged census tracts and land within the boundaries of Federally Recognized Tribes (meets threshold methodology AND contains lands of Tribes)
+    
+                  </div>
+                </div>
+                <div
+                  style="display: flex;"
+                >
+                  <img
+                    alt="
+      a blue circle icon informing the user of what a disadvantaged community is depicted as
+    "
+                    src="test-file-stub"
+                    style="align-self: baseline; padding-top: 5px;"
+                  />
+                  <div
+                    style="padding-left: 2px;"
+                  >
+                     : Disadvantaged census tracts (grandfathered)
     
                   </div>
                 </div>
@@ -990,7 +1007,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   >
                     downloads
                   </a>
-                   for the current version available. Spreadsheets (.xlxs) and (.csv) contain the tool’s definitions and data. These data can be used for analysis. Shapefiles and GeoJSON files can be uploaded into other mapping programs such as Esri. The downloads include information on how to use the files. Information from previous versions of the tool is available on the 
+                   for the current version available. Spreadsheets (.xlxs) and (.csv) contain the tool’s definitions and data. These data can be used for analysis. Shapefiles and GeoJSON files can be uploaded into other mapping programs such as Esri. The downloads include information on how to use the files (columns.csv). Information from previous versions of the tool is available on the 
                   <a
                     class="usa-link"
                     href="/en/previous-versions"
@@ -1099,7 +1116,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                 id="faq-id-15"
               >
                 <p>
-                  Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data from certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.
+                  Because some nationally-consistent datasets on indicators of environmental or climate burden used in the tool do not currently include data for certain U.S. Territories, tracts in these Territories are considered disadvantaged if they meet the low income threshold only.
                 </p>
               </div>
             </div>

@@ -1,0 +1,4 @@
+dirs:
+  - .
+ignorePatterns:
+  - pattern: '^http://localhost.*$'

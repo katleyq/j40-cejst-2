@@ -258,6 +258,7 @@ export const TRIBAL_SOURCE_LAYER = "blocks";
 export const BASE_MAP_LAYER_ID = "base-map-layer-id";
 export const HIGH_ZOOM_LAYER_ID = "high-zoom-layer-id";
 export const PRIORITIZED_HIGH_ZOOM_LAYER_ID = "prioritized-high-zoom-layer-id";
+export const GRANDFATHERED_HIGH_ZOOM_LAYER_ID = "grandfathered-high-zoom-layer-id";
 export const LOW_ZOOM_LAYER_ID = "low-zoom-layer-id";
 export const FEATURE_BORDER_LAYER_ID = "feature-border-layer-id";
 export const SELECTED_FEATURE_BORDER_LAYER_ID =
@@ -298,7 +299,8 @@ export const TRIBAL_FEATURE_FILL_OPACITY = 0.3;
 // Colors
 export const FEATURE_BORDER_COLOR = "#4EA5CF";
 export const SELECTED_FEATURE_BORDER_COLOR = "#1A4480";
-export const PRIORITIZED_FEATURE_FILL_COLOR = "#768FB3";
+export const PRIORITIZED_FEATURE_FILL_COLOR = "#0050D8";
+export const GRANDFATHERED_FEATURE_FILL_COLOR = "#8168B3";
 
 export const TRIBAL_BORDER_COLOR = "#4EA5CF";
 export const SELECTED_TRIBAL_BORDER_COLOR = "#1A4480";

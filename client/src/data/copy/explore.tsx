@@ -649,7 +649,7 @@ export const PRIORITIZATION_COPY = {
   />,
   PRIO_ISLAND_LI: <FormattedMessage
     id={'explore.map.page.side.panel.prio.copy.prio.island.li'}
-    defaultMessage={'This tract is considered disadvantaged because it meets the low income threshold <bold>AND</bold> is located in a U.S. Territory.'}
+    defaultMessage={'This tract is considered disadvantaged because it meets the low income threshold <bold>AND</bold> is in a U.S. Territory that is not included in each of the nationally-consistent datasets on environmental and climate burdens currently used in the tool.'}
     description={`Navigate to the explore the map page. Click on tract, The side panel will show This tract is considered disadvantaged. It is an island territory that meets an adjusted low income threshold.`}
     values={{
       bold: boldFn,
@@ -1411,7 +1411,7 @@ export const LOW_INCOME_TOOLTIP = defineMessages({
   },
   IMP_YES_POP_NOT_NULL: {
     id: 'explore.map.page.side.panel.indicator.low.income.tooltip.IMP_YES_POP_NOT_NULL',
-    defaultMessage: `Tracts with missing income data<br />are given estimated incomes<br />based on an average of the<br />incomes of the surrounding tracts.`,
+    defaultMessage: `Tracts with known populations<br />that are missing income data<br />are given estimated incomes based<br />on an average of the incomes<br />in the surrounding tracts.`,
     description: 'Hover over the low income icon and it will show Tracts with missing income data are given estimated incomes based on an average of the incomes of the surrounding tracts.',
   },
 });

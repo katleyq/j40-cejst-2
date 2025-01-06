@@ -218,6 +218,7 @@ def score_folder_cleanup() -> None:
     remove_all_from_dir(data_path / "score" / "geojson")
     remove_all_from_dir(data_path / "score" / "tiles")
     remove_all_from_dir(data_path / "score" / "shapefile")
+    remove_all_from_dir(data_path / "score" / "search")
     downloadable_cleanup()
 
 

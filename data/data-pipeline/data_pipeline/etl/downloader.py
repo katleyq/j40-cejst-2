@@ -7,6 +7,7 @@ import shutil
 from pathlib import Path
 from data_pipeline.config import settings
 from data_pipeline.utils import get_module_logger
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 logger = get_module_logger(__name__)
 
@@ -15,6 +16,10 @@ class Downloader:
     """A simple class to encapsulate the download capabilities of the application"""
 
     @classmethod
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+    )
     def download_file_from_url(
         cls,
         file_url: str,
@@ -58,6 +63,10 @@ class Downloader:
         return download_file_name
 
     @classmethod
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+    )
     def download_zip_file_from_url(
         cls,
         file_url: str,
