@@ -1,6 +1,7 @@
 import concurrent.futures
 import importlib
 import typing
+import os
 
 from functools import reduce
 
@@ -84,7 +85,11 @@ def _run_one_dataset(dataset: dict, use_cache: bool = False) -> None:
     logger.info(f"Finished ETL for dataset {dataset['name']}")
 
 
-def etl_runner(dataset_to_run: str = None, use_cache: bool = False) -> None:
+def etl_runner(
+    dataset_to_run: str = None,
+    use_cache: bool = False,
+    no_concurrency: bool = False,
+) -> None:
     """Runs all etl processes or a specific one
 
     Args:
@@ -112,9 +117,12 @@ def etl_runner(dataset_to_run: str = None, use_cache: bool = False) -> None:
         dataset for dataset in dataset_list if dataset["is_memory_intensive"]
     ]
 
+    max_workers = 1 if no_concurrency else os.cpu_count()
     if concurrent_datasets:
-        logger.info("Running concurrent ETL jobs")
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        logger.info(f"Running concurrent ETL jobs on {max_workers} thread(s)")
+        with concurrent.futures.ThreadPoolExecutor(
+            max_workers=max_workers
+        ) as executor:
             futures = {
                 executor.submit(
                     _run_one_dataset, dataset=dataset, use_cache=use_cache

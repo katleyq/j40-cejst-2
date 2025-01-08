@@ -139,9 +139,14 @@ def pull_census_data(data_source: str):
 @cli.command(
     help="Run all ETL processes or a specific one",
 )
+@click.option(
+    "--no-concurrency",
+    is_flag=True,
+    help="Run ETLs sequentially instead of concurrently.",
+)
 @dataset_option
 @use_cache_option
-def etl_run(dataset: str, use_cache: bool):
+def etl_run(dataset: str, use_cache: bool, no_concurrency: bool):
     """Run a specific or all ETL processes
 
     Args:
@@ -153,7 +158,7 @@ def etl_run(dataset: str, use_cache: bool):
     log_title("Run ETL")
 
     log_info("Running dataset(s)")
-    etl_runner(dataset, use_cache)
+    etl_runner(dataset, use_cache, no_concurrency)
 
     log_goodbye()
 
