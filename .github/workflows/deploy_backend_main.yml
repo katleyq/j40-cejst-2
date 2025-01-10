@@ -1,5 +1,10 @@
 name: Deploy Backend Main
-on: workflow_dispatch
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - ".github/workflows/deploy_backend_main.yml"
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -45,15 +50,23 @@ jobs:
           aws-access-key-id: ${{ secrets.DATA_DEV_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.DATA_DEV_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - name: Cleanup Data
+        run: |
+          poetry run python3 -m data_pipeline.application data-cleanup
+      - name: Cache Census Data
+        id: cache-census
+        uses: actions/cache@v4
+        with:
+          path: data/data-pipeline/data_pipeline/data/census
+          key: data-census
       - name: Install GDAL/ogr2ogr
+        if: steps.cache-census.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
           sudo apt-get -y install gdal-bin
           ogrinfo --version
-      - name: Cleanup Data
-        run: |
-          poetry run python3 -m data_pipeline.application data-cleanup
       - name: Get Census Data
+        if: steps.cache-census.outputs.cache-hit != 'true'
         run: |
           poetry run python3 -m data_pipeline.application census-data-download
       - name: Run ETL
