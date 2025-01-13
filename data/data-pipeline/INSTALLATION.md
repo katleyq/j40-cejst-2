@@ -58,7 +58,6 @@ The application requires the installation of three 3rd party tools.
 
 | Tool            | Purpose              | Link                                                      |
 | --------------- | -------------------- | --------------------------------------------------------- |
-| GDAL            | Generate census data | [GDAL library](https://github.com/OSGeo/gdal)             |
 | libspatialindex | Score generation     | [libspatialindex](https://libspatialindex.org/en/latest/) |
 | tippecanoe      | Generate map tiles   | [Mapbox tippecanoe](https://github.com/mapbox/tippecanoe) |
 
@@ -66,7 +65,6 @@ The application requires the installation of three 3rd party tools.
 
 Use Homebrew to install the three tools.
 
-- GDAL: `brew install gdal`
 - libspatialindex: `brew install spatialindex`
 - tippecanoe: `brew install tippecanoe`
 

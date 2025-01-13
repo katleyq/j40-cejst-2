@@ -7,10 +7,13 @@ from data_pipeline.score.field_names import GEOID_TRACT_FIELD
 
 @pytest.fixture(scope="session")
 def final_score_df():
-    return pd.read_csv(
-        settings.APP_ROOT / "data" / "score" / "csv" / "full" / "usa.csv",
-        dtype={GEOID_TRACT_FIELD: str},
-        low_memory=False,
+    return pd.read_parquet(
+        settings.APP_ROOT
+        / "data"
+        / "score"
+        / "csv"
+        / "full"
+        / "usa_score.parquet",
     )
 
 
@@ -173,7 +176,7 @@ def geocorr_urban_rural_df():
 @pytest.fixture()
 def census_decennial_df():
     census_decennial_csv = (
-        constants.DATA_PATH / "dataset" / "census_decennial_2010" / "usa.csv"
+        constants.DATA_PATH / "dataset" / "census_decennial_2020" / "usa.csv"
     )
     return pd.read_csv(
         census_decennial_csv,

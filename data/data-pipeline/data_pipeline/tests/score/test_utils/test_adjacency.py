@@ -17,7 +17,7 @@ from data_pipeline.score.utils import (
 @contextmanager
 def patch_calculate_tract_adjacency_scores():
     # Use fixtures for tract data.
-    tract_data_path = Path(__file__).parent / "data" / "us.geojson"
+    tract_data_path = Path(__file__).parent / "data" / "us_geo.parquet"
 
     get_tract_geojson_mock = partial(
         get_tract_geojson, _tract_data_path=tract_data_path

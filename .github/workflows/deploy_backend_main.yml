@@ -59,12 +59,6 @@ jobs:
         with:
           path: data/data-pipeline/data_pipeline/data/census
           key: data-census
-      - name: Install GDAL/ogr2ogr
-        if: steps.cache-census.outputs.cache-hit != 'true'
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install gdal-bin
-          ogrinfo --version
       - name: Get Census Data
         if: steps.cache-census.outputs.cache-hit != 'true'
         run: |
@@ -72,7 +66,6 @@ jobs:
       - name: Run ETL
         run: |
           poetry run python3 -m data_pipeline.application etl-run
-          poetry run python3 -m data_pipeline.application etl-run --dataset tribal
       - name: Generate Score
         run: |
           poetry run python3 -m data_pipeline.application score-run

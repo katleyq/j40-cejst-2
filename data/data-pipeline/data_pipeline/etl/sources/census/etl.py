@@ -1,10 +1,9 @@
 import csv
-import json
-import subprocess
 from enum import Enum
 from pathlib import Path
 
 import geopandas as gpd
+import pandas as pd
 from data_pipeline.etl.base import ExtractTransformLoad
 from data_pipeline.etl.sources.census.etl_utils import get_state_fips_codes
 from data_pipeline.utils import get_module_logger
@@ -26,8 +25,8 @@ class CensusETL(ExtractTransformLoad):
     CSV_BASE_PATH = ExtractTransformLoad.DATA_PATH / "census" / "csv"
     GEOJSON_PATH = ExtractTransformLoad.DATA_PATH / "census" / "geojson"
     NATIONAL_TRACT_CSV_PATH = CSV_BASE_PATH / "us.csv"
-    NATIONAL_TRACT_JSON_PATH = GEOJSON_BASE_PATH / "us.json"
-    GEOID_TRACT_FIELD_NAME: str = "GEOID10_TRACT"
+    NATIONAL_TRACT_JSON_PATH = GEOJSON_BASE_PATH / "us_geo.parquet"
+    GEOID_TRACT_FIELD_NAME: str = "GEOID10"
 
     def __init__(self):
 
@@ -59,7 +58,7 @@ class CensusETL(ExtractTransformLoad):
                 / f"tl_2010_{fips_code}_tract10.shp"
             )
         elif file_type == GeoFileType.GEOJSON:
-            file_path = Path(self.GEOJSON_BASE_PATH / f"{fips_code}.json")
+            file_path = Path(self.GEOJSON_BASE_PATH / f"{fips_code}.parquet")
         elif file_type == GeoFileType.CSV:
             file_path = Path(self.CSV_BASE_PATH / f"{fips_code}.csv")
         return file_path
@@ -93,14 +92,8 @@ class CensusETL(ExtractTransformLoad):
         )
 
         if not geojson_file_path.is_file():
-            cmd = [
-                "ogr2ogr",
-                "-f",
-                "GeoJSON",
-                str(geojson_file_path),
-                str(shp_file_path),
-            ]
-            subprocess.run(cmd, check=True)
+            gdf = gpd.read_file(shp_file_path)
+            gdf.to_parquet(geojson_file_path)
 
     def _generate_tract_table(self) -> None:
         """Generate Tract CSV table for pandas, load in memory
@@ -110,20 +103,15 @@ class CensusETL(ExtractTransformLoad):
         """
         logger.debug("Transforming tracts")
 
-        for file in self.GEOJSON_BASE_PATH.iterdir():
-            if file.suffix == ".json":
-                logger.debug(f"Adding GEOID10 for file {file.name}")
-                with open(self.GEOJSON_BASE_PATH / file, encoding="utf-8") as f:
-                    geojson = json.load(f)
-                    for feature in geojson["features"]:
-                        tractid10 = feature["properties"]["GEOID10"]
-                        self.TRACT_NATIONAL.append(str(tractid10))
-                        tractid10_state_id = tractid10[:2]
-                        if not self.TRACT_PER_STATE.get(tractid10_state_id):
-                            self.TRACT_PER_STATE[tractid10_state_id] = []
-                        self.TRACT_PER_STATE[tractid10_state_id].append(
-                            tractid10
-                        )
+        files = list(self.GEOJSON_BASE_PATH.glob("[0-9]*.parquet"))
+        files.sort()
+        for file in files:
+            logger.debug(f"Adding GEOID10 for file {file.name}")
+            state_df = gpd.read_parquet(file)
+            tract_list = state_df["GEOID10"].to_list()
+            self.TRACT_NATIONAL.extend(tract_list)
+            tractid10_state_id = state_df["STATEFP10"][0]
+            self.TRACT_PER_STATE[tractid10_state_id] = tract_list
 
     def transform(self) -> None:
         """Download all census shape files from the Census FTP and extract the geojson
@@ -210,18 +198,24 @@ class CensusETL(ExtractTransformLoad):
 
         usa_df = gpd.GeoDataFrame()
 
-        for file_name in self.GEOJSON_BASE_PATH.rglob("*.json"):
+        # Read state only files and append them into a MEGA US GPD
+        files = list(self.GEOJSON_BASE_PATH.glob("[0-9]*.parquet"))
+        files.sort()
+        for file_name in files:
             logger.debug(f"Adding national GeoJSON file {file_name.name}")
-            state_gdf = gpd.read_file(file_name)
-            usa_df = usa_df.append(state_gdf)
+            state_gdf = gpd.read_parquet(file_name)
+            usa_df = pd.concat([usa_df, state_gdf], ignore_index=True)
 
+        assert len(usa_df.columns) > 0
         logger.debug("Converting to CRS")
-        usa_df = usa_df.to_crs(
-            "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
-        )
+        usa_df = usa_df.to_crs("EPSG:4326")
 
         logger.debug("Saving national GeoJSON file")
-        usa_df.to_file(self.NATIONAL_TRACT_JSON_PATH, driver="GeoJSON")
+        # Convert tract ID to a string
+        usa_df[self.GEOID_TRACT_FIELD_NAME] = usa_df[
+            self.GEOID_TRACT_FIELD_NAME
+        ].astype(str, errors="ignore")
+        usa_df.to_parquet(self.NATIONAL_TRACT_JSON_PATH)
 
     def load(self) -> None:
         """Create state CSVs, National CSV, and National GeoJSON

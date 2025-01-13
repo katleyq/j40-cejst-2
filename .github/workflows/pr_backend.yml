@@ -98,11 +98,6 @@ jobs:
       - name: Install dependencies
         run: poetry add s4cmd && poetry install
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      - name: Install GDAL/ogr2ogr
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install gdal-bin
-          ogrinfo --version
       - name: Load cached ETL data
         id: cached-etl-data
         uses: actions/cache@v4
@@ -119,7 +114,6 @@ jobs:
         if: steps.cached-etl-data.outputs.cache-hit != 'true'
         run: |
           poetry run python3 -m data_pipeline.application etl-run
-          poetry run python3 -m data_pipeline.application etl-run --dataset tribal
       - name: Generate Score
         run: |
           poetry run python3 -m data_pipeline.application score-run

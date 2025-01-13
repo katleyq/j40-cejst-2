@@ -727,4 +727,4 @@ class ScoreETL(ExtractTransformLoad):
     def load(self) -> None:
         constants.DATA_SCORE_CSV_FULL_DIR.mkdir(parents=True, exist_ok=True)
 
-        self.df.to_csv(constants.DATA_SCORE_CSV_FULL_FILE_PATH, index=False)
+        self.df.to_parquet(constants.DATA_SCORE_CSV_FULL_FILE_PATH, index=False)

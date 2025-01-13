@@ -1,4 +1,7 @@
 import sys
+import os
+import pandas as pd
+from pathlib import Path
 from subprocess import call
 
 import click
@@ -19,6 +22,7 @@ from data_pipeline.etl.sources.tribal.etl_utils import (
     reset_data_directories as tribal_reset,
 )
 from data_pipeline.tile.generate import generate_tiles
+from data_pipeline.etl.score import constants
 from data_pipeline.utils import check_first_run
 from data_pipeline.utils import data_folder_cleanup
 from data_pipeline.utils import downloadable_cleanup
@@ -330,25 +334,11 @@ def data_full_run(check: bool, data_source: str, use_cache: bool):
         temp_folder_cleanup()
         tribal_reset(data_path)
 
-        if data_source == "local":
-            log_info("Downloading census data")
-            etl_runner("census", use_cache)
+        log_info("Downloading census data")
+        etl_runner("census", use_cache)
 
-            log_info("Running all ETLs")
-            etl_runner(use_cache=True)
-
-            log_info("Running tribal ETL")
-            etl_runner("tribal", use_cache)
-
-        else:
-            log_info("Downloading census data")
-            etl_runner("census", use_cache=False)
-
-            log_info("Running all ETLs")
-            etl_runner(use_cache=False)
-
-            log_info("Running tribal ETL")
-            etl_runner("tribal", use_cache=False)
+        log_info("Running all ETLs")
+        etl_runner(use_cache)
 
         log_info("Generating score")
         score_generate()
@@ -467,8 +457,39 @@ def full_run(ctx, use_cache):
         ctx.invoke(data_cleanup)
     ctx.invoke(census_data_download, zip_compress=False, use_cache=use_cache)
     ctx.invoke(etl_run, dataset=None, use_cache=use_cache)
-    ctx.invoke(etl_run, dataset="tribal", use_cache=use_cache)
     ctx.invoke(full_post_etl)
+
+
+@cli.command(
+    help="Convert a Pickle or Parquet file to GeoJSON or CSV depending on the contents of the file.",
+)
+@click.option(
+    "--source",
+    "-s",
+    type=click.Path(),
+    # We don't require this option, otherwise the tool will not run when there is no score
+    default=constants.DATA_SCORE_CSV_FULL_FILE_PATH,
+    help="Path to the input file. Defaults to the default location of the local score file.",
+)
+@click.option(
+    "--destination",
+    "-d",
+    type=click.Path(writable=True),
+    default=Path(
+        os.path.splitext(constants.DATA_SCORE_CSV_FULL_FILE_PATH)[0] + ".csv"
+    ),
+    help="Path to the input file. Defaults to the source file with CSV extension.",
+)
+def convert_score(source: Path, destination: Path):
+    """Converts the score file to CSV."""
+    if source.exists():
+        score_df = pd.read_parquet(source)
+        logger.info(f"Saving score as CSV to {destination}")
+        score_df.to_csv(destination, index=False)
+        logger.info("Done.")
+    else:
+        logger.error(f"Error: Unable to read {source}")
+        sys.exit(1)
 
 
 def log_title(title: str, subtitle: str = None):

@@ -70,7 +70,7 @@ def state_data_initial(sample_data_dir):
 
 @pytest.fixture()
 def score_data_initial(sample_data_dir):
-    return sample_data_dir / "score_data_initial.csv"
+    return sample_data_dir / "score_data_initial.parquet"
 
 
 @pytest.fixture()
@@ -104,8 +104,8 @@ def states_transformed_expected():
 
 @pytest.fixture()
 def score_transformed_expected():
-    return pd.read_pickle(
-        pytest.SNAPSHOT_DIR / "score_transformed_expected.pkl"
+    return pd.read_parquet(
+        pytest.SNAPSHOT_DIR / "score_transformed_expected.parquet"
     )
 
 
@@ -122,7 +122,7 @@ def national_tract_df():
 
 @pytest.fixture()
 def score_data_expected():
-    return pd.read_pickle(pytest.SNAPSHOT_DIR / "score_data_expected.pkl")
+    return pd.read_parquet(pytest.SNAPSHOT_DIR / "score_data_expected.parquet")
 
 
 @pytest.fixture()
@@ -144,8 +144,8 @@ def create_tile_data_expected():
 
 @pytest.fixture()
 def downloadable_data_expected():
-    return pd.read_pickle(
-        pytest.SNAPSHOT_DIR / "downloadable_data_expected.pkl"
+    return pd.read_parquet(
+        pytest.SNAPSHOT_DIR / "downloadable_data_expected.parquet"
     )
 
 

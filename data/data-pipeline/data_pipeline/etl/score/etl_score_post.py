@@ -94,12 +94,8 @@ class PostScoreETL(ExtractTransformLoad):
         )
 
     def _extract_score(self, score_path: Path) -> pd.DataFrame:
-        logger.debug("Reading Score CSV")
-        df = pd.read_csv(
-            score_path,
-            dtype={self.GEOID_TRACT_FIELD_NAME: "string"},
-            low_memory=False,
-        )
+        logger.debug("Reading Score")
+        df = pd.read_parquet(score_path)
 
         # Convert total population to an int
         df["Total population"] = df["Total population"].astype(
@@ -116,8 +112,7 @@ class PostScoreETL(ExtractTransformLoad):
            gpd.GeoDataFrame: the census geo json data
         """
         logger.debug("Reading Census GeoJSON")
-        with open(geo_path, "r", encoding="utf-8") as file:
-            data = gpd.read_file(file)
+        data = gpd.read_parquet(geo_path)
         return data
 
     def extract(self, use_cached_data_sources: bool = False) -> None:

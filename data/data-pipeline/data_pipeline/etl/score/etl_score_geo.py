@@ -37,9 +37,7 @@ class GeoScoreETL(ExtractTransformLoad):
         self.SCORE_CSV_PATH = self.DATA_PATH / "score" / "csv"
         self.TILE_SCORE_CSV = self.SCORE_CSV_PATH / "tiles" / "usa.csv"
 
-        self.CENSUS_USA_GEOJSON = (
-            self.DATA_PATH / "census" / "geojson" / "us.json"
-        )
+        self.CENSUS_USA_GEOJSON = constants.DATA_CENSUS_GEOJSON_FILE_PATH
 
         # Import the shortened name for Score N to be used on tiles.
         # We should no longer be using PFS
@@ -87,16 +85,14 @@ class GeoScoreETL(ExtractTransformLoad):
             score_data_source=self.DATA_SOURCE,
         )
 
-        logger.info("Reading US GeoJSON (~6 minutes)")
-        full_geojson_usa_df = gpd.read_file(
+        logger.info("Reading US GeoJSON")
+        full_geojson_usa_df = gpd.read_parquet(
             self.CENSUS_USA_GEOJSON,
-            dtype={self.GEOID_FIELD_NAME: "string"},
-            usecols=[
+            columns=[
                 self.GEOID_FIELD_NAME,
                 self.GEOMETRY_FIELD_NAME,
                 self.LAND_FIELD_NAME,
             ],
-            low_memory=False,
         )
 
         # We only want to keep tracts to visualize that have non-0 land
@@ -104,7 +100,7 @@ class GeoScoreETL(ExtractTransformLoad):
             full_geojson_usa_df[self.LAND_FIELD_NAME] > 0
         ]
 
-        logger.info("Reading score CSV")
+        logger.info("Reading tile score CSV")
         self.score_usa_df = pd.read_csv(
             self.TILE_SCORE_CSV,
             dtype={

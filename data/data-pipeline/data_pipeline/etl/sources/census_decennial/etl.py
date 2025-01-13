@@ -33,7 +33,7 @@ class CensusDecennialETL(ExtractTransformLoad):
         / f"census_decennial_{DECENNIAL_YEAR}"
     )
     CENSUS_GEOJSON_PATH = (
-        ExtractTransformLoad.DATA_PATH / "census" / "geojson" / "us.json"
+        ExtractTransformLoad.DATA_PATH / "census" / "geojson" / "us_geo.parquet"
     )
 
     def __get_api_url(
@@ -148,7 +148,7 @@ class CensusDecennialETL(ExtractTransformLoad):
         """Impute income for both income measures."""
         # Merges Census geojson to imput values from.
         logger.debug(f"Reading GeoJSON from {geojson_path}")
-        geo_df = gpd.read_file(geojson_path)
+        geo_df = gpd.read_parquet(geojson_path)
         self.df_all = CensusACSETL.merge_geojson(
             df=self.df_all,
             usa_geo_df=geo_df,
