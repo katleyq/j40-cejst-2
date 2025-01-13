@@ -72,7 +72,7 @@ If you've made changes to the docker-compose file and want to re-build the j40_w
 
 This will not use the cache and re-build the image. Then do 
 
-`docker-compoe up`
+`docker-compose up`
 
 #### docker hangs
 - Ensure that there's enough disk image space in docker. The Docker Desktop app will show the total disk image used (gear cog -> Resources -> Disk image size). This application will require ~ 30 - 35 GB. Allocating 50-60 GB should be sufficient. If the amount used is significantly greater than 35 GB you may need to prune the docker images:
