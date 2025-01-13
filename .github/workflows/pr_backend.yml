@@ -6,7 +6,6 @@ concurrency:
   cancel-in-progress: true
 env:
   python-version: '3.10'
-  CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
   J40_VERSION_LABEL_STRING: ${{ vars.SCORE_VERSION }}
 jobs:
   # JOB to run change detection
@@ -51,7 +50,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
-          key: env-${{ runner.os }}-${{ env.python-version }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('.github/workflows/deploy_backend_main.yml') }}
+          key: cejst-poetry-env-${{ runner.os }}-${{ env.python-version }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('.github/workflows/deploy_backend_main.yml') }}
       - name: Install poetry
         uses: snok/install-poetry@v1
       - name: Install dependencies
@@ -64,7 +63,7 @@ jobs:
       - name: Run static code analysis
         run: poetry run pylint data_pipeline/
       - name: Check library safety
-        run: poetry run safety check --ignore 51457 --ignore 44715 --ignore 70612
+        run: poetry run safety check --ignore 51457 --ignore 44715 --ignore 70612 --ignore 74439
       - name: Run unit tests
         run: |
           poetry run pytest data_pipeline/
@@ -91,7 +90,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
-          key: env-${{ runner.os }}-${{ env.python-version }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('.github/workflows/deploy_backend_main.yml') }}
+          key: cejst-poetry-env-${{ runner.os }}-${{ env.python-version }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('.github/workflows/deploy_backend_main.yml') }}
       - name: Install poetry
         uses: snok/install-poetry@v1
       - name: Print Poetry settings
@@ -99,21 +98,22 @@ jobs:
       - name: Install dependencies
         run: poetry add s4cmd && poetry install
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      - name: Install GDAL/ogr2ogr
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install gdal-bin
-          ogrinfo --version
-      - name: Cleanup Data
-        run: |
-          poetry run python3 -m data_pipeline.application data-cleanup
+      - name: Load cached ETL data
+        id: cached-etl-data
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/data-pipeline/data_pipeline/data/census
+            data/data-pipeline/data_pipeline/data/dataset
+          key: cejst-dataset-env-${{ runner.os }}-${{ env.python-version }}-${{ hashFiles('data/data-pipeline/data_pipeline/etl/**/*') }}-${{ hashFiles('data/data-pipeline/data_pipeline/utils.py') }}
       - name: Get Census Data
+        if: steps.cached-etl-data.outputs.cache-hit != 'true'
         run: |
           poetry run python3 -m data_pipeline.application census-data-download
       - name: Run ETL
+        if: steps.cached-etl-data.outputs.cache-hit != 'true'
         run: |
           poetry run python3 -m data_pipeline.application etl-run
-          poetry run python3 -m data_pipeline.application etl-run --dataset tribal
       - name: Generate Score
         run: |
           poetry run python3 -m data_pipeline.application score-run

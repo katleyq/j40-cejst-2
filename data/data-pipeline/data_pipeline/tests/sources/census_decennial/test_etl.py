@@ -68,7 +68,7 @@ def transformed_data_fixture(
     """Load the test data and call the ETL transform"""
     dec = CensusDecennialETL()
     dec.df_all = extracted_data_fixture
-    dec.transform(imputed_path_fixture / "census-us-territory-geojson.json")
+    dec.transform(imputed_path_fixture / "census-us-territory-geojson.parquet")
     return dec.df_all
 
 

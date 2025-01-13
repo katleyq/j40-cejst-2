@@ -26,10 +26,7 @@ def get_tract_geojson(
         census_etl.extract()
         census_etl.transform()
         census_etl.load()
-    tract_data = gpd.read_file(
-        GEOJSON_PATH,
-        include_fields=["GEOID10"],
-    )
+    tract_data = gpd.read_parquet(GEOJSON_PATH)
     tract_data = tract_data.rename(
         columns={"GEOID10": "GEOID10_TRACT"}, errors="raise"
     )

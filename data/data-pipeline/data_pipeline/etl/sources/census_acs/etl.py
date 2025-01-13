@@ -507,7 +507,7 @@ class CensusACSETL(ExtractTransformLoad):
         # geojson file for all of the US, this will read it off of S3
         logger.debug("Reading in geojson for the country")
         if not os.path.exists(
-            self.DATA_PATH / "census" / "geojson" / "us.json"
+            self.DATA_PATH / "census" / "geojson" / "us_geo.parquet"
         ):
             logger.debug("Fetching Census data from AWS S3")
             unzip_file_from_url(
@@ -515,9 +515,8 @@ class CensusACSETL(ExtractTransformLoad):
                 self.DATA_PATH / "tmp",
                 self.DATA_PATH,
             )
-
-        self.geo_df = gpd.read_file(
-            self.DATA_PATH / "census" / "geojson" / "us.json",
+        self.geo_df = gpd.read_parquet(
+            self.DATA_PATH / "census" / "geojson" / "us_geo.parquet",
         )
 
     def transform(self) -> None:

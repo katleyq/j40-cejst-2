@@ -129,6 +129,18 @@ export const getTribalPercentValue = (tribalPercentRaw: number) => {
 const AreaDetail = ({properties}: IAreaDetailProps) => {
   const intl = useIntl();
 
+  /**
+   * Set the indicators for a given category.
+   * @param {string} id the category ID
+   * @param {indicatorInfo[]} indicators the indicators to set for the category.
+   * @throws Error if the category ID does not exist
+   */
+  const setCategoryIndicators = (id: string, indicators: indicatorInfo[]) => {
+    const cat = categories.find((category) => category.id === id);
+    if (cat) cat.indicators = indicators;
+    else throw new Error('Unknown side panel category ID ' + id);
+  };
+
   // console.log the properties of the census that is selected:
   console.log(
       "BE signals for tract (last one is the tract currently selected): ",
@@ -986,36 +998,14 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
    * This sidePanelState has 3 values; namely, Nation, Puerto Rico and Island Areas.
    */
   if (sidePanelState === constants.SIDE_PANEL_STATE_VALUES.PUERTO_RICO) {
-    // Allow all categories except health burdens:
-    categories = categories.filter(
-        (category) => category.id !== "health-burdens",
-    );
-
     // Re-define which burdens show up for each category:
 
-    // 'climate-change'
-    categories[0].indicators = [flooding];
-
-    // 'clean-energy'
-    categories[1].indicators = [energyCost];
-
-    // 'health-burdens'
-    // not showing this category
-
-    // 'sustain-house'
-    categories[2].indicators = [houseCost, lackPlumbing, leadPaint];
-
-    // 'leg-pollute'
-    categories[3].indicators = [proxHaz, proxRMP, proxNPL];
-
-    // 'clean-transport'
-    categories[4].indicators = [dieselPartMatter, trafficVolume];
-
-    // 'clean-water'
-    // show all
-
-    // 'work-dev'
-    categories[6].indicators = [lowMedInc, poverty, unemploy];
+    setCategoryIndicators('climate-change', [flooding]);
+    setCategoryIndicators('clean-energy', [energyCost]);
+    setCategoryIndicators('sustain-house', [historicUnderinvest, houseCost, lackPlumbing, leadPaint]);
+    setCategoryIndicators('leg-pollute', [proxHaz, proxRMP, proxNPL]);
+    setCategoryIndicators('clean-transport', [dieselPartMatter, trafficVolume]);
+    setCategoryIndicators('work-dev', [lowMedInc, poverty, unemploy]);
   }
 
   if (sidePanelState === constants.SIDE_PANEL_STATE_VALUES.ISLAND_AREAS) {
@@ -1070,9 +1060,6 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
       <>
         {/* Indicators - filters then map */}
         {category.indicators
-            .filter(
-                indicatorFilter(EXPLORE_COPY.SIDE_PANEL_INDICATORS.HIST_UNDERINVEST),
-            )
             .map((indicator: any, index: number) => {
               return <Indicator key={`ind${index}`} indicator={indicator} />;
             })}

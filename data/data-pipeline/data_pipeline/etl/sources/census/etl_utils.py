@@ -104,7 +104,7 @@ def check_census_data_source(
         )
     else:
         # check if census data is found locally
-        if not os.path.isfile(census_data_path / "geojson" / "us.json"):
+        if not os.path.isfile(census_data_path / "geojson" / "us_geo.parquet"):
             logger.error(
                 "No local census data found. Please use '-s aws` to fetch from AWS"
             )

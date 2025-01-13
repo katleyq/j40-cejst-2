@@ -5,26 +5,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Score Run",
-      "type": "python",
-      "request": "launch",
-      "module": "data_pipeline.application",
-      "args": [
-        "score-run"
-      ]
-    },
-    {
-      "name": "Generate Score Post",
-      "type": "python",
-      "request": "launch",
-      "module": "data_pipeline.application",
-      "args": [
-        "generate-score-post"
-      ]
-    },
-    {
       "name": "Data Cleanup",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "data_pipeline.application",
       "args": [
@@ -33,7 +15,7 @@
     },
     {
       "name": "Census Cleanup",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "data_pipeline.application",
       "args": [
@@ -42,53 +24,16 @@
     },
     {
       "name": "Download Census",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "data_pipeline.application",
       "args": [
-        "census-data-download"
-      ]
-    },
-    {
-      "name": "Score Full Run",
-      "type": "python",
-      "request": "launch",
-      "module": "data_pipeline.application",
-      "args": [
-        "score-full-run"
-      ]
-    },
-    {
-      "name": "Combine Score and GeoJSON",
-      "type": "python",
-      "request": "launch",
-      "module": "data_pipeline.application",
-      "args": [
-        "geo-score"
-      ]
-    },
-    {
-      "name": "Generate Score Tiles",
-      "type": "python",
-      "request": "launch",
-      "module": "data_pipeline.application",
-      "args": [
-        "generate-map-tiles"
-      ]
-    },
-    {
-      "name": "Generate Tribal Tiles",
-      "type": "python",
-      "request": "launch",
-      "module": "data_pipeline.application",
-      "args": [
-        "generate-map-tiles",
-        "-t"
+        "census-data-download", "-u"
       ]
     },
     {
       "name": "ETL Run",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "data_pipeline.application",
       "args": [
@@ -96,19 +41,8 @@
       ]
     },
     {
-      "name": "ETL Run NRI",
-      "type": "python",
-      "request": "launch",
-      "module": "data_pipeline.application",
-      "args": [
-        "etl-run",
-        "--dataset",
-        "national_risk_index"
-      ]
-    },
-    {
       "name": "ETL Run Tribal",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "data_pipeline.application",
       "args": [
@@ -118,8 +52,63 @@
       ]
     },
     {
+      "name": "Score Run",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data_pipeline.application",
+      "args": [
+        "score-run"
+      ]
+    },
+    {
+      "name": "Combine Score and GeoJSON",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data_pipeline.application",
+      "args": [
+        "geo-score"
+      ]
+    },
+    {
+      "name": "Generate Score Post",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data_pipeline.application",
+      "args": [
+        "generate-score-post"
+      ]
+    },
+    {
+      "name": "Generate Score Tiles",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data_pipeline.application",
+      "args": [
+        "generate-map-tiles"
+      ]
+    },
+    {
+      "name": "Generate Tribal Tiles",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data_pipeline.application",
+      "args": [
+        "generate-map-tiles",
+        "-t"
+      ]
+    },
+    {
+      "name": "Score Full Run",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data_pipeline.application",
+      "args": [
+        "score-full-run"
+      ]
+    },
+    {
       "name": "Data Full Run",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "data_pipeline.application",
       "args": [
@@ -127,8 +116,26 @@
       ]
     },
     {
+      "name": "Comparator",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data_pipeline.comparator",
+      "args": [
+        "compare-score",
+      ]
+    },
+    {
+      "name": "Convert score to CSV",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data_pipeline.application",
+      "args": [
+        "convert-score",
+      ]
+    },
+    {
       "name": "poetry install",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "poetry",
       "args": [
@@ -137,7 +144,7 @@
     },
     {
       "name": "poetry update",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "poetry",
       "args": [

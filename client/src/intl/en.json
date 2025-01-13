@@ -1311,9 +1311,9 @@
     "defaultMessage": "The public can also email {general_email_address}",
     "description": "Navigate to the FAQs page, this will be an answer, Q15_P1_4"
   },
-  "faqs.page.answers.Q16": {
+  "faqs.page.answers.Q16_P1": {
     "defaultMessage": "CEQ launched a beta—or draft—version of the CEJST in February 2022 with support from the U.S. Digital Service (USDS), and in collaboration with other Federal agencies and departments. The CEJST was released in a beta version in order to seek <link1>feedback</link1> from Federal agencies, Tribal Nations, State and local governments, Members of Congress, environmental justice stakeholders, and the public. The 90 day public comment period <link2>closed</link2> on May 25, 2022. CEQ and the USDS hosted several <link3>public training</link3> sessions on the beta version of the CEJST. All of this feedback on the beta version of the CEJST helped to inform the release of version 1.0 of the CEJST.",
-    "description": "Navigate to the FAQs page, this will be an answer, Q16"
+    "description": "Navigate to the FAQs page, this will be an answer, Q16_P1"
   },
   "faqs.page.answers.Q16_P2": {
     "defaultMessage": "The 1.0 version was released in <link1>{version1Release}</link1>. The current version, version {currentVersion}, was released in {currentVersionRelease}.",

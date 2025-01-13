@@ -12,13 +12,26 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 logger = get_module_logger(__name__)
 
 
+def _log_retry_failure(retry_state):
+    logger.warning(
+        f"Failure downloading {retry_state.kwargs['file_url']}. Will retry."
+    )
+
+
 class Downloader:
     """A simple class to encapsulate the download capabilities of the application"""
 
+    num_retries = (
+        settings.REQUEST_RETRIES
+        if "REQUEST_RETRIES" in settings
+        else settings.REQUESTS_DEFAULT_RETRIES
+    )
+
     @classmethod
     @retry(
-        stop=stop_after_attempt(3),
+        stop=stop_after_attempt(num_retries),
         wait=wait_exponential(multiplier=1, min=4, max=10),
+        before_sleep=_log_retry_failure,
     )
     def download_file_from_url(
         cls,
@@ -43,9 +56,12 @@ class Downloader:
 
         download_file_name.parent.mkdir(parents=True, exist_ok=True)
         logger.debug(f"Downloading {file_url}")
-        response = requests.get(
-            file_url, verify=verify, timeout=settings.REQUESTS_DEFAULT_TIMOUT
+        timeout = (
+            settings.REQUEST_TIMEOUT
+            if "REQUEST_TIMEOUT" in settings
+            else settings.REQUESTS_DEFAULT_TIMOUT
         )
+        response = requests.get(file_url, verify=verify, timeout=timeout)
         if response.status_code == 200:
             file_contents = response.content
             logger.debug("Downloaded.")
@@ -64,8 +80,9 @@ class Downloader:
 
     @classmethod
     @retry(
-        stop=stop_after_attempt(3),
+        stop=stop_after_attempt(num_retries),
         wait=wait_exponential(multiplier=1, min=4, max=10),
+        before_sleep=_log_retry_failure,
     )
     def download_zip_file_from_url(
         cls,

@@ -1,7 +1,9 @@
 [default]
 AWS_JUSTICE40_DATASOURCES_URL = "https://justice40-data.s3.amazonaws.com/data-sources"
-AWS_JUSTICE40_DATAPIPELINE_URL = "https://justice40-data.s3.amazonaws.com/data-pipeline"
+AWS_JUSTICE40_DATAPIPELINE_URL = "https://justice40-data.s3.amazonaws.com/data-versions/2.0"
 DATASOURCE_RETRIEVAL_FROM_AWS = true
+REQUEST_TIMEOUT = 120
+REQUEST_RETRIES = 2
 
 [development]
 

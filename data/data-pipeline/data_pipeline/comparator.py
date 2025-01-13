@@ -51,12 +51,19 @@ def _read_from_file(file_path: Path):
             "Please generate the score and try again."
         )
         sys.exit(1)
-    return pd.read_csv(
-        file_path,
-        index_col="GEOID10_TRACT",
-        dtype={"GEOID10_TRACT": str},
-        low_memory=False,
-    ).sort_index()
+    df = pd.DataFrame()
+    if file_path.suffix == ".parquet":
+        df = pd.read_parquet(file_path)
+        df.set_index("GEOID10_TRACT", inplace=True)
+    else:
+        df = pd.read_csv(
+            file_path,
+            index_col="GEOID10_TRACT",
+            dtype={"GEOID10_TRACT": str},
+            low_memory=False,
+        )
+
+    return df.sort_index()
 
 
 def _add_tract_list(tract_list: list[str]):
@@ -67,7 +74,7 @@ def _add_tract_list(tract_list: list[str]):
         tract_list (list[str]): a list of tracts
     """
     if len(tract_list) > 0:
-        _add_text("Those tracts are:\n")
+        _add_text(" Those tracts are:\n")
         # First extract the Census states/territories
         states_by_tract = []
         for tract in tract_list:
@@ -125,7 +132,7 @@ def _compare_score_results(prod_df: pd.DataFrame, local_df: pd.DataFrame):
         local_df (pd.DataFrame): the local score
     """
     log_info("Comparing dataframe contents (production vs local)")
-    _add_text("\n\n## Scores\n")
+    _add_text("\n## Scores\n")
 
     production_row_count = len(prod_df.index)
     local_row_count = len(local_df.index)
@@ -189,10 +196,10 @@ def _compare_score_results(prod_df: pd.DataFrame, local_df: pd.DataFrame):
         f" in the locally generated score representing {local_pct_of_population_represented:.1%} of the total population."
     )
     _add_text(
-        " The number of tracts match!\n "
+        " The number of tracts match!\n"
         if len(production_disadvantaged_tracts_set)
         == len(local_disadvantaged_tracts_set)
-        else f" The difference is {abs(len(production_disadvantaged_tracts_set) - len(local_disadvantaged_tracts_set))} tract(s).\n "
+        else f" The difference is {abs(len(production_disadvantaged_tracts_set) - len(local_disadvantaged_tracts_set))} tract(s).\n"
     )
 
     removed_tracts = production_disadvantaged_tracts_set.difference(
@@ -213,17 +220,44 @@ def _compare_score_results(prod_df: pd.DataFrame, local_df: pd.DataFrame):
     )
     _add_tract_list(added_tracts)
 
-    # Grandfathered tracts from v1.0
-    grandfathered_tracts = local_df.loc[
-        local_df[field_names.GRANDFATHERED_N_COMMUNITIES_V1_0]
-    ].index
-    if len(grandfathered_tracts) > 0:
-        _add_text(
-            f"* This includes {len(grandfathered_tracts)} grandfathered tract(s) from v1.0 scoring."
-        )
-        _add_tract_list(grandfathered_tracts)
+
+def _check_grandfathered_tracts(
+    prod_df: pd.DataFrame, local_df: pd.DataFrame, compare_to_version: str
+):
+    """
+    Find grandfathered tracts for v1.0 comparisons.
+
+    Args:
+        prod_df (pd.DataFrame): the production score
+        local_df (pd.DataFrame): the local score
+        compare_to_version (str): the compare to version
+    """
+
+    # Set the field we will check for grandfathering.
+    # This allows us to add other fields for other versions.
+    grandfathered_field = (
+        field_names.GRANDFATHERED_N_COMMUNITIES_V1_0
+        if compare_to_version.startswith("1")
+        else None
+    )
+
+    # If there is a grandfathered field then check for those tracts
+    if grandfathered_field:
+        log_info("Checking for grandfathered tracks")
+        grandfathered_tracts = local_df.loc[
+            local_df[field_names.GRANDFATHERED_N_COMMUNITIES_V1_0]
+        ].index
+        if len(grandfathered_tracts) > 0:
+            _add_text(
+                f"\n* This includes {len(grandfathered_tracts)} grandfathered tract(s) from v1.0 scoring."
+            )
+            _add_tract_list(grandfathered_tracts)
+        else:
+            _add_text(
+                "* There are NO grandfathered tracts from v1.0 scoring.\n"
+            )
     else:
-        _add_text("* There are NO grandfathered tracts from v1.0 scoring.\n")
+        _add_text("\n* There is no grandfathered tract list for this version.")
 
 
 def _generate_delta(prod_df: pd.DataFrame, local_df: pd.DataFrame):
@@ -234,7 +268,7 @@ def _generate_delta(prod_df: pd.DataFrame, local_df: pd.DataFrame):
         prod_df (pd.DataFrame): the production score
         local_df (pd.DataFrame): the local score
     """
-    _add_text("\n## Delta\n")
+    _add_text("\n\n## Delta\n")
     # First we make the columns on two dataframes to be the same to be able to compare
     local_score_df_columns = local_df.columns.array.tolist()
     production_score_df_columns = prod_df.columns.array.tolist()
@@ -287,7 +321,7 @@ def cli():
 @click.option(
     "-v",
     "--compare-to-version",
-    default="1.0",
+    default="2.0",
     required=False,
     type=str,
     help="Set the production score version to compare to",
@@ -359,8 +393,10 @@ def compare_score(
 
     _compare_score_columns(production_score_df, local_score_df)
     _compare_score_results(production_score_df, local_score_df)
+    _check_grandfathered_tracts(
+        production_score_df, local_score_df, compare_to_version
+    )
     _generate_delta(production_score_df, local_score_df)
-
     result_doc = _get_result_doc()
     print(result_doc)
 

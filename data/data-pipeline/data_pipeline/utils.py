@@ -147,9 +147,12 @@ def download_file_from_url(
     if not os.path.isdir(download_file_name.parent):
         os.mkdir(download_file_name.parent)
 
-    response = requests.get(
-        file_url, verify=verify, timeout=settings.REQUESTS_DEFAULT_TIMOUT
+    timeout = (
+        settings.REQUEST_TIMEOUT
+        if "REQUEST_TIMEOUT" in settings
+        else settings.REQUESTS_DEFAULT_TIMOUT
     )
+    response = requests.get(file_url, verify=verify, timeout=timeout)
     if response.status_code == 200:
         file_contents = response.content
     else:

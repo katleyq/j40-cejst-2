@@ -24,7 +24,7 @@ DATA_CENSUS_DIR = DATA_PATH / "census"
 DATA_CENSUS_CSV_DIR = DATA_CENSUS_DIR / "csv"
 DATA_CENSUS_CSV_FILE_PATH = DATA_CENSUS_CSV_DIR / "us.csv"
 DATA_CENSUS_CSV_STATE_FILE_PATH = DATA_CENSUS_CSV_DIR / "fips_states_2010.csv"
-DATA_CENSUS_GEOJSON_FILE_PATH = DATA_CENSUS_DIR / "geojson" / "us.json"
+DATA_CENSUS_GEOJSON_FILE_PATH = DATA_CENSUS_DIR / "geojson" / "us_geo.parquet"
 
 # Score paths
 DATA_SCORE_DIR = DATA_PATH / "score"
@@ -32,7 +32,7 @@ DATA_SCORE_DIR = DATA_PATH / "score"
 ## Score CSV Paths
 DATA_SCORE_CSV_DIR = DATA_SCORE_DIR / "csv"
 DATA_SCORE_CSV_FULL_DIR = DATA_SCORE_CSV_DIR / "full"
-DATA_SCORE_CSV_FULL_FILE_PATH = DATA_SCORE_CSV_FULL_DIR / "usa.csv"
+DATA_SCORE_CSV_FULL_FILE_PATH = DATA_SCORE_CSV_FULL_DIR / "usa_score.parquet"
 FULL_SCORE_CSV_FULL_PLUS_COUNTIES_FILE_PATH = (
     DATA_SCORE_CSV_FULL_DIR / "usa_counties.csv"
 )
@@ -52,7 +52,7 @@ DATA_TILES_SEARCH_DIR = DATA_SCORE_DIR / "search"
 
 # Downloadable paths
 if not os.environ.get("J40_VERSION_LABEL_STRING"):
-    version_str = "beta"
+    version_str = "2.0"
 else:
     version_str = os.environ.get("J40_VERSION_LABEL_STRING")
 

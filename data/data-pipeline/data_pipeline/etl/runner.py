@@ -1,6 +1,8 @@
 import concurrent.futures
 import importlib
+import time
 import typing
+import os
 
 from functools import reduce
 
@@ -26,9 +28,7 @@ def _get_datasets_to_run(dataset_to_run: str) -> typing.List[dict]:
         None
     """
     dataset_list = constants.DATASET_LIST
-    etls_to_search = (
-        dataset_list + [constants.CENSUS_INFO] + [constants.TRIBAL_INFO]
-    )
+    etls_to_search = dataset_list + [constants.CENSUS_INFO]
 
     if dataset_to_run:
         dataset_element = next(
@@ -58,6 +58,8 @@ def _get_dataset(dataset: dict) -> ExtractTransformLoad:
 def _run_one_dataset(dataset: dict, use_cache: bool = False) -> None:
     """Runs one etl process."""
 
+    start_time = time.time()
+
     logger.info(f"Running ETL for {dataset['name']}")
     etl_instance = _get_dataset(dataset)
 
@@ -82,9 +84,16 @@ def _run_one_dataset(dataset: dict, use_cache: bool = False) -> None:
     etl_instance.cleanup()
 
     logger.info(f"Finished ETL for dataset {dataset['name']}")
+    logger.debug(
+        f"Execution time for ETL for dataset {dataset['name']} was {time.time() - start_time}s"
+    )
 
 
-def etl_runner(dataset_to_run: str = None, use_cache: bool = False) -> None:
+def etl_runner(
+    dataset_to_run: str = None,
+    use_cache: bool = False,
+    no_concurrency: bool = False,
+) -> None:
     """Runs all etl processes or a specific one
 
     Args:
@@ -112,9 +121,12 @@ def etl_runner(dataset_to_run: str = None, use_cache: bool = False) -> None:
         dataset for dataset in dataset_list if dataset["is_memory_intensive"]
     ]
 
+    max_workers = 1 if no_concurrency else os.cpu_count()
     if concurrent_datasets:
-        logger.info("Running concurrent ETL jobs")
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        logger.info(f"Running concurrent ETL jobs on {max_workers} thread(s)")
+        with concurrent.futures.ThreadPoolExecutor(
+            max_workers=max_workers
+        ) as executor:
             futures = {
                 executor.submit(
                     _run_one_dataset, dataset=dataset, use_cache=use_cache
@@ -189,10 +201,14 @@ def score_generate() -> None:
     """
 
     # Score Gen
+    start_time = time.time()
     score_gen = ScoreETL()
     score_gen.extract()
     score_gen.transform()
     score_gen.load()
+    logger.debug(
+        f"Execution time for Score Generation was {time.time() - start_time}s"
+    )
 
 
 def score_post(data_source: str = "local") -> None:
@@ -208,11 +224,15 @@ def score_post(data_source: str = "local") -> None:
         None
     """
     # Post Score Processing
+    start_time = time.time()
     score_post = PostScoreETL(data_source=data_source)
     score_post.extract()
     score_post.transform()
     score_post.load()
     score_post.cleanup()
+    logger.debug(
+        f"Execution time for Score Post was {time.time() - start_time}s"
+    )
 
 
 def score_geo(data_source: str = "local") -> None:
@@ -229,10 +249,14 @@ def score_geo(data_source: str = "local") -> None:
     """
 
     # Score Geo
+    start_time = time.time()
     score_geo = GeoScoreETL(data_source=data_source)
     score_geo.extract()
     score_geo.transform()
     score_geo.load()
+    logger.debug(
+        f"Execution time for Score Geo was {time.time() - start_time}s"
+    )
 
 
 def _find_dataset_index(dataset_list, key, value):

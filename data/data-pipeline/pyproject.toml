@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "justice40-data-pipeline"
-version = "1.0.1"
+version = "2.0"
 description = "ETL, Score and Map Generation of Justice 40 Tool"
 authors = ["Justice40 Engineering <j40-engineering@lists.usds.gov>"]
 keywords = ["justice40", "environmental_justice", "python", "etl"]
@@ -42,6 +42,7 @@ pydantic = "^1.9.0"
 Rtree = "^1.0.0"
 fiona = "~1.8.21"
 tenacity = ">=5.0.2"
+pyarrow = "^18.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^21"

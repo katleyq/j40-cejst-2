@@ -8,9 +8,8 @@
  * This file must be manually updated as needed.
  */
 
-export const identicalKeysEnEs = [
+const identicalKeysEnEs = [
   'common.pages.footer.findcontact.link',
-  'common.pages.footer.whitehouselogoalt',
   'common.pages.tsd.url',
   'explore.map.page.map.layer.selector.tribal.short',
   'explore.map.page.map.territoryFocus.alaska.long',
@@ -30,5 +29,4 @@ export const identicalKeysEnEs = [
   'explore.map.page.side.panel.not.community.of.focus',
   'methodology.page.dataset.indicator.diabetes.title.text',
 ];
-
-export default identicalKeysEnEs;
+module.exports = {identicalKeysEnEs};

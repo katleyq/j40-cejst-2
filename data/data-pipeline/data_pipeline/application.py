@@ -1,4 +1,7 @@
 import sys
+import os
+import pandas as pd
+from pathlib import Path
 from subprocess import call
 
 import click
@@ -19,6 +22,7 @@ from data_pipeline.etl.sources.tribal.etl_utils import (
     reset_data_directories as tribal_reset,
 )
 from data_pipeline.tile.generate import generate_tiles
+from data_pipeline.etl.score import constants
 from data_pipeline.utils import check_first_run
 from data_pipeline.utils import data_folder_cleanup
 from data_pipeline.utils import downloadable_cleanup
@@ -29,8 +33,6 @@ from data_pipeline.utils import geo_score_folder_cleanup
 
 logger = get_module_logger(__name__)
 
-dataset_cli_help = "Grab the data from either 'local' for local access or 'aws' to retrieve from Justice40 S3 repository"
-
 LOG_LINE_WIDTH = 60
 
 use_cache_option = click.option(
@@ -38,7 +40,7 @@ use_cache_option = click.option(
     "--use-cache",
     is_flag=True,
     default=False,
-    help="Check if data source has been downloaded already, and if it has, use the cached version of the data source.",
+    help="When set, will check for cached data sources to use before downloading new ones.",
 )
 
 dataset_option = click.option(
@@ -46,7 +48,7 @@ dataset_option = click.option(
     "--dataset",
     required=False,
     type=str,
-    help=dataset_cli_help,
+    help="Name of dataset to run. If not provided, all datasets will be run.",
 )
 
 data_source_option = click.option(
@@ -55,7 +57,7 @@ data_source_option = click.option(
     default="local",
     required=False,
     type=str,
-    help=dataset_cli_help,
+    help="Grab the data from either 'local' for local access or 'aws' to retrieve from Justice40 S3 repository. Default is 'local'.",
 )
 
 
@@ -141,9 +143,14 @@ def pull_census_data(data_source: str):
 @cli.command(
     help="Run all ETL processes or a specific one",
 )
+@click.option(
+    "--no-concurrency",
+    is_flag=True,
+    help="Run ETLs sequentially instead of concurrently.",
+)
 @dataset_option
 @use_cache_option
-def etl_run(dataset: str, use_cache: bool):
+def etl_run(dataset: str, use_cache: bool, no_concurrency: bool):
     """Run a specific or all ETL processes
 
     Args:
@@ -155,7 +162,7 @@ def etl_run(dataset: str, use_cache: bool):
     log_title("Run ETL")
 
     log_info("Running dataset(s)")
-    etl_runner(dataset, use_cache)
+    etl_runner(dataset, use_cache, no_concurrency)
 
     log_goodbye()
 
@@ -290,10 +297,10 @@ def generate_map_tiles(generate_tribal_layer):
 @data_source_option
 @use_cache_option
 def data_full_run(check: bool, data_source: str, use_cache: bool):
-    """CLI command to run ETL, score, JSON combine and generate tiles in one command
+    """CLI command to run ETL, score, JSON combine and generate tiles including tribal layer in one command
 
     Args:
-        check (bool): Run the full data run only if the first run sempahore file is not set (optional)
+        check (bool): Run the full data run only if the first run semaphore file is not set (optional)
         data_source (str): Source for the census data (optional)
                            Options:
                            - local: fetch census and score data from the local data directory
@@ -327,25 +334,11 @@ def data_full_run(check: bool, data_source: str, use_cache: bool):
         temp_folder_cleanup()
         tribal_reset(data_path)
 
-        if data_source == "local":
-            log_info("Downloading census data")
-            etl_runner("census", use_cache)
+        log_info("Downloading census data")
+        etl_runner("census", use_cache)
 
-            log_info("Running all ETLs")
-            etl_runner(use_cache=True)
-
-            log_info("Running tribal ETL")
-            etl_runner("tribal", use_cache)
-
-        else:
-            log_info("Downloading census data")
-            etl_runner("census", use_cache=False)
-
-            log_info("Running all ETLs")
-            etl_runner(use_cache=False)
-
-            log_info("Running tribal ETL")
-            etl_runner("tribal", use_cache=False)
+        log_info("Running all ETLs")
+        etl_runner(use_cache)
 
         log_info("Generating score")
         score_generate()
@@ -445,7 +438,7 @@ def clear_data_source_cache(dataset: str):
 )
 @click.pass_context
 def full_post_etl(ctx):
-    """Generate scoring and tiles"""
+    """Generate scoring and tiles including tribal layer"""
     ctx.invoke(score_run)
     ctx.invoke(generate_score_post, data_source=None)
     ctx.invoke(geo_score, data_source=None)
@@ -459,13 +452,44 @@ def full_post_etl(ctx):
 @use_cache_option
 @click.pass_context
 def full_run(ctx, use_cache):
-    """Run all downloads, ETLs, and generate scores and tiles"""
+    """Run all downloads, ETLs, and generate scores and tiles including tribal layer"""
     if not use_cache:
         ctx.invoke(data_cleanup)
     ctx.invoke(census_data_download, zip_compress=False, use_cache=use_cache)
     ctx.invoke(etl_run, dataset=None, use_cache=use_cache)
-    ctx.invoke(etl_run, dataset="tribal", use_cache=use_cache)
     ctx.invoke(full_post_etl)
+
+
+@cli.command(
+    help="Convert a Pickle or Parquet file to GeoJSON or CSV depending on the contents of the file.",
+)
+@click.option(
+    "--source",
+    "-s",
+    type=click.Path(),
+    # We don't require this option, otherwise the tool will not run when there is no score
+    default=constants.DATA_SCORE_CSV_FULL_FILE_PATH,
+    help="Path to the input file. Defaults to the default location of the local score file.",
+)
+@click.option(
+    "--destination",
+    "-d",
+    type=click.Path(writable=True),
+    default=Path(
+        os.path.splitext(constants.DATA_SCORE_CSV_FULL_FILE_PATH)[0] + ".csv"
+    ),
+    help="Path to the input file. Defaults to the source file with CSV extension.",
+)
+def convert_score(source: Path, destination: Path):
+    """Converts the score file to CSV."""
+    if source.exists():
+        score_df = pd.read_parquet(source)
+        logger.info(f"Saving score as CSV to {destination}")
+        score_df.to_csv(destination, index=False)
+        logger.info("Done.")
+    else:
+        logger.error(f"Error: Unable to read {source}")
+        sys.exit(1)
 
 
 def log_title(title: str, subtitle: str = None):

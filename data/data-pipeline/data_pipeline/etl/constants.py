@@ -155,7 +155,13 @@ DATASET_LIST = [
         "class_name": "HistoricRedliningETL",
         "is_memory_intensive": False,
     },
-    # This has to come after us.json exists
+    {
+        "name": "tribal",
+        "module_dir": "tribal",
+        "class_name": "TribalETL",
+        "is_memory_intensive": False,
+    },
+    # This has to come after us_geo.parquet exists
     {
         "name": "census_acs",
         "module_dir": "census_acs",
@@ -194,12 +200,5 @@ CENSUS_INFO = {
     "name": "census",
     "module_dir": "census",
     "class_name": "CensusETL",
-    "is_memory_intensive": False,
-}
-
-TRIBAL_INFO = {
-    "name": "tribal",
-    "module_dir": "tribal",
-    "class_name": "TribalETL",
     "is_memory_intensive": False,
 }

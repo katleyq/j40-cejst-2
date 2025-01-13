@@ -16,7 +16,7 @@
     "clean": "gatsby clean",
     "cy:open": "CYPRESS_REMOTE_DEBUGGING_PORT=9222 cypress open",
     "cy:run": "cypress run",
-    "licenses": "license-checker --production --onlyAllow 'Apache-2.0;BSD;BSD-2-Clause;BSD-3-Clause;CC0-1.0;CC-BY-3.0;CC-BY-4.0;ISC;MIT;Public Domain;Unlicense;UNLICENSED;ODC-By-1.0;WTFPL;MPL-2.0'",
+    "licenses": "license-checker --production --onlyAllow 'Apache-2.0;BSD;BSD-2-Clause;BSD-3-Clause;CC0-1.0;CC-BY-3.0;CC-BY-4.0;ISC;MIT;Public Domain;Unlicense;UNLICENSED;ODC-By-1.0;WTFPL;MPL-2.0' --excludePackages '@mapbox/jsonlint-lines-primitives@2.0.2'",
     "test": "jest",
     "test:e2e": "start-server-and-test develop http://localhost:8000 cy:open",
     "test:e2e:ci": "start-server-and-test develop http://localhost:8000 cy:run",
@@ -28,6 +28,7 @@
     "intl:removeNesting": "node src/intl/removeNesting.js",
     "intl:compile-en": "formatjs compile src/intl/en.json --ast --out-file compiled-lang/en.json",
     "test:intl-extraction": "node src/intl/testIntlExtraction",
+    "test:intl-translations": "node src/intl/diffEnEs",
     "prepare": "cd .. && husky install client/.husky",
     "gc": "node .generate_component $1",
     "compile": "tsc"
@@ -78,7 +79,6 @@
     "ts-jest": "^27.1.3"
   },
   "dependencies": {
-    "-": "^0.0.1",
     "@sentry/gatsby": "^7.7.0",
     "@trussworks/react-uswds": "^3.1.0",
     "@turf/bbox": "^6.5.0",

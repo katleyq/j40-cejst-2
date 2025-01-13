@@ -13,12 +13,14 @@ const esKeys = Object.keys(esJson);
 
 const missingKeys = enKeys.filter((key) => !esKeys.includes(key));
 const unusedKeys = esKeys.filter((key) => !enKeys.includes(key));
+let isError = false;
 
 if (missingKeys.length > 0 || unusedKeys.length > 0) {
   console.log('\nMISSING: These keys need to be added to es.json:');
   console.log(missingKeys);
   console.log('\nUNUSED: These keys in es.json are not in en.json:');
   console.log(unusedKeys);
+  isError = true;
 } else {
   console.log('SUCCESS: All keys match between en.json and es.json');
 }
@@ -30,6 +32,7 @@ if (untranslatedValues.length > 0) {
   console.log('\nIDENTICAL: These keys have identical text in both languages');
   console.log('(If any of these are intentionally identical, add them to identicalKeysEnEs.js):');
   console.log(untranslatedValues);
+  isError = true;
 }
 
 // Check for keys in identicalKeysEnEs that no longer exist in either translation file
@@ -39,4 +42,7 @@ const nonexistentIdenticalKeys = identicalKeysEnEs.filter(
 if (nonexistentIdenticalKeys.length > 0) {
   console.log('\nOUTDATED MATCH: These keys in identicalKeysEnEs.js no longer exist in translations:');
   console.log(nonexistentIdenticalKeys);
+  isError = true;
 }
+
+if (isError) process.exit(1);
