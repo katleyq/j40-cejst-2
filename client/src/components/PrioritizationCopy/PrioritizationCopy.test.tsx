@@ -1,5 +1,5 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
+import React from 'react';
 import {LocalizedComponent} from '../../test/testHelpers';
 import PrioritizationCopy from './PrioritizationCopy';
 
@@ -13,6 +13,8 @@ describe('rendering of PrioritizationCopy Component -', () => {
       tribalCountAK: null,
       tribalCountUS: null,
       percentTractTribal: null,
+      isIslandLowIncome: false,
+      isGrandfathered: false,
       // eslint-disable-next-line max-len
       para1: `This tract is not considered disadvantaged. It does not meet any burden thresholds `,
     },
@@ -24,6 +26,8 @@ describe('rendering of PrioritizationCopy Component -', () => {
       tribalCountAK: null,
       tribalCountUS: null,
       percentTractTribal: null,
+      isIslandLowIncome: false,
+      isGrandfathered: false,
       // eslint-disable-next-line max-len
       para1: `This tract is not considered disadvantaged. It meets 1 burden threshold`,
     },
@@ -35,6 +39,8 @@ describe('rendering of PrioritizationCopy Component -', () => {
       tribalCountAK: null,
       tribalCountUS: null,
       percentTractTribal: null,
+      isIslandLowIncome: false,
+      isGrandfathered: false,
       // eslint-disable-next-line max-len
       para1: `This tract is not considered disadvantaged. It meets more than 1 burden threshold `,
     },
@@ -46,6 +52,8 @@ describe('rendering of PrioritizationCopy Component -', () => {
       tribalCountAK: null,
       tribalCountUS: null,
       percentTractTribal: null,
+      isIslandLowIncome: false,
+      isGrandfathered: false,
       // eslint-disable-next-line max-len
       para1: `This tract is considered disadvantaged because it meets 1 burden threshold `,
     },
@@ -57,212 +65,11 @@ describe('rendering of PrioritizationCopy Component -', () => {
       tribalCountAK: null,
       tribalCountUS: null,
       percentTractTribal: null,
+      isIslandLowIncome: false,
+      isGrandfathered: false,
       // eslint-disable-next-line max-len
       para1: `This tract is considered disadvantaged because it meets more than 1 burden threshold `,
     },
-
-    // {
-    //   isDonut: false, percentTribal: 0,
-    //   totalCategories: 0, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `The less than 1% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: 0,
-    //   totalCategories: 0, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `The less than 1% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: 0,
-    //   totalCategories: 1, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `The less than 1% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: 0,
-    //   totalCategories: 1, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `The less than 1% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: 0,
-    //   totalCategories: 1, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `The less than 1% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-
-    // {
-    //   isDonut: false, percentTribal: .31,
-    //   totalCategories: 0, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `The 31% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: .31,
-    //   totalCategories: 0, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `The 31% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: .31,
-    //   totalCategories: 0, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `The 31% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: .31,
-    //   totalCategories: 1, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `The 31% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: .31,
-    //   totalCategories: 1, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `The 31% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: false, percentTribal: .31,
-    //   totalCategories: 1, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `The 31% of this tract that are Federally-Recognized Tribal lands are considered disadvantaged.`,
-    // },
-
-    // {
-    //   isDonut: true, percentTribal: null,
-    //   totalCategories: 0, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: null,
-    //   totalCategories: 0, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: null,
-    //   totalCategories: 0, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: null,
-    //   totalCategories: 1, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: null,
-    //   totalCategories: 1, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: null,
-    //   totalCategories: 1, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // },
-
-    // {
-    //   isDonut: true, percentTribal: 0,
-    //   totalCategories: 0, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The less than 1% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: 0,
-    //   totalCategories: 0, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The less than 1% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: 0,
-    //   totalCategories: 0, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The less than 1% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: 0,
-    //   totalCategories: 1, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The less than 1% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: 0,
-    //   totalCategories: 1, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The less than 1% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: 0,
-    //   totalCategories: 1, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The less than 1% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-
-    // {
-    //   isDonut: true, percentTribal: .29,
-    //   totalCategories: 0, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The 29% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: .29,
-    //   totalCategories: 0, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The 29% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: .29,
-    //   totalCategories: 0, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The 29% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: .29,
-    //   totalCategories: 1, totalIndicators: 0,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The 29% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: .29,
-    //   totalCategories: 1, totalIndicators: 1,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The 29% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
-    // {
-    //   isDonut: true, percentTribal: .29,
-    //   totalCategories: 2, totalIndicators: 2,
-    // eslint-disable-next-line max-len
-    //   para1: `This tract is considered disadvantaged because it is surrounded by tracts that are disadvantaged AND meets an adjusted low income threshold.`,
-    // eslint-disable-next-line max-len
-    //   para2: `The 29% of this tract that are Federally-Recognized Tribal lands are also considered disadvantaged.`,
-    // },
   ];
 
   testCases.forEach((testCase) => {
@@ -278,15 +85,14 @@ describe('rendering of PrioritizationCopy Component -', () => {
               tribalCountAK={testCase.tribalCountAK}
               tribalCountUS={null}
               percentTractTribal={testCase.percentTractTribal}
-
+              isIslandLowIncome={testCase.isIslandLowIncome}
+              isGrandfathered={testCase.isGrandfathered}
             />
           </LocalizedComponent>,
       );
       expect(asFragment()).toMatchSnapshot();
 
-      screen.getByText((content, element) => {
-        return element?.tagName.toLowerCase() === 'div' && content.startsWith(testCase.para1);
-      });
+      screen.getByText((content) => content.startsWith(testCase.para1));
     });
   });
 });

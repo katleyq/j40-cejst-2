@@ -47,6 +47,10 @@
     "defaultMessage": "Check it out on GitHub",
     "description": "Navigate to the About page. This is the link to github repository"
   },
+  "about.page.join.open.source.link.tag": {
+    "defaultMessage": "New Location",
+    "description": "Tag shown next to GitHub links indicating it has a new location"
+  },
   "about.page.join.opensource.heading": {
     "defaultMessage": "Join the open source community",
     "description": "Navigate to the About page. This is the join the community heading"
@@ -1188,7 +1192,7 @@
     "description": "Navigate to the explore the map page. Under the map, you will see territories paragraph 1"
   },
   "explore.map.page.under.map.note.on.territories.para.2": {
-    "defaultMessage": "<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: low income, unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income threshold only.",
+    "defaultMessage": "<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: low income, unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are also considered disadvantaged if they meet the low income threshold only.",
     "description": "Navigate to the explore the map page. Under the map, you will see territories paragraph 2"
   },
   "explore.map.page.under.map.note.on.tribal.nations.intro": {
@@ -1368,12 +1372,16 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q2_P3"
   },
   "faqs.page.answers.Q2_P4": {
-    "defaultMessage": "The tool uses census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. Tracts that were identified as disadvantaged in the 1.0 version of the tool remain disadvantaged in the 2.0 version of the tool.",
+    "defaultMessage": "The tool uses census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010.",
     "description": "Navigate to the FAQs page, this will be an answer, Q2_P4"
   },
   "faqs.page.answers.Q2_P5": {
-    "defaultMessage": "Due to limited data availability, tracts in American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands are considered disadvantaged if they meet the low income threshold only.",
+    "defaultMessage": "Tracts that were identified as disadvantaged in the 1.0 version of the tool remain disadvantaged in the 2.0 version of the tool.",
     "description": "Navigate to the FAQs page, this will be an answer, Q2_P5"
+  },
+  "faqs.page.answers.Q2_P6": {
+    "defaultMessage": "Due to limited data availability, tracts in American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands are considered disadvantaged if they meet the low income threshold only.",
+    "description": "Navigate to the FAQs page, this will be an answer, Q2_P6"
   },
   "faqs.page.answers.Q3_P1": {
     "defaultMessage": "No. The Climate and Economic Justice Screening Tool (CEJST) does not use racial demographics in its methodology. The current version of the tool displays data about race and age only to provide information when a census tract is selected.",
@@ -1396,7 +1404,7 @@
     "description": "Navigate to the FAQs page, this will be an answer, Q4_P2"
   },
   "faqs.page.answers.Q4_P3": {
-    "defaultMessage": "<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income threshold only.",
+    "defaultMessage": "<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are also considered disadvantaged if they meet the low income threshold only.",
     "description": "Navigate to the FAQs page, this will be an answer, Q4_P3"
   },
   "faqs.page.answers.Q5_P1": {
@@ -2140,11 +2148,15 @@
     "description": "Navigate to the methodology page. This is the methodology paragraph 1, bullet 2"
   },
   "methodology.page.paragraph.1.bullet.3": {
-    "defaultMessage": "For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged",
+    "defaultMessage": "For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version:",
+    "description": "Navigate to the methodology page. This is the methodology paragraph 1, bullet 3"
+  },
+  "methodology.page.paragraph.1.bullet.3_2": {
+    "defaultMessage": "If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged",
     "description": "Navigate to the methodology page. This is the methodology paragraph 1, bullet 3"
   },
   "methodology.page.paragraph.1.bullet.4": {
-    "defaultMessage": "Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool",
+    "defaultMessage": "Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool.",
     "description": "Navigate to the methodology page. This is the methodology paragraph 1, bullet 5"
   },
   "methodology.page.paragraph.2": {

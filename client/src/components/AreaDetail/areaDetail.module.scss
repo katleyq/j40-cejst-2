@@ -49,6 +49,15 @@ $sidePanelLabelFontColor: #171716;
     @include u-padding-right(2);
     @include u-padding-top(2);
 
+    p {
+      font: inherit;
+      margin: 0;
+      padding: 0;
+
+      + p {
+        @include u-margin-top(2);
+      }
+    }
   }
 
   .showCategoriesExceed {

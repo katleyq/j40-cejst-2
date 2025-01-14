@@ -164,7 +164,7 @@ export const FAQ_ANSWERS = {
   />,
   Q2_P4: <FormattedMessage
     id={ 'faqs.page.answers.Q2_P4'}
-    defaultMessage={ 'The tool uses census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. Tracts that were identified as disadvantaged in the 1.0 version of the tool remain disadvantaged in the 2.0 version of the tool.'}
+    defaultMessage={ 'The tool uses census tracts. Census tracts are small units of geography. Census tract boundaries for <link1>statistical areas</link1> are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010.'}
     description={ 'Navigate to the FAQs page, this will be an answer, Q2_P4'}
     values={{
       link1: linkFn(`https://www.census.gov/programs-surveys/acs/geography-acs/geography-boundaries-by-year.html`, false, true),
@@ -172,8 +172,13 @@ export const FAQ_ANSWERS = {
   />,
   Q2_P5: <FormattedMessage
     id={ 'faqs.page.answers.Q2_P5'}
-    defaultMessage={ 'Due to limited data availability, tracts in American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands are considered disadvantaged if they meet the low income threshold only.'}
+    defaultMessage={ ' Tracts that were identified as disadvantaged in the 1.0 version of the tool remain disadvantaged in the 2.0 version of the tool.'}
     description={ 'Navigate to the FAQs page, this will be an answer, Q2_P5'}
+  />,
+  Q2_P6: <FormattedMessage
+    id={ 'faqs.page.answers.Q2_P6'}
+    defaultMessage={ 'Due to limited data availability, tracts in American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands are considered disadvantaged if they meet the low income threshold only.'}
+    description={ 'Navigate to the FAQs page, this will be an answer, Q2_P6'}
   />,
   Q3_P1: <FormattedMessage
     id={ 'faqs.page.answers.Q3_P1'}
@@ -208,7 +213,7 @@ export const FAQ_ANSWERS = {
   />,
   Q4_P3: <FormattedMessage
     id={ 'faqs.page.answers.Q4_P3'}
-    defaultMessage={ '<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income threshold only.'}
+    defaultMessage={ '<bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are also considered disadvantaged if they meet the low income threshold only.'}
     description={ 'Navigate to the FAQs page, this will be an answer, Q4_P3'}
     values={{
       bold: boldFn,

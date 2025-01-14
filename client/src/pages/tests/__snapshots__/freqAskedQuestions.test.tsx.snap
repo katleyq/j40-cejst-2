@@ -511,7 +511,10 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   >
                     statistical areas
                   </a>
-                   are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010. Tracts that were identified as disadvantaged in the 1.0 version of the tool remain disadvantaged in the 2.0 version of the tool.
+                   are determined by the U.S. Census Bureau once every ten years. The tool utilizes the census tract boundaries from 2010.
+                </p>
+                <p>
+                   Tracts that were identified as disadvantaged in the 1.0 version of the tool remain disadvantaged in the 2.0 version of the tool.
                 </p>
                 <p>
                   Due to limited data availability, tracts in American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands are considered disadvantaged if they meet the low income threshold only.
@@ -578,7 +581,7 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   <strong>
                     American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:
                   </strong>
-                   For these U.S. Territories, the tool uses the following data: unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income threshold only.
+                   For these U.S. Territories, the tool uses the following data: unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are also considered disadvantaged if they meet the low income threshold only.
                 </p>
               </div>
               <h2
@@ -1265,6 +1268,13 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   >
                     Check out the code on GitHub
                   </a>
+                   
+                  <span
+                    class="usa-tag  "
+                    data-testid="tag"
+                  >
+                    New Location
+                  </span>
                 </li>
               </ul>
             </section>

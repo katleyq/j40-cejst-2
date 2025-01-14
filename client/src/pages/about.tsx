@@ -118,6 +118,7 @@ const AboutPage = ({location}: IAboutPageProps) => {
             imgSrc={githubIcon}
             header={intl.formatMessage(ABOUT_COPY.GET_INVOLVED.JOIN_OSC_HEADING)}
             linkText={intl.formatMessage(ABOUT_COPY.GET_INVOLVED.JOIN_OSC_LINK_TEXT)}
+            linkTag={intl.formatMessage(ABOUT_COPY.GET_INVOLVED.JOIN_OSC_LINK_TAG)}
             url={intl.locale === 'es' ? GITHUB_LINK_ES : GITHUB_LINK}
             openUrlNewTab={true}
             internal={false}>

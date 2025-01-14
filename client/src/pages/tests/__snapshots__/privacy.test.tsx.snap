@@ -730,6 +730,13 @@ exports[`rendering of the Privacy Policy page matches Privacy Policy page snapsh
                   >
                     Check out the code on GitHub
                   </a>
+                   
+                  <span
+                    class="usa-tag  "
+                    data-testid="tag"
+                  >
+                    New Location
+                  </span>
                 </li>
               </ul>
             </section>

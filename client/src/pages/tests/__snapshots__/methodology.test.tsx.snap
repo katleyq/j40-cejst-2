@@ -456,14 +456,23 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                 <li>
                   <p>
                     
-      For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged
+      For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version:
     
                   </p>
+                  <ul>
+                    <li>
+                      <p>
+                        
+      If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged
+    
+                      </p>
+                    </li>
+                  </ul>
                 </li>
                 <li>
                   <p>
                     
-      Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool
+      Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool.
     
                   </p>
                 </li>
@@ -1144,12 +1153,6 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   </p>
                 </div>
                 <ul>
-                  <li>
-                    <span>
-                      Used in: 
-                    </span>
-                    All categories
-                  </li>
                   <li>
                     <span>
                       Responsible party: 
@@ -3292,6 +3295,13 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   >
                     Check out the code on GitHub
                   </a>
+                   
+                  <span
+                    class="usa-tag  "
+                    data-testid="tag"
+                  >
+                    New Location
+                  </span>
                 </li>
               </ul>
             </section>

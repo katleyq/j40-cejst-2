@@ -138,6 +138,13 @@ exports[`J40Footer renders correctly 1`] = `
                   >
                     Check out the code on GitHub
                   </a>
+                   
+                  <span
+                    class="usa-tag  "
+                    data-testid="tag"
+                  >
+                    New Location
+                  </span>
                 </li>
               </ul>
             </section>
