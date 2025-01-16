@@ -5,9 +5,9 @@ Install [`git`](https://git-scm.com/). See [Install Git](INSTALLATION.md#install
 Open a terminal, clone this repository, and change directory to the repository root:
 
 ```sh
-$ git clone https://github.com/usds/justice40-tool
-Cloning into 'justice40-tool'...
-$ cd justice40-tool
+$ git clone https://github.com/DOI-DO/j40-cejst-2
+Cloning into 'j40-cejst-2'...
+$ cd j40-cejst-2
 ```
 
 Install [`docker`](https://docs.docker.com/get-docker/). See [Install Docker](INSTALLATION.md#install-docker).
