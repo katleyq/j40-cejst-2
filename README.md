@@ -1,6 +1,6 @@
 # Justice40 Tool
 
-[![CC0 License](https://img.shields.io/badge/license-CCO--1.0-brightgreen)](https://github.com/usds/justice40-tool/blob/main/LICENSE.md)
+[![CC0 License](https://img.shields.io/badge/license-CCO--1.0-brightgreen)](https://github.com/DOI-DO/j40-cejst-2/blob/main/LICENSE.md)
 
 _[¡Lea esto en español!](README-es.md)_
 
@@ -8,7 +8,7 @@ This repo contains the code, processes, and documentation for the data and tech 
 
 ## Background
 
-The CEJST was announced in the [Executive Order on Tackling the Climate Crisis at Home and Abroad](https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/27/executive-order-on-tackling-the-climate-crisis-at-home-and-abroad/) in January 2021. The CEJST includes interactive maps which federal agencies can use.
+The CEJST was announced in the [Executive Order on Tackling the Climate Crisis at Home and Abroad](https://www.federalregister.gov/documents/2021/02/01/2021-02177/tackling-the-climate-crisis-at-home-and-abroad) in January 2021. The CEJST includes interactive maps which federal agencies can use.
 
 ## Contributing
 
@@ -40,4 +40,4 @@ Confused about a term? Heard an acronym and have no idea what it stands for? Che
 
 ## Feedback
 
-If you have any feedback or questions, please reach out to us at justice40open@usds.gov.
+If you have any feedback or questions, please reach out to us in our Google Group [justice40-open-source](https://groups.google.com/g/justice40-open-source).

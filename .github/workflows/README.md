@@ -25,8 +25,6 @@ Builds and deploys the backend data pipeline to AWS. This workflow is set to be 
 ### Deploy Frontend Main
 Builds and deploys the frontend web client to AWS when changes to the ./client directory are merged into main.
 
-### pages-build-deployment
-
 ### Ping Check
 Runs a check on the J40 website checking for a return of status 200
 
