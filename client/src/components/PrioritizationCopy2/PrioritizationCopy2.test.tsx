@@ -1,5 +1,5 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
+import React from 'react';
 import {LocalizedComponent} from '../../test/testHelpers';
 import PrioritizationCopy2 from './PrioritizationCopy2';
 
@@ -48,9 +48,7 @@ describe('rendering of PrioritizationCopy2 Component', () => {
       );
       expect(asFragment()).toMatchSnapshot();
 
-      screen.getByText((content, element) => {
-        return element?.tagName.toLowerCase() === 'div' && content.startsWith(testCase.para1);
-      });
+      screen.getByText((content) => content.startsWith(testCase.para1));
     });
   });
 });

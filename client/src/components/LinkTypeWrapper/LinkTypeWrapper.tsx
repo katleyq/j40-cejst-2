@@ -1,16 +1,22 @@
-import React from 'react';
+import {Tag, Link as TrussLink} from '@trussworks/react-uswds';
 import {Link, useIntl} from 'gatsby-plugin-intl';
-import {Link as TrussLink} from '@trussworks/react-uswds';
+import React from 'react';
 
 import {IDefineMessage} from '../../data/copy/common';
+import * as styles from './LinkTypeWrapper.module.scss';
+
+export type TagVariant = 'primary' | 'secondary' | 'accent';
 
 export interface ILinkTypeWrapper {
+    [x: string]: any;
     linkText?: string | JSX.Element;
     internal?: boolean;
     url: string | IDefineMessage;
     openUrlNewTab?: boolean;
     className?: string;
     dataCy?: string;
+    tag?: string;
+    tagVariant?: TagVariant;
   }
 
 // eslint-disable-next-line valid-jsdoc
@@ -32,41 +38,52 @@ export interface ILinkTypeWrapper {
  */
 const LinkTypeWrapper = (props:ILinkTypeWrapper) => {
   const intl = useIntl();
-  let {url} = props;
+  const {url} = props;
+  const formattedUrl = url && typeof url !== 'string' ? intl.formatMessage(url) : url;
 
-  if (url && typeof url !== `string`) {
-    url = intl.formatMessage(url);
-  }
-
-  if (props.internal) {
-    return (
-      <Link
-        to={`${url}`}
-        className={props.className ? `usa-link ${props.className}` : `usa-link`}
+  const link = props.internal ? (
+    <Link
+      to={`${formattedUrl}`}
+      className={props.className ? `usa-link ${props.className}` : `usa-link`}
+    >
+      {props.linkText}
+    </Link>
+  ) : (
+    props.openUrlNewTab ? (
+      <TrussLink
+        variant={'external'}
+        className={props.className}
+        href={`${formattedUrl}`}
+        target="_blank"
+        rel="noreferrer"
+        data-cy={props.dataCy ? props.dataCy : ''}
       >
         {props.linkText}
-      </Link>
-    );
-  } else {
-    return props.openUrlNewTab ?
-    <TrussLink
-      variant={'external'}
-      className={props.className}
-      href={`${url}`}
-      target="_blank"
-      rel="noreferrer"
-      data-cy={props.dataCy ? props.dataCy : ''}
-    >
-      {props.linkText}
-    </TrussLink> :
-    <a
-      className={props.className}
-      href={url}
-      data-cy={props.dataCy? props.dataCy : ''}
-    >
-      {props.linkText}
-    </a>;
-  }
+      </TrussLink>
+    ) : (
+      <a
+        className={props.className}
+        href={formattedUrl}
+        data-cy={props.dataCy ? props.dataCy : ''}
+      >
+        {props.linkText}
+      </a>
+    )
+  );
+
+  const tag = props.tag ? (
+    <Tag className={[styles.tag, styles[props.tagVariant || 'accent']].join(' ')}>
+      {props.tag}
+    </Tag>
+  ) : null;
+
+  return (
+    <>
+      {link}
+      {props.tag && '\u2003'}
+      {tag}
+    </>
+  );
 };
 
 export default LinkTypeWrapper;

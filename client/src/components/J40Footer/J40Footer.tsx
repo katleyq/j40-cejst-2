@@ -14,6 +14,7 @@ import SurveyButton from '../SurveyButton';
 // @ts-ignore
 import {GITHUB_LINK, GITHUB_LINK_ES} from '../../constants';
 import {PAGES_ENDPOINTS} from '../../data/constants';
+import * as ABOUT_COPY from '../../data/copy/about';
 import * as COMMON_COPY from '../../data/copy/common';
 import whitehouseIcon from '../../images/eop-seal.svg';
 
@@ -73,6 +74,7 @@ const J40Footer = () => {
         className={'footer-link-first-child'}
         key={'contactlink'}
         dataCy={hyphenizeString(COMMON_COPY.FOOTER.GITHUB_LINK_TEXT.defaultMessage)}
+        tag={intl.formatMessage(ABOUT_COPY.GET_INVOLVED.JOIN_OSC_LINK_TAG)}
       />,
     ],
   ];

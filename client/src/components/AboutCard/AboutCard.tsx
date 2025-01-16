@@ -1,8 +1,9 @@
-import React from 'react';
 import {Grid} from '@trussworks/react-uswds';
+import React from 'react';
 
-import LinkTypeWrapper from '../LinkTypeWrapper';
 import {hyphenizeString} from '../../../cypress/integration/common/helpers';
+import LinkTypeWrapper from '../LinkTypeWrapper';
+import {TagVariant} from '../LinkTypeWrapper/LinkTypeWrapper';
 
 // the "body" section is the child object to allow for html versus just text
 interface AboutCardProps {
@@ -10,6 +11,8 @@ interface AboutCardProps {
   header: string;
   size: 'small' | 'large';
   linkText?: string | JSX.Element;
+  linkTag?: string;
+  linkTagVariant?: TagVariant;
   url?: string;
   openUrlNewTab?: boolean;
   className?: string;
@@ -64,6 +67,8 @@ const AboutCard = (props: React.PropsWithChildren<AboutCardProps>) => {
                   internal={props.internal}
                   url={props.url ? props.url : ''}
                   openUrlNewTab={props.openUrlNewTab}
+                  tag={props.linkTag}
+                  tagVariant={props.linkTagVariant}
                   // className={'j40-aboutcard-link'}
                 />}
               </div>

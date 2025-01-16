@@ -44,14 +44,21 @@ export const PAGE = defineMessages({
   PARA1_BULLET3: {
     id: 'methodology.page.paragraph.1.bullet.3',
     defaultMessage: `
-      For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version: If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged
+      For census tracts that were identified as disadvantaged in version 1.0 of the tool, but do not meet the methodology for the 2.0 version:
+    `,
+    description: 'Navigate to the methodology page. This is the methodology paragraph 1, bullet 3',
+  },
+  PARA1_BULLET3_2: {
+    id: 'methodology.page.paragraph.1.bullet.3_2',
+    defaultMessage: `
+      If the census tract ID was identified as disadvantaged in version 1.0, then the census tract is considered disadvantaged
     `,
     description: 'Navigate to the methodology page. This is the methodology paragraph 1, bullet 3',
   },
   PARA1_BULLET4: {
     id: 'methodology.page.paragraph.1.bullet.4',
     defaultMessage: `
-      Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool
+      Additionally, census tracts in certain U.S. Territories are considered disadvantaged if they meet the low income threshold only. This is because these Territories are not included in each of the nationally-consistent datasets on environmental and climate burdens used in the tool.
     `,
     description: 'Navigate to the methodology page. This is the methodology paragraph 1, bullet 5',
   },
@@ -178,6 +185,7 @@ export const CATEGORY_AND_CLAUSE = {
 
 // Indicator Categories copy constants:
 export const CATEGORIES = {
+  OMIT: <></>,
   ALL: <FormattedMessage
     id={'methodology.page.datasets.all.used.in.text'}
     defaultMessage={`All categories`}
@@ -404,7 +412,6 @@ export const CATEGORIES = {
       `}
       description={`Displaying Federally recognized tribal boundaries and Alaska Native Villages on the map`}
     />,
-
   },
 };
 
@@ -902,7 +909,7 @@ export const INDICATORS: IIndicators[] = [
         boldtag: boldFn,
       }}
     />,
-    usedIn: CATEGORIES.ALL,
+    usedIn: CATEGORIES.OMIT,
     responsibleParty: RESPONSIBLE_PARTIES.CENSUS,
     sources: [
       {

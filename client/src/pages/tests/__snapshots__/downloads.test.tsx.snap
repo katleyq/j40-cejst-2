@@ -738,6 +738,13 @@ exports[`rendering of the DatasetContainer checks if various text fields are vis
                   >
                     Check out the code on GitHub
                   </a>
+                   
+                  <span
+                    class="usa-tag  "
+                    data-testid="tag"
+                  >
+                    New Location
+                  </span>
                 </li>
               </ul>
             </section>

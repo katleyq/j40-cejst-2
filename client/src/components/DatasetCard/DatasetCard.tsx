@@ -47,12 +47,14 @@ const DatasetCard = ({datasetCardProps}: IDatasetCardProps) => {
       <ul className={styles.datasetCardList}>
 
         {/* Dataset Used in */}
-        <li className={styles.datasetCardListItem}>
-          <span className={styles.datasetCardLabels}>
-            {intl.formatMessage(METHODOLOGY_COPY.DATASET_CARD_LABELS.USED_IN)}
-          </span>
-          {datasetCardProps.usedIn}
-        </li>
+        {datasetCardProps.usedIn !== METHODOLOGY_COPY.CATEGORIES.OMIT && (
+          <li className={styles.datasetCardListItem}>
+            <span className={styles.datasetCardLabels}>
+              {intl.formatMessage(METHODOLOGY_COPY.DATASET_CARD_LABELS.USED_IN)}
+            </span>
+            {datasetCardProps.usedIn}
+          </li>
+        )}
 
         {/* Dataset Responsible Party */}
         <li className={styles.datasetCardListItem}>

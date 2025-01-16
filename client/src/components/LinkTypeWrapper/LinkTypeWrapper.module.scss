@@ -1,0 +1,22 @@
+@use '../../styles/design-system.scss' as *;
+
+.tag {
+  font-weight: bolder;
+  line-height: 2;
+  white-space: nowrap;
+}
+
+.primary {
+  @include u-bg('primary-dark');
+  @include u-text('white');
+}
+
+.secondary {
+  @include u-bg('gray-cool-10');
+  @include u-text('ink');
+}
+
+.accent {
+  @include u-bg('yellow-20v');
+  @include u-text('blue-70v');
+}

@@ -123,6 +123,11 @@ export const GET_INVOLVED = defineMessages({
     defaultMessage: 'Check it out on GitHub',
     description: 'Navigate to the About page. This is the link to github repository',
   },
+  JOIN_OSC_LINK_TAG: {
+    id: 'about.page.join.open.source.link.tag',
+    defaultMessage: 'New Location',
+    description: 'Tag shown next to GitHub links indicating it has a new location',
+  },
 });
 
 export const GET_INVOLVED_COMMENTS = {

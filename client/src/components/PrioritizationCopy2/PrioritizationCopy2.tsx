@@ -1,7 +1,5 @@
 import React from 'react';
 
-import * as styles from './PrioritizationCopy2.module.scss';
-
 import * as EXPLORE_COPY from '../../data/copy/explore';
 
 interface IPrioritizationCopy2 {
@@ -40,8 +38,7 @@ const PrioritizationCopy2 =
      tribalCountUS,
      percentTractTribal,
    }:IPrioritizationCopy2) => {
-     let prioCopy2Rendered = <></>;
-
+     let prioCopy2Rendered = null;
 
      // if 1
      if (
@@ -165,13 +162,9 @@ const PrioritizationCopy2 =
       (tribalCountAK !== null && tribalCountAK >= 1)
      ) {
        prioCopy2Rendered = EXPLORE_COPY.getPrioANVCopy(tribalCountAK, false);
-     };
+     }
 
-     return (
-       <div className={prioCopy2Rendered !== <></> ? '' : styles.prioritizationCopy2Container}>
-         {prioCopy2Rendered}
-       </div>
-     );
+     return prioCopy2Rendered && <p>{prioCopy2Rendered}</p>;
    };
 
 export default PrioritizationCopy2;

@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import * as styles from './PrioritizationCopy.module.scss';
-
 import * as EXPLORE_COPY from '../../data/copy/explore';
 
 interface IPrioritizationCopy {
@@ -45,7 +43,7 @@ const PrioritizationCopy =
      tribalCountUS,
      percentTractTribal,
    }:IPrioritizationCopy) => {
-     let prioCopyRendered;
+     let prioCopyRendered = null;
 
      if (isGrandfathered) {
        prioCopyRendered = EXPLORE_COPY.PRIORITIZATION_COPY.PRIO_GRANDFATHERED_LI;
@@ -130,21 +128,14 @@ const PrioritizationCopy =
        // if 2
      } else if (totalCategoriesPrioritized > 0) {
        if (totalBurdensPrioritized === 0) {
-         prioCopyRendered = <></>;
        } else if (totalBurdensPrioritized === 1) {
          prioCopyRendered = EXPLORE_COPY.getPrioNBurdenCopy(`1`);
        } else if (totalBurdensPrioritized > 1) {
          prioCopyRendered = EXPLORE_COPY.getPrioNBurdenCopy(`more than 1`);
        }
-     } else {
-       prioCopyRendered = <></>;
      };
 
-     return (
-       <div>
-         {prioCopyRendered}
-       </div>
-     );
+     return prioCopyRendered && <p>{prioCopyRendered}</p>;
    };
 
 export default PrioritizationCopy;

@@ -1472,7 +1472,7 @@ export const NOTE_ON_TERRITORIES = {
   PARA_2: <FormattedMessage
     id={'explore.map.page.under.map.note.on.territories.para.2'}
     defaultMessage={`
-    <bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: low income, unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are considered disadvantaged if they meet the low income threshold only.
+    <bold>American Samoa, Guam, the Northern Mariana Islands, and the U.S. Virgin Islands:</bold> For these U.S. Territories, the tool uses the following data: low income, unemployment, poverty, low median income, and high school education. These burdens are in the workforce development category. Due to limited data availability, tracts in these U.S. Territories are also considered disadvantaged if they meet the low income threshold only.
   `}
     description={`Navigate to the explore the map page. Under the map, you will see territories paragraph 2`}
     values={{
