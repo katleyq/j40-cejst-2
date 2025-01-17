@@ -71,7 +71,7 @@ Docker can be used to run the application inside a container without setting up 
 > :exclamation: **ATTENTION**  
 > You must increase the memory resource of your container to at least 8096 MB to run this application in Docker
 
-Before running with Docker, you must build the Docker container. Make sure you're in the root directory of the repository (`/justice40-tool`) and run `docker-compose build --no-cache`.
+Before running with Docker, you must build the Docker container. Make sure you're in the root directory of the repository (`/j40-cejst-2`) and run `docker-compose build --no-cache`.
 
 Once you've built the Docker container, run `docker-compose up`. Docker will spin up 3 containers: the client container, the static server container and the data container. Once all data is generated, you can see the application by navigating to [http://localhost:8000](http://localhost:8000) in your browser.
 

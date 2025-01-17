@@ -1,6 +1,6 @@
 # Herramienta Justice40
 
-[![CC0 License](https://img.shields.io/badge/license-CCO--1.0-brightgreen)](https://github.com/usds/justice40-tool/blob/main/LICENSE.md)
+[![CC0 License](https://img.shields.io/badge/license-CCO--1.0-brightgreen)](https://github.com/DOI-DO/j40-cejst-2/blob/main/LICENSE.md)
 
 _[Read this in English!](README.md)_
 
@@ -8,7 +8,7 @@ Le damos la bienvenida a la comunidad de código abierto de Justice40. Este repo
 
 ## Antecedentes
 
-En enero de 2021, una [orden ejecutiva](https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/27/executive-order-on-tackling-the-climate-crisis-at-home-and-abroad/) _(en inglés)_ anunció la iniciativa Justice40 y la herramienta de vigilancia con el objetivo de presentar un producto mínimo viable (MVP, por sus siglas en inglés) de la herramienta para el 27 de julio de 2021. La herramienta incluirá mapas interactivos y la versión preliminar de un informe de evaluación para que, al asignar los beneficios de sus programas, las dependencias federales puedan dar prioridad a las comunidades más desatendidas y agobiadas.
+En enero de 2021, una [orden ejecutiva](https://www.federalregister.gov/documents/2021/02/01/2021-02177/tackling-the-climate-crisis-at-home-and-abroad) _(en inglés)_ anunció la iniciativa Justice40 y la herramienta de vigilancia con el objetivo de presentar un producto mínimo viable (MVP, por sus siglas en inglés) de la herramienta para el 27 de julio de 2021. La herramienta incluirá mapas interactivos y la versión preliminar de un informe de evaluación para que, al asignar los beneficios de sus programas, las dependencias federales puedan dar prioridad a las comunidades más desatendidas y agobiadas.
 
 ## Equipo central
 
@@ -53,4 +53,4 @@ La instalación es una instalación típica de gatsby y los detalles se pueden e
 
 ## Comentarios
 
-Si tiene preguntas o comentarios, escríbanos a justice40open@usds.gov.
+Si tiene preguntas o comentarios, escríbanos a [justice40-open-source](https://groups.google.com/g/justice40-open-source).
