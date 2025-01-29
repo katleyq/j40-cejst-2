@@ -10,7 +10,7 @@ import {
 import {Link, useIntl} from 'gatsby-plugin-intl';
 import React, {useEffect, useState} from 'react';
 import {useWindowSize} from 'react-use';
-import GovernmentBanner from '../GovernmentBanner';
+// import GovernmentBanner from '../GovernmentBanner';
 import J40MainGridContainer from '../J40MainGridContainer';
 import Language from '../Language';
 
@@ -18,7 +18,7 @@ import Language from '../Language';
 import {PAGES_ENDPOINTS, USWDS_BREAKPOINTS} from '../../data/constants';
 import * as COMMON_COPY from '../../data/copy/common';
 import siteLogo from '../../images/j40-logo-v2.png';
-import UpdateBanner from '../UpdateBanner';
+// import UpdateBanner from '../UpdateBanner';
 import * as styles from './J40Header.module.scss';
 
 
@@ -238,8 +238,8 @@ const J40Header = ({location}:IJ40Header) => {
     <Header basic={true} role={'banner'}>
 
       {/* Banners */}
-      <GovernmentBanner />
-      <UpdateBanner/>
+      {/* <GovernmentBanner />
+      <UpdateBanner/> */}
 
       {/* Logo and Navigation */}
       <J40MainGridContainer>
