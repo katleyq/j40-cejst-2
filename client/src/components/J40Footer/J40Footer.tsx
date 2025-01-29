@@ -9,14 +9,16 @@ import React from 'react';
 import {hyphenizeString} from '../../../cypress/integration/common/helpers';
 import J40MainGridContainer from '../J40MainGridContainer';
 import LinkTypeWrapper from '../LinkTypeWrapper';
-import SurveyButton from '../SurveyButton';
+// import SurveyButton from '../SurveyButton';
 
 // @ts-ignore
 import {GITHUB_LINK, GITHUB_LINK_ES} from '../../constants';
 import {PAGES_ENDPOINTS} from '../../data/constants';
 import * as ABOUT_COPY from '../../data/copy/about';
 import * as COMMON_COPY from '../../data/copy/common';
-import whitehouseIcon from '../../images/eop-seal.svg';
+// import whitehouseIcon from '../../images/eop-seal.svg';
+import brenleafart from '../../images/bren-leaf-art.svg';
+
 
 const J40Footer = () => {
   const intl = useIntl();
@@ -108,7 +110,7 @@ const J40Footer = () => {
             image={
               <img
                 className={'usa-footer__logo-img'}
-                src={whitehouseIcon}
+                src={brenleafart}
                 alt={intl.formatMessage(COMMON_COPY.FOOTER.LOGO_ALT)}/>
             }
             heading={
@@ -119,7 +121,7 @@ const J40Footer = () => {
           />
         </J40MainGridContainer>
       </div>
-      <SurveyButton />
+      {/* <SurveyButton /> */}
     </footer>
   );
 };

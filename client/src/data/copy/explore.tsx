@@ -25,7 +25,7 @@ export const PAGE_INTRO = defineMessages({
   },
   PAGE_HEADING: {
     id: 'explore.map.page.heading.text',
-    defaultMessage: 'Explore the map with MEDS Justice40',
+    defaultMessage: 'Explore the Map with MEDS Justice40',
     description: 'On the explore the map page, the heading of the page',
   },
 });
