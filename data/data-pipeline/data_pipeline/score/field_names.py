@@ -1,3 +1,7 @@
+## Kat's edits
+N_LISA = "LISA"
+LISA_THRESHOLD_EXCEEDED = "At least LISA"
+
 # Suffixes
 PERCENTILE_FIELD_SUFFIX = " (percentile)"
 ISLAND_AREAS_PERCENTILE_ADJUSTMENT_FIELD = " for island areas"

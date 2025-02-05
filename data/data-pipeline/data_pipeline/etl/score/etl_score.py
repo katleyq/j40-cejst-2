@@ -34,6 +34,7 @@ class ScoreETL(ExtractTransformLoad):
 
         # dataframes
         self.df: pd.DataFrame
+        self.lisa_df: pd.DataFrame
         self.ejscreen_df: pd.DataFrame
         self.census_acs_df: pd.DataFrame
         self.hud_housing_df: pd.DataFrame
@@ -64,6 +65,14 @@ class ScoreETL(ExtractTransformLoad):
         )  # we have all prerequisite sources locally as a result of running the ETLs
 
     def extract(self, use_cached_data_sources: bool = False) -> None:
+        
+         # LISA csv Load
+        lisa_csv = constants.DATA_PATH / "dataset" / "lisa" / "usa.csv"
+        self.lisa_df = pd.read_csv(
+            lisa_csv,
+            dtype={self.GEOID_TRACT_FIELD_NAME: "string"},
+            low_memory=False,
+        )
 
         # EJSCreen csv Load
         ejscreen_csv = constants.DATA_PATH / "dataset" / "ejscreen" / "usa.csv"
