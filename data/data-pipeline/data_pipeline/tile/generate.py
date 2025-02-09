@@ -111,3 +111,96 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
         _generate_tribal_tiles()
     else:
         _generate_score_tiles()
+
+
+
+
+
+import os
+from pathlib import Path
+from subprocess import call
+
+from data_pipeline.utils import get_module_logger
+from data_pipeline.utils import remove_all_from_dir
+
+logger = get_module_logger(__name__)
+
+def generate_tiles(data_path: Path, generate_tribal_layer: bool, generate_gstar_layer: bool) -> None:
+    """Generates map tiles from geojson files
+
+    Args:
+        data_path (Path):  Path to data folder
+        generate_tribal_layer (bool): If true, generate the tribal layer of the map
+        generate_gstar_layer (bool): If true, generate the gstar layer of the map
+
+    Returns:
+        None
+    """
+
+    def _generate_score_tiles() -> None:
+        """Generates score map tiles"""
+        score_tiles_path = data_path / "score" / "tiles"
+        high_tile_path = score_tiles_path / "high"
+        low_tile_path = score_tiles_path / "low"
+        score_geojson_dir = data_path / "score" / "geojson"
+
+        USA_HIGH_MIN_ZOOM = 5
+        USA_HIGH_MAX_ZOOM = 11
+        USA_LOW_MIN_ZOOM = 0
+        USA_LOW_MAX_ZOOM = 7
+
+        remove_all_from_dir(score_tiles_path)
+        os.mkdir(high_tile_path)
+        os.mkdir(low_tile_path)
+
+        logger.debug("Generating USA High mbtiles file")
+        cmd = f"tippecanoe --minimum-zoom={USA_HIGH_MIN_ZOOM} --maximum-zoom={USA_HIGH_MAX_ZOOM} --layer=blocks "
+        cmd += "--no-feature-limit --no-tile-size-limit "
+        cmd += f"--output={high_tile_path}/usa_high.mbtiles "
+        cmd += str(score_geojson_dir / "usa-high.json")
+        call(cmd, shell=True)
+
+        logger.debug("Generating USA Low mbtiles file")
+        cmd = f"tippecanoe --minimum-zoom={USA_LOW_MIN_ZOOM} --maximum-zoom={USA_LOW_MAX_ZOOM} --layer=blocks "
+        cmd += f"--output={low_tile_path}/usa_low.mbtiles "
+        cmd += str(score_geojson_dir / "usa-low.json")
+        call(cmd, shell=True)
+
+    def _generate_tribal_tiles() -> None:
+        """Generates tribal layer tiles"""
+        tribal_tiles_path = data_path / "tribal" / "tiles"
+        tribal_geojson_dir = data_path / "tribal" / "geographic_data"
+
+        remove_all_from_dir(tribal_tiles_path)
+
+        logger.debug("Generating Tribal mbtiles file")
+        cmd = f"tippecanoe --layer=blocks --base-zoom=3 --minimum-zoom=0 --maximum-zoom=11 "
+        cmd += f"--output={tribal_tiles_path}/usa.mbtiles "
+        cmd += str(tribal_geojson_dir / "usa.json")
+        call(cmd, shell=True)
+
+    def _generate_gstar_tiles() -> None:
+        """Generates GStar layer tiles"""
+        gstar_tiles_path = data_path / "gstar" / "tiles"
+        gstar_geojson_dir = data_path / "gstar" / "geojson"
+
+        remove_all_from_dir(gstar_tiles_path)
+        os.mkdir(gstar_tiles_path)
+
+        USA_GSTAR_MIN_ZOOM = 3
+        USA_GSTAR_MAX_ZOOM = 10
+
+        logger.debug("Generating GStar mbtiles file")
+        cmd = f"tippecanoe --minimum-zoom={USA_GSTAR_MIN_ZOOM} --maximum-zoom={USA_GSTAR_MAX_ZOOM} --layer=gstar "
+        cmd += "--no-feature-limit --no-tile-size-limit "
+        cmd += f"--output={gstar_tiles_path}/usa_gstar.mbtiles "
+        cmd += str(gstar_geojson_dir / "usa-gstar.json")
+        call(cmd, shell=True)
+
+    if generate_tribal_layer:
+        _generate_tribal_tiles()
+    elif generate_gstar_layer:
+        _generate_gstar_tiles()
+    else:
+        _generate_score_tiles()
+
