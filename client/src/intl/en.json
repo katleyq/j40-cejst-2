@@ -140,7 +140,7 @@
     "description": "Navigate to the about page. This is Footer github link text"
   },
   "common.pages.footer.logo.title": {
-    "defaultMessage": "Council on Environmental Quality",
+    "defaultMessage": "Bren School of Environmental Science and Management",
     "description": "Navigate to the about page. This is Footer under logo"
   },
   "common.pages.footer.moreinfoheader": {
@@ -348,7 +348,7 @@
     "description": "On the explore the map page, a summary box title of Get the data"
   },
   "explore.map.page.heading.text": {
-    "defaultMessage": "Explore the map",
+    "defaultMessage": "Explore the Map with MEDS Justice40",
     "description": "On the explore the map page, the heading of the page"
   },
   "explore.map.page.label.text": {
@@ -1172,7 +1172,7 @@
     "description": "Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show the methodology version number"
   },
   "explore.map.page.title.text": {
-    "defaultMessage": "Explore the map",
+    "defaultMessage": "Explore the map with Haylee",
     "description": "On the explore the map page, the title of the page"
   },
   "explore.map.page.under.map.download.draft.ptag.1": {

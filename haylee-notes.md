@@ -5,6 +5,7 @@ This repository is massive and so I've decided to use this markdown to keep trac
 - [Extract, Transform, Load](#extract-transform-load)
 - [Where's the Data?](#wheres-the-data)
 - [Tiling and Viewing Data on the Map](#tiling-and-viewing-data-on-the-map)
+- [Editing Aesthetics](#editing-aesthetics)
 - [Adding a Layer to the Application](#adding-a-layer-a-to-the-application)
 - [Miscellaneous](#miscellaneous)
 
@@ -33,6 +34,13 @@ This repository is massive and so I've decided to use this markdown to keep trac
 ## Tiling and Viewing Data on the Map
 
 - `client/VIEW_MAP_DATA.md` has detailed instructions on understanding how the map gets data via PBF files. It also contains troubleshooting information if the data isn't loading, a good place to start for fixing the missing tiles post new administration.
+
+## Editing Aesthetics
+- `client/src/pages/index.tsx`: The home page of the application
+
+- `client/src/data/copy/explore.tsx`: Where the text for the home page lives. All the text is housed in separate little chunks inside of larger functions. This also includes the text that shows up interactively as you click around the map. 
+
+- `client/src/components/J40Header/J40Header.tsx`: Changing header stuff, including logo
 
 ## Adding a Layer to the Application
 
