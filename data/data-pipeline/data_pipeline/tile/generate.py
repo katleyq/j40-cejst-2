@@ -1,11 +1,43 @@
 import os
 from pathlib import Path
 from subprocess import call
+import datetime
+import logging
+import os
+import shutil
+import sys
+import uuid
+import zipfile
+from pathlib import Path
+from typing import List
+from typing import Union
 
-from data_pipeline.utils import get_module_logger
-from data_pipeline.utils import remove_all_from_dir
+# from data_pipeline.utils import get_module_logger
+# from data_pipeline.utils import remove_all_from_dir
 
-logger = get_module_logger(__name__)
+# logger = get_module_logger(__name__)
+
+def remove_all_from_dir(files_path: Path) -> None:
+    """Removes all files and directories from a specific directory, except __init__.py files
+
+    Args:
+        files_path (pathlib.Path): Name of the directory where the files and directories will be deleted
+
+    Returns:
+        None
+
+    """
+    if os.path.exists(files_path):
+        for file in os.listdir(files_path):
+            # don't rempove __init__ files as they conserve dir structure
+            if file == "__init__.py":
+                continue
+            if os.path.isfile(files_path / file):
+                os.remove(files_path / file)
+            else:
+                shutil.rmtree(files_path / file)
+    else:
+        logger.warning(f"The following path does not exist: `{files_path}`.")
 
 
 def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
@@ -35,20 +67,21 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
         remove_all_from_dir(score_tiles_path)
 
         # create dirs
-        os.mkdir(high_tile_path)
-        os.mkdir(low_tile_path)
+        os.makedirs(high_tile_path, exist_ok=True)
+        os.makedirs(low_tile_path, exist_ok=True)
+        os.makedirs(score_geojson_dir, exist_ok=True)
 
         # generate high mbtiles file
-        logger.debug("Generating USA High mbtiles file")
+        # logger.debug("Generating USA High mbtiles file")
         cmd = "tippecanoe "
         cmd += f"--minimum-zoom={USA_HIGH_MIN_ZOOM} --maximum-zoom={USA_HIGH_MAX_ZOOM} --layer=blocks "
         cmd += "--no-feature-limit --no-tile-size-limit "
-        cmd += f"--output={high_tile_path}/usa_high.mbtiles "
+        cmd += f"--output={high_tile_path}/usa_high.mbtiles"
         cmd += str(score_geojson_dir / "usa-high.json")
         call(cmd, shell=True)
 
         # generate high mvts
-        logger.debug("Generating USA High mvt folders and files")
+        # logger.debug("Generating USA High mvt folders and files")
         cmd = "tippecanoe "
         cmd += f"--minimum-zoom={USA_HIGH_MIN_ZOOM} --maximum-zoom={USA_HIGH_MAX_ZOOM} --no-tile-compression "
         cmd += "--no-feature-limit  --no-tile-size-limit "
@@ -57,15 +90,15 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
         call(cmd, shell=True)
 
         # generate low mbtiles file
-        logger.debug("Generating USA Low mbtiles file")
+        # logger.debug("Generating USA Low mbtiles file")
         cmd = "tippecanoe "
         cmd += f"--minimum-zoom={USA_LOW_MIN_ZOOM} --maximum-zoom={USA_LOW_MAX_ZOOM} --layer=blocks "
-        cmd += f"--output={low_tile_path}/usa_low.mbtiles "
+        cmd += f"--output={low_tile_path}/usa_low.mbtiles"
         cmd += str(score_geojson_dir / "usa-low.json")
         call(cmd, shell=True)
 
         # generate low mvts
-        logger.debug("Generating USA Low mvt folders and files")
+        # logger.debug("Generating USA Low mvt folders and files")
         cmd = "tippecanoe "
         cmd += f"--minimum-zoom={USA_LOW_MIN_ZOOM} --maximum-zoom={USA_LOW_MAX_ZOOM} --no-tile-compression "
         cmd += "--drop-densest-as-needed "
@@ -83,10 +116,10 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
         tribal_geojson_dir = data_path / "tribal" / "geographic_data"
 
         # remove existing mbtiles file
-        remove_all_from_dir(tribal_tiles_path)
+        # remove_all_from_dir(tribal_tiles_path)
 
         # generate mbtiles file
-        logger.debug("Generating Tribal mbtiles file")
+        # logger.debug("Generating Tribal mbtiles file")
         cmd = "tippecanoe "
         cmd += "--layer=blocks "
         cmd += "--base-zoom=3 "
@@ -96,7 +129,7 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
         call(cmd, shell=True)
 
         # generate mvts
-        logger.debug("Generating Tribal mvt folders and files")
+        # logger.debug("Generating Tribal mvt folders and files")
         cmd = "tippecanoe "
         cmd += "--layer=blocks "
         cmd += "--base-zoom=3 "
@@ -112,7 +145,7 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
     else:
         _generate_score_tiles()
 
-
+generate_tiles(data_path=Path('/capstone/justice40/data'), generate_tribal_layer=False)
 
 
 # logger = get_module_logger(__name__)

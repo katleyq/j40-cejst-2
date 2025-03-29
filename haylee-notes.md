@@ -63,3 +63,10 @@ Files I modified:
 - `data/data-pipeline/data_pipeline/etl/sources/geo_utils.py`: Utililities for turning geographies into tracts using census data
 
 
+All file paths are at 
+`client/env.development`
+
+Craeted a new cloudfront server to host the base files. Cloudfront is a service by amazon, content delivery network. 
+
+Path for generating tiles
+data/data-pipeline/data_pipeline/tile/generate.py
