@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from subprocess import call
+import subprocess
 import datetime
 import logging
 import os
@@ -12,10 +13,44 @@ from pathlib import Path
 from typing import List
 from typing import Union
 
+LOG_LEVEL = logging.DEBUG
+# Log level for all loggers.
+
 # from data_pipeline.utils import get_module_logger
 # from data_pipeline.utils import remove_all_from_dir
 
 # logger = get_module_logger(__name__)
+
+# Trying to get mbtiles to generate inside script
+# os.environ["PATH"] += "/Users/hoyler/.local/bin/tippecanoe" 
+
+
+# I pulled this from a separate script so I could get it to run here
+
+def get_module_logger(module_name: str) -> logging.Logger:
+    """Instantiates a logger object on stdout
+
+    Args:
+        module_name (str): Name of the module outputting the logs
+
+    Returns:
+        logger (Logging.logger): A logger object
+
+    """
+    logger = logging.getLogger(module_name)
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter(
+        "%(asctime)s [%(name)40.40s] %(levelname)-8s %(message)s"
+    )
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(LOG_LEVEL)
+    logger.propagate = False  # don't send log messages to the parent logger (to avoid duplicate log messages)
+    return logger
+
+
+logger = get_module_logger(__name__)
+
 
 def remove_all_from_dir(files_path: Path) -> None:
     """Removes all files and directories from a specific directory, except __init__.py files
@@ -71,14 +106,31 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
         os.makedirs(low_tile_path, exist_ok=True)
         os.makedirs(score_geojson_dir, exist_ok=True)
 
+        # check if input GeoJSON file exists
+        if not (score_geojson_dir / "usa-high.geojson").exists():
+            raise FileNotFoundError(f"Input GeoJSON file not found: {score_geojson_dir / 'usa-high.geojson'}")
+
         # generate high mbtiles file
         # logger.debug("Generating USA High mbtiles file")
         cmd = "tippecanoe "
         cmd += f"--minimum-zoom={USA_HIGH_MIN_ZOOM} --maximum-zoom={USA_HIGH_MAX_ZOOM} --layer=blocks "
         cmd += "--no-feature-limit --no-tile-size-limit "
-        cmd += f"--output={high_tile_path}/usa_high.mbtiles"
-        cmd += str(score_geojson_dir / "usa-high.json")
-        call(cmd, shell=True)
+        cmd += f"--output={high_tile_path}/usa_high.mbtiles {score_geojson_dir}/usa-high.geojson"
+
+        # cmd += str(score_geojson_dir / "usa-high.geojson")
+        # call(cmd, shell=True) This was the original command
+
+        # Added this to check is mbtiles is working correctly
+        # result = call(cmd, shell=True)
+        # if result != 0:
+        #     raise RuntimeError(f"Tippecanoe command failed with exit code {result}: {cmd}")
+
+        print(f"Running command: {cmd}")
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"Error output: {result.stderr}")
+            raise RuntimeError(f"Tippecanoe command failed with exit code {result.returncode}: {cmd}")
+        
 
         # generate high mvts
         # logger.debug("Generating USA High mvt folders and files")
@@ -86,15 +138,15 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
         cmd += f"--minimum-zoom={USA_HIGH_MIN_ZOOM} --maximum-zoom={USA_HIGH_MAX_ZOOM} --no-tile-compression "
         cmd += "--no-feature-limit  --no-tile-size-limit "
         cmd += f"--output-to-directory={high_tile_path} --layer=blocks "
-        cmd += str(score_geojson_dir / "usa-high.json")
+        cmd += str(score_geojson_dir / "usa-high.geojson")
         call(cmd, shell=True)
 
         # generate low mbtiles file
         # logger.debug("Generating USA Low mbtiles file")
         cmd = "tippecanoe "
         cmd += f"--minimum-zoom={USA_LOW_MIN_ZOOM} --maximum-zoom={USA_LOW_MAX_ZOOM} --layer=blocks "
-        cmd += f"--output={low_tile_path}/usa_low.mbtiles"
-        cmd += str(score_geojson_dir / "usa-low.json")
+        cmd += f"--output={low_tile_path}/usa_low.mbtiles {score_geojson_dir}/usa-high.geojson "
+        # cmd += str(score_geojson_dir / "usa-high.geojson")
         call(cmd, shell=True)
 
         # generate low mvts
@@ -103,7 +155,7 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
         cmd += f"--minimum-zoom={USA_LOW_MIN_ZOOM} --maximum-zoom={USA_LOW_MAX_ZOOM} --no-tile-compression "
         cmd += "--drop-densest-as-needed "
         cmd += f"--output-to-directory={low_tile_path} --layer=blocks "
-        cmd += str(score_geojson_dir / "usa-low.json")
+        cmd += str(score_geojson_dir / "usa-high.geojson")
         call(cmd, shell=True)
 
     def _generate_tribal_tiles() -> None:
@@ -147,85 +199,6 @@ def generate_tiles(data_path: Path, generate_tribal_layer: bool) -> None:
 
 generate_tiles(data_path=Path('/capstone/justice40/data'), generate_tribal_layer=False)
 
-
-# logger = get_module_logger(__name__)
-
-# def generate_tiles(data_path: Path, generate_tribal_layer: bool, generate_gstar_layer: bool) -> None:
-#     """Generates map tiles from geojson files
-
-#     Args:
-#         data_path (Path):  Path to data folder
-#         generate_tribal_layer (bool): If true, generate the tribal layer of the map
-#         generate_gstar_layer (bool): If true, generate the gstar layer of the map
-
-#     Returns:
-#         None
-#     """
-
-#     def _generate_score_tiles() -> None:
-#         """Generates score map tiles"""
-#         score_tiles_path = data_path / "score" / "tiles"
-#         high_tile_path = score_tiles_path / "high"
-#         low_tile_path = score_tiles_path / "low"
-#         score_geojson_dir = data_path / "score" / "geojson"
-
-#         USA_HIGH_MIN_ZOOM = 5
-#         USA_HIGH_MAX_ZOOM = 11
-#         USA_LOW_MIN_ZOOM = 0
-#         USA_LOW_MAX_ZOOM = 7
-
-#         remove_all_from_dir(score_tiles_path)
-#         os.mkdir(high_tile_path)
-#         os.mkdir(low_tile_path)
-
-#         logger.debug("Generating USA High mbtiles file")
-#         cmd = f"tippecanoe --minimum-zoom={USA_HIGH_MIN_ZOOM} --maximum-zoom={USA_HIGH_MAX_ZOOM} --layer=blocks "
-#         cmd += "--no-feature-limit --no-tile-size-limit "
-#         cmd += f"--output={high_tile_path}/usa_high.mbtiles "
-#         cmd += str(score_geojson_dir / "usa-high.json")
-#         call(cmd, shell=True)
-
-#         logger.debug("Generating USA Low mbtiles file")
-#         cmd = f"tippecanoe --minimum-zoom={USA_LOW_MIN_ZOOM} --maximum-zoom={USA_LOW_MAX_ZOOM} --layer=blocks "
-#         cmd += f"--output={low_tile_path}/usa_low.mbtiles "
-#         cmd += str(score_geojson_dir / "usa-low.json")
-#         call(cmd, shell=True)
-
-#     def _generate_tribal_tiles() -> None:
-#         """Generates tribal layer tiles"""
-#         tribal_tiles_path = data_path / "tribal" / "tiles"
-#         tribal_geojson_dir = data_path / "tribal" / "geographic_data"
-
-#         remove_all_from_dir(tribal_tiles_path)
-
-#         logger.debug("Generating Tribal mbtiles file")
-#         cmd = f"tippecanoe --layer=blocks --base-zoom=3 --minimum-zoom=0 --maximum-zoom=11 "
-#         cmd += f"--output={tribal_tiles_path}/usa.mbtiles "
-#         cmd += str(tribal_geojson_dir / "usa.json")
-#         call(cmd, shell=True)
-
-#     def _generate_gstar_tiles() -> None:
-#         """Generates GStar layer tiles"""
-#         gstar_tiles_path = data_path / "gstar" / "tiles"
-#         gstar_geojson_dir = data_path / "gstar" / "geojson"
-
-#         remove_all_from_dir(gstar_tiles_path)
-#         os.mkdir(gstar_tiles_path)
-
-#         USA_GSTAR_MIN_ZOOM = 3
-#         USA_GSTAR_MAX_ZOOM = 10
-
-#         logger.debug("Generating GStar mbtiles file")
-#         cmd = f"tippecanoe --minimum-zoom={USA_GSTAR_MIN_ZOOM} --maximum-zoom={USA_GSTAR_MAX_ZOOM} --layer=gstar "
-#         cmd += "--no-feature-limit --no-tile-size-limit "
-#         cmd += f"--output={gstar_tiles_path}/usa_gstar.mbtiles "
-#         cmd += str(gstar_geojson_dir / "usa-gstar.json")
-#         call(cmd, shell=True)
-
-#     if generate_tribal_layer:
-#         _generate_tribal_tiles()
-#     elif generate_gstar_layer:
-#         _generate_gstar_tiles()
-#     else:
-#         _generate_score_tiles()
+# import os
+# print(f"Current working directory: {os.getcwd()}")
 
