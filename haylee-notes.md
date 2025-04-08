@@ -1,13 +1,15 @@
 # Notes
 This repository is massive and so I've decided to use this markdown to keep track of places that will need our attention for various tasks
 
-- [Scoring](#scoring)
-- [Extract, Transform, Load](#extract-transform-load)
-- [Where's the Data?](#wheres-the-data)
-- [Tiling and Viewing Data on the Map](#tiling-and-viewing-data-on-the-map)
-- [Editing Aesthetics](#editing-aesthetics)
-- [Adding a Layer to the Application](#adding-a-layer-a-to-the-application)
-- [Miscellaneous](#miscellaneous)
+- [Notes](#notes)
+  - [Scoring](#scoring)
+  - [Extract, Transform, Load](#extract-transform-load)
+  - [Where's the Data?](#wheres-the-data)
+  - [Tiling and Viewing Data on the Map](#tiling-and-viewing-data-on-the-map)
+  - [Editing Aesthetics](#editing-aesthetics)
+  - [Adding a Layer to the Application](#adding-a-layer-to-the-application)
+  - [Miscellaneous](#miscellaneous)
+  - [Poetry](#poetry)
 
 
 ## Scoring
@@ -34,6 +36,10 @@ This repository is massive and so I've decided to use this markdown to keep trac
 ## Tiling and Viewing Data on the Map
 
 - `client/VIEW_MAP_DATA.md` has detailed instructions on understanding how the map gets data via PBF files. It also contains troubleshooting information if the data isn't loading, a good place to start for fixing the missing tiles post new administration.
+- `data/data-pipeline/data_pipeline/tile/generate.py`: Path for generating tiles
+- `client/src/data/mapStyle.tsx`: Path for map styling tileserver
+- `client/src/components/MapTractLayers/MapTractLayers.tsx`: Path for the map layers
+- `data/data-pipeline/data_pipeline/etl/score/etl_score_geo.py`: Path for making high and low json??
 
 ## Editing Aesthetics
 - `client/src/pages/index.tsx`: The home page of the application
@@ -68,5 +74,9 @@ All file paths are at
 
 Craeted a new cloudfront server to host the base files. Cloudfront is a service by amazon, content delivery network. 
 
-Path for generating tiles
-data/data-pipeline/data_pipeline/tile/generate.py
+NEED TO RUN POETRY INSTALL TO LOAD DEPENDENCIES?!?! But still can't get the created libraries to run. Trying to troubleshoot that. 
+
+## Poetry
+
+Run poetry install to install dependencies. Poetry is a dependency management tool for Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
+- `poetry.lock` is a file that poetry uses to lock the versions of the dependencies. It ensures that everyone working on the project has the same versions of the libraries installed.
