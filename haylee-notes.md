@@ -56,11 +56,32 @@ Files to check:
 
 - `data/data-pipeline/data_pipeline/application.py` houses commands (?) about generating the tiles, including the score tiles and tribal tiles. Will need to edit this to include our new layer?
 
-Files I modified:
+- `data/data-pipeline/data_pipeline/tile/generate.py`: File for generating tiles. Modified to fit our usa high and low geojsons
 
-- `data/data-pipeline/data_pipeline/tile/generate.py` I copied a second set of the entire script but with chatgpt's version for adding a G star layer. Haven't tried it yet, but 99% sure it's not going to work. 
+- `data/data-pipeline/data_pipeline/config.py`: has the configurations for the data_pipeline. Includes the very first `import data_pipeline`. Also, can change the `DYNACONF` enviornment here? Currently the default is set to the AWS bucket, but we might be able to change that in `data/data-pipeline/settings.toml`. 
 
-- `data/data-pipeline/data_pipeline/etl/sources/gstar_test` A test folder to add the tract ID and standardized G star scores. 
+- `data/data-pipeline/data_pipeline/etl/score/constants.py`: All the names for the environment variables. Constants file that has all the file paths where data gets stored and outputted during data pipeline. Also contains this front-end info
+```{python}
+# The following constants and fields get used by the front end to change the side panel.
+# The islands, Puerto Rico and the nation all have different
+# data available, and as a consequence, show a different number of fields.
+
+# Controlling Tile user experience columns
+THRESHOLD_COUNT_TO_SHOW_FIELD_NAME = "THRHLD"
+TILES_ISLAND_AREAS_THRESHOLD_COUNT = 3
+TILES_PUERTO_RICO_THRESHOLD_COUNT = 10
+TILES_NATION_THRESHOLD_COUNT = 21  
+```
+
+Also has info about how the data that gets served to the tiles should be structured:
+```{python}
+# Tiles data: full field name, tile index name
+TILES_SCORE_COLUMNS = {
+    field_names.GEOID_TRACT_FIELD: "GTF",
+    field_names.STATE_FIELD: "SF",
+    field_names.COUNTY_FIELD: "CF",
+    field_names.DIABETES_FIELD + field_names.PERCENTILE_FIELD_SUFFIX: "DF_PFS",
+```
 
 ## Miscellaneous
 
