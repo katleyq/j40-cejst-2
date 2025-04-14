@@ -10,6 +10,7 @@ This repository is massive and so I've decided to use this markdown to keep trac
   - [Adding a Layer to the Application](#adding-a-layer-to-the-application)
   - [Miscellaneous](#miscellaneous)
   - [Poetry](#poetry)
+  - [Tribal data](#tribal-data)
 
 
 ## Scoring
@@ -49,6 +50,8 @@ This repository is massive and so I've decided to use this markdown to keep trac
 - `client/src/components/J40Header/J40Header.tsx`: Changing header stuff, including logo
 
 ## Adding a Layer to the Application
+
+- `docs/operations/artifacts.md`: Shows repository structure for what files get generated at every step of the process!! 
 
 Files to check:
 
@@ -101,3 +104,8 @@ NEED TO RUN POETRY INSTALL TO LOAD DEPENDENCIES?!?! But still can't get the crea
 
 Run poetry install to install dependencies. Poetry is a dependency management tool for Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
 - `poetry.lock` is a file that poetry uses to lock the versions of the dependencies. It ensures that everyone working on the project has the same versions of the libraries installed.
+
+## Tribal data
+
+- `data/data-pipeline/data_pipeline/etl/sources/tribal/etl.py` etl file that has the three data sources and the download links to the S3 bucket. 
+- `data/data-pipeline/data_pipeline/etl/sources/tribal_overlap/etl.py`: tribal overlap calculates the percentage of the census tract that is within the tribal area. These are the columns we see when we look at the current data frames we have. I couldn't find a single column that was just tribal: yes/no.
