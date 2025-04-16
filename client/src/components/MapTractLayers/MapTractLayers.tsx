@@ -9,8 +9,8 @@ import * as constants from '../../data/constants';
 import * as COMMON_COPY from '../../data/copy/common';
 
 interface IMapTractLayers {
-    selectedFeatureId: string | number,
-    selectedFeature: MapGeoJSONFeature | undefined,
+  selectedFeatureId: string | number;
+  selectedFeature: MapGeoJSONFeature | undefined;
 }
 
 /**
@@ -24,11 +24,11 @@ interface IMapTractLayers {
 export const featureURLForTilesetName = (tilesetName: string): string => {
   const flags = useFlags();
 
-  const pipelineStagingBaseURL = process.env.GATSBY_CDN_TILES_BASE_URL +`/data-pipeline-staging`;
+  const pipelineStagingBaseURL =
+    process.env.GATSBY_CDN_TILES_BASE_URL + `/data-pipeline-staging`;
   const XYZ_SUFFIX = '{z}/{x}/{y}.pbf';
 
   if ('stage_hash' in flags) {
-    // Check if the stage_hash is valid
     const regex = /^[0-9]{4}\/[a-f0-9]{40}$/;
     if (!regex.test(flags['stage_hash'])) {
       console.error(COMMON_COPY.CONSOLE_ERROR.STAGE_URL);
@@ -36,20 +36,54 @@ export const featureURLForTilesetName = (tilesetName: string): string => {
 
     return `${pipelineStagingBaseURL}/${flags['stage_hash']}/data/score/tiles/${tilesetName}/${XYZ_SUFFIX}`;
   } else {
-    // The feature tile base URL and path can either point locally or the CDN.
-    // This is selected based on the DATA_SOURCE env variable.
     const featureTileBaseURL = constants.TILE_BASE_URL;
     const featureTilePath = constants.TILE_PATH;
+    const mapTilesPath = process.env.GATSBY_MAP_TILES_PATH;
 
-    return [
+    const pathParts = [
       featureTileBaseURL,
       featureTilePath,
-      process.env.GATSBY_MAP_TILES_PATH,
+      mapTilesPath,
       tilesetName,
       XYZ_SUFFIX,
-    ].join('/');
+    ]
+        .filter(Boolean)
+        .map((part) => part.replace(/^\/|\/$/g, '')) // trim leading/trailing slashes
+        .join('/');
+
+    return pathParts.startsWith('http') ? pathParts : `/${pathParts}`;
   }
 };
+
+// export const featureURLForTilesetName = (tilesetName: string): string => {
+//   const flags = useFlags();
+
+//   const pipelineStagingBaseURL = process.env.GATSBY_CDN_TILES_BASE_URL +`/data-pipeline-staging`;
+//   const XYZ_SUFFIX = '{z}/{x}/{y}.pbf';
+
+//   if ('stage_hash' in flags) {
+//     // Check if the stage_hash is valid
+//     const regex = /^[0-9]{4}\/[a-f0-9]{40}$/;
+//     if (!regex.test(flags['stage_hash'])) {
+//       console.error(COMMON_COPY.CONSOLE_ERROR.STAGE_URL);
+//     }
+
+//     return `${pipelineStagingBaseURL}/${flags['stage_hash']}/data/score/tiles/${tilesetName}/${XYZ_SUFFIX}`;
+//   } else {
+//     // The feature tile base URL and path can either point locally or the CDN.
+//     // This is selected based on the DATA_SOURCE env variable.
+//     const featureTileBaseURL = constants.TILE_BASE_URL;
+//     const featureTilePath = constants.TILE_PATH;
+
+//     return [
+//       featureTileBaseURL,
+//       featureTilePath,
+//       process.env.GATSBY_MAP_TILES_PATH,
+//       tilesetName,
+//       XYZ_SUFFIX,
+//     ].join('/');
+//   }
+// };
 
 /**
  * This component will return the appropriate source and layers for the census layer on the
@@ -68,7 +102,10 @@ const MapTractLayers = ({
   selectedFeatureId,
   selectedFeature,
 }: IMapTractLayers) => {
-  const filter = useMemo(() => ['in', constants.GEOID_PROPERTY, selectedFeatureId], [selectedFeature]);
+  const filter = useMemo(
+      () => ['in', constants.GEOID_PROPERTY, selectedFeatureId],
+      [selectedFeature],
+  );
 
   return (
     <>
@@ -80,16 +117,20 @@ const MapTractLayers = ({
         maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
         minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
       >
-
         {/* Low zoom layer (static) - prioritized features only */}
         <Layer
           id={constants.LOW_ZOOM_LAYER_ID}
           source-layer={constants.SCORE_SOURCE_LAYER}
-          filter={['>', constants.SCORE_PROPERTY_LOW, constants.SCORE_BOUNDARY_THRESHOLD]}
-          type='fill'
+          filter={[
+            '>',
+            constants.SCORE_PROPERTY_LOW,
+            constants.SCORE_BOUNDARY_THRESHOLD,
+          ]}
+          type="fill"
           paint={{
             'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
-            'fill-opacity': constants.LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY}}
+            'fill-opacity': constants.LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+          }}
           maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
           minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
         />
@@ -104,13 +145,12 @@ const MapTractLayers = ({
         maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
         minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
       >
-
         {/* High zoom layer (static) - non-prioritized features only */}
         <Layer
           id={constants.HIGH_ZOOM_LAYER_ID}
           source-layer={constants.SCORE_SOURCE_LAYER}
           filter={['==', constants.SCORE_PROPERTY_HIGH, false]}
-          type='fill'
+          type="fill"
           paint={{
             'fill-opacity': constants.NON_PRIORITIZED_FEATURE_FILL_OPACITY,
           }}
@@ -122,10 +162,11 @@ const MapTractLayers = ({
           id={constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID}
           source-layer={constants.SCORE_SOURCE_LAYER}
           filter={['==', constants.SCORE_PROPERTY_HIGH, true]}
-          type='fill'
+          type="fill"
           paint={{
             'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
-            'fill-opacity': constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+            'fill-opacity':
+              constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
           }}
           minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
         />
@@ -135,10 +176,11 @@ const MapTractLayers = ({
           id={constants.GRANDFATHERED_HIGH_ZOOM_LAYER_ID}
           source-layer={constants.SCORE_SOURCE_LAYER}
           filter={['==', constants.IS_GRANDFATHERED, true]}
-          type='fill'
+          type="fill"
           paint={{
             'fill-color': constants.GRANDFATHERED_FEATURE_FILL_COLOR,
-            'fill-opacity': constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+            'fill-opacity':
+              constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
           }}
           minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
         />
@@ -147,7 +189,7 @@ const MapTractLayers = ({
         <Layer
           id={constants.FEATURE_BORDER_LAYER_ID}
           source-layer={constants.SCORE_SOURCE_LAYER}
-          type='line'
+          type="line"
           paint={{
             'line-color': constants.FEATURE_BORDER_COLOR,
             'line-width': constants.FEATURE_BORDER_WIDTH,
@@ -162,7 +204,7 @@ const MapTractLayers = ({
           id={constants.SELECTED_FEATURE_BORDER_LAYER_ID}
           source-layer={constants.SCORE_SOURCE_LAYER}
           filter={filter} // This filter filters out all other features except the selected feature.
-          type='line'
+          type="line"
           paint={{
             'line-color': constants.SELECTED_FEATURE_BORDER_COLOR,
             'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,

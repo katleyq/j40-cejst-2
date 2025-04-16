@@ -185,7 +185,7 @@ export const FOOTER = defineMessages({
   },
   TITLE: {
     id: 'common.pages.footer.logo.title',
-    defaultMessage: 'Council on Environmental Quality',
+    defaultMessage: 'Bren School of Environmental Science and Management',
     description: 'Navigate to the about page. This is Footer under logo',
   },
   MORE_INFO: {

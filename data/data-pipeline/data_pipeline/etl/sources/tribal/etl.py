@@ -27,7 +27,9 @@ class TribalETL(ExtractTransformLoad):
         self.USA_TRIBAL_DF_LIST = []
 
     def get_data_sources(self) -> [DataSource]:
-
+        
+        # Need to figure out how to get these datasets!
+        # alternatively, we use whatever data we can find. We'll probably be modifying both the map and the score this way
         national_lar_url = (
             settings.AWS_JUSTICE40_DATASOURCES_URL
             + "/BIA_National_LAR_updated_20220929.zip"

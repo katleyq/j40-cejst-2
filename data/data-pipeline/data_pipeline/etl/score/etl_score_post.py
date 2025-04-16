@@ -72,6 +72,14 @@ class PostScoreETL(ExtractTransformLoad):
             []
         )  # we have all prerequisite sources locally as a result of generating the score
 
+
+    ## The data sources they're using here are:
+    # - Counties
+    # - States
+    # - Score
+    # - Census GeoJSON
+    ## As far as I can tell, We have the states data, we have the score data frame that we gave it, and we have the us_geo.parquet that I assume is for the gsojson. We're missing the counties data, which would explain why we have ~13000 missing counties in the usa_counties final csv.
+
     def _extract_counties(self, county_path: Path) -> pd.DataFrame:
         logger.debug("Reading Counties CSV")
         return pd.read_csv(
@@ -152,6 +160,7 @@ class PostScoreETL(ExtractTransformLoad):
         Necessary modifications to the counties dataframe
         """
         # Rename some of the columns to prepare for merge
+        # USPS, GEOID, NAME 
         new_df = initial_counties_df[constants.CENSUS_COUNTIES_COLUMNS]
 
         new_df_copy = new_df.rename(
@@ -179,12 +188,19 @@ class PostScoreETL(ExtractTransformLoad):
 
     def _transform_score(self, initial_score_df: pd.DataFrame) -> pd.DataFrame:
         """
+        Not sure why they're adding GEOID to score df when they used it to merge in etl_score.py??
+
         Add the GEOID field to the score dataframe to do the merge with counties
         """
         # add GEOID column for counties
+        # First convert to type str because our df had it as num
+        # initial_score_df[self.GEOID_TRACT_FIELD_NAME] = initial_score_df[self.GEOID_TRACT_FIELD_NAME].astype(str)
+        # logger.debug(initial_score_df[self.GEOID_TRACT_FIELD_NAME].str.len().value_counts())
+
         initial_score_df["GEOID"] = initial_score_df[
             self.GEOID_TRACT_FIELD_NAME
         ].str[:5]
+        # Pulling first 5 digits of the GEOID to match the counties df
 
         return initial_score_df
 
@@ -202,6 +218,8 @@ class PostScoreETL(ExtractTransformLoad):
             on="GEOID",  # GEOID is the county ID
             how="left",
         )
+
+        logger.debug(score_county_merged[self.GEOID_TRACT_FIELD_NAME].str.len().value_counts())
 
         logger.debug("Merging state info with county-score info")
         # Here, we need to join on a separate key, since there's no
@@ -225,6 +243,7 @@ class PostScoreETL(ExtractTransformLoad):
             self.GEOID_TRACT_FIELD_NAME
         ].is_unique, "Merging state/county data introduced duplicate rows"
         # set the score to the new df
+        # logger.debug(f"Available columns in score_county_state_merged_df: {score_county_state_merged.columns}")
         return score_county_state_merged
 
     def _create_tile_data(
@@ -301,6 +320,9 @@ class PostScoreETL(ExtractTransformLoad):
             columns=constants.TILES_SCORE_COLUMNS,
             inplace=False,
         )
+
+        # logger.debug(score_tiles[field_names.GEOID_TRACT_FIELD].str.len().value_counts())
+        # logger.debug(f"Available columns: {score_tiles.columns}")
 
         # write the json map to disk
         inverse_tiles_columns = {
@@ -520,6 +542,7 @@ class PostScoreETL(ExtractTransformLoad):
         logger.debug("Saving Tile Score CSV")
         tile_score_path.parent.mkdir(parents=True, exist_ok=True)
         score_tiles_df.to_csv(tile_score_path, index=False, encoding="utf-8")
+        # assert self.output_score_tiles_df[field_names.GEOID_TRACT_FIELD].str.len().eq(11).all(), "Some GEOIDs are not 11 digits!"
 
     def _load_downloadable_zip(self, downloadable_info_path: Path) -> None:
         downloadable_info_path.mkdir(parents=True, exist_ok=True)

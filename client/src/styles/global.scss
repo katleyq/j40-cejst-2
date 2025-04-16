@@ -44,9 +44,9 @@ There are 3 things that should be included in this file:
 ******************************
 */
 
-$primary-color: #112f4e; // Used for header font color - selection color is #005EA2
-$j40-blue-background-color: #e7f2f5; // Hex value of 'blue-cool-5'
-$disadvantaged-color-side-panel: #1a4480;
+$primary-color: #6d332e; // Used for header font color - selection color is #005EA2
+$j40-blue-background-color: #f0f0ea; // Hex value of 'blue-cool-5'
+$disadvantaged-color-side-panel: #d47d76;
 
 // The j40-element mixin is used to create any font element. E.g. <h1>, <p> tags, etc.
 // Arguments to the mixins must be tokens from USWDS
@@ -128,7 +128,7 @@ li.usa-nav__primary-item a {
 }
 
 li.usa-nav__primary-item a:hover::after {
-  background-color: #005ea2;
+  background-color: #6f3331;
   border-radius: 0;
   content: "";
   display: block;

@@ -20,12 +20,12 @@ export const EXPLORE_PAGE_LINKS = {
 export const PAGE_INTRO = defineMessages({
   PAGE_TILE: {
     id: 'explore.map.page.title.text',
-    defaultMessage: 'Explore the map',
+    defaultMessage: 'Explore the map with MEDS Justice40',
     description: 'On the explore the map page, the title of the page',
   },
   PAGE_HEADING: {
     id: 'explore.map.page.heading.text',
-    defaultMessage: 'Explore the map',
+    defaultMessage: 'Explore the Map with MEDS Justice40',
     description: 'On the explore the map page, the heading of the page',
   },
 });
