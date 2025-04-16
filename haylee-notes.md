@@ -8,9 +8,9 @@ This repository is massive and so I've decided to use this markdown to keep trac
   - [Tiling and Viewing Data on the Map](#tiling-and-viewing-data-on-the-map)
   - [Editing Aesthetics](#editing-aesthetics)
   - [Adding a Layer to the Application](#adding-a-layer-to-the-application)
-  - [Miscellaneous](#miscellaneous)
   - [Poetry](#poetry)
-  - [Tribal data](#tribal-data)
+  - [Tribal Data](#tribal-data)
+  - [Miscellaneous](#miscellaneous)
 
 
 ## Scoring
@@ -29,7 +29,7 @@ This repository is massive and so I've decided to use this markdown to keep trac
 
 - `data/data-pipeline/settings.toml` houses the Amazon AWS links to the data. Neither version 1 nor version 2 links work.
 
-- `data/data-pipeline/data_pipeline/tests/sources` houses all the actual data files that are outputted during the ETL process
+- `data/data-pipeline/data_pipeline/tests/sources` houses small versions of the actual data files that are outputted during the ETL process. Used for testing. These datasets are missing from the full version of the data pipeline. 
 
     I think it's possible to shorten the data pipeline by truncating the initial pull from AWS. If we can modify where it starts the process from the sources outputted from ETL, I think we can get the app back up and running with the DAC layer...
 
@@ -56,8 +56,6 @@ This repository is massive and so I've decided to use this markdown to keep trac
 Files to check:
 
 - `data/data-pipeline/data_pipeline/score/adding_variables_to_score.md` is the markdown with information about important files to check and modify when adding data. Will need to modify to fit our needs, but it's a good start. 
-
-- `data/data-pipeline/data_pipeline/application.py` houses commands (?) about generating the tiles, including the score tiles and tribal tiles. Will need to edit this to include our new layer?
 
 - `data/data-pipeline/data_pipeline/tile/generate.py`: File for generating tiles. Modified to fit our usa high and low geojsons
 
@@ -86,26 +84,30 @@ TILES_SCORE_COLUMNS = {
     field_names.DIABETES_FIELD + field_names.PERCENTILE_FIELD_SUFFIX: "DF_PFS",
 ```
 
-## Miscellaneous
-
-- `data/data-pipeline/data_pipeline/etl/score/constants.py` contains the column names of the geo data frame. They're also in the codebook, but this is where they're defined. 
-
-- `data/data-pipeline/data_pipeline/etl/sources/geo_utils.py`: Utililities for turning geographies into tracts using census data
-
-
-All file paths are at 
-`client/env.development`
-
-Craeted a new cloudfront server to host the base files. Cloudfront is a service by amazon, content delivery network. 
-
-NEED TO RUN POETRY INSTALL TO LOAD DEPENDENCIES?!?! But still can't get the created libraries to run. Trying to troubleshoot that. 
 
 ## Poetry
 
 Run poetry install to install dependencies. Poetry is a dependency management tool for Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
 - `poetry.lock` is a file that poetry uses to lock the versions of the dependencies. It ensures that everyone working on the project has the same versions of the libraries installed.
 
-## Tribal data
+How to run poetry and the pipeline?
+- navigate to `data/data-pipeline`
+- `poetry install` will spin up the virtual environment and install all the dependencies
+- `poetry env activate`, make sure it's the right python version (mine has been 3.10, you can check by running `which python`)
+- `poetry run python3 data_pipeline/application.py` will give you a list of commands you can run for individual parts of the pipeline. The full list of commands and arguments can be found at `data/data-pipeline/README.md`
+- If you can't activate the right version (which happened to me before), you can always source the file yourself like so `source /Users/YOUR-USERNAME/Library/Caches/pypoetry/virtualenvs/justice40-data-pipeline-X9SY8ec--py3.10/bin/activate`
+
+## Tribal Data
 
 - `data/data-pipeline/data_pipeline/etl/sources/tribal/etl.py` etl file that has the three data sources and the download links to the S3 bucket. 
 - `data/data-pipeline/data_pipeline/etl/sources/tribal_overlap/etl.py`: tribal overlap calculates the percentage of the census tract that is within the tribal area. These are the columns we see when we look at the current data frames we have. I couldn't find a single column that was just tribal: yes/no.
+- Also when calculating the score, only the tribal overlap etl is imported, not the regular tribal etl. 
+
+## Miscellaneous
+
+- `data/data-pipeline/data_pipeline/etl/score/constants.py` contains the column names of the geo data frame. They're also in the codebook, but this is where they're defined. 
+
+- `data/data-pipeline/data_pipeline/etl/sources/geo_utils.py`: Utililities for turning geographies into tracts using census data
+
+All environment variable paths are at 
+`client/env.development`

@@ -223,7 +223,7 @@ class ScoreETL(ExtractTransformLoad):
             columns={
                 field_names.FINAL_SCORE_N_BOOLEAN: field_names.FINAL_SCORE_N_BOOLEAN_V1_0,
             }
-        )
+        )  
 
     def _join_tract_dfs(self, census_tract_dfs: list) -> pd.DataFrame:
         logger.debug("Joining Census Tract dataframes")

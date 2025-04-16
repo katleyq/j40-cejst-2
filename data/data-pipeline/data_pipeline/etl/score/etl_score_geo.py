@@ -130,9 +130,32 @@ class GeoScoreETL(ExtractTransformLoad):
             how="left",
         )
 
+        # missing_geom = self.geojson_score_usa_high["geometry"].isnull().sum()
+        # total = len(self.geojson_score_usa_high)
+        # logger.warning(f"Missing geometries: {missing_geom} / {total} ({missing_geom / total:.2%})")
+
+        # Optional hard fail
+        # assert missing_geom == 0, "Some geometries failed to merge!"
+
+
         self.geojson_score_usa_high = gpd.GeoDataFrame(
             self.geojson_score_usa_high, crs="EPSG:4326"
         )
+        # Check for null geometries
+        missing_ids = self.geojson_score_usa_high[
+        self.geojson_score_usa_high["geometry"].isnull()
+        ].index.tolist()
+
+        logger.warning(f"Dropping {len(missing_ids)} tracts with null geometry. Example: {missing_ids[:5]}")
+
+        # REMOVE NULL GEOMETRIES!! 
+        self.geojson_score_usa_high = self.geojson_score_usa_high[
+        self.geojson_score_usa_high["geometry"].notnull()
+        ]
+
+        # logger.warning("geojson_score_usa_high geometry nulls: %s", self.geojson_score_usa_high["geometry"].isnull().sum())
+        # logger.warning("geojson_score_usa_high total rows: %s", len(self.geojson_score_usa_high))
+
 
         usa_simplified = self.geojson_score_usa_high[
             [
@@ -160,6 +183,8 @@ class GeoScoreETL(ExtractTransformLoad):
         usa_bucketed, keep_high_zoom_df = self._create_buckets_from_tracts(
             usa_tracts, self.NUMBER_OF_BUCKETS
         )
+        logger.warning("usa_bucketed: %s", len(usa_bucketed))
+        logger.warning("keep_high_zoom_df: %s", len(keep_high_zoom_df))
 
         logger.debug("Aggregating buckets")
         usa_aggregated = self._aggregate_buckets(usa_bucketed, agg_func="mean")
@@ -181,6 +206,9 @@ class GeoScoreETL(ExtractTransformLoad):
     def _create_buckets_from_tracts(
         self, initial_state_tracts: gpd.GeoDataFrame, num_buckets: int
     ):
+        # Assert statement for null geometries
+        assert initial_state_tracts["geometry"].notnull().all(), "Some geometries are null at bucket creation!"
+
         # First, we remove any states that have under the threshold of census tracts
         # from being aggregated (right now, this just removes Wyoming)
         highzoom_state_tracts = initial_state_tracts.reset_index()
@@ -240,10 +268,15 @@ class GeoScoreETL(ExtractTransformLoad):
             self.GEOMETRY_FIELD_NAME,
         ]
 
+        assert state_tracts["geometry"].notnull().all(), "Null geometry before dissolve!"
+
         #  We dissolve all other tracts by their score bucket
         state_dissolve = state_tracts[keep_cols].dissolve(
             by=f"{self.TARGET_SCORE_RENAME_TO}_bucket", aggfunc=agg_func
         )
+
+        assert state_dissolve["geometry"].notnull().all(), "Null geometry after dissolve!"
+
         return state_dissolve
 
     def _breakup_multipolygons(
