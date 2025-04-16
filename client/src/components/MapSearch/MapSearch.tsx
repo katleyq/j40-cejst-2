@@ -13,7 +13,11 @@ import * as styles from './MapSearch.module.scss';
 import * as EXPLORE_COPY from '../../data/copy/explore';
 
 interface IMapSearch {
-  goToPlace(bounds: LngLatBoundsLike, isTerritory: boolean, selectTractId: string | undefined):void;
+  goToPlace(
+    bounds: LngLatBoundsLike,
+    isTerritory: boolean,
+    selectTractId: string | undefined
+  ): void;
 }
 
 interface ISearchTractRecord {
@@ -22,7 +26,7 @@ interface ISearchTractRecord {
   INTPTLON10: string;
 }
 
-const MapSearch = ({goToPlace}:IMapSearch) => {
+const MapSearch = ({goToPlace}: IMapSearch) => {
   // State to hold if the search results are empty or not:
   const [isSearchResultsNull, setIsSearchResultsNull] = useState(false);
   const intl = useIntl();
@@ -37,7 +41,9 @@ const MapSearch = ({goToPlace}:IMapSearch) => {
    *
    */
   const {width, height} = useWindowSize();
-  const [placeholderText, setPlaceholderText]= useState(EXPLORE_COPY.MAP.SEARCH_PLACEHOLDER);
+  const [placeholderText, setPlaceholderText] = useState(
+      EXPLORE_COPY.MAP.SEARCH_PLACEHOLDER,
+  );
   const [tractSearch, setTractSearch] = useState<JsSearch.Search | null>(null);
 
   /**
@@ -50,11 +56,13 @@ const MapSearch = ({goToPlace}:IMapSearch) => {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error(`${response.statusText} error with status code of ${response.status}`);
+            throw new Error(
+                `${response.statusText} error with status code of ${response.status}`,
+            );
           }
         })
         .then((data) => {
-          // We use JsSearch to make it easy to load and quick to search.
+        // We use JsSearch to make it easy to load and quick to search.
           const search = new JsSearch.Search('GEOID10');
           search.indexStrategy = new JsSearch.ExactWordIndexStrategy();
           search.addIndex('GEOID10');
@@ -62,14 +70,17 @@ const MapSearch = ({goToPlace}:IMapSearch) => {
           setTractSearch(search);
         })
         .catch((error) =>
-          console.error('Unable to read search tract table:', error));
+          console.error('Unable to read search tract table:', error),
+        );
   };
 
-  useEffect( () => {
-   width > height ? setPlaceholderText(EXPLORE_COPY.MAP.SEARCH_PLACEHOLDER): setPlaceholderText(EXPLORE_COPY.MAP.SEARCH_PLACEHOLDER_MOBILE);
+  useEffect(() => {
+    width > height ?
+      setPlaceholderText(EXPLORE_COPY.MAP.SEARCH_PLACEHOLDER) :
+      setPlaceholderText(EXPLORE_COPY.MAP.SEARCH_PLACEHOLDER_MOBILE);
   }, [width]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getTractSearchData();
   }, []);
 
@@ -94,16 +105,23 @@ const MapSearch = ({goToPlace}:IMapSearch) => {
         const lat = Number(searchTractRecord.INTPTLAT10);
         const lon = Number(searchTractRecord.INTPTLON10);
         const boundingBox = [
-          (lat - (BOUNDING_BOX_SIZE_DD / 2)).toString(),
-          (lat + (BOUNDING_BOX_SIZE_DD / 2)).toString(),
-          (lon - (BOUNDING_BOX_SIZE_DD / 2)).toString(),
-          (lon + (BOUNDING_BOX_SIZE_DD / 2)).toString(),
+          (lat - BOUNDING_BOX_SIZE_DD / 2).toString(),
+          (lat + BOUNDING_BOX_SIZE_DD / 2).toString(),
+          (lon - BOUNDING_BOX_SIZE_DD / 2).toString(),
+          (lon + BOUNDING_BOX_SIZE_DD / 2).toString(),
         ];
         const [latMin, latMax, longMin, longMax] = boundingBox;
         setIsSearchResultsNull(false);
 
         // Now move the map and select the tract.
-        goToPlace([[Number(longMin), Number(latMin)], [Number(longMax), Number(latMax)]], false, normalizedTractId);
+        goToPlace(
+            [
+              [Number(longMin), Number(latMin)],
+              [Number(longMax), Number(latMax)],
+            ],
+            false,
+            normalizedTractId,
+        );
       }
     }
   };
@@ -120,7 +138,8 @@ const MapSearch = ({goToPlace}:IMapSearch) => {
         `https://nominatim.openstreetmap.org/search?q=${searchTerm}&format=json&countrycodes=us`,
         {
           mode: 'cors',
-        })
+        },
+    )
         .then((response) => {
           if (!response.ok) {
             throw new Error('Network response was not OK');
@@ -128,7 +147,10 @@ const MapSearch = ({goToPlace}:IMapSearch) => {
           return response.json();
         })
         .catch((error) => {
-          console.error('There has been a problem with your fetch operation:', error);
+          console.error(
+              'There has been a problem with your fetch operation:',
+              error,
+          );
         });
     console.log('Nominatum search results: ', searchResults);
 
@@ -136,7 +158,14 @@ const MapSearch = ({goToPlace}:IMapSearch) => {
     if (searchResults && searchResults.length > 0) {
       setIsSearchResultsNull(false);
       const [latMin, latMax, longMin, longMax] = searchResults[0].boundingbox;
-      goToPlace([[Number(longMin), Number(latMin)], [Number(longMax), Number(latMax)]], false, undefined);
+      goToPlace(
+          [
+            [Number(longMin), Number(latMin)],
+            [Number(longMax), Number(latMax)],
+          ],
+          false,
+          undefined,
+      );
     } else {
       setIsSearchResultsNull(true);
     }
@@ -150,7 +179,9 @@ const MapSearch = ({goToPlace}:IMapSearch) => {
     event.preventDefault();
     event.stopPropagation();
 
-    const searchTerm = (event.currentTarget.elements.namedItem('search') as HTMLInputElement).value;
+    const searchTerm = (
+      event.currentTarget.elements.namedItem('search') as HTMLInputElement
+    ).value;
 
     // If the search term a Census tract
     const isTract = /^\d{10,11}$/.test(searchTerm);

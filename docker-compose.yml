@@ -1,20 +1,20 @@
 services:
   # The j40_data_pipeline service runs the ETL pipeline to create the score
-  score:
-    image: j40_data_pipeline
-    container_name: j40_data_pipeline_1
-    build: data/data-pipeline
-    ports:
-      - 8888:8888
-    volumes:
-      - ./data/data-pipeline:/data-pipeline
-    stdin_open: true
-    tty: true
-    environment:
-      ENV_FOR_DYNACONF: development
-      PYTHONUNBUFFERED: 1
-      TZ: America/Los_Angeles
-      PIPELINE_CMD: $PIPELINE_CMD
+  # score:
+  #   image: j40_data_pipeline
+  #   container_name: j40_data_pipeline_1
+  #   build: data/data-pipeline
+  #   ports:
+  #     - 8888:8888
+  #   volumes:
+  #     - ./data/data-pipeline:/data-pipeline
+  #   stdin_open: true
+  #   tty: true
+  #   environment:
+  #     ENV_FOR_DYNACONF: development
+  #     PYTHONUNBUFFERED: 1
+  #     TZ: America/Los_Angeles
+  #     PIPELINE_CMD: $PIPELINE_CMD
 
   # The score_server serves the data-pipeline volume as a URL
   j40_score_server:
@@ -23,7 +23,7 @@ services:
     build: data/data-serve/.
     volumes:
       - ./data/data-pipeline/data_pipeline/data/score:/data/data-pipeline/data_pipeline/data/score
-      - ./data/data-pipeline/data_pipeline/data/tribal:/data/data-pipeline/data_pipeline/data/tribal
+      # - ./data/data-pipeline/data_pipeline/data/tribal:/data/data-pipeline/data_pipeline/data/tribal
     ports:
       - 5001:8080
     environment:

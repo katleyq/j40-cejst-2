@@ -17,12 +17,17 @@ FILES_PATH = Path(settings.APP_ROOT) / "files"
 CENSUS_COUNTIES_ZIP_URL = "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/Gaz_counties_national.zip"
 
 # Local Paths
+# Add this file to data/data-pipeline/data_pipeline/data/tmp. Pulled it from URL above
 CENSUS_COUNTIES_FILE_NAME = TMP_PATH / "Gaz_counties_national.txt"
+
+# CENSUS_COUNTIES_FILE_NAME = DATA_PATH / "census" / "csv" / "Gaz_counties_national.txt"
 
 # Census paths
 DATA_CENSUS_DIR = DATA_PATH / "census"
 DATA_CENSUS_CSV_DIR = DATA_CENSUS_DIR / "csv"
+# MISSING THIS FILE
 DATA_CENSUS_CSV_FILE_PATH = DATA_CENSUS_CSV_DIR / "us.csv"
+# We have the fips csv and the geo parquets, surprisingly? 
 DATA_CENSUS_CSV_STATE_FILE_PATH = DATA_CENSUS_CSV_DIR / "fips_states_2010.csv"
 DATA_CENSUS_GEOJSON_FILE_PATH = DATA_CENSUS_DIR / "geojson" / "us_geo.parquet"
 
@@ -32,24 +37,31 @@ DATA_SCORE_DIR = DATA_PATH / "score"
 ## Score CSV Paths
 DATA_SCORE_CSV_DIR = DATA_SCORE_DIR / "csv"
 DATA_SCORE_CSV_FULL_DIR = DATA_SCORE_CSV_DIR / "full"
+# MISSING PARQUET
 DATA_SCORE_CSV_FULL_FILE_PATH = DATA_SCORE_CSV_FULL_DIR / "usa_score.parquet"
+# MISSING USA_COUNTIES CSV. I put usa csv in there, but not sure if its right
 FULL_SCORE_CSV_FULL_PLUS_COUNTIES_FILE_PATH = (
     DATA_SCORE_CSV_FULL_DIR / "usa_counties.csv"
 )
 
 # Score Tile CSV source path
 DATA_SCORE_CSV_TILES_PATH = DATA_SCORE_CSV_DIR / "tiles"
+# !! Should move usa csv here?
 DATA_SCORE_CSV_TILES_FILE_PATH = DATA_SCORE_CSV_TILES_PATH / "usa.csv"
+# Also not sure where this tile_indexes json file came from 
 DATA_SCORE_JSON_INDEX_FILE_PATH = (
     DATA_SCORE_CSV_TILES_PATH / "tile_indexes.json"
 )
 
 ## Tile path
+# Have the tiles here in high and low dirs
 DATA_SCORE_TILES_DIR = DATA_SCORE_DIR / "tiles"
 
 ## Tiles search
+# No idea what this search is for or where it comes from. I made my own SEARCH dir here
 DATA_TILES_SEARCH_DIR = DATA_SCORE_DIR / "search"
 
+# I don't think we need to worry about downloadable paths for now...
 # Downloadable paths
 if not os.environ.get("J40_VERSION_LABEL_STRING"):
     version_str = "2.0"
