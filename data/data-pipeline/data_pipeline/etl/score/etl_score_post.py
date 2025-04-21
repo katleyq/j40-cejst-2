@@ -194,7 +194,7 @@ class PostScoreETL(ExtractTransformLoad):
         """
         # add GEOID column for counties
         # First convert to type str because our df had it as num
-        # initial_score_df[self.GEOID_TRACT_FIELD_NAME] = initial_score_df[self.GEOID_TRACT_FIELD_NAME].astype(str)
+        initial_score_df[self.GEOID_TRACT_FIELD_NAME] = initial_score_df[self.GEOID_TRACT_FIELD_NAME].astype(str)
         # logger.debug(initial_score_df[self.GEOID_TRACT_FIELD_NAME].str.len().value_counts())
 
         initial_score_df["GEOID"] = initial_score_df[
