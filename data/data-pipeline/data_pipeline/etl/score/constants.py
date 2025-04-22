@@ -237,6 +237,11 @@ TILES_FEMA_ROUND_NUM_DECIMALS = 4
 
 # Tiles data: full field name, tile index name
 TILES_SCORE_COLUMNS = {
+    # ADD FIELD NAMES FOR GEODA DATA 
+    field_names.GI_STAR_BURDEN: "GIS_BURD",
+    field_names.PSIM_BURDEN: "P_BURD",
+    field_names.GI_STAR_INDICATOR: "GIS_IND",
+    field_names.PSIM_INDICATOR: "P_IND",
     field_names.GEOID_TRACT_FIELD: "GTF",
     field_names.STATE_FIELD: "SF",
     field_names.COUNTY_FIELD: "CF",

@@ -265,6 +265,7 @@ class PostScoreETL(ExtractTransformLoad):
         logger.debug(
             f"Dropping specified FIPS codes from tile data: {constants.DROP_FIPS_CODES}"
         )
+        # DROP_FIPS_CODE is currently empty
         tracts_to_drop = []
         for fips_code in constants.DROP_FIPS_CODES:
             tracts_to_drop += score_tiles[
