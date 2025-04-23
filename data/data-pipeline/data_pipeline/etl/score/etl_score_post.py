@@ -194,7 +194,7 @@ class PostScoreETL(ExtractTransformLoad):
         """
         # add GEOID column for counties
         # First convert to type str because our df had it as num
-        # initial_score_df[self.GEOID_TRACT_FIELD_NAME] = initial_score_df[self.GEOID_TRACT_FIELD_NAME].astype(str)
+        initial_score_df[self.GEOID_TRACT_FIELD_NAME] = initial_score_df[self.GEOID_TRACT_FIELD_NAME].astype(str)
         # logger.debug(initial_score_df[self.GEOID_TRACT_FIELD_NAME].str.len().value_counts())
 
         initial_score_df["GEOID"] = initial_score_df[
@@ -265,6 +265,7 @@ class PostScoreETL(ExtractTransformLoad):
         logger.debug(
             f"Dropping specified FIPS codes from tile data: {constants.DROP_FIPS_CODES}"
         )
+        # DROP_FIPS_CODE is currently empty
         tracts_to_drop = []
         for fips_code in constants.DROP_FIPS_CODES:
             tracts_to_drop += score_tiles[

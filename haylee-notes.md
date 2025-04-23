@@ -6,8 +6,10 @@ This repository is massive and so I've decided to use this markdown to keep trac
   - [Extract, Transform, Load](#extract-transform-load)
   - [Where's the Data?](#wheres-the-data)
   - [Tiling and Viewing Data on the Map](#tiling-and-viewing-data-on-the-map)
-  - [Editing Aesthetics](#editing-aesthetics)
+  - [Front End Aesthetics](#front-end-aesthetics)
   - [Adding a Layer to the Application](#adding-a-layer-to-the-application)
+    - [Back end](#back-end)
+    - [Front end](#front-end)
   - [Poetry](#poetry)
   - [Tribal Data](#tribal-data)
   - [Miscellaneous](#miscellaneous)
@@ -42,7 +44,7 @@ This repository is massive and so I've decided to use this markdown to keep trac
 - `client/src/components/MapTractLayers/MapTractLayers.tsx`: Path for the map layers
 - `data/data-pipeline/data_pipeline/etl/score/etl_score_geo.py`: Path for making high and low json??
 
-## Editing Aesthetics
+## Front End Aesthetics
 - `client/src/pages/index.tsx`: The home page of the application
 
 - `client/src/data/copy/explore.tsx`: Where the text for the home page lives. All the text is housed in separate little chunks inside of larger functions. This also includes the text that shows up interactively as you click around the map. 
@@ -50,6 +52,8 @@ This repository is massive and so I've decided to use this markdown to keep trac
 - `client/src/components/J40Header/J40Header.tsx`: Changing header stuff, including logo
 
 ## Adding a Layer to the Application
+
+### Back end
 
 - `docs/operations/artifacts.md`: Shows repository structure for what files get generated at every step of the process!! 
 
@@ -74,15 +78,28 @@ TILES_PUERTO_RICO_THRESHOLD_COUNT = 10
 TILES_NATION_THRESHOLD_COUNT = 21  
 ```
 
-Also has info about how the data that gets served to the tiles should be structured:
-```{python}
-# Tiles data: full field name, tile index name
-TILES_SCORE_COLUMNS = {
-    field_names.GEOID_TRACT_FIELD: "GTF",
-    field_names.STATE_FIELD: "SF",
-    field_names.COUNTY_FIELD: "CF",
-    field_names.DIABETES_FIELD + field_names.PERCENTILE_FIELD_SUFFIX: "DF_PFS",
+Added these values to `constants.py`:
 ```
+TILES_SCORE_COLUMNS = {
+    # ADD FIELD NAMES FOR GEODA DATA 
+    field_names.GI_STAR_BURDEN: "GIS_BURD",
+    field_names.PSIM_BURDEN: "P_BURD",
+    field_names.GI_STAR_INDICATOR: "GIS_IND",
+    field_names.PSIM_INDICATOR: "P_IND",
+```
+
+Added these values to `data/data-pipeline/data_pipeline/score/field_names.py`:
+```
+# ADDING GI STAR DATA AND ADDITIVE DATA
+GI_STAR_BURDEN = 'GI Star Burdens'
+PSIM_BURDEN = 'P-value Burdens'
+GI_STAR_INDICATOR = 'GI Star Indicators'
+PSIM_INDICATOR = 'P-value Indicators'
+```
+
+### Front end
+
+Started adding the GI Star layer in `client/src/components/MapTractLayers/MapTractLayers.tsx` with edits in `client/src/data/constants.tsx`. Got it to show up in the high zoom, but can't make it show up on low zoom yet because the low geojson only has geometries and score. We'll need to rerun that section of the data pipeline and modify the low creation so it also stores these values. 
 
 
 ## Poetry

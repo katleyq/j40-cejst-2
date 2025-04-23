@@ -14,6 +14,18 @@ COUNTY_FIELD = "County Name"
 # Census per-tract land area field name
 LAND_AREA_FIELD = "ALAND10"
 
+# ADDING GI STAR DATA AND ADDITIVE DATA
+GI_STAR_BURDEN = 'GI Star Burdens'
+PSIM_BURDEN = 'P-value Burdens'
+GI_STAR_INDICATOR = 'GI Star Indicators'
+PSIM_INDICATOR = 'P-value Indicators'
+
+# Moved this to data/data-pipeline/data_pipeline/etl/score/constants.py
+# GI_STAR_BURDEN = 'gisim_burd'
+# PSIM_BURDEN = 'psim_burd'
+# GI_STAR_INDICATOR = 'gisim_ind'
+# PSIM_INDICATOR = 'psim_ind'
+
 # Definition Narwhal fields
 SCORE_N_COMMUNITIES = "Definition N (communities)"
 N_CLIMATE = "Climate Factor (Definition N)"
