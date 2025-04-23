@@ -99,6 +99,9 @@ PSIM_INDICATOR = 'P-value Indicators'
 
 ### Front end
 
+Started adding the GI Star layer in `client/src/components/MapTractLayers/MapTractLayers.tsx` with edits in `client/src/data/constants.tsx`. Got it to show up in the high zoom, but can't make it show up on low zoom yet because the low geojson only has geometries and score. We'll need to rerun that section of the data pipeline and modify the low creation so it also stores these values. 
+
+
 ## Poetry
 
 Run poetry install to install dependencies. Poetry is a dependency management tool for Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.

@@ -45,6 +45,12 @@ export const COUNTY_NAME = "CF";
 export const STATE_NAME = "SF";
 export const TOTAL_POPULATION = "TPF";
 
+// GEODA data
+export const GI_STAR_BURDEN = "GIS_BURD";
+export const PSIM_BURDEN = "P_BURD";
+export const GI_STAR_INDICATOR = "GIS_IND";
+export const PSIM_INDICATOR = "P_IND";
+
 // Demographics
 export const DEMO_NON_HISPANIC_WHITE = "DM_W";
 export const DEMO_BLACK = "DM_B";
@@ -258,11 +264,15 @@ export const TRIBAL_SOURCE_LAYER = "blocks";
 export const BASE_MAP_LAYER_ID = "base-map-layer-id";
 export const HIGH_ZOOM_LAYER_ID = "high-zoom-layer-id";
 export const PRIORITIZED_HIGH_ZOOM_LAYER_ID = "prioritized-high-zoom-layer-id";
-export const GRANDFATHERED_HIGH_ZOOM_LAYER_ID = "grandfathered-high-zoom-layer-id";
+export const GRANDFATHERED_HIGH_ZOOM_LAYER_ID =
+  "grandfathered-high-zoom-layer-id";
 export const LOW_ZOOM_LAYER_ID = "low-zoom-layer-id";
 export const FEATURE_BORDER_LAYER_ID = "feature-border-layer-id";
 export const SELECTED_FEATURE_BORDER_LAYER_ID =
   "selected-feature-border-layer-id";
+// Add PSIM burden layer ID
+export const PSIM_BURDEN_LAYER_ID = "psim-burden-layer-id";
+export const PSIM_INDICATOR_LAYER_ID = "psim-indicator-layer-id";
 
 export const TRIBAL_LAYER_ID = "tribal-layer-id";
 export const TRIBAL_ALASKA_POINTS_LAYER_ID = "tribal-alaska-points-layer-id";
@@ -295,11 +305,13 @@ export const HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY = 0.3;
 export const LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY = 0.6;
 export const NON_PRIORITIZED_FEATURE_FILL_OPACITY = 0;
 export const TRIBAL_FEATURE_FILL_OPACITY = 0.3;
+export const PSIM_FEATURE_FILL_OPACITY = 0.6;
 
 // Colors
 export const FEATURE_BORDER_COLOR = "#4EA5CF";
 export const SELECTED_FEATURE_BORDER_COLOR = "#1A4480";
 export const PRIORITIZED_FEATURE_FILL_COLOR = "#0050D8";
+export const PSIM_FEATURE_FILL_COLOR = "#612D29";
 export const GRANDFATHERED_FEATURE_FILL_COLOR = "#8168B3";
 
 export const TRIBAL_BORDER_COLOR = "#4EA5CF";
@@ -389,18 +401,22 @@ export const CENSUS_TRACT_SURVEY_LINKS = {
   ES: "https://eop.gov1.qualtrics.com/jfe/form/SV_3LbCTDxjTqZdyPI",
 };
 
-export const TILE_BASE_URL = process.env.DATA_SOURCE === "local" ?
-process.env.GATSBY_LOCAL_TILES_BASE_URL :
-process.env.GATSBY_CDN_TILES_BASE_URL;
+export const TILE_BASE_URL =
+  process.env.DATA_SOURCE === "local" ?
+    process.env.GATSBY_LOCAL_TILES_BASE_URL :
+    process.env.GATSBY_CDN_TILES_BASE_URL;
 
-export const TILE_PATH = process.env.DATA_SOURCE === "local" ?
-process.env.GATSBY_DATA_PIPELINE_SCORE_PATH_LOCAL :
-process.env.GATSBY_2_0_SCORE_PATH;
+export const TILE_PATH =
+  process.env.DATA_SOURCE === "local" ?
+    process.env.GATSBY_DATA_PIPELINE_SCORE_PATH_LOCAL :
+    process.env.GATSBY_2_0_SCORE_PATH;
 
-export const MAP_TRACT_SEARCH_PATH = process.env.DATA_SOURCE === "local" ?
-process.env.GATSBY_DATA_PIPELINE_SEARCH_PATH_LOCAL :
-process.env.GATSBY_2_0_MAP_TRACT_SEARCH_PATH;
+export const MAP_TRACT_SEARCH_PATH =
+  process.env.DATA_SOURCE === "local" ?
+    process.env.GATSBY_DATA_PIPELINE_SEARCH_PATH_LOCAL :
+    process.env.GATSBY_2_0_MAP_TRACT_SEARCH_PATH;
 
-export const GATSBY_DATA_PIPELINE_TRIBAL_PATH = process.env.DATA_SOURCE === "local" ?
-process.env.GATSBY_DATA_PIPELINE_TRIBAL_PATH_LOCAL :
-process.env.GATSBY_2_0_TRIBAL_PATH;
+export const GATSBY_DATA_PIPELINE_TRIBAL_PATH =
+  process.env.DATA_SOURCE === "local" ?
+    process.env.GATSBY_DATA_PIPELINE_TRIBAL_PATH_LOCAL :
+    process.env.GATSBY_2_0_TRIBAL_PATH;
