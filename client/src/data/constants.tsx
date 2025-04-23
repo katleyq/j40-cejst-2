@@ -273,6 +273,7 @@ export const SELECTED_FEATURE_BORDER_LAYER_ID =
 // Add PSIM burden layer ID
 export const PSIM_BURDEN_LAYER_ID = "psim-burden-layer-id";
 export const PSIM_INDICATOR_LAYER_ID = "psim-indicator-layer-id";
+export const DEFAULT_LAYER_ID = "default-layer-id";
 
 export const TRIBAL_LAYER_ID = "tribal-layer-id";
 export const TRIBAL_ALASKA_POINTS_LAYER_ID = "tribal-alaska-points-layer-id";
