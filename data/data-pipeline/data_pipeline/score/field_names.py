@@ -17,8 +17,10 @@ LAND_AREA_FIELD = "ALAND10"
 # ADDING GI STAR DATA AND ADDITIVE DATA
 GI_STAR_BURDEN = 'GI Star Burdens'
 PSIM_BURDEN = 'P-value Burdens'
+BURDEN_ID = 'Burdens ID'
 GI_STAR_INDICATOR = 'GI Star Indicators'
 PSIM_INDICATOR = 'P-value Indicators'
+INDICATOR_ID = 'Indicators ID'
 
 # Moved this to data/data-pipeline/data_pipeline/etl/score/constants.py
 # GI_STAR_BURDEN = 'gisim_burd'
