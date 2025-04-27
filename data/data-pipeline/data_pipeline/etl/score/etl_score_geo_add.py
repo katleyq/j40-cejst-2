@@ -5,34 +5,27 @@ import os
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from data_pipeline.content.schemas.download_schemas import CSVConfig
 from data_pipeline.etl.base import ExtractTransformLoad
 from data_pipeline.etl.score import constants
 from data_pipeline.etl.score.etl_utils import check_score_data_source
 from data_pipeline.etl.sources.census.etl_utils import check_census_data_source
 from data_pipeline.score import field_names
 from data_pipeline.utils import get_module_logger
-from data_pipeline.utils import load_dict_from_yaml_object_fields
-from data_pipeline.utils import load_yaml_dict_from_file
-from data_pipeline.utils import zip_files
 from data_pipeline.etl.datasource import DataSource
 
 logger = get_module_logger(__name__)
 
 
-class GeoScoreETL(ExtractTransformLoad):
+class GeoScoreAddETL(ExtractTransformLoad):
     """
     A class used to generate per state and national GeoJson files with the score baked in
     """
 
     def __init__(self, data_source: str = None):
         self.DATA_SOURCE = data_source
-        self.SCORE_GEOJSON_PATH = self.DATA_PATH / "score" / "geojson" / "default"
-        self.SCORE_LOW_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-low.json"
-        self.SCORE_HIGH_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-high.json"
-
-        self.SCORE_SHP_PATH = self.DATA_PATH / "score" / "shapefile"
-        self.SCORE_SHP_FILE = self.SCORE_SHP_PATH / "usa.shp"
+        self.SCORE_GEOJSON_PATH = self.DATA_PATH / "score" / "geojson" / "add"
+        self.SCORE_LOW_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-low-add.json"
+        self.SCORE_HIGH_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-high-add.json"
 
         self.SCORE_CSV_PATH = self.DATA_PATH / "score" / "csv"
         self.TILE_SCORE_CSV = self.SCORE_CSV_PATH / "tiles" / "usa.csv"
@@ -44,9 +37,11 @@ class GeoScoreETL(ExtractTransformLoad):
 
         ## TODO: We really should not have this any longer changing
         self.TARGET_SCORE_SHORT_FIELD = constants.TILES_SCORE_COLUMNS[
-            field_names.FINAL_SCORE_N_BOOLEAN
+            field_names.CATEGORY_COUNT
+            # field_names.FINAL_SCORE_N_BOOLEAN
         ]
-        self.TARGET_SCORE_RENAME_TO = "SCORE"
+        # I think i might just be able to change the column name here and above, without needing to change any of the variables... 
+        self.TARGET_SCORE_RENAME_TO = "CC"
 
         # Import the shortened name for tract ("GTF") that's used on the tiles.
         self.TRACT_SHORT_FIELD = constants.TILES_SCORE_COLUMNS[
@@ -54,13 +49,6 @@ class GeoScoreETL(ExtractTransformLoad):
         ]
         self.GEOMETRY_FIELD_NAME = "geometry"
         self.LAND_FIELD_NAME = "ALAND10"
-        # Add these names up here!!
-        # self.PSIM_BURDEN = "P_BURD"
-        # self.PSIM_INDICATOR = "P_IND"
-        # self.THRESHOLD_COUNT = "TC"
-        # self.CATEGORY_COUNT = "CC"
-        # self.BURDEN_ID: "ID_BURD"
-        # self.INDICATOR_ID: "ID_IND"
 
         # We will adjust this upwards while there is some fractional value
         # in the score. This is a starting value.
@@ -139,6 +127,7 @@ class GeoScoreETL(ExtractTransformLoad):
 
         # missing_geom = self.geojson_score_usa_high["geometry"].isnull().sum()
         # total = len(self.geojson_score_usa_high)
+        # logger.warning(f"Missing geometries: {missing_geom} / {total} ({missing_geom / total:.2%})")
 
         # Optional hard fail
         # assert missing_geom == 0, "Some geometries failed to merge!"
@@ -234,8 +223,23 @@ class GeoScoreETL(ExtractTransformLoad):
         ), "Error: Cutoff is too high, nothing is aggregated"
         assert keep_high_zoom.sum() > 1, "Error: Nothing is kept at high zoom"
 
+        # Include the additional columns in the copy
+        # columns_to_keep = [
+        #     self.GEOID_FIELD_NAME,
+        #     self.GEOMETRY_FIELD_NAME,
+        #     self.TARGET_SCORE_RENAME_TO,
+        # ]
+        # # Then we assign buckets only to tracts that do not get "kept" at high zoom
+        # # This was changed by copilot. Included .loc for col selection
+        # state_tracts = initial_state_tracts.loc[~keep_high_zoom, columns_to_keep].copy()
+
         # Then we assign buckets only to tracts that do not get "kept" at high zoom
         state_tracts = initial_state_tracts[~keep_high_zoom].copy()
+        state_tracts[f"{self.TARGET_SCORE_RENAME_TO}_bucket"] = np.arange(
+            len(state_tracts)
+        )
+
+        # Assign temporary bucket column
         state_tracts[f"{self.TARGET_SCORE_RENAME_TO}_bucket"] = np.arange(
             len(state_tracts)
         )
@@ -315,6 +319,9 @@ class GeoScoreETL(ExtractTransformLoad):
                         state_bucketed_df[self.GEOMETRY_FIELD_NAME][i].geoms[j],
                     ]
                 )
+
+        logger.debug(f"Columns in compressed data: {compressed[:5]}")
+
         return compressed
 
     def _join_high_and_low_zoom_frames(
@@ -340,179 +347,14 @@ class GeoScoreETL(ExtractTransformLoad):
                 filename=self.SCORE_HIGH_GEOJSON,
                 driver="GeoJSON",
             )
-            logger.info("Completed writing usa-high")
+            logger.info("Completed writing usa-high-add")
 
         def write_low_to_file():
             logger.info("Writing usa-low (~9 minutes)")
             self.geojson_score_usa_low.to_file(
                 filename=self.SCORE_LOW_GEOJSON, driver="GeoJSON"
             )
-            logger.info("Completed writing usa-low")
-
-        def create_esri_codebook(codebook) -> pd.DataFrame:
-            """temporary: helper to make a codebook for esri shapefile only"""
-
-            shapefile_column_field = "shapefile_column"
-            internal_column_name_field = "column_name"
-            column_description_field = "column_description"
-
-            logger.info("Creating an ESRI codebook with shortened column names")
-            codebook = (
-                pd.Series(codebook)
-                .reset_index()
-                .rename(
-                    columns={
-                        0: internal_column_name_field,
-                        "index": shapefile_column_field,
-                    }
-                )
-            )
-
-            # open yaml config
-            downloadable_csv_config = load_yaml_dict_from_file(
-                self.CONTENT_CONFIG / "csv.yml", CSVConfig
-            )
-            column_rename_dict = load_dict_from_yaml_object_fields(
-                yaml_object=downloadable_csv_config["fields"],
-                object_key="score_name",
-                object_value="label",
-            )
-
-            codebook[column_description_field] = codebook[
-                internal_column_name_field
-            ].map(column_rename_dict)
-
-            codebook = codebook[
-                [
-                    shapefile_column_field,
-                    internal_column_name_field,
-                    column_description_field,
-                ]
-            ]
-            logger.info("Completed creating ESRI codebook")
-
-            return codebook
-
-        def combine_esri_codebook_with_original_codebook(esri_codebook_df):
-            """Combines the ESRI codebook generated above with the original codebook generated
-            during score-post. Essentially we want to include the shapefile column name in the
-            original codebook."""
-
-            logger.info("Combining ESRI codebook with original codebook")
-
-            # load up the original codebook
-            original_codebook_df = pd.read_csv(
-                constants.SCORE_DOWNLOADABLE_CODEBOOK_FILE_PATH,
-                low_memory=False,
-            )
-
-            # if we've already combined these files in the past, go ahead and remove the columns so we can do it again
-            original_codebook_df.drop(
-                "shapefile_label", axis=1, errors="ignore", inplace=True
-            )
-
-            # add the esri (shapefile) columns to the original codebook by joining the two dataframes
-            combined_codebook_df = original_codebook_df.merge(
-                esri_codebook_df[["shapefile_column", "column_name"]],
-                how="outer",
-                left_on="Description",
-                right_on="column_name",
-            )
-
-            # if any descriptions are blank, replace them with the column_name description from the esri codebook
-            combined_codebook_df["Description"].mask(
-                combined_codebook_df["Description"].isnull(),
-                combined_codebook_df["column_name"],
-                inplace=True,
-            )
-            combined_codebook_df = combined_codebook_df.drop(
-                "column_name", axis=1
-            )
-
-            # move some stuff around to make it easier to read the output
-            shapefile_col = combined_codebook_df.pop("shapefile_column")
-            combined_codebook_df.insert(2, "shapefile_label", shapefile_col)
-
-            # save the combined codebook
-            combined_codebook_df.to_csv(
-                constants.SCORE_DOWNLOADABLE_CODEBOOK_FILE_PATH, index=False
-            )
-            logger.info(
-                "Completed combining ESRI codebook with original codebook"
-            )
-
-        def write_esri_shapefile():
-            logger.info("Producing ESRI shapefiles")
-            # Note that esri shapefiles can't have long column names, so we borrow from the
-            # shorten some tile names (renaming map) and print out a codebook for the user
-            codebook = {}
-            renaming_map = {}
-
-            # allows us to quickly rename / describe columns
-            reversed_tiles = {
-                short: long
-                for long, short in constants.TILES_SCORE_COLUMNS.items()
-            }
-
-            for i, column in enumerate(self.geojson_score_usa_high.columns):
-                # take first 6 characters and add a number to ensure uniqueness
-                # this is the max due to esri (index can be 3-digits)
-                if len(column) > 10:
-                    new_col = column[:6] + f"_{i}"
-                else:
-                    new_col = column
-                codebook[new_col] = reversed_tiles.get(column, column)
-                if new_col != column:
-                    renaming_map[column] = new_col
-
-            self.geojson_score_usa_high.rename(columns=renaming_map).to_file(
-                self.SCORE_SHP_FILE
-            )
-            logger.info("Completed writing shapefile")
-
-            esri_codebook_df = create_esri_codebook(codebook)
-            combine_esri_codebook_with_original_codebook(esri_codebook_df)
-
-            arcgis_zip_file_path = self.SCORE_SHP_PATH / "usa.zip"
-            arcgis_files = []
-            for file in os.listdir(self.SCORE_SHP_PATH):
-                # don't remove __init__ files as they conserve dir structure
-                if file != "__init__.py":
-                    arcgis_files.append(self.SCORE_SHP_PATH / file)
-            arcgis_files.append(constants.SCORE_DOWNLOADABLE_CODEBOOK_FILE_PATH)
-            zip_files(arcgis_zip_file_path, arcgis_files)
-            logger.info("Completed zipping shapefiles")
-
-            # Per #1557:
-            # Zip file that contains the shapefiles, codebook and checksum file.
-            # Normally we get the codebook file path using this constant:
-            # - codebook_path = constants.SCORE_DOWNLOADABLE_CODEBOOK_FILE_PATH
-            # However since we generate it on a separate script (etl_score_post)
-            # the time stamp can be generated again, and thus the file is not found.
-            # So we grab it from the downloadable dir and if we don't find it, it
-            # means we haven't run etl_score_post, and continue
-
-            logger.info("Getting codebook from downloadable dir")
-            codebook_path = None
-            for file in os.listdir(constants.SCORE_DOWNLOADABLE_DIR):
-                if "codebook" in file:
-                    codebook_path = constants.SCORE_DOWNLOADABLE_DIR / file
-
-            if codebook_path:
-                version_shapefile_codebook_zip_path = (
-                    constants.SCORE_VERSIONING_SHAPEFILE_CODEBOOK_FILE_PATH
-                )
-                readme_path = constants.SCORE_VERSIONING_README_FILE_PATH
-
-                logger.info("Compressing shapefile and codebook files")
-                files_to_compress = [
-                    arcgis_zip_file_path,
-                    codebook_path,
-                    readme_path,
-                ]
-                zip_files(
-                    version_shapefile_codebook_zip_path, files_to_compress
-                )
+            logger.info("Completed writing usa-low-add")
 
         with concurrent.futures.ThreadPoolExecutor() as executor:
             futures = {
@@ -520,7 +362,6 @@ class GeoScoreETL(ExtractTransformLoad):
                 for task in [
                     write_high_to_file,
                     write_low_to_file,
-                    write_esri_shapefile,
                 ]
             }
 

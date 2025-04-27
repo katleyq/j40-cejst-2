@@ -27,7 +27,7 @@ class GeoScoreETL(ExtractTransformLoad):
 
     def __init__(self, data_source: str = None):
         self.DATA_SOURCE = data_source
-        self.SCORE_GEOJSON_PATH = self.DATA_PATH / "score" / "geojson" / "default"
+        self.SCORE_GEOJSON_PATH = self.DATA_PATH / "score" / "geojson"
         self.SCORE_LOW_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-low.json"
         self.SCORE_HIGH_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-high.json"
 
@@ -55,12 +55,10 @@ class GeoScoreETL(ExtractTransformLoad):
         self.GEOMETRY_FIELD_NAME = "geometry"
         self.LAND_FIELD_NAME = "ALAND10"
         # Add these names up here!!
-        # self.PSIM_BURDEN = "P_BURD"
-        # self.PSIM_INDICATOR = "P_IND"
-        # self.THRESHOLD_COUNT = "TC"
-        # self.CATEGORY_COUNT = "CC"
-        # self.BURDEN_ID: "ID_BURD"
-        # self.INDICATOR_ID: "ID_IND"
+        self.PSIM_BURDEN = "P_BURD"
+        self.PSIM_INDICATOR = "P_IND"
+        self.THRESHOLD_COUNT = "TC"
+        self.CATEGORY_COUNT = "CC"
 
         # We will adjust this upwards while there is some fractional value
         # in the score. This is a starting value.
@@ -139,6 +137,7 @@ class GeoScoreETL(ExtractTransformLoad):
 
         # missing_geom = self.geojson_score_usa_high["geometry"].isnull().sum()
         # total = len(self.geojson_score_usa_high)
+        # logger.warning(f"Missing geometries: {missing_geom} / {total} ({missing_geom / total:.2%})")
 
         # Optional hard fail
         # assert missing_geom == 0, "Some geometries failed to merge!"
@@ -167,6 +166,13 @@ class GeoScoreETL(ExtractTransformLoad):
             [
                 self.TARGET_SCORE_SHORT_FIELD,
                 self.GEOMETRY_FIELD_NAME,
+                # Added these two to put them in the low file
+                # Should probably also add the cumulative burds and inds
+                self.PSIM_BURDEN,
+                self.PSIM_INDICATOR,
+                # I think these are the names for burd and ind totals
+                self.THRESHOLD_COUNT,
+                self.CATEGORY_COUNT
             ]
         ].reset_index()
 
@@ -181,6 +187,10 @@ class GeoScoreETL(ExtractTransformLoad):
                 self.TARGET_SCORE_RENAME_TO,
                 self.GEOMETRY_FIELD_NAME,
                 self.GEOID_FIELD_NAME,
+                self.PSIM_BURDEN,
+                self.PSIM_INDICATOR,
+                self.THRESHOLD_COUNT,
+                self.CATEGORY_COUNT
             ],
             crs="EPSG:4326",
         )
@@ -193,7 +203,8 @@ class GeoScoreETL(ExtractTransformLoad):
         logger.warning("keep_high_zoom_df: %s", len(keep_high_zoom_df))
 
         logger.debug("Aggregating buckets")
-        usa_aggregated = self._aggregate_buckets(usa_bucketed, agg_func="mean")
+        usa_aggregated = self._aggregate_buckets(usa_bucketed)
+        # , agg_func="mean")
 
         logger.debug("Breaking up polygons")
         compressed = self._breakup_multipolygons(
@@ -234,8 +245,21 @@ class GeoScoreETL(ExtractTransformLoad):
         ), "Error: Cutoff is too high, nothing is aggregated"
         assert keep_high_zoom.sum() > 1, "Error: Nothing is kept at high zoom"
 
+        # Include the additional columns in the copy
+        columns_to_keep = [
+            self.GEOID_FIELD_NAME,
+            self.GEOMETRY_FIELD_NAME,
+            self.TARGET_SCORE_RENAME_TO,
+            self.PSIM_BURDEN,
+            self.PSIM_INDICATOR,
+            self.THRESHOLD_COUNT,
+            self.CATEGORY_COUNT,
+        ]
         # Then we assign buckets only to tracts that do not get "kept" at high zoom
-        state_tracts = initial_state_tracts[~keep_high_zoom].copy()
+        # This was changed by copilot. Included .loc for col selection
+        state_tracts = initial_state_tracts.loc[~keep_high_zoom, columns_to_keep].copy()
+
+        # Assign temporary bucket column
         state_tracts[f"{self.TARGET_SCORE_RENAME_TO}_bucket"] = np.arange(
             len(state_tracts)
         )
@@ -272,12 +296,18 @@ class GeoScoreETL(ExtractTransformLoad):
         return state_tracts, initial_state_tracts[keep_high_zoom]
 
     def _aggregate_buckets(
-        self, state_tracts: gpd.GeoDataFrame, agg_func: str
+        self, state_tracts: gpd.GeoDataFrame
+        # Comment out this part of the func definition because we changed aggregating later on
+        # , agg_func: str
     ) -> gpd.GeoDataFrame:
         keep_cols = [
             self.TARGET_SCORE_RENAME_TO,
             f"{self.TARGET_SCORE_RENAME_TO}_bucket",
             self.GEOMETRY_FIELD_NAME,
+            self.PSIM_BURDEN,
+            self.PSIM_INDICATOR,
+            self.THRESHOLD_COUNT,
+            self.CATEGORY_COUNT
         ]
 
         assert state_tracts["geometry"].notnull().all(), "Null geometry before dissolve!"
@@ -287,9 +317,16 @@ class GeoScoreETL(ExtractTransformLoad):
         #     by=f"{self.TARGET_SCORE_RENAME_TO}_bucket", aggfunc=agg_func
         # )
 
-        #  We dissolve all other tracts by their score bucket
+        # Add new ways to aggregate for new columns
         state_dissolve = state_tracts[keep_cols].dissolve(
-            by=f"{self.TARGET_SCORE_RENAME_TO}_bucket", aggfunc=agg_func
+            by=f"{self.TARGET_SCORE_RENAME_TO}_bucket",
+            aggfunc={
+                self.TARGET_SCORE_RENAME_TO: "mean",
+                self.PSIM_BURDEN: "median",  # Example: Sum the burdens
+                self.PSIM_INDICATOR: "median",  # Example: Sum the indicators
+                self.THRESHOLD_COUNT: "median",  # Example: Sum the counts
+                self.CATEGORY_COUNT: "median",  # Example: Sum the counts
+            },
         )
 
         assert state_dissolve["geometry"].notnull().all(), "Null geometry after dissolve!"
@@ -304,17 +341,32 @@ class GeoScoreETL(ExtractTransformLoad):
         self, state_bucketed_df: gpd.GeoDataFrame, num_buckets: int
     ) -> gpd.GeoDataFrame:
 
-        compressed = []
-        for i in range(num_buckets):
-            for j in range(
-                len(state_bucketed_df[self.GEOMETRY_FIELD_NAME][i].geoms)
-            ):
-                compressed.append(
-                    [
-                        state_bucketed_df[self.TARGET_SCORE_RENAME_TO][i],
-                        state_bucketed_df[self.GEOMETRY_FIELD_NAME][i].geoms[j],
-                    ]
-                )
+        compressed = [
+            [
+                state_bucketed_df[self.TARGET_SCORE_RENAME_TO][i],
+                state_bucketed_df[self.GEOMETRY_FIELD_NAME][i].geoms[j],
+                state_bucketed_df[self.PSIM_BURDEN][i],  # Use actual values
+                state_bucketed_df[self.PSIM_INDICATOR][i],  # Use actual values
+                state_bucketed_df[self.THRESHOLD_COUNT][i],  # Use actual values
+                state_bucketed_df[self.CATEGORY_COUNT][i],  # Use actual values
+            ]
+            for i in range(len(state_bucketed_df))
+            for j in range(len(state_bucketed_df[self.GEOMETRY_FIELD_NAME][i].geoms))
+        ]
+
+        logger.debug(f"Columns in compressed data: {compressed[:5]}")
+
+        # compressed = []
+        # for i in range(num_buckets):
+        #     for j in range(
+        #         len(state_bucketed_df[self.GEOMETRY_FIELD_NAME][i].geoms)
+        #     ):
+        #         compressed.append(
+        #             [
+        #                 state_bucketed_df[self.TARGET_SCORE_RENAME_TO][i],
+        #                 state_bucketed_df[self.GEOMETRY_FIELD_NAME][i].geoms[j],
+        #             ]
+        #         )
         return compressed
 
     def _join_high_and_low_zoom_frames(
@@ -323,6 +375,10 @@ class GeoScoreETL(ExtractTransformLoad):
         keep_columns = [
             self.TARGET_SCORE_RENAME_TO,
             self.GEOMETRY_FIELD_NAME,
+            self.PSIM_BURDEN,
+            self.PSIM_INDICATOR,
+            self.THRESHOLD_COUNT,
+            self.CATEGORY_COUNT,
         ]
         compressed_geodf = gpd.GeoDataFrame(
             compressed,

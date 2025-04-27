@@ -8,6 +8,8 @@ from functools import reduce
 
 from data_pipeline.etl.score.etl_score import ScoreETL
 from data_pipeline.etl.score.etl_score_geo import GeoScoreETL
+from data_pipeline.etl.score.etl_score_geo_gistar import GeoScoreGIStarETL
+from data_pipeline.etl.score.etl_score_geo_add import GeoScoreAddETL
 from data_pipeline.etl.score.etl_score_post import PostScoreETL
 from data_pipeline.utils import get_module_logger
 from data_pipeline.etl.base import ExtractTransformLoad
@@ -256,6 +258,54 @@ def score_geo(data_source: str = "local") -> None:
     score_geo.load()
     logger.debug(
         f"Execution time for Score Geo was {time.time() - start_time}s"
+    )
+
+def score_geo_gistar(data_source: str = "local") -> None:
+    """Generates the geojson files with score data baked in
+
+    Args:
+        data_source (str): Source for the census data (optional)
+                           Options:
+                           - local (default): fetch census data from the local data directory
+                           - aws: fetch census from AWS S3 J40 data repository
+
+    Returns:
+        None
+    """
+
+    # Score Geo
+    start_time = time.time()
+    score_geo_gistar = GeoScoreGIStarETL(data_source=data_source)
+    score_geo_gistar.extract()
+    logger.debug("Starting transform step for GeoScoreGIStarETL")
+    score_geo_gistar.transform()
+    logger.debug("Starting load step for GeoScoreGIStarETL")
+    score_geo_gistar.load()
+    logger.debug(
+        f"Execution time for Score Geo GI star was {time.time() - start_time}s"
+    )
+
+def score_geo_add(data_source: str = "local") -> None:
+    """Generates the geojson files with score data baked in
+
+    Args:
+        data_source (str): Source for the census data (optional)
+                           Options:
+                           - local (default): fetch census data from the local data directory
+                           - aws: fetch census from AWS S3 J40 data repository
+
+    Returns:
+        None
+    """
+
+    # Score Geo
+    start_time = time.time()
+    score_geo_add = GeoScoreAddETL(data_source=data_source)
+    score_geo_add.extract()
+    score_geo_add.transform()
+    score_geo_add.load()
+    logger.debug(
+        f"Execution time for Score Geo Additive was {time.time() - start_time}s"
     )
 
 

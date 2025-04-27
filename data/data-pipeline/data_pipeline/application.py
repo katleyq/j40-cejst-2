@@ -9,6 +9,8 @@ from data_pipeline.config import settings
 from data_pipeline.etl.runner import etl_runner
 from data_pipeline.etl.runner import score_generate
 from data_pipeline.etl.runner import score_geo
+from data_pipeline.etl.runner import score_geo_gistar
+from data_pipeline.etl.runner import score_geo_add
 from data_pipeline.etl.runner import score_post
 from data_pipeline.etl.runner import get_data_sources
 from data_pipeline.etl.runner import extract_data_sources as extract_ds
@@ -258,6 +260,60 @@ def geo_score(data_source: str):
 
     log_info("Combining score with GeoJSON")
     score_geo(data_source=data_source)
+
+    log_goodbye()
+
+@cli.command(help="Generate GeoJSON files with GI Star scores baked in")
+@data_source_option
+def geo_score_gistar(data_source: str):
+    """CLI command to combine score with GeoJSON data and generate low and high files
+
+    Args:
+        data_source (str): Source for the census data (optional)
+                           Options:
+                           - local: fetch census and score data from the local data directory
+                           - aws: fetch census and score from AWS S3 J40 data repository
+
+    Returns:
+        None
+    """
+    log_title(
+        "Generate GeoJSON",
+        "Combine Score and GeoJSON, Add Shapefile Data to Codebook",
+    )
+
+    log_info("Cleaning up geo score folder")
+    geo_score_folder_cleanup()
+
+    log_info("Combining score with GeoJSON")
+    score_geo_gistar(data_source=data_source) 
+
+    log_goodbye()
+
+@cli.command(help="Generate GeoJSON files with Additive scores baked in")
+@data_source_option
+def geo_score_add(data_source: str):
+    """CLI command to combine score with GeoJSON data and generate low and high files
+
+    Args:
+        data_source (str): Source for the census data (optional)
+                           Options:
+                           - local: fetch census and score data from the local data directory
+                           - aws: fetch census and score from AWS S3 J40 data repository
+
+    Returns:
+        None
+    """
+    log_title(
+        "Generate GeoJSON",
+        "Combine Score and GeoJSON, Add Shapefile Data to Codebook",
+    )
+
+    log_info("Cleaning up geo score folder")
+    geo_score_folder_cleanup()
+
+    log_info("Combining score with GeoJSON")
+    score_geo_add(data_source=data_source)
 
     log_goodbye()
 
