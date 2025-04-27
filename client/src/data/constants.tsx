@@ -256,6 +256,10 @@ export const IMPUTE_FLAG = "IMP_FLG";
 export const BASE_MAP_SOURCE_NAME = "base-map-source-name";
 export const HIGH_ZOOM_SOURCE_NAME = "high-zoom-source-name";
 export const LOW_ZOOM_SOURCE_NAME = "low-zoom-source-name";
+export const GISTAR_HIGH_ZOOM_SOURCE_NAME = "gistar-high-zoom-source-name";
+export const GISTAR_LOW_ZOOM_SOURCE_NAME = "gistar-low-zoom-source-name";
+export const ADD_HIGH_ZOOM_SOURCE_NAME = "add-high-zoom-source-name";
+export const ADD_LOW_ZOOM_SOURCE_NAME = "add-low-zoom-source-name";
 export const TRIBAL_SOURCE_NAME = "tribal-source-name";
 
 // Layer ID constants
@@ -274,6 +278,8 @@ export const SELECTED_FEATURE_BORDER_LAYER_ID =
 export const PSIM_BURDEN_LAYER_ID = "psim-burden-layer-id";
 export const PSIM_INDICATOR_LAYER_ID = "psim-indicator-layer-id";
 export const DEFAULT_LAYER_ID = "default-layer-id";
+export const ADD_BURDEN_LAYER_ID = "add-burden-layer-id";
+export const ADD_INDICATOR_LAYER_ID = "add-indicator-layer-id";
 
 export const TRIBAL_LAYER_ID = "tribal-layer-id";
 export const TRIBAL_ALASKA_POINTS_LAYER_ID = "tribal-alaska-points-layer-id";
@@ -282,6 +288,7 @@ export const TRIBAL_LABELS_LAYER_ID = "tribal-labels-layer-id";
 // Used in layer filters:
 export const SCORE_PROPERTY_LOW = "SCORE";
 export const SCORE_PROPERTY_HIGH = "SN_C";
+export const ADD_BURD = "CC";
 
 // Zoom
 export const GLOBAL_MIN_ZOOM = 3;

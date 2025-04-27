@@ -24,6 +24,9 @@ from data_pipeline.etl.sources.tribal.etl_utils import (
     reset_data_directories as tribal_reset,
 )
 from data_pipeline.tile.generate import generate_tiles
+from data_pipeline.tile.generate_gistar import generate_tiles_gistar
+from data_pipeline.tile.generate_add import generate_tiles_add
+
 from data_pipeline.etl.score import constants
 from data_pipeline.utils import check_first_run
 from data_pipeline.utils import data_folder_cleanup
@@ -337,6 +340,51 @@ def generate_map_tiles(generate_tribal_layer):
 
     log_info("Generating tiles")
     generate_tiles(data_path, generate_tribal_layer)
+
+    log_goodbye()
+
+@cli.command(
+    help="Generate GI Star map tiles. Pass -t to generate tribal layer as well.",
+)
+@click.option(
+    "-t",
+    "--generate-tribal-layer",
+    default=False,
+    required=False,
+    is_flag=True,
+    type=bool,
+)
+def generate_map_tiles_gistar(generate_tribal_layer):
+    """CLI command to generate the map tiles"""
+    log_title("Generate GI Star Map Tiles")
+
+    data_path = settings.APP_ROOT / "data"
+
+    log_info("Generating Gi Star tiles")
+    generate_tiles_gistar(data_path, generate_tribal_layer)
+
+    log_goodbye()
+
+
+@cli.command(
+    help="Generate add map tiles. Pass -t to generate tribal layer as well.",
+)
+@click.option(
+    "-t",
+    "--generate-tribal-layer",
+    default=False,
+    required=False,
+    is_flag=True,
+    type=bool,
+)
+def generate_map_tiles_add(generate_tribal_layer):
+    """CLI command to generate the map tiles"""
+    log_title("Generate Additive Map Tiles")
+
+    data_path = settings.APP_ROOT / "data"
+
+    log_info("Generating Additive tiles")
+    generate_tiles_add(data_path, generate_tribal_layer)
 
     log_goodbye()
 

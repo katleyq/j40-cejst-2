@@ -1,6 +1,7 @@
-// import React, {useMemo} from 'react';
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
+//  useEffect, useRef from react
 import {Source, Layer} from 'react-map-gl';
+// import Map, {MapRef} from 'react-map-gl'; // Import MapRef for the reference type
 import {MapGeoJSONFeature} from 'maplibre-gl';
 
 // Contexts:
@@ -13,6 +14,7 @@ import LayerToggleControl from '../LayerToggleControl/LayerToggleControl';
 interface IMapTractLayers {
   selectedFeatureId: string | number;
   selectedFeature: MapGeoJSONFeature | undefined;
+  // setSelectedFeature: (feature: MapGeoJSONFeature | undefined) => void; // Add this line
 }
 
 /**
@@ -23,7 +25,11 @@ interface IMapTractLayers {
  * @param {string} tilesetName
  * @return {string}
  */
-export const featureURLForTilesetName = (tilesetName: string): string => {
+
+export const featureURLForTilesetName = (
+    tilesetType: string,
+    tilesetName: string,
+): string => {
   const flags = useFlags();
 
   const pipelineStagingBaseURL =
@@ -46,6 +52,7 @@ export const featureURLForTilesetName = (tilesetName: string): string => {
       featureTileBaseURL,
       featureTilePath,
       mapTilesPath,
+      tilesetType,
       tilesetName,
       XYZ_SUFFIX,
     ]
@@ -72,13 +79,262 @@ export const featureURLForTilesetName = (tilesetName: string): string => {
  */
 // const MapTractLayers = ({
 //   selectedFeatureId,
-//   selectedFeature,
+//   setSelectedFeature,
 // }: IMapTractLayers) => {
-//   const filter = useMemo(
-//       () => ['in', constants.GEOID_PROPERTY, selectedFeatureId],
-//       [selectedFeature],
-//   );
+//   const [visibleLayers, setVisibleLayers] = useState<string[]>([
+//     constants.DEFAULT_LAYER_ID, // Default visible layer
+//   ]);
 
+//   const layers = [
+//     {id: constants.DEFAULT_LAYER_ID, name: 'Default Layer'},
+//     {id: constants.PSIM_BURDEN_LAYER_ID, name: 'GI Star Burdens'},
+//     {id: constants.ADD_BURDEN_LAYER_ID, name: 'Additive Burdens'},
+//   ];
+
+//   // Create a reference for the map instance
+//   const mapRef = useRef<MapRef | null>(null);
+
+//   // Add click event listener for the interactive layer
+//   useEffect(() => {
+//     const map = mapRef.current?.getMap(); // Access the map instance
+
+//     if (!map) return;
+
+//     const handleClick = (e: any) => {
+//       const features = map.queryRenderedFeatures(e.point, {
+//         layers: ['interactive_layer'], // The ID of the interactive layer
+//       });
+
+//       if (features.length > 0) {
+//         const feature = features[0];
+//         setSelectedFeature(feature); // Update the selected feature
+//       }
+//     };
+
+//     map.on('click', handleClick);
+
+//     return () => {
+//       map.off('click', handleClick);
+//     };
+//   }, [setSelectedFeature]);
+
+//   return (
+//     <>
+//       {/* Add the LayerToggleControl */}
+//       <LayerToggleControl
+//         layers={layers}
+//         visibleLayers={visibleLayers}
+//         setVisibleLayers={setVisibleLayers}
+//       />
+
+//       {/* Render the selected layer */}
+//       <Map
+//         ref={mapRef} // Attach the map reference here
+//         initialViewState={{
+//           longitude: -100,
+//           latitude: 40,
+//           zoom: 3,
+//         }}
+//         style={{width: '100%', height: '100%'}}
+//         mapStyle="mapbox://styles/mapbox/streets-v11"
+//       >
+//         {/* Sources and Layers */}
+//         {visibleLayers.includes(constants.DEFAULT_LAYER_ID) && (
+//           <>
+//             {/* Default Low */}
+//             <Source
+//               id="default_low_source"
+//               type="vector"
+//               promoteId={constants.GEOID_PROPERTY}
+//               tiles={[featureURLForTilesetName('default', 'low')]}
+//               maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
+//               minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
+//             >
+//               <Layer
+//                 id="default_low_layer"
+//                 source-layer={constants.SCORE_SOURCE_LAYER}
+//                 filter={[
+//                   '>',
+//                   constants.SCORE_PROPERTY_LOW,
+//                   constants.SCORE_BOUNDARY_THRESHOLD,
+//                 ]}
+//                 type="fill"
+//                 paint={{
+//                   'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
+//                   'fill-opacity':
+//                     constants.LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+//                 }}
+//               />
+//             </Source>
+
+//             {/* Default High */}
+//             <Source
+//               id="default_high_source"
+//               type="vector"
+//               promoteId={constants.GEOID_PROPERTY}
+//               tiles={[featureURLForTilesetName('default', 'high')]}
+//               maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
+//               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+//             >
+//               <Layer
+//                 id="default_high_layer"
+//                 source-layer={constants.SCORE_SOURCE_LAYER}
+//                 filter={[
+//                   '>',
+//                   constants.SCORE_PROPERTY_LOW,
+//                   constants.SCORE_BOUNDARY_THRESHOLD,
+//                 ]}
+//                 type="fill"
+//                 paint={{
+//                   'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
+//                   'fill-opacity':
+//                     constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+//                 }}
+//               />
+//             </Source>
+//           </>
+//         )}
+
+//         {visibleLayers.includes(constants.PSIM_BURDEN_LAYER_ID) && (
+//           <>
+//             {/* GI Star Low */}
+//             <Source
+//               id="gistar_low_source"
+//               type="vector"
+//               promoteId={constants.GEOID_PROPERTY}
+//               tiles={[featureURLForTilesetName('gistar', 'low')]}
+//               maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
+//               minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
+//             >
+//               <Layer
+//                 id="gistar_low_layer"
+//                 source-layer={constants.SCORE_SOURCE_LAYER}
+//                 type="fill"
+//                 paint={{
+//                   'fill-color': [
+//                     'step',
+//                     ['get', constants.PSIM_BURDEN],
+//                     '#efeada',
+//                     -0.05,
+//                     '#1818ed',
+//                     -0.01,
+//                     '#0101b3',
+//                     -1e-12,
+//                     '#8c0303',
+//                     0.01,
+//                     '#c50000',
+//                     0.05,
+//                     '#efeada',
+//                   ],
+//                   'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+//                 }}
+//               />
+//             </Source>
+
+//             {/* GI Star High */}
+//             <Source
+//               id="gistar_high_source"
+//               type="vector"
+//               promoteId={constants.GEOID_PROPERTY}
+//               tiles={[featureURLForTilesetName('gistar', 'high')]}
+//               maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
+//               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+//             >
+//               <Layer
+//                 id="gistar_high_layer"
+//                 source-layer={constants.SCORE_SOURCE_LAYER}
+//                 type="fill"
+//                 paint={{
+//                   'fill-color': [
+//                     'step',
+//                     ['get', constants.PSIM_BURDEN],
+//                     '#efeada',
+//                     -0.05,
+//                     '#1818ed',
+//                     -0.01,
+//                     '#0101b3',
+//                     -1e-12,
+//                     '#8c0303',
+//                     0.01,
+//                     '#c50000',
+//                     0.05,
+//                     '#efeada',
+//                   ],
+//                   'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+//                 }}
+//               />
+//             </Source>
+//           </>
+//         )}
+//         {visibleLayers.includes(constants.ADD_BURDEN_LAYER_ID) && (
+//           <>
+//             {/* Additive Low */}
+//             <Source
+//               id="add_low_source"
+//               type="vector"
+//               promoteId={constants.GEOID_PROPERTY}
+//               tiles={[featureURLForTilesetName('add', 'low')]}
+//               maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
+//               minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
+//             >
+//               <Layer
+//                 id="add_low_layer"
+//                 source-layer={constants.SCORE_SOURCE_LAYER}
+//                 type="fill"
+//                 paint={{
+//                   'fill-color': [
+//                     'interpolate',
+//                     ['linear'],
+//                     ['get', constants.ADD_BURD],
+//                     0,
+//                     '#440154',
+//                     3,
+//                     '#21918c',
+//                     6,
+//                     '#fde725',
+//                   ],
+//                   'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+//                 }}
+//               />
+//             </Source>
+
+//             {/* Additive High */}
+//             <Source
+//               id="add_high_source"
+//               type="vector"
+//               promoteId={constants.GEOID_PROPERTY}
+//               tiles={[featureURLForTilesetName('add', 'high')]}
+//               maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
+//               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+//             >
+//               <Layer
+//                 id="add_high_layer"
+//                 source-layer={constants.SCORE_SOURCE_LAYER}
+//                 type="fill"
+//                 paint={{
+//                   'fill-color': [
+//                     'interpolate',
+//                     ['linear'],
+//                     ['get', constants.ADD_BURD],
+//                     0,
+//                     '#440154',
+//                     3,
+//                     '#21918c',
+//                     6,
+//                     '#fde725',
+//                   ],
+//                   'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+//                 }}
+//               />
+//             </Source>
+//           </>
+//         )}
+//       </Map>
+//     </>
+//   );
+// };
+
+// export default MapTractLayers;
 const MapTractLayers = ({
   selectedFeatureId,
   selectedFeature,
@@ -88,10 +344,14 @@ const MapTractLayers = ({
     constants.DEFAULT_LAYER_ID, // Default visible layer
   ]);
 
+  const filter = useMemo(
+      () => ['in', constants.GEOID_PROPERTY, selectedFeatureId],
+      [selectedFeature],
+  );
+
   const layers = [
     {id: constants.PSIM_BURDEN_LAYER_ID, name: 'GI Star Burdens'},
-    {id: constants.PSIM_INDICATOR_LAYER_ID, name: 'GI Star Indicators'},
-    // Replcaed HIGH_ZOOM_LAYER_ID with DEFAULT_LAYER_ID
+    {id: constants.ADD_BURDEN_LAYER_ID, name: 'Additive Burdens'},
     {id: constants.DEFAULT_LAYER_ID, name: 'Default Layer'},
   ];
 
@@ -104,196 +364,280 @@ const MapTractLayers = ({
         setVisibleLayers={setVisibleLayers}
       />
 
-      {/* Low Zoom Source */}
-      <Source
-        id={constants.LOW_ZOOM_SOURCE_NAME}
-        type="vector"
-        promoteId={constants.GEOID_PROPERTY}
-        tiles={[featureURLForTilesetName('low')]}
-        maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
-        minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
-      >
-        {/* Low zoom layer (static) - prioritized features only */}
-        {visibleLayers.includes(constants.DEFAULT_LAYER_ID) && (
-          <Layer
-            id={`${constants.DEFAULT_LAYER_ID}_low`}
-            source-layer={constants.SCORE_SOURCE_LAYER}
-            filter={[
-              '>',
-              constants.SCORE_PROPERTY_LOW,
-              constants.SCORE_BOUNDARY_THRESHOLD,
-            ]}
-            type="fill"
-            paint={{
-              'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
-              'fill-opacity':
-                constants.LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
-            }}
+      {/* Sources and Layers */}
+      {visibleLayers.includes(constants.DEFAULT_LAYER_ID) && (
+        <>
+          {/* Default Low */}
+          <Source
+            id={constants.LOW_ZOOM_SOURCE_NAME}
+            type="vector"
+            promoteId={constants.GEOID_PROPERTY}
+            tiles={[featureURLForTilesetName('default', 'low')]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
             minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
-          />
-        )}
+          >
+            <Layer
+              id={constants.LOW_ZOOM_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={[
+                '>',
+                constants.SCORE_PROPERTY_LOW,
+                constants.SCORE_BOUNDARY_THRESHOLD,
+              ]}
+              type="fill"
+              paint={{
+                'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
+                'fill-opacity':
+                  constants.LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+              }}
+            />
+          </Source>
 
-        {/* Render low zoom layers conditionally based on visibility */}
-        {visibleLayers.includes(constants.PSIM_BURDEN_LAYER_ID) && (
-          <Layer
-            id={`${constants.PSIM_BURDEN_LAYER_ID}_low`}
-            source-layer={constants.SCORE_SOURCE_LAYER}
-            type="fill"
-            paint={{
-              'fill-color': [
-                'step',
-                ['get', constants.PSIM_BURDEN],
-                '#efeada',
-                -0.05,
-                '#1818ed',
-                -0.01,
-                '#0101b3',
-                -1e-12,
-                '#8c0303',
-                0.01,
-                '#c50000',
-                0.05,
-                '#efeada',
-              ],
-              'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
-            }}
-            maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
-            minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
-          />
-        )}
-        {visibleLayers.includes(constants.PSIM_INDICATOR_LAYER_ID) && (
-          <Layer
-            id={`${constants.PSIM_INDICATOR_LAYER_ID}_low`}
-            source-layer={constants.SCORE_SOURCE_LAYER}
-            type="fill"
-            paint={{
-              'fill-color': [
-                'step',
-                ['get', constants.PSIM_INDICATOR],
-                '#efeada',
-                -0.05,
-                '#1818ed',
-                -0.01,
-                '#0101b3',
-                -1e-12,
-                '#8c0303',
-                0.01,
-                '#c50000',
-                0.05,
-                '#efeada',
-              ],
-              'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
-            }}
-            maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
-            minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
-          />
-        )}
-      </Source>
-
-      {/* High Zoom Source */}
-      <Source
-        id={constants.HIGH_ZOOM_SOURCE_NAME}
-        type="vector"
-        promoteId={constants.GEOID_PROPERTY}
-        tiles={[featureURLForTilesetName('high')]}
-        maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
-        minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-      >
-        {/* High zoom layer (static) - non-prioritized features only  */}
-        {visibleLayers.includes(constants.DEFAULT_LAYER_ID) && (
-          <Layer
-            id={`${constants.DEFAULT_LAYER_ID}_high`}
-            source-layer={constants.SCORE_SOURCE_LAYER}
-            filter={['==', constants.SCORE_PROPERTY_HIGH, false]}
-            type="fill"
-            paint={{
-              'fill-opacity': constants.NON_PRIORITIZED_FEATURE_FILL_OPACITY,
-            }}
-            minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-          />
-        )}
-
-        {/* High zoom layer (static) - prioritized features only */}
-        {visibleLayers.includes(constants.DEFAULT_LAYER_ID) && (
-          <Layer
-            id={`${constants.DEFAULT_LAYER_ID}_high`}
-            source-layer={constants.SCORE_SOURCE_LAYER}
-            filter={['==', constants.SCORE_PROPERTY_HIGH, true]}
-            type="fill"
-            paint={{
-              'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
-              'fill-opacity':
-                constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
-            }}
-            minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-          />
-        )}
-
-        {/* Render high zoom layers conditionally based on visibility */}
-        {visibleLayers.includes(constants.PSIM_BURDEN_LAYER_ID) && (
-          <Layer
-            id={`${constants.PSIM_BURDEN_LAYER_ID}_high`}
-            source-layer={constants.SCORE_SOURCE_LAYER}
-            type="fill"
-            paint={{
-              'fill-color': [
-                'step',
-                ['get', constants.PSIM_BURDEN],
-                '#efeada',
-                -0.05,
-                '#1818ed',
-                -0.01,
-                '#0101b3',
-                -1e-12,
-                '#8c0303',
-                0.01,
-                '#c50000',
-                0.05,
-                '#efeada',
-              ],
-              'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
-            }}
+          {/* Default High */}
+          <Source
+            id={constants.HIGH_ZOOM_SOURCE_NAME}
+            type="vector"
+            promoteId={constants.GEOID_PROPERTY}
+            tiles={[featureURLForTilesetName('default', 'high')]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-          />
-        )}
-        {visibleLayers.includes(constants.PSIM_INDICATOR_LAYER_ID) && (
-          <Layer
-            id={`${constants.PSIM_INDICATOR_LAYER_ID}_high`}
-            source-layer={constants.SCORE_SOURCE_LAYER}
-            type="fill"
-            paint={{
-              'fill-color': [
-                'step',
-                ['get', constants.PSIM_INDICATOR],
-                '#efeada',
-                -0.05,
-                '#1818ed',
-                -0.01,
-                '#0101b3',
-                -1e-12,
-                '#8c0303',
-                0.01,
-                '#c50000',
-                0.05,
-                '#efeada',
-              ],
-              'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
-            }}
+          >
+            {/* High zoom layer (static) - non-prioritized features only */}
+            <Layer
+              id={constants.HIGH_ZOOM_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={['==', constants.SCORE_PROPERTY_HIGH, false]}
+              type="fill"
+              paint={{
+                'fill-opacity': constants.NON_PRIORITIZED_FEATURE_FILL_OPACITY,
+              }}
+              minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+            />
+
+            {/* High zoom layer (static) - prioritized features only */}
+            <Layer
+              id={constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={['==', constants.SCORE_PROPERTY_HIGH, true]}
+              type="fill"
+              paint={{
+                'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
+                'fill-opacity':
+                  constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+              }}
+              minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+            />
+
+            {/* High zoom layer (static) - grandfathered features only */}
+            <Layer
+              id={constants.GRANDFATHERED_HIGH_ZOOM_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={['==', constants.IS_GRANDFATHERED, true]}
+              type="fill"
+              paint={{
+                'fill-color': constants.GRANDFATHERED_FEATURE_FILL_COLOR,
+                'fill-opacity':
+                  constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+              }}
+              minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+            />
+
+            {/* High zoom layer (static) - controls the border between features */}
+            <Layer
+              id={constants.FEATURE_BORDER_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              type="line"
+              paint={{
+                'line-color': constants.FEATURE_BORDER_COLOR,
+                'line-width': constants.FEATURE_BORDER_WIDTH,
+                'line-opacity': constants.FEATURE_BORDER_OPACITY,
+              }}
+              maxzoom={constants.GLOBAL_MAX_ZOOM_FEATURE_BORDER}
+              minzoom={constants.GLOBAL_MIN_ZOOM_FEATURE_BORDER}
+            />
+
+            {/* High zoom layer (dynamic) - border styling around the selected feature */}
+            <Layer
+              id={constants.SELECTED_FEATURE_BORDER_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={filter} // This filter filters out all other features except the selected feature.
+              type="line"
+              paint={{
+                'line-color': constants.SELECTED_FEATURE_BORDER_COLOR,
+                'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,
+              }}
+              minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+            />
+          </Source>
+        </>
+      )}
+
+      {visibleLayers.includes(constants.PSIM_BURDEN_LAYER_ID) && (
+        <>
+          {/* GI Star Low */}
+          <Source
+            id={constants.GISTAR_LOW_ZOOM_SOURCE_NAME}
+            type="vector"
+            promoteId={constants.GEOID_PROPERTY}
+            tiles={[featureURLForTilesetName('gistar', 'low')]}
+            maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
+            minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
+          >
+            <Layer
+              id="gistar_low_layer"
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              type="fill"
+              paint={{
+                'fill-color': [
+                  'step',
+                  ['get', constants.PSIM_BURDEN],
+                  '#efeada',
+                  -0.05,
+                  '#1818ed',
+                  -0.01,
+                  '#0101b3',
+                  -1e-12,
+                  '#8c0303',
+                  0.01,
+                  '#c50000',
+                  0.05,
+                  '#efeada',
+                ],
+                'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+              }}
+            />
+          </Source>
+
+          {/* GI Star High */}
+          <Source
+            id={constants.GISTAR_HIGH_ZOOM_SOURCE_NAME}
+            type="vector"
+            promoteId={constants.GEOID_PROPERTY}
+            tiles={[featureURLForTilesetName('gistar', 'high')]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-          />
-        )}
-      </Source>
+          >
+            <Layer
+              id="gistar_high_layer"
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              type="fill"
+              paint={{
+                'fill-color': [
+                  'step',
+                  ['get', constants.PSIM_BURDEN],
+                  '#efeada',
+                  -0.05,
+                  '#1818ed',
+                  -0.01,
+                  '#0101b3',
+                  -1e-12,
+                  '#8c0303',
+                  0.01,
+                  '#c50000',
+                  0.05,
+                  '#efeada',
+                ],
+                'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+              }}
+            />
+          </Source>
+        </>
+      )}
+      {visibleLayers.includes(constants.ADD_BURDEN_LAYER_ID) && (
+        <>
+          {/* Additive Low */}
+          <Source
+            id={constants.ADD_LOW_ZOOM_SOURCE_NAME}
+            type="vector"
+            promoteId={constants.GEOID_PROPERTY}
+            tiles={[featureURLForTilesetName('add', 'low')]}
+            maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
+            minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
+          >
+            <Layer
+              id="add_low_layer"
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              type="fill"
+              paint={{
+                'fill-color': [
+                  'interpolate',
+                  ['linear'],
+                  ['get', constants.ADD_BURD],
+                  0,
+                  '#440154',
+                  3,
+                  '#21918c',
+                  6,
+                  '#fde725',
+                ],
+                'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+              }}
+            />
+          </Source>
+
+          {/* Additive High */}
+          <Source
+            id={constants.ADD_HIGH_ZOOM_SOURCE_NAME}
+            type="vector"
+            promoteId={constants.GEOID_PROPERTY}
+            tiles={[featureURLForTilesetName('add', 'high')]}
+            maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
+            minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+          >
+            <Layer
+              id="add_high_layer"
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              type="fill"
+              paint={{
+                'fill-color': [
+                  'interpolate',
+                  ['linear'],
+                  ['get', constants.ADD_BURD],
+                  0,
+                  '#440154',
+                  3,
+                  '#21918c',
+                  6,
+                  '#fde725',
+                ],
+                'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+              }}
+            />
+          </Source>
+        </>
+      )}
     </>
   );
 };
 
 export default MapTractLayers;
 
+// const MapTractLayers = ({
+//   selectedFeatureId,
+//   selectedFeature,
+// }: IMapTractLayers) => {
+//   // State to track visible layers
+//   const [visibleLayers, setVisibleLayers] = useState<string[]>([
+//     constants.DEFAULT_LAYER_ID, // Default visible layer
+//   ]);
+
+//   const layers = [
+//     {id: constants.PSIM_BURDEN_LAYER_ID, name: 'GI Star Burdens'},
+//     {id: constants.PSIM_INDICATOR_LAYER_ID, name: 'GI Star Indicators'},
+//     // Replcaed HIGH_ZOOM_LAYER_ID with DEFAULT_LAYER_ID
+//     {id: constants.DEFAULT_LAYER_ID, name: 'Default Layer'},
+//   ];
+
 //   return (
 //     <>
+//       {/* Add the LayerToggleControl */}
+//       <LayerToggleControl
+//         layers={layers}
+//         visibleLayers={visibleLayers}
+//         setVisibleLayers={setVisibleLayers}
+//       />
+
+//       {/* Low Zoom Source */}
 //       <Source
 //         id={constants.LOW_ZOOM_SOURCE_NAME}
 //         type="vector"
@@ -303,25 +647,84 @@ export default MapTractLayers;
 //         minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
 //       >
 //         {/* Low zoom layer (static) - prioritized features only */}
-//         <Layer
-//           id={constants.LOW_ZOOM_LAYER_ID}
-//           source-layer={constants.SCORE_SOURCE_LAYER}
-//           filter={[
-//             '>',
-//             constants.SCORE_PROPERTY_LOW,
-//             constants.SCORE_BOUNDARY_THRESHOLD,
-//           ]}
-//           type="fill"
-//           paint={{
-//             'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
-//             'fill-opacity': constants.LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
-//           }}
-//           maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
-//           minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
-//         />
+//         {visibleLayers.includes(constants.DEFAULT_LAYER_ID) && (
+//           <Layer
+//             id={`${constants.DEFAULT_LAYER_ID}_low`}
+//             source-layer={constants.SCORE_SOURCE_LAYER}
+//             filter={[
+//               '>',
+//               constants.SCORE_PROPERTY_LOW,
+//               constants.SCORE_BOUNDARY_THRESHOLD,
+//             ]}
+//             type="fill"
+//             paint={{
+//               'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
+//               'fill-opacity':
+//                 constants.LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+//             }}
+//             maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
+//             minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
+//           />
+//         )}
+
+//         {/* Render low zoom layers conditionally based on visibility */}
+//         {visibleLayers.includes(constants.PSIM_BURDEN_LAYER_ID) && (
+//           <Layer
+//             id={`${constants.PSIM_BURDEN_LAYER_ID}_low`}
+//             source-layer={constants.SCORE_SOURCE_LAYER}
+//             type="fill"
+//             paint={{
+//               'fill-color': [
+//                 'step',
+//                 ['get', constants.PSIM_BURDEN],
+//                 '#efeada',
+//                 -0.05,
+//                 '#1818ed',
+//                 -0.01,
+//                 '#0101b3',
+//                 -1e-12,
+//                 '#8c0303',
+//                 0.01,
+//                 '#c50000',
+//                 0.05,
+//                 '#efeada',
+//               ],
+//               'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+//             }}
+//             maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
+//             minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
+//           />
+//         )}
+//         {visibleLayers.includes(constants.PSIM_INDICATOR_LAYER_ID) && (
+//           <Layer
+//             id={`${constants.PSIM_INDICATOR_LAYER_ID}_low`}
+//             source-layer={constants.SCORE_SOURCE_LAYER}
+//             type="fill"
+//             paint={{
+//               'fill-color': [
+//                 'step',
+//                 ['get', constants.PSIM_INDICATOR],
+//                 '#efeada',
+//                 -0.05,
+//                 '#1818ed',
+//                 -0.01,
+//                 '#0101b3',
+//                 -1e-12,
+//                 '#8c0303',
+//                 0.01,
+//                 '#c50000',
+//                 0.05,
+//                 '#efeada',
+//               ],
+//               'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+//             }}
+//             maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
+//             minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
+//           />
+//         )}
 //       </Source>
 
-//       {/* The high zoom source */}
+//       {/* High Zoom Source */}
 //       <Source
 //         id={constants.HIGH_ZOOM_SOURCE_NAME}
 //         type="vector"
@@ -330,99 +733,91 @@ export default MapTractLayers;
 //         maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
 //         minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
 //       >
-//         {/* High zoom layer (static) - non-prioritized features only */}
-//         <Layer
-//           id={constants.HIGH_ZOOM_LAYER_ID}
-//           source-layer={constants.SCORE_SOURCE_LAYER}
-//           filter={['==', constants.SCORE_PROPERTY_HIGH, false]}
-//           type="fill"
-//           paint={{
-//             'fill-opacity': constants.NON_PRIORITIZED_FEATURE_FILL_OPACITY,
-//           }}
-//           minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-//         />
+//         {/* High zoom layer (static) - non-prioritized features only  */}
+//         {visibleLayers.includes(constants.DEFAULT_LAYER_ID) && (
+//           <Layer
+//             id={`${constants.DEFAULT_LAYER_ID}_high`}
+//             source-layer={constants.SCORE_SOURCE_LAYER}
+//             filter={['==', constants.SCORE_PROPERTY_HIGH, false]}
+//             type="fill"
+//             paint={{
+//               'fill-opacity': constants.NON_PRIORITIZED_FEATURE_FILL_OPACITY,
+//             }}
+//             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+//           />
+//         )}
 
 //         {/* High zoom layer (static) - prioritized features only */}
-//         <Layer
-//           id={constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID}
-//           source-layer={constants.SCORE_SOURCE_LAYER}
-//           filter={['==', constants.SCORE_PROPERTY_HIGH, true]}
-//           type="fill"
-//           paint={{
-//             'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
-//             'fill-opacity':
-//               constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
-//           }}
-//           minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-//         />
+//         {visibleLayers.includes(constants.DEFAULT_LAYER_ID) && (
+//           <Layer
+//             id={`${constants.DEFAULT_LAYER_ID}_high`}
+//             source-layer={constants.SCORE_SOURCE_LAYER}
+//             filter={['==', constants.SCORE_PROPERTY_HIGH, true]}
+//             type="fill"
+//             paint={{
+//               'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
+//               'fill-opacity':
+//                 constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+//             }}
+//             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+//           />
+//         )}
 
-//         {/* High zoom layer (static) - grandfathered features only */}
-//         <Layer
-//           id={constants.GRANDFATHERED_HIGH_ZOOM_LAYER_ID}
-//           source-layer={constants.SCORE_SOURCE_LAYER}
-//           filter={['==', constants.IS_GRANDFATHERED, true]}
-//           type="fill"
-//           paint={{
-//             'fill-color': constants.GRANDFATHERED_FEATURE_FILL_COLOR,
-//             'fill-opacity':
-//               constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
-//           }}
-//           minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-//         />
-
-//         {/* High zoom layer GI Star Burdens*/}
-//         <Layer
-//           id={constants.PSIM_BURDEN_LAYER_ID}
-//           source-layer={constants.SCORE_SOURCE_LAYER}
-//           type="fill"
-//           paint={{
-//             // Define the color scale using a Mapbox expression
-//             'fill-color': [
-//               'step', // Use a step expression for binned color scaling
-//               ['get', constants.PSIM_BURDEN], // The property to base the color scale on
-//               '#efeada', // Default color for values <= -1
-//               -0.05,
-//               '#1818ed', // Color for values > -0.05
-//               -0.01,
-//               '#0101b3', // Color for values > -0.01
-//               -1e-12,
-//               '#8c0303', // Color for values > -1e-12
-//               0.01,
-//               '#c50000', // Color for values > 0.01
-//               0.05,
-//               '#efeada', // Color for values > 0.05
-//             ],
-//             'fill-opacity': 0.8, // Set the opacity of the fill
-//           }}
-//           minzoom={constants.GLOBAL_MIN_ZOOM}
-//         />
-
-//         {/* High zoom layer (static) - controls the border between features */}
-//         <Layer
-//           id={constants.FEATURE_BORDER_LAYER_ID}
-//           source-layer={constants.SCORE_SOURCE_LAYER}
-//           type="line"
-//           paint={{
-//             'line-color': constants.FEATURE_BORDER_COLOR,
-//             'line-width': constants.FEATURE_BORDER_WIDTH,
-//             'line-opacity': constants.FEATURE_BORDER_OPACITY,
-//           }}
-//           maxzoom={constants.GLOBAL_MAX_ZOOM_FEATURE_BORDER}
-//           minzoom={constants.GLOBAL_MIN_ZOOM_FEATURE_BORDER}
-//         />
-
-//         {/* High zoom layer (dynamic) - border styling around the selected feature */}
-//         <Layer
-//           id={constants.SELECTED_FEATURE_BORDER_LAYER_ID}
-//           source-layer={constants.SCORE_SOURCE_LAYER}
-//           filter={filter} // This filter filters out all other features except the selected feature.
-//           type="line"
-//           paint={{
-//             'line-color': constants.SELECTED_FEATURE_BORDER_COLOR,
-//             'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,
-//           }}
-//           minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
-//         />
+//         {/* Render high zoom layers conditionally based on visibility */}
+//         {visibleLayers.includes(constants.PSIM_BURDEN_LAYER_ID) && (
+//           <Layer
+//             id={`${constants.PSIM_BURDEN_LAYER_ID}_high`}
+//             source-layer={constants.SCORE_SOURCE_LAYER}
+//             type="fill"
+//             paint={{
+//               'fill-color': [
+//                 'step',
+//                 ['get', constants.PSIM_BURDEN],
+//                 '#efeada',
+//                 -0.05,
+//                 '#1818ed',
+//                 -0.01,
+//                 '#0101b3',
+//                 -1e-12,
+//                 '#8c0303',
+//                 0.01,
+//                 '#c50000',
+//                 0.05,
+//                 '#efeada',
+//               ],
+//               'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+//             }}
+//             maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
+//             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+//           />
+//         )}
+//         {visibleLayers.includes(constants.PSIM_INDICATOR_LAYER_ID) && (
+//           <Layer
+//             id={`${constants.PSIM_INDICATOR_LAYER_ID}_high`}
+//             source-layer={constants.SCORE_SOURCE_LAYER}
+//             type="fill"
+//             paint={{
+//               'fill-color': [
+//                 'step',
+//                 ['get', constants.PSIM_INDICATOR],
+//                 '#efeada',
+//                 -0.05,
+//                 '#1818ed',
+//                 -0.01,
+//                 '#0101b3',
+//                 -1e-12,
+//                 '#8c0303',
+//                 0.01,
+//                 '#c50000',
+//                 0.05,
+//                 '#efeada',
+//               ],
+//               'fill-opacity': constants.PSIM_FEATURE_FILL_OPACITY,
+//             }}
+//             maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
+//             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+//           />
+//         )}
 //       </Source>
 //     </>
 //   );

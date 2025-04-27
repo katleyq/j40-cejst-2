@@ -1,9 +1,8 @@
-// filepath: client/src/components/LayerToggleControl/LayerToggleControl.tsx
 import React from 'react';
 
 interface LayerToggleControlProps {
   layers: { id: string; name: string }[]; // List of layers with their IDs and display names
-  visibleLayers: string[]; // Currently visible layers
+  visibleLayers: string[]; // Currently visible layers (should always have one layer)
   setVisibleLayers: (layers: string[]) => void; // Function to update visible layers
 }
 
@@ -13,11 +12,13 @@ const LayerToggleControl: React.FC<LayerToggleControlProps> = ({
   setVisibleLayers,
 }) => {
   const handleToggle = (layerId: string) => {
+    // If the selected layer is already visible, do nothing (to ensure at least one layer is always selected)
     if (visibleLayers.includes(layerId)) {
-      setVisibleLayers(visibleLayers.filter((id) => id !== layerId));
-    } else {
-      setVisibleLayers([...visibleLayers, layerId]);
+      return;
     }
+
+    // Set the selected layer as the only visible layer
+    setVisibleLayers([layerId]);
   };
 
   return (
@@ -37,9 +38,10 @@ const LayerToggleControl: React.FC<LayerToggleControlProps> = ({
         <div key={layer.id}>
           <label>
             <input
-              type="checkbox"
-              checked={visibleLayers.includes(layer.id)}
-              onChange={() => handleToggle(layer.id)}
+              type="radio" // Use radio buttons instead of checkboxes
+              name="layer-toggle" // Group all inputs together
+              checked={visibleLayers.includes(layer.id)} // Only one layer can be selected
+              onChange={() => handleToggle(layer.id)} // Call handleToggle when a layer is selected
             />
             {layer.name}
           </label>
