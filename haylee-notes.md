@@ -103,6 +103,8 @@ Started adding the GI Star layer in `client/src/components/MapTractLayers/MapTra
 
 - `client/node_modules/@types/node/process.d.ts` where `process.env` constants are coming from I think? This is a file that allows typescript to work with Node.js. Since typescript is stricter about types than java, this helps define some type properties so the two can work together. Most (all?) of this file gets generated when you import node modules (????)
 
+- `client/src/components/J40Map.tsx`: Added high zoom new layer IDs near the bottom of this doc to try and make new layers interactive. 
+
 ## Poetry
 
 Run poetry install to install dependencies. Poetry is a dependency management tool for Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
