@@ -31,7 +31,7 @@ import MapSearch from './MapSearch';
 import MapTractLayers from './MapTractLayers/MapTractLayers';
 import MapTribalLayer from './MapTribalLayers/MapTribalLayers';
 import TerritoryFocusControl from './territoryFocusControl';
-import {getInteractiveLayerIds} from './Utils/GetInteractiveLayerIds';
+// import {getInteractiveLayerIds} from './Utils/getInteractiveLayerIds';
 
 // Styles and constants
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -90,9 +90,11 @@ const J40Map = ({location}: IJ40Interface) => {
       zoom && parseFloat(zoom) ? parseFloat(zoom) : constants.GLOBAL_MIN_ZOOM,
   });
 
-  const [visibleLayers, setVisibleLayers] = useState<string[]>([
-    constants.DEFAULT_LAYER_ID, // Default to the grouped layers
-  ]);
+  // NEWEST ADD
+  const [visibleLayer, setVisibleLayer] = useState<string>(
+      constants.DEFAULT_LAYER_ID,
+  );
+  const [interactiveLayerIds, setInteractiveLayerIds] = useState<string[]>([]);
   const [selectedFeature, setSelectedFeature] = useState<MapGeoJSONFeature>();
   const [detailViewData, setDetailViewData] = useState<IDetailViewInterface>();
   const [transitionInProgress, setTransitionInProgress] =
@@ -125,12 +127,6 @@ const J40Map = ({location}: IJ40Interface) => {
   const selectedFeatureId = (selectedFeature && selectedFeature.id) || '';
 
   const zoomLatLngHash = mapRef.current?.getMap()._hash._getCurrentHash();
-
-  // Calculate interactiveLayerIds using the utility function
-  const interactiveLayerIds = useMemo(
-      () => getInteractiveLayerIds(visibleLayers),
-      [visibleLayers],
-  );
 
   /**
    * Selects the provided feature on the map.
@@ -434,11 +430,20 @@ const J40Map = ({location}: IJ40Interface) => {
           }
 
           <MapTractLayers
-            selectedFeature={selectedFeature}
-            selectedFeatureId={selectedFeatureId}
-            visibleLayers={visibleLayers} // ADDED FOR NEW MAP LAYERS
-            setVisibleLayers={setVisibleLayers}
+            visibleLayer={visibleLayer}
+            setVisibleLayer={setVisibleLayer}
+            setInteractiveLayerIds={setInteractiveLayerIds}
           />
+
+          {/* <MapTractLayers
+            visibleLayer={visibleLayer}
+            setVisibleLayer={setVisibleLayer}
+            setInteractiveLayerIds={setInteractiveLayerIds}
+            selectedFeatureId={selectedFeatureId}
+            selectedFeature={selectedFeature}
+            visibleLayers={[visibleLayer]} // Adjust as needed
+            setVisibleLayers={(layers) => setVisibleLayer(layers[0])} // Adjust as needed
+          /> */}
 
           {/* This is the first overlayed row on the map: Search and Geolocation */}
           <div className={styles.mapHeaderRow}>

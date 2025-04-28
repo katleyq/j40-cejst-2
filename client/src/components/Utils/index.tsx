@@ -1,3 +1,3 @@
-import {getInteractiveLayerIds} from './GetInteractiveLayerIds';
+// import {getInteractiveLayerIds} from './getInteractiveLayerIds';
 
-export default getInteractiveLayerIds;
+// export default getInteractiveLayerIds;
