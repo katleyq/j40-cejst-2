@@ -1,7 +1,7 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable no-unused-vars */
 // External Libs:
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {Map, MapGeoJSONFeature, LngLatBoundsLike} from 'maplibre-gl';
 import ReactMapGL, {
   MapEvent,
@@ -31,6 +31,7 @@ import MapSearch from './MapSearch';
 import MapTractLayers from './MapTractLayers/MapTractLayers';
 import MapTribalLayer from './MapTribalLayers/MapTribalLayers';
 import TerritoryFocusControl from './territoryFocusControl';
+import {getInteractiveLayerIds} from './Utils/GetInteractiveLayerIds';
 
 // Styles and constants
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -124,6 +125,12 @@ const J40Map = ({location}: IJ40Interface) => {
   const selectedFeatureId = (selectedFeature && selectedFeature.id) || '';
 
   const zoomLatLngHash = mapRef.current?.getMap()._hash._getCurrentHash();
+
+  // Calculate interactiveLayerIds using the utility function
+  const interactiveLayerIds = useMemo(
+      () => getInteractiveLayerIds(visibleLayers),
+      [visibleLayers],
+  );
 
   /**
    * Selects the provided feature on the map.
@@ -404,10 +411,11 @@ const J40Map = ({location}: IJ40Interface) => {
           dragRotate={false}
           touchRotate={false}
           // eslint-disable-next-line max-len
-          interactiveLayerIds={[
-            constants.HIGH_ZOOM_LAYER_ID,
-            constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID,
-          ]}
+          // interactiveLayerIds={[
+          //   constants.HIGH_ZOOM_LAYER_ID,
+          //   constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID,
+          // ]}
+          interactiveLayerIds={interactiveLayerIds}
           // ****** Callback props: ******
           // http://visgl.github.io/react-map-gl/docs/api-reference/interactive-map#callbacks
           onViewportChange={setViewport}
@@ -428,6 +436,8 @@ const J40Map = ({location}: IJ40Interface) => {
           <MapTractLayers
             selectedFeature={selectedFeature}
             selectedFeatureId={selectedFeatureId}
+            visibleLayers={visibleLayers} // ADDED FOR NEW MAP LAYERS
+            setVisibleLayers={setVisibleLayers}
           />
 
           {/* This is the first overlayed row on the map: Search and Geolocation */}

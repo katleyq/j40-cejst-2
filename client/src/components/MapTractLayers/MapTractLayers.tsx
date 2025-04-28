@@ -14,6 +14,8 @@ import LayerToggleControl from '../LayerToggleControl/LayerToggleControl';
 interface IMapTractLayers {
   selectedFeatureId: string | number;
   selectedFeature: MapGeoJSONFeature | undefined;
+  visibleLayers: string[]; // <-- add this
+  setVisibleLayers: React.Dispatch<React.SetStateAction<string[]>>; // <-- add this too
 }
 
 /**
@@ -105,6 +107,23 @@ const MapTractLayers = ({
     {id: constants.ADD_BURDEN_LAYER_ID, name: 'Additive Burdens'},
     {id: constants.DEFAULT_LAYER_ID, name: 'Default Layer'},
   ];
+  // const interactiveLayerIds = useMemo(() => {
+  //   const ids = [];
+  //   if (visibleLayers.includes(constants.DEFAULT_LAYER_ID)) {
+  //     ids.push(
+  //         constants.HIGH_ZOOM_LAYER_ID,
+  //         constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID,
+  //     );
+  //   }
+  //   if (visibleLayers.includes(constants.PSIM_BURDEN_LAYER_ID)) {
+  //     ids.push(constants.PSIM_BURDEN_HIGH_LAYER_ID);
+  //   }
+  //   if (visibleLayers.includes(constants.ADD_BURDEN_LAYER_ID)) {
+  //     ids.push(constants.ADD_BURDEN_HIGH_LAYER_ID);
+  //   }
+  //   console.log('Updated Interactive Layer IDs:', ids); // Debug log
+  //   return ids;
+  // }, [visibleLayers]);
 
   return (
     <>
