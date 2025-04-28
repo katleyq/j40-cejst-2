@@ -1,7 +1,7 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable no-unused-vars */
 // External Libs:
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {Map, MapGeoJSONFeature, LngLatBoundsLike} from 'maplibre-gl';
 import ReactMapGL, {
   MapEvent,
@@ -12,7 +12,8 @@ import ReactMapGL, {
   Popup,
   FlyToInterpolator,
   FullscreenControl,
-  MapRef} from 'react-map-gl';
+  MapRef,
+} from 'react-map-gl';
 import {useIntl} from 'gatsby-plugin-intl';
 import bbox from '@turf/bbox';
 import * as d3 from 'd3-ease';
@@ -30,6 +31,7 @@ import MapSearch from './MapSearch';
 import MapTractLayers from './MapTractLayers/MapTractLayers';
 import MapTribalLayer from './MapTribalLayers/MapTribalLayers';
 import TerritoryFocusControl from './territoryFocusControl';
+// import {getInteractiveLayerIds} from './Utils/getInteractiveLayerIds';
 
 // Styles and constants
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -46,15 +48,14 @@ declare global {
 
 interface IJ40Interface {
   location: Location;
-};
-
+}
 
 export interface IDetailViewInterface {
-  latitude: number
-  longitude: number
-  zoom: number
-  properties: constants.J40Properties,
-};
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  properties: constants.J40Properties;
+}
 
 export interface IMapFeature {
   id: string;
@@ -81,17 +82,29 @@ const J40Map = ({location}: IJ40Interface) => {
    * to use constants. This is so that we can load URLs with certain zoom/lat/long specified:
    */
   const [viewport, setViewport] = useState<ViewportProps>({
-    latitude: lat && parseFloat(lat) ? parseFloat(lat) : constants.DEFAULT_CENTER[0],
-    longitude: lng && parseFloat(lng) ? parseFloat(lng) : constants.DEFAULT_CENTER[1],
-    zoom: zoom && parseFloat(zoom) ? parseFloat(zoom) : constants.GLOBAL_MIN_ZOOM,
+    latitude:
+      lat && parseFloat(lat) ? parseFloat(lat) : constants.DEFAULT_CENTER[0],
+    longitude:
+      lng && parseFloat(lng) ? parseFloat(lng) : constants.DEFAULT_CENTER[1],
+    zoom:
+      zoom && parseFloat(zoom) ? parseFloat(zoom) : constants.GLOBAL_MIN_ZOOM,
   });
 
+  // NEWEST ADD
+  const [visibleLayer, setVisibleLayer] = useState<string>(
+      constants.DEFAULT_LAYER_ID,
+  );
+  const [interactiveLayerIds, setInteractiveLayerIds] = useState<string[]>([]);
   const [selectedFeature, setSelectedFeature] = useState<MapGeoJSONFeature>();
   const [detailViewData, setDetailViewData] = useState<IDetailViewInterface>();
-  const [transitionInProgress, setTransitionInProgress] = useState<boolean>(false);
-  const [geolocationInProgress, setGeolocationInProgress] = useState<boolean>(false);
+  const [transitionInProgress, setTransitionInProgress] =
+    useState<boolean>(false);
+  const [geolocationInProgress, setGeolocationInProgress] =
+    useState<boolean>(false);
   const [isMobileMapState, setIsMobileMapState] = useState<boolean>(false);
-  const [selectTractId, setSelectTractId] = useState<string | undefined>(undefined);
+  const [selectTractId, setSelectTractId] = useState<string | undefined>(
+      undefined,
+  );
   const {width: windowWidth} = useWindowSize();
 
   /**
@@ -104,7 +117,8 @@ const J40Map = ({location}: IJ40Interface) => {
    * The "Finding location" message only applies for desktop layouts.
    */
   // eslint-disable-next-line max-len
-  const [isGeolocateLocked, setIsGeolocateLocked, removeGeolocateLock] = useLocalStorage('is-geolocate-locked', false, {raw: true});
+  const [isGeolocateLocked, setIsGeolocateLocked, removeGeolocateLock] =
+    useLocalStorage('is-geolocate-locked', false, {raw: true});
 
   const mapRef = useRef<MapRef>(null);
   const flags = useFlags();
@@ -136,7 +150,10 @@ const J40Map = ({location}: IJ40Interface) => {
        * The following logic is used for the popup for the fullscreen feature
        */
       // Create a new viewport using the current viewport dimnesions:
-      const newViewPort = new WebMercatorViewport({height: viewport.height!, width: viewport.width!});
+      const newViewPort = new WebMercatorViewport({
+        height: viewport.height!,
+        width: viewport.width!,
+      });
 
       // Fit the viewport to the new bounds and return a long, lat and zoom:
       const {longitude, latitude, zoom} = newViewPort.fitBounds(
@@ -167,12 +184,12 @@ const J40Map = ({location}: IJ40Interface) => {
   };
 
   /**
- * This onClick event handler will listen and handle clicks on the map. It will listen for clicks on the
- * territory controls and it will listen to clicks on the map.
- *
- * It will NOT listen to clicks into the search field or the zoom controls. These clickHandlers are
- * captured in their own respective components.
- */
+   * This onClick event handler will listen and handle clicks on the map. It will listen for clicks on the
+   * territory controls and it will listen to clicks on the map.
+   *
+   * It will NOT listen to clicks into the search field or the zoom controls. These clickHandlers are
+   * captured in their own respective components.
+   */
   const onClick = (event: MapEvent | React.MouseEvent<HTMLButtonElement>) => {
     // Stop all propagation / bubbling / capturing
     event.preventDefault();
@@ -213,7 +230,10 @@ const J40Map = ({location}: IJ40Interface) => {
         default:
           break;
       }
-    } else if (event.target && (event.target as HTMLElement).nodeName == 'DIV' ) {
+    } else if (
+      event.target &&
+      (event.target as HTMLElement).nodeName == 'DIV'
+    ) {
       // This else clause will fire when the user clicks on the map and will ignore other controls
       // such as the search box and buttons.
 
@@ -235,7 +255,6 @@ const J40Map = ({location}: IJ40Interface) => {
     if (isMobile) setIsMobileMapState(true);
   };
 
-
   /**
    * This function will move the map (with easing) to the given lat/long bounds.
    *
@@ -247,13 +266,22 @@ const J40Map = ({location}: IJ40Interface) => {
    * @param {LngLatBoundsLike} bounds
    * @param {boolean} isTerritory
    */
-  const goToPlace = (bounds: LngLatBoundsLike, isTerritory = false, selectTractId: string | undefined = undefined) => {
-    const newViewPort = new WebMercatorViewport({height: viewport.height!, width: viewport.width!});
+  const goToPlace = (
+      bounds: LngLatBoundsLike,
+      isTerritory = false,
+      selectTractId: string | undefined = undefined,
+  ) => {
+    const newViewPort = new WebMercatorViewport({
+      height: viewport.height!,
+      width: viewport.width!,
+    });
     const {longitude, latitude, zoom} = newViewPort.fitBounds(
-      bounds as [[number, number], [number, number]], {
+      bounds as [[number, number], [number, number]],
+      {
         // padding: 200,  // removing padding and offset in favor of a zoom offset below
         // offset: [0, -100],
-      });
+      },
+    );
 
     /**
      * When some tracts are selected, they end up too far zoomed in, causing some census tracts to
@@ -265,7 +293,8 @@ const J40Map = ({location}: IJ40Interface) => {
      * is 5.1 as of this comment)
      */
     // eslint-disable-next-line max-len
-    const featureSelectionZoomLevel = (zoom - 1) < constants.GLOBAL_MIN_ZOOM_FEATURE_BORDER + .1 ?
+    const featureSelectionZoomLevel =
+      zoom - 1 < constants.GLOBAL_MIN_ZOOM_FEATURE_BORDER + 0.1 ?
         constants.GLOBAL_MIN_ZOOM_FEATURE_BORDER :
         zoom - 1;
 
@@ -297,7 +326,8 @@ const J40Map = ({location}: IJ40Interface) => {
     */
     if (selectTractId) {
       // Search for features in the map that have the tract ID.
-      const geoidSearchResults = mapRef.current?.getMap()
+      const geoidSearchResults = mapRef.current
+          ?.getMap()
           .querySourceFeatures(constants.HIGH_ZOOM_SOURCE_NAME, {
             sourceLayer: constants.SCORE_SOURCE_LAYER,
             validate: true,
@@ -320,7 +350,6 @@ const J40Map = ({location}: IJ40Interface) => {
   const onClickGeolocate = () => {
     setGeolocationInProgress(true);
   };
-
 
   return (
     <>
@@ -355,23 +384,22 @@ const J40Map = ({location}: IJ40Interface) => {
           // access token is j40StylesReadToken
           mapboxApiAccessToken={
             process.env.MAPBOX_STYLES_READ_TOKEN ?
-            process.env.MAPBOX_STYLES_READ_TOKEN : ''}
-
+              process.env.MAPBOX_STYLES_READ_TOKEN :
+              ''
+          }
           // ****** Map state props: ******
           // http://visgl.github.io/react-map-gl/docs/api-reference/interactive-map#map-state
           {...viewport}
           mapStyle={
             process.env.MAPBOX_STYLES_READ_TOKEN ?
-            'mapbox://styles/justice40/cl9g30qh7000p15l9cp1ftw16' :
-            'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json'
+              'mapbox://styles/justice40/cl9g30qh7000p15l9cp1ftw16' :
+              'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json'
           }
           width="100%"
           // Ajusting this height with a conditional statement will not render the map on staging.
           // The reason for this issue is unknown. Consider styling the parent container via SASS.
           height="100%"
           mapOptions={{hash: true}}
-
-
           // ****** Interaction option props: ******
           // http://visgl.github.io/react-map-gl/docs/api-reference/interactive-map#interaction-options
           maxZoom={constants.GLOBAL_MAX_ZOOM}
@@ -379,14 +407,11 @@ const J40Map = ({location}: IJ40Interface) => {
           dragRotate={false}
           touchRotate={false}
           // eslint-disable-next-line max-len
-          interactiveLayerIds={
-            [
-              constants.HIGH_ZOOM_LAYER_ID,
-              constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID,
-            ]
-          }
-
-
+          // interactiveLayerIds={[
+          //   constants.HIGH_ZOOM_LAYER_ID,
+          //   constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID,
+          // ]}
+          interactiveLayerIds={interactiveLayerIds}
           // ****** Callback props: ******
           // http://visgl.github.io/react-map-gl/docs/api-reference/interactive-map#callbacks
           onViewportChange={setViewport}
@@ -397,61 +422,80 @@ const J40Map = ({location}: IJ40Interface) => {
           ref={mapRef}
           data-cy={'reactMapGL'}
         >
-
-          { /* Tribal layer is baked into Mapbox source,
+          {
+            /* Tribal layer is baked into Mapbox source,
              * only render here if we're not using that
              **/
-            process.env.MAPBOX_STYLES_READ_TOKEN ||
-            <MapTribalLayer />
+            process.env.MAPBOX_STYLES_READ_TOKEN || <MapTribalLayer />
           }
 
           <MapTractLayers
-            selectedFeature={selectedFeature}
-            selectedFeatureId={selectedFeatureId}
+            visibleLayer={visibleLayer}
+            setVisibleLayer={setVisibleLayer}
+            setInteractiveLayerIds={setInteractiveLayerIds}
           />
+
+          {/* <MapTractLayers
+            visibleLayer={visibleLayer}
+            setVisibleLayer={setVisibleLayer}
+            setInteractiveLayerIds={setInteractiveLayerIds}
+            selectedFeatureId={selectedFeatureId}
+            selectedFeature={selectedFeature}
+            visibleLayers={[visibleLayer]} // Adjust as needed
+            setVisibleLayers={(layers) => setVisibleLayer(layers[0])} // Adjust as needed
+          /> */}
 
           {/* This is the first overlayed row on the map: Search and Geolocation */}
           <div className={styles.mapHeaderRow}>
-            <MapSearch goToPlace={goToPlace}/>
+            <MapSearch goToPlace={goToPlace} />
 
             {/* Geolocate Icon */}
             <div className={styles.geolocateBox}>
-              {
-                windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG - 1 &&
-                <div className={
-                  (geolocationInProgress && !isGeolocateLocked) ?
-                  styles.geolocateMessage :
-                  styles.geolocateMessageHide
-                }>
+              {windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG - 1 && (
+                <div
+                  className={
+                    geolocationInProgress && !isGeolocateLocked ?
+                      styles.geolocateMessage :
+                      styles.geolocateMessageHide
+                  }
+                >
                   {intl.formatMessage(EXPLORE_COPY.MAP.GEOLOC_MSG_LOCATING)}
                 </div>
-              }
+              )}
               <GeolocateControl
                 positionOptions={{enableHighAccuracy: true}}
                 onGeolocate={onGeolocate}
                 onClick={onClickGeolocate}
-                trackUserLocation={windowWidth < constants.USWDS_BREAKPOINTS.MOBILE_LG}
-                showUserHeading={windowWidth < constants.USWDS_BREAKPOINTS.MOBILE_LG}
-                disabledLabel={intl.formatMessage(EXPLORE_COPY.MAP.GEOLOC_MSG_DISABLED)}
+                trackUserLocation={
+                  windowWidth < constants.USWDS_BREAKPOINTS.MOBILE_LG
+                }
+                showUserHeading={
+                  windowWidth < constants.USWDS_BREAKPOINTS.MOBILE_LG
+                }
+                disabledLabel={intl.formatMessage(
+                    EXPLORE_COPY.MAP.GEOLOC_MSG_DISABLED,
+                )}
               />
             </div>
-
           </div>
 
           {/* This is the second row overlayed on the map, it will add the navigation controls
           of the zoom in and zoom out buttons */}
-          { windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG && <NavigationControl
-            showCompass={false}
-            className={styles.navigationControl}
-          /> }
+          {windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG && (
+            <NavigationControl
+              showCompass={false}
+              className={styles.navigationControl}
+            />
+          )}
 
           {/* This is the third row overlayed on the map, it will show shortcut buttons to
           pan/zoom to US territories */}
-          { windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
-            <TerritoryFocusControl onClick={onClick}/> }
+          {windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG && (
+            <TerritoryFocusControl onClick={onClick} />
+          )}
 
           {/* Enable fullscreen pop-up behind a feature flag */}
-          {('fs' in flags && detailViewData && !transitionInProgress) && (
+          {'fs' in flags && detailViewData && !transitionInProgress && (
             <Popup
               className={styles.j40Popup}
               tipSize={5}
@@ -468,8 +512,11 @@ const J40Map = ({location}: IJ40Interface) => {
               />
             </Popup>
           )}
-          {'fs' in flags ? <FullscreenControl className={styles.fullscreenControl}/> :'' }
-
+          {'fs' in flags ? (
+            <FullscreenControl className={styles.fullscreenControl} />
+          ) : (
+            ''
+          )}
         </ReactMapGL>
       </Grid>
 

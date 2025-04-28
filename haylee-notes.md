@@ -101,6 +101,9 @@ PSIM_INDICATOR = 'P-value Indicators'
 
 Started adding the GI Star layer in `client/src/components/MapTractLayers/MapTractLayers.tsx` with edits in `client/src/data/constants.tsx`. Got it to show up in the high zoom, but can't make it show up on low zoom yet because the low geojson only has geometries and score. We'll need to rerun that section of the data pipeline and modify the low creation so it also stores these values. 
 
+- `client/node_modules/@types/node/process.d.ts` where `process.env` constants are coming from I think? This is a file that allows typescript to work with Node.js. Since typescript is stricter about types than java, this helps define some type properties so the two can work together. Most (all?) of this file gets generated when you import node modules (????)
+
+- `client/src/components/J40Map.tsx`: Added high zoom new layer IDs near the bottom of this doc to try and make new layers interactive. 
 
 ## Poetry
 
