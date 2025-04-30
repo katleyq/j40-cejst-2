@@ -18,6 +18,98 @@ Visit [CONTRIBUTING.md](CONTRIBUTING.md) for ways to get started.
 
 ## For Developers and Data Scientists
 
+### Repository Structure
+```
+j40-cejst-2/
+├── client/                        # Front-end web application
+│   ├── public/                    # Static assets
+│   ├── src/
+│   │   ├── components/            # React components
+│   │   │   ├── AreaDetail/        # Details panel for selected areas
+│   │   │   ├── DownloadButton/    # Download functionality
+│   │   │   ├── GovernmentBanner/  # Official site banner
+│   │   │   ├── J40Header/         # Site header component
+│   │   │   ├── J40Map.tsx         # Main map component
+│   │   │   ├── Language/          # Language selector component
+│   │   │   ├── LayerToggleControl/# Controls for toggling map layers
+│   │   │   ├── MapInfoPanel/      # Side panel with map information
+│   │   │   ├── MapSearch/         # Search functionality for the map
+│   │   │   ├── MapTractLayers/    # Map layers for census tracts
+│   │   │   ├── MapTribalLayers/   # Map layers for tribal lands
+│   │   │   └── ...                # Other UI components
+│   │   ├── contexts/              # React contexts
+│   │   │   ├── FlagContext/       # Feature flag context
+│   │   │   └── ...                # Other contexts
+│   │   ├── data/                  # Data files and constants
+│   │   │   ├── constants.tsx      # Application constants
+│   │   │   ├── copy/              # Text content
+│   │   │   │   ├── common.tsx     # Shared text content
+│   │   │   │   ├── explore.tsx    # Map exploration text
+│   │   │   │   └── ...            # Other text content
+│   │   │   └── ...                # Other data files
+│   │   ├── hooks/                 # Custom React hooks
+│   │   ├── images/                # Image assets
+│   │   ├── pages/                 # Page components
+│   │   │   ├── index.tsx          # Homepage
+│   │   │   ├── methodology.tsx    # Methodology page
+│   │   │   ├── downloads.tsx      # Downloads page
+│   │   │   └── ...                # Other pages
+│   │   └── styles/                # Global styles
+│   ├── static/                    # Static files served by Gatsby
+│   │   └── tiles/                 # (Location for local map tiles)
+│   ├── .env.development           # Dev environment variables
+│   ├── .env.production            # Production environment variables
+│   ├── gatsby-config.js           # Gatsby configuration
+│   ├── gatsby-node.js             # Gatsby build customization
+│   └── package.json               # Dependencies and scripts
+│
+├── data/                          # Data processing pipeline
+│   └── data-pipeline/             # ETL processes
+│       ├── data_pipeline/         # Python package for data processing
+│       │   ├── __init__.py        # Package initialization
+│       │   ├── config.py          # Configuration settings
+│       │   ├── constants.py       # Pipeline constants
+│       │   ├── utils.py           # Utility functions
+│       │   ├── tile/              # Tile generation code
+│       │   │   └── generate.py    # Tile generation script
+│       │   ├── etl/               # Extract, Transform, Load code
+│       │   │   ├── score/         # Scoring algorithms
+│       │   │   ├── extract/       # Data extraction scripts
+│       │   │   └── transform/     # Data transformation scripts
+│       │   ├── content/           # Content management
+│       │   │   └── schemas/       # Data schemas
+│       │   └── data/              # Data directories
+│       │       ├── download/      # Downloaded raw data
+│       │       ├── score/         # Score data
+│       │       │   ├── geojson/   # GeoJSON files
+│       │       │   └── tiles/     # Generated map tiles
+│       │       │       ├── high/  # High resolution tiles
+│       │       │       └── low/   # Low resolution tiles
+│       │       ├── source/        # Source data files
+│       │       └── ...            # Other data categories
+│       ├── tests/                 # Unit and integration tests
+│       ├── pyproject.toml         # Poetry configuration
+│       ├── settings.toml          # Application settings
+│       ├── setup.py               # Package installation script
+│       └── README.md              # Pipeline documentation
+│
+├── docs/                          # Documentation
+│   ├── architecture/              # Architecture diagrams
+│   ├── development/               # Development guides
+│   └── user/                      # User guides
+│
+├── tools/                         # Development and deployment tools
+│   ├── scripts/                   # Utility scripts
+│   └── ci/                        # CI/CD configuration
+│
+├── .github/                       # GitHub configuration
+│   └── workflows/                 # GitHub Actions workflows
+│
+├── .gitignore                     # Git ignore rules
+├── LICENSE                        # Project license
+└── README.md                      # Repository documentation
+```
+
 ### Datasets
 
 The intermediate steps of the data pipeline, the scores, and the final output that is consumed by the frontend are all public and can be accessed directly. Visit [DATASETS.md](DATASETS.md) for these direct download links.
