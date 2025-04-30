@@ -284,7 +284,7 @@ export const PSIM_BURDEN_LOW_LAYER_ID = "psim-burden-low-layer-id";
 export const PSIM_BURDEN_HIGH_LAYER_ID = "psim-burden-high-layer-id";
 
 export const PSIM_INDICATOR_LAYER_ID = "psim-indicator-layer-id";
-export const DEFAULT_LAYER_ID = "default-layer-id";
+export const LEGACY_LAYER_ID = "legacy-layer-id";
 export const ADD_BURDEN_LAYER_ID = "add-burden-layer-id";
 export const ADD_BURDEN_LOW_LAYER_ID = "add-burden-low-layer-id";
 export const ADD_BURDEN_HIGH_LAYER_ID = "add-burden-high-layer-id";
@@ -323,7 +323,8 @@ export const HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY = 0.3;
 export const LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY = 0.6;
 export const NON_PRIORITIZED_FEATURE_FILL_OPACITY = 0;
 export const TRIBAL_FEATURE_FILL_OPACITY = 0.3;
-export const PSIM_FEATURE_FILL_OPACITY = 0.6;
+export const LOW_ZOOM_PSIM_FEATURE_FILL_OPACITY = 0.7;
+export const HIGH_ZOOM_PSIM_FEATURE_FILL_OPACITY = 0.6;
 
 // Colors
 export const FEATURE_BORDER_COLOR = "#4EA5CF";
