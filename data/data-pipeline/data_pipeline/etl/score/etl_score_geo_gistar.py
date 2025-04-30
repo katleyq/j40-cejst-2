@@ -43,11 +43,11 @@ class GeoScoreGIStarETL(ExtractTransformLoad):
 
         ## TODO: We really should not have this any longer changing
         self.TARGET_SCORE_SHORT_FIELD = constants.TILES_SCORE_COLUMNS[
-            field_names.BURDEN_ID
+            field_names.PSIM_BURDEN
             # field_names.FINAL_SCORE_N_BOOLEAN
         ]
         # I think i might just be able to change the column name here and above, without needing to change any of the variables... 
-        self.TARGET_SCORE_RENAME_TO = "ID_BURD"
+        self.TARGET_SCORE_RENAME_TO = "P_BURD"
 
         # Import the shortened name for tract ("GTF") that's used on the tiles.
         self.TRACT_SHORT_FIELD = constants.TILES_SCORE_COLUMNS[

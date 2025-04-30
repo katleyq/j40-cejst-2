@@ -104,7 +104,7 @@ const MapTractLayers = ({
   // }: IMapTractLayers) => {
   //   // State to track visible layers
   //   const [visibleLayers, setVisibleLayers] = useState<string[]>([
-  //     constants.DEFAULT_LAYER_ID, // Default visible layer
+  //     constants.LEGACY_LAYER_ID, // Default visible layer
   //   ]);
 
   // FIRST ATTEMPT DIDNT WORK
@@ -133,9 +133,9 @@ const MapTractLayers = ({
   // }, [selectedFeatureId]);
 
   const layers = [
-    {id: constants.PSIM_BURDEN_LAYER_ID, name: 'GI Star Burdens'},
     {id: constants.ADD_BURDEN_LAYER_ID, name: 'Additive Burdens'},
-    {id: constants.DEFAULT_LAYER_ID, name: 'Default Layer'},
+    {id: constants.PSIM_BURDEN_LAYER_ID, name: 'GI Star Burdens'},
+    {id: constants.LEGACY_LAYER_ID, name: 'Legacy Layer'},
   ];
   const setLayerState = (layerId: string, interactiveLayerIds: string[]) => {
     setVisibleLayer(layerId); // Update the visible layer
@@ -152,7 +152,7 @@ const MapTractLayers = ({
       />
 
       {/* Sources and Layers */}
-      {visibleLayer === constants.DEFAULT_LAYER_ID && (
+      {visibleLayer === constants.LEGACY_LAYER_ID && (
         <>
           {/* Default Low */}
           <Source
@@ -276,17 +276,21 @@ const MapTractLayers = ({
               type="fill"
               paint={{
                 'fill-color': [
-                  'interpolate',
-                  ['linear'],
-                  ['get', constants.BURDEN_ID],
-                  0,
-                  '#efeada',
-                  1,
-                  '#8c0303',
-                  2,
+                  'step',
+                  ['get', constants.PSIM_BURDEN],
+                  '#FBF8F3',
+                  -0.05,
                   '#1818ed',
+                  -0.01,
+                  '#0101b3',
+                  -1e-12,
+                  '#7a1408',
+                  0.01,
+                  '#bd0606',
+                  0.05,
+                  '#FBF8F3',
                 ],
-                'fill-opacity': constants.LOW_ZOOM_PSIM_FEATURE_FILL_OPACITY,
+                'fill-opacity': constants.HIGH_ZOOM_PSIM_FEATURE_FILL_OPACITY,
               }}
               maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
               minzoom={constants.GLOBAL_MIN_ZOOM_LOW}

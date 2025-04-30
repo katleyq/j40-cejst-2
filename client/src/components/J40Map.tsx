@@ -92,7 +92,7 @@ const J40Map = ({location}: IJ40Interface) => {
 
   // NEWEST ADD
   const [visibleLayer, setVisibleLayer] = useState<string>(
-      constants.DEFAULT_LAYER_ID,
+      constants.ADD_BURDEN_LAYER_ID,
   );
   const [interactiveLayerIds, setInteractiveLayerIds] = useState<string[]>([]);
   const [selectedFeature, setSelectedFeature] = useState<MapGeoJSONFeature>();

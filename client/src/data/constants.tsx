@@ -284,7 +284,7 @@ export const PSIM_BURDEN_LOW_LAYER_ID = "psim-burden-low-layer-id";
 export const PSIM_BURDEN_HIGH_LAYER_ID = "psim-burden-high-layer-id";
 
 export const PSIM_INDICATOR_LAYER_ID = "psim-indicator-layer-id";
-export const DEFAULT_LAYER_ID = "default-layer-id";
+export const LEGACY_LAYER_ID = "legacy-layer-id";
 export const ADD_BURDEN_LAYER_ID = "add-burden-layer-id";
 export const ADD_BURDEN_LOW_LAYER_ID = "add-burden-low-layer-id";
 export const ADD_BURDEN_HIGH_LAYER_ID = "add-burden-high-layer-id";
