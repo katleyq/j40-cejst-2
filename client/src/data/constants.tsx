@@ -1,7 +1,7 @@
 /* eslint quotes: [2, "double"] */
 
-import {LngLatBoundsLike} from "maplibre-gl";
-import {isMobile as isMobileReactDeviceDetect} from "react-device-detect";
+import { LngLatBoundsLike } from "maplibre-gl";
+import { isMobile as isMobileReactDeviceDetect } from "react-device-detect";
 
 export const isMobile = isMobileReactDeviceDetect;
 
@@ -278,6 +278,10 @@ export const LOW_ZOOM_LAYER_ID = "low-zoom-layer-id";
 export const FEATURE_BORDER_LAYER_ID = "feature-border-layer-id";
 export const SELECTED_FEATURE_BORDER_LAYER_ID =
   "selected-feature-border-layer-id";
+export const PSIM_SELECTED_FEATURE_BORDER_LAYER_ID =
+  "psim-selected-feature-border-layer-id";
+export const ADD_SELECTED_FEATURE_BORDER_LAYER_ID =
+  "add-selected-feature-border-layer-id";
 // Add PSIM burden layer ID
 export const PSIM_BURDEN_LAYER_ID = "psim-burden-layer-id";
 export const PSIM_BURDEN_LOW_LAYER_ID = "psim-burden-low-layer-id";
@@ -338,6 +342,9 @@ export const SELECTED_TRIBAL_BORDER_COLOR = "#1A4480";
 export const TRIBAL_FILL_COLOR = "#768FB3";
 export const TRIBAL_ALASKA_CIRCLE_FILL_COLOR = "#768FB3";
 export const TRIBAL_ALASKA_CIRCLE_RADIUS = 5;
+
+export const PSIM_SELECTED_FEATURE_BORDER_COLOR = "#242426";
+export const ADD_SELECTED_FEATURE_BORDER_COLOR = "#290a01";
 
 // Widths
 export const FEATURE_BORDER_WIDTH = 0.8;
@@ -421,21 +428,21 @@ export const CENSUS_TRACT_SURVEY_LINKS = {
 };
 
 export const TILE_BASE_URL =
-  process.env.DATA_SOURCE === "local" ?
-    process.env.GATSBY_LOCAL_TILES_BASE_URL :
-    process.env.GATSBY_CDN_TILES_BASE_URL;
+  process.env.DATA_SOURCE === "local"
+    ? process.env.GATSBY_LOCAL_TILES_BASE_URL
+    : process.env.GATSBY_CDN_TILES_BASE_URL;
 
 export const TILE_PATH =
-  process.env.DATA_SOURCE === "local" ?
-    process.env.GATSBY_DATA_PIPELINE_SCORE_PATH_LOCAL :
-    process.env.GATSBY_2_0_SCORE_PATH;
+  process.env.DATA_SOURCE === "local"
+    ? process.env.GATSBY_DATA_PIPELINE_SCORE_PATH_LOCAL
+    : process.env.GATSBY_2_0_SCORE_PATH;
 
 export const MAP_TRACT_SEARCH_PATH =
-  process.env.DATA_SOURCE === "local" ?
-    process.env.GATSBY_DATA_PIPELINE_SEARCH_PATH_LOCAL :
-    process.env.GATSBY_2_0_MAP_TRACT_SEARCH_PATH;
+  process.env.DATA_SOURCE === "local"
+    ? process.env.GATSBY_DATA_PIPELINE_SEARCH_PATH_LOCAL
+    : process.env.GATSBY_2_0_MAP_TRACT_SEARCH_PATH;
 
 export const GATSBY_DATA_PIPELINE_TRIBAL_PATH =
-  process.env.DATA_SOURCE === "local" ?
-    process.env.GATSBY_DATA_PIPELINE_TRIBAL_PATH_LOCAL :
-    process.env.GATSBY_2_0_TRIBAL_PATH;
+  process.env.DATA_SOURCE === "local"
+    ? process.env.GATSBY_DATA_PIPELINE_TRIBAL_PATH_LOCAL
+    : process.env.GATSBY_2_0_TRIBAL_PATH;

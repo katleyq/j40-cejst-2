@@ -330,6 +330,17 @@ const MapTractLayers = ({
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
             />
+            <Layer
+              id={constants.PSIM_SELECTED_FEATURE_BORDER_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={filter} // This filter filters out all other features except the selected feature.
+              type="line"
+              paint={{
+                'line-color': constants.PSIM_SELECTED_FEATURE_BORDER_COLOR,
+                'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,
+              }}
+              minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+            />
           </Source>
         </>
       )}
@@ -423,7 +434,7 @@ const MapTractLayers = ({
               filter={filter} // This filter filters out all other features except the selected feature.
               type="line"
               paint={{
-                'line-color': constants.SELECTED_FEATURE_BORDER_COLOR,
+                'line-color': constants.ADD_SELECTED_FEATURE_BORDER_COLOR,
                 'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
