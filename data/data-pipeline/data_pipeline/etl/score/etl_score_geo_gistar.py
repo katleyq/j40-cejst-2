@@ -55,6 +55,7 @@ class GeoScoreGIStarETL(ExtractTransformLoad):
         ]
         self.GEOMETRY_FIELD_NAME = "geometry"
         self.LAND_FIELD_NAME = "ALAND10"
+        self.TOTAL_POP_FIELD = 'TPF'
 
         # We will adjust this upwards while there is some fractional value
         # in the score. This is a starting value.
@@ -93,6 +94,7 @@ class GeoScoreGIStarETL(ExtractTransformLoad):
                 self.GEOID_FIELD_NAME,
                 self.GEOMETRY_FIELD_NAME,
                 self.LAND_FIELD_NAME,
+                self.
             ],
         )
 

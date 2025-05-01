@@ -29,7 +29,7 @@ import AreaDetail from './AreaDetail';
 import MapInfoPanel from './mapInfoPanel';
 import MapSearch from './MapSearch';
 import MapTractLayers from './MapTractLayers/MapTractLayers';
-import MapTribalLayer from './MapTribalLayers/MapTribalLayers';
+// import MapTribalLayer from './MapTribalLayers/MapTribalLayers';
 import TerritoryFocusControl from './territoryFocusControl';
 // import {getInteractiveLayerIds} from './Utils/getInteractiveLayerIds';
 
@@ -426,7 +426,7 @@ const J40Map = ({location}: IJ40Interface) => {
             /* Tribal layer is baked into Mapbox source,
              * only render here if we're not using that
              **/
-            process.env.MAPBOX_STYLES_READ_TOKEN || <MapTribalLayer />
+            // process.env.MAPBOX_STYLES_READ_TOKEN || <MapTribalLayer />
           }
 
           <MapTractLayers
