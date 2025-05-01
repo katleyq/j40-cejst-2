@@ -1,7 +1,7 @@
 /* eslint quotes: [2, "double"] */
 
-import { LngLatBoundsLike } from "maplibre-gl";
-import { isMobile as isMobileReactDeviceDetect } from "react-device-detect";
+import {LngLatBoundsLike} from "maplibre-gl";
+import {isMobile as isMobileReactDeviceDetect} from "react-device-detect";
 
 export const isMobile = isMobileReactDeviceDetect;
 
@@ -328,7 +328,7 @@ export const LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY = 0.6;
 export const NON_PRIORITIZED_FEATURE_FILL_OPACITY = 0;
 export const TRIBAL_FEATURE_FILL_OPACITY = 0.3;
 export const LOW_ZOOM_PSIM_FEATURE_FILL_OPACITY = 0.7;
-export const HIGH_ZOOM_PSIM_FEATURE_FILL_OPACITY = 0.6;
+export const HIGH_ZOOM_PSIM_FEATURE_FILL_OPACITY = 0.5;
 
 // Colors
 export const FEATURE_BORDER_COLOR = "#4EA5CF";
@@ -345,6 +345,52 @@ export const TRIBAL_ALASKA_CIRCLE_RADIUS = 5;
 
 export const PSIM_SELECTED_FEATURE_BORDER_COLOR = "#242426";
 export const ADD_SELECTED_FEATURE_BORDER_COLOR = "#290a01";
+
+export const PSIM_DEFAULT_COLOR = "#FBF8F3";
+export const PSIM_COLD_COLOR = "#1818ed";
+export const PSIM_VERY_COLD_COLOR = "#0101b3";
+export const PSIM_HOT_COLOR = "#7a1408";
+export const PSIM_VERY_HOT_COLOR = "#bd0606";
+export const PSIM_NA_COLOR = "#FBF8F3";
+
+// export const ADD_0_COLOR = "#FBF8F3";
+// export const ADD_1_COLOR = "#f88b78";
+// export const ADD_2_COLOR = "#fe5b4b";
+// export const ADD_3_COLOR = "#ec2c2c";
+// export const ADD_4_COLOR = "#d91d1d";
+// export const ADD_5_COLOR = "#b50f0f";
+// export const ADD_6_COLOR = "#990b0b";
+// export const ADD_7_COLOR = "#3d0101";
+
+// Magma
+// export const ADD_0_COLOR = "#FBF8F3"; // Lightest
+// export const ADD_1_COLOR = "#febb81";
+// export const ADD_2_COLOR = "#f8765c";
+// export const ADD_3_COLOR = "#d3436e";
+// export const ADD_4_COLOR = "#982d80";
+// export const ADD_5_COLOR = "#5f187f";
+// export const ADD_6_COLOR = "#221150";
+// export const ADD_7_COLOR = "#000004"; // Darkest
+
+// Inferno
+// export const ADD_0_COLOR = "#FBF8F3"; // Lightest
+// export const ADD_1_COLOR = "#fac228";
+// export const ADD_2_COLOR = "#f57d15";
+// export const ADD_3_COLOR = "#d44842";
+// export const ADD_4_COLOR = "#9f2a63";
+// export const ADD_5_COLOR = "#65156e";
+// export const ADD_6_COLOR = "#280b53";
+// export const ADD_7_COLOR = "#000004";
+
+// Viridis
+export const ADD_0_COLOR = "#FBF8F3"; // Lightest
+export const ADD_1_COLOR = "#a0da39";
+export const ADD_2_COLOR = "#4ac16d";
+export const ADD_3_COLOR = "#1fa187";
+export const ADD_4_COLOR = "#277f8e";
+export const ADD_5_COLOR = "#365c8d";
+export const ADD_6_COLOR = "#46327e";
+export const ADD_7_COLOR = "#440154";
 
 // Widths
 export const FEATURE_BORDER_WIDTH = 0.8;
@@ -428,21 +474,21 @@ export const CENSUS_TRACT_SURVEY_LINKS = {
 };
 
 export const TILE_BASE_URL =
-  process.env.DATA_SOURCE === "local"
-    ? process.env.GATSBY_LOCAL_TILES_BASE_URL
-    : process.env.GATSBY_CDN_TILES_BASE_URL;
+  process.env.DATA_SOURCE === "local" ?
+    process.env.GATSBY_LOCAL_TILES_BASE_URL :
+    process.env.GATSBY_CDN_TILES_BASE_URL;
 
 export const TILE_PATH =
-  process.env.DATA_SOURCE === "local"
-    ? process.env.GATSBY_DATA_PIPELINE_SCORE_PATH_LOCAL
-    : process.env.GATSBY_2_0_SCORE_PATH;
+  process.env.DATA_SOURCE === "local" ?
+    process.env.GATSBY_DATA_PIPELINE_SCORE_PATH_LOCAL :
+    process.env.GATSBY_2_0_SCORE_PATH;
 
 export const MAP_TRACT_SEARCH_PATH =
-  process.env.DATA_SOURCE === "local"
-    ? process.env.GATSBY_DATA_PIPELINE_SEARCH_PATH_LOCAL
-    : process.env.GATSBY_2_0_MAP_TRACT_SEARCH_PATH;
+  process.env.DATA_SOURCE === "local" ?
+    process.env.GATSBY_DATA_PIPELINE_SEARCH_PATH_LOCAL :
+    process.env.GATSBY_2_0_MAP_TRACT_SEARCH_PATH;
 
 export const GATSBY_DATA_PIPELINE_TRIBAL_PATH =
-  process.env.DATA_SOURCE === "local"
-    ? process.env.GATSBY_DATA_PIPELINE_TRIBAL_PATH_LOCAL
-    : process.env.GATSBY_2_0_TRIBAL_PATH;
+  process.env.DATA_SOURCE === "local" ?
+    process.env.GATSBY_DATA_PIPELINE_TRIBAL_PATH_LOCAL :
+    process.env.GATSBY_2_0_TRIBAL_PATH;
