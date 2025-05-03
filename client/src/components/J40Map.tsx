@@ -1,7 +1,7 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable no-unused-vars */
 // External Libs:
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Map, MapGeoJSONFeature, LngLatBoundsLike} from 'maplibre-gl';
 import ReactMapGL, {
   MapEvent,
@@ -137,7 +137,7 @@ const J40Map = ({location}: IJ40Interface) => {
       const [minLng, minLat, maxLng, maxLat] = bbox(feature);
 
       // Set the selectedFeature ID
-      setSelectedFeature(feature);
+      setSelectedFeature(feature as MapGeoJSONFeature);
 
       // Go to the newly selected feature (as long as it's not an Alaska Point)
       goToPlace([
@@ -473,6 +473,7 @@ const J40Map = ({location}: IJ40Interface) => {
                 showUserHeading={
                   windowWidth < constants.USWDS_BREAKPOINTS.MOBILE_LG
                 }
+                // Copolit said we should remove this entirely because it's not valid
                 disabledLabel={intl.formatMessage(
                     EXPLORE_COPY.MAP.GEOLOC_MSG_DISABLED,
                 )}

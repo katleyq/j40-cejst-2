@@ -48,17 +48,7 @@ const LayerToggleControl: React.FC<LayerToggleControlProps> = ({
   };
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        top: '10px',
-        right: '10px',
-        background: 'white',
-        padding: '8px',
-        borderRadius: '5px',
-        boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-      }}
-    >
+    <div className={styles.layerToggleContainer}>
       <h4 className={styles.noMarginTop}>Select Layer</h4>
       <select
         value={visibleLayer} // Set the currently selected layer
