@@ -24,7 +24,7 @@ def generate_tiles_gistar_ind(data_path: Path, generate_tribal_layer: bool) -> N
         score_tiles_path = data_path / "score" / "tiles" / "gistar" / "ind"
         high_tile_path = score_tiles_path / "high"
         low_tile_path = score_tiles_path / "low"
-        score_geojson_dir = data_path / "score" / "geojson" / "gistar" "ind"
+        score_geojson_dir = data_path / "score" / "geojson" / "gistar" / "ind"
 
         USA_HIGH_MIN_ZOOM = 5
         USA_HIGH_MAX_ZOOM = 11

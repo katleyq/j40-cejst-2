@@ -1,16 +1,16 @@
-import React, {useMemo, useEffect} from 'react';
+import React, { useMemo, useEffect } from "react";
 // useState , useEffect, useRef from react
-import {Source, Layer} from 'react-map-gl';
+import { Source, Layer } from "react-map-gl";
 // import Map, {MapRef} from 'react-map-gl'; // Import MapRef for the reference type
-import {MapGeoJSONFeature} from 'maplibre-gl';
+import { MapGeoJSONFeature } from "maplibre-gl";
 
 // Contexts:
-import {useFlags} from '../../contexts/FlagContext';
+import { useFlags } from "../../contexts/FlagContext";
 
-import * as constants from '../../data/constants';
-import * as COMMON_COPY from '../../data/copy/common';
-import LayerToggleControl from '../LayerToggleControl/LayerToggleControl';
-import {getInteractiveLayerIdsFunc} from '../LayerToggleControl/LayerToggleControl';
+import * as constants from "../../data/constants";
+import * as COMMON_COPY from "../../data/copy/common";
+import LayerToggleControl from "../LayerToggleControl/LayerToggleControl";
+import { getInteractiveLayerIdsFunc } from "../LayerToggleControl/LayerToggleControl";
 
 interface IMapTractLayers {
   selectedFeatureId: string | number;
@@ -29,22 +29,23 @@ interface IMapTractLayers {
  */
 
 export const featureURLForTilesetName = (
-    tilesetType: string,
-    tilesetName: string,
+  tilesetType: string,
+  // tilesetSubtype: string,
+  tilesetName: string
 ): string => {
   const flags = useFlags();
 
   const pipelineStagingBaseURL =
     process.env.GATSBY_CDN_TILES_BASE_URL + `/data-pipeline-staging`;
-  const XYZ_SUFFIX = '{z}/{x}/{y}.pbf';
+  const XYZ_SUFFIX = "{z}/{x}/{y}.pbf";
 
-  if ('stage_hash' in flags) {
+  if ("stage_hash" in flags) {
     const regex = /^[0-9]{4}\/[a-f0-9]{40}$/;
-    if (!regex.test(flags['stage_hash'])) {
+    if (!regex.test(flags["stage_hash"])) {
       console.error(COMMON_COPY.CONSOLE_ERROR.STAGE_URL);
     }
 
-    return `${pipelineStagingBaseURL}/${flags['stage_hash']}/data/score/tiles/${tilesetName}/${XYZ_SUFFIX}`;
+    return `${pipelineStagingBaseURL}/${flags["stage_hash"]}/data/score/tiles/${tilesetName}/${XYZ_SUFFIX}`;
   } else {
     const featureTileBaseURL = constants.TILE_BASE_URL;
     const featureTilePath = constants.TILE_PATH;
@@ -55,14 +56,15 @@ export const featureURLForTilesetName = (
       featureTilePath,
       mapTilesPath,
       tilesetType,
+      // tilesetSubtype,
       tilesetName,
       XYZ_SUFFIX,
     ]
-        .filter(Boolean)
-        .map((part) => part.replace(/^\/|\/$/g, '')) // trim leading/trailing slashes
-        .join('/');
+      .filter(Boolean)
+      .map((part) => part.replace(/^\/|\/$/g, "")) // trim leading/trailing slashes
+      .join("/");
 
-    return pathParts.startsWith('http') ? pathParts : `/${pathParts}`;
+    return pathParts.startsWith("http") ? pathParts : `/${pathParts}`;
   }
 };
 
@@ -97,20 +99,25 @@ const MapTractLayers = ({
     setInteractiveLayerIds(initialInteractiveLayerIds);
   }, [visibleLayer, setInteractiveLayerIds, getInteractiveLayerIds]);
 
-  const filter = useMemo(() => {
-    if (!selectedFeatureId) {
-      return null;
-    }
-    return ['in', constants.GEOID_PROPERTY, selectedFeatureId];
-  }, [selectedFeatureId]);
+  // const filter = useMemo(() => {
+  //   if (!selectedFeatureId) {
+  //     return null;
+  //   }
+  //   return ["in", constants.GEOID_PROPERTY, selectedFeatureId];
+  // }, [selectedFeatureId]);
+
+  const filter = useMemo(
+    () => ["in", constants.GEOID_PROPERTY, selectedFeatureId],
+    [selectedFeatureId]
+  );
 
   return (
     <>
       <LayerToggleControl
         layers={[
-          {id: constants.ADD_BURDEN_LAYER_ID, name: 'Total Burdens'},
-          {id: constants.PSIM_BURDEN_LAYER_ID, name: 'Burden Hotspots'},
-          {id: constants.LEGACY_LAYER_ID, name: 'Legacy Tool'},
+          { id: constants.ADD_BURDEN_LAYER_ID, name: "Total Burdens" },
+          { id: constants.PSIM_BURDEN_LAYER_ID, name: "Burden Hotspots" },
+          { id: constants.LEGACY_LAYER_ID, name: "Legacy Tool" },
         ]}
         visibleLayer={visibleLayer}
         setLayerState={(layerId, interactiveLayerIds) => {
@@ -127,7 +134,7 @@ const MapTractLayers = ({
             id={constants.LOW_ZOOM_SOURCE_NAME}
             type="vector"
             promoteId={constants.GEOID_PROPERTY}
-            tiles={[featureURLForTilesetName('default', 'low')]}
+            tiles={[featureURLForTilesetName("default", "low")]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
             minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
           >
@@ -135,14 +142,14 @@ const MapTractLayers = ({
               id={constants.LOW_ZOOM_LAYER_ID}
               source-layer={constants.SCORE_SOURCE_LAYER}
               filter={[
-                '>',
+                ">",
                 constants.SCORE_PROPERTY_LOW,
                 constants.SCORE_BOUNDARY_THRESHOLD,
               ]}
               type="fill"
               paint={{
-                'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
-                'fill-opacity':
+                "fill-color": constants.PRIORITIZED_FEATURE_FILL_COLOR,
+                "fill-opacity":
                   constants.LOW_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
               }}
               maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
@@ -155,7 +162,7 @@ const MapTractLayers = ({
             id={constants.HIGH_ZOOM_SOURCE_NAME}
             type="vector"
             promoteId={constants.GEOID_PROPERTY}
-            tiles={[featureURLForTilesetName('default', 'high')]}
+            tiles={[featureURLForTilesetName("default", "high")]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
           >
@@ -163,10 +170,10 @@ const MapTractLayers = ({
             <Layer
               id={constants.HIGH_ZOOM_LAYER_ID}
               source-layer={constants.SCORE_SOURCE_LAYER}
-              filter={['==', constants.SCORE_PROPERTY_HIGH, false]}
+              filter={["==", constants.SCORE_PROPERTY_HIGH, false]}
               type="fill"
               paint={{
-                'fill-opacity': constants.NON_PRIORITIZED_FEATURE_FILL_OPACITY,
+                "fill-opacity": constants.NON_PRIORITIZED_FEATURE_FILL_OPACITY,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
             />
@@ -175,11 +182,11 @@ const MapTractLayers = ({
             <Layer
               id={constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID}
               source-layer={constants.SCORE_SOURCE_LAYER}
-              filter={['==', constants.SCORE_PROPERTY_HIGH, true]}
+              filter={["==", constants.SCORE_PROPERTY_HIGH, true]}
               type="fill"
               paint={{
-                'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
-                'fill-opacity':
+                "fill-color": constants.PRIORITIZED_FEATURE_FILL_COLOR,
+                "fill-opacity":
                   constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
@@ -189,11 +196,11 @@ const MapTractLayers = ({
             <Layer
               id={constants.GRANDFATHERED_HIGH_ZOOM_LAYER_ID}
               source-layer={constants.SCORE_SOURCE_LAYER}
-              filter={['==', constants.IS_GRANDFATHERED, true]}
+              filter={["==", constants.IS_GRANDFATHERED, true]}
               type="fill"
               paint={{
-                'fill-color': constants.GRANDFATHERED_FEATURE_FILL_COLOR,
-                'fill-opacity':
+                "fill-color": constants.GRANDFATHERED_FEATURE_FILL_COLOR,
+                "fill-opacity":
                   constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
@@ -205,9 +212,9 @@ const MapTractLayers = ({
               source-layer={constants.SCORE_SOURCE_LAYER}
               type="line"
               paint={{
-                'line-color': constants.FEATURE_BORDER_COLOR,
-                'line-width': constants.FEATURE_BORDER_WIDTH,
-                'line-opacity': constants.FEATURE_BORDER_OPACITY,
+                "line-color": constants.FEATURE_BORDER_COLOR,
+                "line-width": constants.FEATURE_BORDER_WIDTH,
+                "line-opacity": constants.FEATURE_BORDER_OPACITY,
               }}
               maxzoom={constants.GLOBAL_MAX_ZOOM_FEATURE_BORDER}
               minzoom={constants.GLOBAL_MIN_ZOOM_FEATURE_BORDER}
@@ -218,8 +225,8 @@ const MapTractLayers = ({
               filter={filter} // This filter filters out all other features except the selected feature.
               type="line"
               paint={{
-                'line-color': constants.SELECTED_FEATURE_BORDER_COLOR,
-                'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,
+                "line-color": constants.SELECTED_FEATURE_BORDER_COLOR,
+                "line-width": constants.SELECTED_FEATURE_BORDER_WIDTH,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
             />
@@ -234,7 +241,7 @@ const MapTractLayers = ({
             id={constants.PSIM_BURDEN_LOW_ZOOM_SOURCE_NAME}
             type="vector"
             promoteId={constants.GEOID_PROPERTY}
-            tiles={[featureURLForTilesetName('gistar', 'low')]}
+            tiles={[featureURLForTilesetName("gistar/burd", "low")]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
             minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
           >
@@ -243,9 +250,9 @@ const MapTractLayers = ({
               source-layer={constants.SCORE_SOURCE_LAYER}
               type="fill"
               paint={{
-                'fill-color': [
-                  'step',
-                  ['get', constants.PSIM_BURDEN],
+                "fill-color": [
+                  "step",
+                  ["get", constants.PSIM_BURDEN],
                   constants.PSIM_DEFAULT_COLOR,
                   -0.05,
                   constants.PSIM_COLD_COLOR,
@@ -258,7 +265,7 @@ const MapTractLayers = ({
                   0.05,
                   constants.PSIM_NA_COLOR,
                 ],
-                'fill-opacity': constants.LOW_ZOOM_PSIM_FEATURE_FILL_OPACITY,
+                "fill-opacity": constants.LOW_ZOOM_PSIM_FEATURE_FILL_OPACITY,
               }}
               maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
               minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
@@ -270,7 +277,7 @@ const MapTractLayers = ({
             id={constants.PSIM_BURDEN_HIGH_ZOOM_SOURCE_NAME}
             type="vector"
             promoteId={constants.GEOID_PROPERTY}
-            tiles={[featureURLForTilesetName('gistar', 'high')]}
+            tiles={[featureURLForTilesetName("gistar/burd", "high")]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
           >
@@ -279,9 +286,9 @@ const MapTractLayers = ({
               source-layer={constants.SCORE_SOURCE_LAYER}
               type="fill"
               paint={{
-                'fill-color': [
-                  'step',
-                  ['get', constants.PSIM_BURDEN],
+                "fill-color": [
+                  "step",
+                  ["get", constants.PSIM_BURDEN],
                   constants.PSIM_DEFAULT_COLOR,
                   -0.05,
                   constants.PSIM_COLD_COLOR,
@@ -294,7 +301,7 @@ const MapTractLayers = ({
                   0.05,
                   constants.PSIM_NA_COLOR,
                 ],
-                'fill-opacity': constants.HIGH_ZOOM_PSIM_FEATURE_FILL_OPACITY,
+                "fill-opacity": constants.HIGH_ZOOM_PSIM_FEATURE_FILL_OPACITY,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
             />
@@ -304,8 +311,8 @@ const MapTractLayers = ({
               filter={filter} // This filter filters out all other features except the selected feature.
               type="line"
               paint={{
-                'line-color': constants.PSIM_SELECTED_FEATURE_BORDER_COLOR,
-                'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,
+                "line-color": constants.PSIM_SELECTED_FEATURE_BORDER_COLOR,
+                "line-width": constants.SELECTED_FEATURE_BORDER_WIDTH,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
             />
@@ -319,7 +326,7 @@ const MapTractLayers = ({
             id={constants.ADD_LOW_ZOOM_SOURCE_NAME}
             type="vector"
             promoteId={constants.GEOID_PROPERTY}
-            tiles={[featureURLForTilesetName('add', 'low')]}
+            tiles={[featureURLForTilesetName("add/burd", "low")]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
             minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
           >
@@ -328,10 +335,10 @@ const MapTractLayers = ({
               source-layer={constants.SCORE_SOURCE_LAYER}
               type="fill"
               paint={{
-                'fill-color': [
-                  'interpolate',
-                  ['linear'],
-                  ['get', constants.ADD_BURD],
+                "fill-color": [
+                  "interpolate",
+                  ["linear"],
+                  ["get", constants.ADD_BURD],
                   0,
                   constants.ADD_0_COLOR,
                   1,
@@ -349,7 +356,7 @@ const MapTractLayers = ({
                   7,
                   constants.ADD_7_COLOR,
                 ],
-                'fill-opacity': constants.LOW_ZOOM_PSIM_FEATURE_FILL_OPACITY,
+                "fill-opacity": constants.LOW_ZOOM_PSIM_FEATURE_FILL_OPACITY,
               }}
               maxzoom={constants.GLOBAL_MAX_ZOOM_LOW}
               minzoom={constants.GLOBAL_MIN_ZOOM_LOW}
@@ -361,7 +368,7 @@ const MapTractLayers = ({
             id={constants.ADD_HIGH_ZOOM_SOURCE_NAME}
             type="vector"
             promoteId={constants.GEOID_PROPERTY}
-            tiles={[featureURLForTilesetName('add', 'high')]}
+            tiles={[featureURLForTilesetName("add/burd", "high")]}
             maxzoom={constants.GLOBAL_MAX_ZOOM_HIGH}
             minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
           >
@@ -370,10 +377,10 @@ const MapTractLayers = ({
               source-layer={constants.SCORE_SOURCE_LAYER}
               type="fill"
               paint={{
-                'fill-color': [
-                  'interpolate',
-                  ['linear'],
-                  ['get', constants.ADD_BURD],
+                "fill-color": [
+                  "interpolate",
+                  ["linear"],
+                  ["get", constants.ADD_BURD],
                   0,
                   constants.ADD_0_COLOR,
                   1,
@@ -391,7 +398,7 @@ const MapTractLayers = ({
                   7,
                   constants.ADD_7_COLOR,
                 ],
-                'fill-opacity': constants.HIGH_ZOOM_PSIM_FEATURE_FILL_OPACITY,
+                "fill-opacity": constants.HIGH_ZOOM_PSIM_FEATURE_FILL_OPACITY,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
             />
@@ -402,8 +409,8 @@ const MapTractLayers = ({
               filter={filter} // This filter filters out all other features except the selected feature.
               type="line"
               paint={{
-                'line-color': constants.ADD_SELECTED_FEATURE_BORDER_COLOR,
-                'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,
+                "line-color": constants.ADD_SELECTED_FEATURE_BORDER_COLOR,
+                "line-width": constants.SELECTED_FEATURE_BORDER_WIDTH,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
             />

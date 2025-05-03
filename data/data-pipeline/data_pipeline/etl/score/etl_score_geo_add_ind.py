@@ -16,22 +16,16 @@ from data_pipeline.etl.datasource import DataSource
 logger = get_module_logger(__name__)
 
 
-class GeoScoreGIStarBurdETL(ExtractTransformLoad):
+class GeoScoreAddIndETL(ExtractTransformLoad):
     """
     A class used to generate per state and national GeoJson files with the score baked in
     """
 
     def __init__(self, data_source: str = None):
         self.DATA_SOURCE = data_source
-        self.SCORE_GEOJSON_PATH = self.DATA_PATH / "score" / "geojson" / "gistar" / "burd"
-        self.SCORE_LOW_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-low-gistar-burd.json"
-        self.SCORE_HIGH_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-high-gistar-burd.json"
-        
-        logger.debug(f"SCORE_GEOJSON_PATH: {self.SCORE_GEOJSON_PATH}")
-        logger.debug(f"SCORE_HIGH_GEOJSON: {self.SCORE_HIGH_GEOJSON}")
-        logger.debug(f"SCORE_LOW_GEOJSON: {self.SCORE_LOW_GEOJSON}")
-        # self.SCORE_SHP_PATH = self.DATA_PATH / "score" / "shapefile"
-        # self.SCORE_SHP_FILE = self.SCORE_SHP_PATH / "usa.shp"
+        self.SCORE_GEOJSON_PATH = self.DATA_PATH / "score" / "geojson" / "add" / "ind"
+        self.SCORE_LOW_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-low-add-ind.json"
+        self.SCORE_HIGH_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-high-add-ind.json"
 
         self.SCORE_CSV_PATH = self.DATA_PATH / "score" / "csv"
         self.TILE_SCORE_CSV = self.SCORE_CSV_PATH / "tiles" / "usa.csv"
@@ -43,11 +37,11 @@ class GeoScoreGIStarBurdETL(ExtractTransformLoad):
 
         ## TODO: We really should not have this any longer changing
         self.TARGET_SCORE_SHORT_FIELD = constants.TILES_SCORE_COLUMNS[
-            field_names.PSIM_BURDEN
+            field_names.THRESHOLD_COUNT
             # field_names.FINAL_SCORE_N_BOOLEAN
         ]
         # I think i might just be able to change the column name here and above, without needing to change any of the variables... 
-        self.TARGET_SCORE_RENAME_TO = "P_BURD"
+        self.TARGET_SCORE_RENAME_TO = "TC"
 
         # Import the shortened name for tract ("GTF") that's used on the tiles.
         self.TRACT_SHORT_FIELD = constants.TILES_SCORE_COLUMNS[
@@ -189,30 +183,23 @@ class GeoScoreGIStarBurdETL(ExtractTransformLoad):
 
         logger.debug("Aggregating buckets")
         usa_aggregated = self._aggregate_buckets(usa_bucketed, agg_func="mean")
-        try: 
-            logger.debug("Breaking up polygons")
-            compressed = self._breakup_multipolygons(
-                usa_aggregated, self.NUMBER_OF_BUCKETS
-            )
 
-            self.geojson_score_usa_low = self._join_high_and_low_zoom_frames(
-                compressed, keep_high_zoom_df
-            )
-            logger.debug(f"Low zoom GeoJSON: {self.geojson_score_usa_low.head()}")
+        logger.debug("Breaking up polygons")
+        compressed = self._breakup_multipolygons(
+            usa_aggregated, self.NUMBER_OF_BUCKETS
+        )
 
-            # Ensure the new columns got added
-            logger.debug(f"Columns in low zoom GeoJSON: {self.geojson_score_usa_low.columns}")
+        self.geojson_score_usa_low = self._join_high_and_low_zoom_frames(
+            compressed, keep_high_zoom_df
+        )
 
-            # round to 2 decimals
-            self.geojson_score_usa_low = self.geojson_score_usa_low.round(
-                {self.TARGET_SCORE_RENAME_TO: 2}
-            )
+        # Ensure the new columns got added
+        logger.debug(f"Columns in low zoom GeoJSON: {self.geojson_score_usa_low.columns}")
 
-            logger.debug(f"geojson_score_usa_high: {self.geojson_score_usa_high.head()}")
-            logger.debug(f"geojson_score_usa_low: {self.geojson_score_usa_low.head()}")
-        except Exception as e:
-            logger.error(f"Error during transform: {e}", exc_info=True)
-            raise
+        # round to 2 decimals
+        self.geojson_score_usa_low = self.geojson_score_usa_low.round(
+            {self.TARGET_SCORE_RENAME_TO: 2}
+        )
 
     def _create_buckets_from_tracts(
         self, initial_state_tracts: gpd.GeoDataFrame, num_buckets: int
@@ -235,7 +222,6 @@ class GeoScoreGIStarBurdETL(ExtractTransformLoad):
             keep_high_zoom.sum() != initial_state_tracts.shape[0]
         ), "Error: Cutoff is too high, nothing is aggregated"
         assert keep_high_zoom.sum() > 1, "Error: Nothing is kept at high zoom"
-
 
         # Then we assign buckets only to tracts that do not get "kept" at high zoom
         state_tracts = initial_state_tracts[~keep_high_zoom].copy()
@@ -319,8 +305,7 @@ class GeoScoreGIStarBurdETL(ExtractTransformLoad):
                     ]
                 )
 
-        logger.debug(f"Compressed polygons: {compressed[:5]}")  # Log the first 5 entries
-        logger.debug(f"Number of compressed polygons: {len(compressed)}")
+        logger.debug(f"Columns in compressed data: {compressed[:5]}")
 
         return compressed
 
@@ -339,30 +324,23 @@ class GeoScoreGIStarBurdETL(ExtractTransformLoad):
         return pd.concat([compressed_geodf, keep_high_zoom_df[keep_columns]])
 
     def load(self) -> None:
-        logger.info("Starting load step")
-
-        # Ensure the directory exists
-        if not self.SCORE_GEOJSON_PATH.exists():
-            logger.info(f"Creating directory: {self.SCORE_GEOJSON_PATH}")
-            self.SCORE_GEOJSON_PATH.mkdir(parents=True, exist_ok=True)
-
         # Create separate threads to run each write to disk.
         def write_high_to_file():
             logger.info("Writing usa-high (~9 minutes)")
+
             self.geojson_score_usa_high.to_file(
                 filename=self.SCORE_HIGH_GEOJSON,
                 driver="GeoJSON",
             )
-            logger.info("Completed writing usa-high-gistar-burd")
+            logger.info("Completed writing usa-high-add-ind")
 
-         
         def write_low_to_file():
             logger.info("Writing usa-low (~9 minutes)")
             self.geojson_score_usa_low.to_file(
                 filename=self.SCORE_LOW_GEOJSON, driver="GeoJSON"
             )
-            logger.info("Completed writing usa-low-gistar-burd")
-        
+            logger.info("Completed writing usa-low-add-ind")
+
         with concurrent.futures.ThreadPoolExecutor() as executor:
             futures = {
                 executor.submit(task)

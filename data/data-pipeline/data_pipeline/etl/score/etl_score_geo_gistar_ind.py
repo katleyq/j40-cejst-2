@@ -44,9 +44,7 @@ class GeoScoreGIStarIndETL(ExtractTransformLoad):
         ## TODO: We really should not have this any longer changing
         self.TARGET_SCORE_SHORT_FIELD = constants.TILES_SCORE_COLUMNS[
             field_names.PSIM_INDICATOR
-            # field_names.FINAL_SCORE_N_BOOLEAN
         ]
-        # I think i might just be able to change the column name here and above, without needing to change any of the variables... 
         self.TARGET_SCORE_RENAME_TO = "P_IND"
 
         # Import the shortened name for tract ("GTF") that's used on the tiles.
@@ -353,7 +351,7 @@ class GeoScoreGIStarIndETL(ExtractTransformLoad):
                 filename=self.SCORE_HIGH_GEOJSON,
                 driver="GeoJSON",
             )
-            logger.info("Completed writing usa-high-gistar")
+            logger.info("Completed writing usa-high-gistar-ind")
 
          
         def write_low_to_file():
@@ -361,7 +359,7 @@ class GeoScoreGIStarIndETL(ExtractTransformLoad):
             self.geojson_score_usa_low.to_file(
                 filename=self.SCORE_LOW_GEOJSON, driver="GeoJSON"
             )
-            logger.info("Completed writing usa-low-gistar")
+            logger.info("Completed writing usa-low-gistar-ind")
         
         with concurrent.futures.ThreadPoolExecutor() as executor:
             futures = {
