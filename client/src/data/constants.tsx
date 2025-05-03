@@ -363,14 +363,14 @@ export const PSIM_NA_COLOR = "#FBF8F3";
 // export const ADD_7_COLOR = "#3d0101";
 
 // Magma
-// export const ADD_0_COLOR = "#FBF8F3"; // Lightest
-// export const ADD_1_COLOR = "#febb81";
-// export const ADD_2_COLOR = "#f8765c";
-// export const ADD_3_COLOR = "#d3436e";
-// export const ADD_4_COLOR = "#982d80";
-// export const ADD_5_COLOR = "#5f187f";
-// export const ADD_6_COLOR = "#221150";
-// export const ADD_7_COLOR = "#000004"; // Darkest
+export const ADD_0_COLOR = "#FBF8F3"; // Lightest
+export const ADD_1_COLOR = "#febb81";
+export const ADD_2_COLOR = "#f8765c";
+export const ADD_3_COLOR = "#d3436e";
+export const ADD_4_COLOR = "#982d80";
+export const ADD_5_COLOR = "#5f187f";
+export const ADD_6_COLOR = "#221150";
+export const ADD_7_COLOR = "#000004"; // Darkest
 
 // Inferno
 // export const ADD_0_COLOR = "#FBF8F3"; // Lightest
@@ -383,14 +383,14 @@ export const PSIM_NA_COLOR = "#FBF8F3";
 // export const ADD_7_COLOR = "#000004";
 
 // Viridis
-export const ADD_0_COLOR = "#FBF8F3"; // Lightest
-export const ADD_1_COLOR = "#a0da39";
-export const ADD_2_COLOR = "#4ac16d";
-export const ADD_3_COLOR = "#1fa187";
-export const ADD_4_COLOR = "#277f8e";
-export const ADD_5_COLOR = "#365c8d";
-export const ADD_6_COLOR = "#46327e";
-export const ADD_7_COLOR = "#440154";
+// export const ADD_0_COLOR = "#FBF8F3"; // Lightest
+// export const ADD_1_COLOR = "#a0da39";
+// export const ADD_2_COLOR = "#4ac16d";
+// export const ADD_3_COLOR = "#1fa187";
+// export const ADD_4_COLOR = "#277f8e";
+// export const ADD_5_COLOR = "#365c8d";
+// export const ADD_6_COLOR = "#46327e";
+// export const ADD_7_COLOR = "#440154";
 
 // Widths
 export const FEATURE_BORDER_WIDTH = 0.8;

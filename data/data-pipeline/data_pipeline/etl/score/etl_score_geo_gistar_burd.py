@@ -16,16 +16,16 @@ from data_pipeline.etl.datasource import DataSource
 logger = get_module_logger(__name__)
 
 
-class GeoScoreGIStarETL(ExtractTransformLoad):
+class GeoScoreGIStarBurdETL(ExtractTransformLoad):
     """
     A class used to generate per state and national GeoJson files with the score baked in
     """
 
     def __init__(self, data_source: str = None):
         self.DATA_SOURCE = data_source
-        self.SCORE_GEOJSON_PATH = self.DATA_PATH / "score" / "geojson" / "gistar"
-        self.SCORE_LOW_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-low-gistar.json"
-        self.SCORE_HIGH_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-high-gistar.json"
+        self.SCORE_GEOJSON_PATH = self.DATA_PATH / "score" / "geojson" / "gistar" / "burd"
+        self.SCORE_LOW_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-low-gistar-burd.json"
+        self.SCORE_HIGH_GEOJSON = self.SCORE_GEOJSON_PATH / "usa-high-gistar-burd.json"
         
         logger.debug(f"SCORE_GEOJSON_PATH: {self.SCORE_GEOJSON_PATH}")
         logger.debug(f"SCORE_HIGH_GEOJSON: {self.SCORE_HIGH_GEOJSON}")
@@ -55,7 +55,6 @@ class GeoScoreGIStarETL(ExtractTransformLoad):
         ]
         self.GEOMETRY_FIELD_NAME = "geometry"
         self.LAND_FIELD_NAME = "ALAND10"
-        self.TOTAL_POP_FIELD = 'TPF'
 
         # We will adjust this upwards while there is some fractional value
         # in the score. This is a starting value.
@@ -94,7 +93,6 @@ class GeoScoreGIStarETL(ExtractTransformLoad):
                 self.GEOID_FIELD_NAME,
                 self.GEOMETRY_FIELD_NAME,
                 self.LAND_FIELD_NAME,
-                self.
             ],
         )
 

@@ -82,6 +82,7 @@ export const featureURLForTilesetName = (
 
 const MapTractLayers = ({
   selectedFeatureId,
+  selectedFeature,
   visibleLayer,
   setVisibleLayer,
   setInteractiveLayerIds,
@@ -97,26 +98,28 @@ const MapTractLayers = ({
     setInteractiveLayerIds(initialInteractiveLayerIds);
   }, [visibleLayer, setInteractiveLayerIds, getInteractiveLayerIds]);
 
-  const filter = useMemo(() => {
-    if (!selectedFeatureId) {
-      return null;
-    }
-    return ['in', constants.GEOID_PROPERTY, selectedFeatureId];
-  }, [selectedFeatureId]);
+  const filter = useMemo(
+      () => ['in', constants.GEOID_PROPERTY, selectedFeatureId],
+      [selectedFeatureId],
+  );
+
+  const layers = [
+    {id: constants.ADD_BURDEN_LAYER_ID, name: 'Additive Burdens'},
+    {id: constants.PSIM_BURDEN_LAYER_ID, name: 'GI Star Burdens'},
+    {id: constants.LEGACY_LAYER_ID, name: 'Legacy Layer'},
+  ];
+  const setLayerState = (layerId: string, interactiveLayerIds: string[]) => {
+    setVisibleLayer(layerId); // Update the visible layer
+    setInteractiveLayerIds(interactiveLayerIds); // Update the interactive layer IDs
+  };
 
   return (
     <>
+      {/* Add the LayerToggleControl */}
       <LayerToggleControl
-        layers={[
-          {id: constants.ADD_BURDEN_LAYER_ID, name: 'Total Burdens'},
-          {id: constants.PSIM_BURDEN_LAYER_ID, name: 'Burden Hotspots'},
-          {id: constants.LEGACY_LAYER_ID, name: 'Legacy Tool'},
-        ]}
+        layers={layers}
         visibleLayer={visibleLayer}
-        setLayerState={(layerId, interactiveLayerIds) => {
-          setVisibleLayer(layerId);
-          setInteractiveLayerIds(interactiveLayerIds);
-        }}
+        setLayerState={setLayerState}
       />
 
       {/* Sources and Layers */}
