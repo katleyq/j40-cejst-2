@@ -258,12 +258,21 @@ export const IMPUTE_FLAG = "IMP_FLG";
 export const BASE_MAP_SOURCE_NAME = "base-map-source-name";
 export const HIGH_ZOOM_SOURCE_NAME = "high-zoom-source-name";
 export const LOW_ZOOM_SOURCE_NAME = "low-zoom-source-name";
+
 export const PSIM_BURDEN_HIGH_ZOOM_SOURCE_NAME =
   "psim-burden-high-zoom-source-name";
 export const PSIM_BURDEN_LOW_ZOOM_SOURCE_NAME =
   "psim-burden-low-zoom-source-name";
-export const ADD_HIGH_ZOOM_SOURCE_NAME = "add-high-zoom-source-name";
-export const ADD_LOW_ZOOM_SOURCE_NAME = "add-low-zoom-source-name";
+export const PSIM_INDICATOR_HIGH_ZOOM_SOURCE_NAME =
+  "psim-indicator-high-zoom-source-name";
+export const PSIM_INDICATOR_LOW_ZOOM_SOURCE_NAME =
+  "psim-indicator-low-zoom-source-name";
+
+export const ADD_BURD_HIGH_ZOOM_SOURCE_NAME = "add-burd-high-zoom-source-name";
+export const ADD_BURD_LOW_ZOOM_SOURCE_NAME = "add-burd-low-zoom-source-name";
+export const ADD_IND_HIGH_ZOOM_SOURCE_NAME = "add-ind-high-zoom-source-name";
+export const ADD_IND_LOW_ZOOM_SOURCE_NAME = "add-ind-low-zoom-source-name";
+
 export const TRIBAL_SOURCE_NAME = "tribal-source-name";
 
 // Layer ID constants
@@ -278,22 +287,35 @@ export const LOW_ZOOM_LAYER_ID = "low-zoom-layer-id";
 export const FEATURE_BORDER_LAYER_ID = "feature-border-layer-id";
 export const SELECTED_FEATURE_BORDER_LAYER_ID =
   "selected-feature-border-layer-id";
-export const PSIM_SELECTED_FEATURE_BORDER_LAYER_ID =
-  "psim-selected-feature-border-layer-id";
-export const ADD_SELECTED_FEATURE_BORDER_LAYER_ID =
-  "add-selected-feature-border-layer-id";
-// Add PSIM burden layer ID
+
+export const PSIM_BURD_SELECTED_FEATURE_BORDER_LAYER_ID =
+  "psim-burd-selected-feature-border-layer-id";
+export const PSIM_IND_SELECTED_FEATURE_BORDER_LAYER_ID =
+  "psim-ind-selected-feature-border-layer-id";
+
+export const ADD_BURD_SELECTED_FEATURE_BORDER_LAYER_ID =
+  "add-burd-selected-feature-border-layer-id";
+export const ADD_IND_SELECTED_FEATURE_BORDER_LAYER_ID =
+  "add-ind-selected-feature-border-layer-id";
+
+// Add new layer IDs
 export const PSIM_BURDEN_LAYER_ID = "psim-burden-layer-id";
 export const PSIM_BURDEN_LOW_LAYER_ID = "psim-burden-low-layer-id";
 export const PSIM_BURDEN_HIGH_LAYER_ID = "psim-burden-high-layer-id";
 
 export const PSIM_INDICATOR_LAYER_ID = "psim-indicator-layer-id";
+export const PSIM_INDICATOR_LOW_LAYER_ID = "psim-indicator-low-layer-id";
+export const PSIM_INDICATOR_HIGH_LAYER_ID = "psim-indicator-high-layer-id";
+
 export const LEGACY_LAYER_ID = "legacy-layer-id";
+
 export const ADD_BURDEN_LAYER_ID = "add-burden-layer-id";
 export const ADD_BURDEN_LOW_LAYER_ID = "add-burden-low-layer-id";
 export const ADD_BURDEN_HIGH_LAYER_ID = "add-burden-high-layer-id";
 
 export const ADD_INDICATOR_LAYER_ID = "add-indicator-layer-id";
+export const ADD_INDICATOR_LOW_LAYER_ID = "add-indicator-low-layer-id";
+export const ADD_INDICATOR_HIGH_LAYER_ID = "add-indicator-high-layer-id";
 
 export const TRIBAL_LAYER_ID = "tribal-layer-id";
 export const TRIBAL_ALASKA_POINTS_LAYER_ID = "tribal-alaska-points-layer-id";
@@ -303,6 +325,7 @@ export const TRIBAL_LABELS_LAYER_ID = "tribal-labels-layer-id";
 export const SCORE_PROPERTY_LOW = "SCORE";
 export const SCORE_PROPERTY_HIGH = "SN_C";
 export const ADD_BURD = "CC";
+export const ADD_IND = "TC";
 
 // Zoom
 export const GLOBAL_MIN_ZOOM = 3;
@@ -342,6 +365,9 @@ export const SELECTED_TRIBAL_BORDER_COLOR = "#1A4480";
 export const TRIBAL_FILL_COLOR = "#768FB3";
 export const TRIBAL_ALASKA_CIRCLE_FILL_COLOR = "#768FB3";
 export const TRIBAL_ALASKA_CIRCLE_RADIUS = 5;
+
+export const PSIM_FEATURE_BORDER_COLOR = "#afafaf";
+export const ADD_FEATURE_BORDER_COLOR = "#95445f";
 
 export const PSIM_SELECTED_FEATURE_BORDER_COLOR = "#242426";
 export const ADD_SELECTED_FEATURE_BORDER_COLOR = "#290a01";

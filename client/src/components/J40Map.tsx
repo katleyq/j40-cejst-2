@@ -125,7 +125,6 @@ const J40Map = ({location}: IJ40Interface) => {
   const intl = useIntl();
 
   const selectedFeatureId = (selectedFeature && selectedFeature.id) || '';
-  console.log('Selected Feature ID:', selectedFeatureId);
   const zoomLatLngHash = mapRef.current?.getMap()._hash._getCurrentHash();
 
   /**
