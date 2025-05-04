@@ -73,6 +73,7 @@ export const DEMO_AGE_OVER_64 = "AGE_OLD";
  * the tract will be considered disadvantaged.
  */
 export const SCORE_BOUNDARY_THRESHOLD = 0.6;
+export const PSIM_POP_THRESHOLD = 100;
 
 // Determines the X of Y threshold exceeded
 export const TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS = "TC";

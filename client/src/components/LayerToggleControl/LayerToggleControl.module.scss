@@ -11,11 +11,11 @@
 
     // styles for mobile-lg (480px) and greater widths,
     @media (max-width: 685px) {
-        top: auto; // Remove the top positioning
-        bottom: 10px; // Move to the bottom
-        right: 10px; // Keep it aligned to the right
+        top: auto;
+        bottom: 10px;
+        right: 10px; 
         // width: calc(100% - 20px); // Make it full-width with some padding
-        z-index: 10;// Ensure it appears above other elements
+        z-index: 10;
     }
 }
 

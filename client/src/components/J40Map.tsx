@@ -528,6 +528,7 @@ const J40Map = ({location}: IJ40Interface) => {
           featureProperties={detailViewData?.properties}
           selectedFeatureId={selectedFeature?.id}
           hash={zoomLatLngHash}
+          visibleLayer={visibleLayer} // Pass the visibleLayer state
         />
       </Grid>
     </>
