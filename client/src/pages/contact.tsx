@@ -1,65 +1,46 @@
-import * as React from 'react';
-import {Grid} from '@trussworks/react-uswds';
-import {useIntl, FormattedMessage} from 'gatsby-plugin-intl';
+// import * as React from 'react';
+// import {Grid} from '@trussworks/react-uswds';
+import * as Plot from '@observablehq/plot';
 
-import J40MainGridContainer from '../components/J40MainGridContainer';
-import Layout from '../components/layout';
-import LinkTypeWrapper from '../components/LinkTypeWrapper';
-import DatasetsButton from '../components/DatasetsButton';
+// import J40MainGridContainer from '../components/J40MainGridContainer';
+// import Layout from '../components/layout';
 
-import * as CONTACT_COPY from '../data/copy/contact';
-import {FEEDBACK_EMAIL} from '../data/copy/common';
-import {DATA_SURVEY_LINKS} from '../data/constants';
+// interface IContactPageProps {
+//   location: Location;
+// }
 
-interface IContactPageProps {
-  location: Location;
-}
+const data = [
+  {category: 'A', value: 10},
+  {category: 'B', value: 20},
+  {category: 'C', value: 15},
+];
 
-const ContactPage = ({location}: IContactPageProps) => {
-  const intl = useIntl();
+const chart = Plot.plot({
+  marks: [Plot.barY(data, {x: 'category', y: 'value'})],
+});
 
-  return (
-    <Layout location={location} title={intl.formatMessage(CONTACT_COPY.PAGE_INTRO.PAGE_TILE)}>
+document.body.appendChild(chart);
 
-      <J40MainGridContainer>
+// const ContactPage = ({location}: IContactPageProps) => {
+//   return (
+//     <Layout location={location} title={'Observable'}>
+//       <J40MainGridContainer>
+//         <section className={'page-heading'}>
+//           <h1>Testing Observable Plots</h1>
+//         </section>
 
-        <section className={'page-heading'}>
-          <h1>{intl.formatMessage(CONTACT_COPY.PAGE_INTRO.PAGE_HEADING)}</h1>
-          <DatasetsButton href= {intl.locale === 'es' ? DATA_SURVEY_LINKS.ES : DATA_SURVEY_LINKS.EN} />
-        </section>
+//         <Grid row gap={6}>
+//           {/* First column */}
+//           <Grid desktop={{col: 8}} col={12}>
+//             <h2>Woohoo</h2>
+//           </Grid>
 
-        <Grid row gap={6}>
+//           {/* Second Column */}
+//           <Grid desktop={{col: 4}} col={12}></Grid>
+//         </Grid>
+//       </J40MainGridContainer>
+//     </Layout>
+//   );
+// };
 
-          {/* First column */}
-          <Grid desktop={{col: 8}} col={12}>
-            <h2>
-              {intl.formatMessage(CONTACT_COPY.PAGE_INTRO.PAGE_SUB_HEADING)}
-            </h2>
-            <p>{CONTACT_COPY.CENSUS_TRACT_FEEDBACK.PARAGRAPH3}</p>
-            <p>
-              <FormattedMessage
-                id={'contact.page.general'}
-                description={'Contact page body text'}
-                defaultMessage={`Email CEQ at: {general_email_address}.`}
-                values={{
-                  general_email_address:
-                    <LinkTypeWrapper
-                      linkText={FEEDBACK_EMAIL}
-                      internal={false}
-                      url={`mailto:${FEEDBACK_EMAIL}`}
-                      openUrlNewTab={true}
-                    />,
-                }} />
-            </p>
-          </Grid>
-
-          {/* Second Column */}
-          <Grid desktop={{col: 4}} col={12}>
-          </Grid>
-        </Grid>
-      </J40MainGridContainer>
-    </Layout>
-  );
-};
-
-export default ContactPage;
+// export default ContactPage;
