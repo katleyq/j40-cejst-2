@@ -2,6 +2,7 @@ import React from 'react';
 import AreaDetail from './AreaDetail';
 import SidePanelInfo from './SidePanelInfo';
 import HotspotSidePanelInfo from './HotspotSidePanelInfo';
+import AdditiveSidePanelInfo from './AdditiveSidePanelInfo';
 import * as constants from '../data/constants';
 
 interface IMapInfoPanelProps {
@@ -47,14 +48,14 @@ const MapInfoPanel = ({
         (featureProperties && selectedFeatureId ? (
           <AreaDetail properties={featureProperties} hash={hash} />
         ) : (
-          <SidePanelInfo />
+          <AdditiveSidePanelInfo />
         ))}
 
       {visibleLayer === constants.ADD_INDICATOR_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
           <AreaDetail properties={featureProperties} hash={hash} />
         ) : (
-          <SidePanelInfo />
+          <AdditiveSidePanelInfo />
         ))}
     </div>
   );
