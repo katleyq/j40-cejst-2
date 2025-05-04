@@ -103,7 +103,7 @@ const MapTractLayers = ({
   //   if (!selectedFeatureId) {
   //     return null;
   //   }
-  //   return ["in", constants.GEOID_PROPERTY, selectedFeatureId];
+  //   return ['in', constants.GEOID_PROPERTY, selectedFeatureId];
   // }, [selectedFeatureId]);
 
   const filter = useMemo(
