@@ -1,5 +1,7 @@
 import React from 'react';
 import AreaDetail from './AreaDetail';
+import HotspotAreaDetail from './HotspotAreaDetail';
+import AdditiveAreaDetail from './AdditiveAreaDetail';
 import SidePanelInfo from './SidePanelInfo';
 import HotspotSidePanelInfo from './HotspotSidePanelInfo';
 import AdditiveSidePanelInfo from './AdditiveSidePanelInfo';
@@ -32,28 +34,28 @@ const MapInfoPanel = ({
 
       {visibleLayer === constants.PSIM_BURDEN_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <AreaDetail properties={featureProperties} hash={hash} />
+          <HotspotAreaDetail properties={featureProperties} hash={hash} />
         ) : (
           <HotspotSidePanelInfo />
         ))}
 
       {visibleLayer === constants.PSIM_INDICATOR_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <AreaDetail properties={featureProperties} hash={hash} />
+          <HotspotAreaDetail properties={featureProperties} hash={hash} />
         ) : (
           <HotspotSidePanelInfo />
         ))}
 
       {visibleLayer === constants.ADD_BURDEN_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <AreaDetail properties={featureProperties} hash={hash} />
+          <AdditiveAreaDetail properties={featureProperties} hash={hash} />
         ) : (
           <AdditiveSidePanelInfo />
         ))}
 
       {visibleLayer === constants.ADD_INDICATOR_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <AreaDetail properties={featureProperties} hash={hash} />
+          <AdditiveAreaDetail properties={featureProperties} hash={hash} />
         ) : (
           <AdditiveSidePanelInfo />
         ))}
