@@ -1,19 +1,19 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { LocalizedComponent } from "../../test/testHelpers";
-import DownloadButton from "./ObservableTest";
+import React from 'react';
+import {render} from '@testing-library/react';
+import {LocalizedComponent} from '../../test/testHelpers';
+import DownloadButton from './ObservableTest';
 
-describe("rendering of DownloadButton Component", () => {
-  const { asFragment } = render(
-    <LocalizedComponent>
-      <DownloadButton
-        downloadLink="https://google.com"
-        buttonText="Hello"
-        imageAltTagText="download button"
-      />
-    </LocalizedComponent>
+describe('rendering of DownloadButton Component', () => {
+  const {asFragment} = render(
+      <LocalizedComponent>
+        <DownloadButton
+          downloadLink="https://google.com"
+          buttonText="Hello"
+          imageAltTagText="download button"
+        />
+      </LocalizedComponent>,
   );
-  it("checks if component renders", () => {
+  it('checks if component renders', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 });

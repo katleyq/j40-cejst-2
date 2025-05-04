@@ -1,23 +1,23 @@
 import React from "react";
 import * as Plot from "@observablehq/plot";
 
-import * as styles from "./ObservableTest.module.scss";
+const ObservableTest = () => {
+  const data = [
+    { category: "A", value: 10 },
+    { category: "B", value: 20 },
+    { category: "C", value: 15 },
+  ];
 
-export interface IObservableTestProps {
-  downloadLink: string;
-  buttonText: string;
-  imageAltTagText: string;
-  color: "gray" | "yellow" | "default";
-}
+  const chart = Plot.plot({
+    marks: [Plot.barY(data, { x: "category", y: "value" })],
+  });
 
-const data = [
-  { category: "A", value: 10 },
-  { category: "B", value: 20 },
-  { category: "C", value: 15 },
-];
+  React.useEffect(() => {
+    document.body.appendChild(chart);
+    return () => chart.remove();
+  }, []);
 
-const chart = Plot.plot({
-  marks: [Plot.barY(data, { x: "category", y: "value" })],
-});
+  return <div />;
+};
 
-export default chart;
+export default ObservableTest;
