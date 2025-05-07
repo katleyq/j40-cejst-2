@@ -5,14 +5,14 @@ import * as Plot from '@observablehq/plot';
 // // Can add things from d3 as well, j40map uses
 // // d3.easecubic to zoom from place to place on click
 
-const ObservableTest = () => {
+const IndicatorDemGraph = () => {
   const [data, setData] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch the data
     const url =
-      'http://localhost:5001/data/data-pipeline/data_pipeline/data/score/geojson/burd_dem_long.json';
+      'http://localhost:5001/data/data-pipeline/data_pipeline/data/score/geojson/ind_dem_long.json';
     console.log('Fetching data from:', url);
 
     fetch(url)
@@ -68,6 +68,16 @@ const ObservableTest = () => {
     '#FE6100',
   ];
 
+  // const colorPalette = [
+  //   '#FE6100',
+  //   '#9CBF5D',
+  //   '#DC267F',
+  //   '#1E6A9C',
+  //   '#6d8ef7',
+  //   '#972843',
+  //   '#741CD6',
+  // ];
+
   const sortedData = data.sort(
       (a, b) =>
         racialOrder.indexOf(a.racial_group) - racialOrder.indexOf(b.racial_group),
@@ -78,22 +88,19 @@ const ObservableTest = () => {
       const chart = Plot.plot({
         marks: [
           Plot.barY(sortedData, {
-            x: 'total_burdens',
+            x: 'total_criteria',
             y: 'percentage',
             fill: 'racial_group',
             tip: true,
           }),
         ],
         y: {axis: true, label: 'Percentage'},
-        x: {label: 'Total Burdens'},
+        x: {label: 'Total Indicators'},
         color: {
           range: colorPalette,
           legend: true,
           label: 'Racial/Ethnic Group',
           domain: racialOrderLegend,
-        },
-        style: {
-          fontSize: '14',
         },
       });
 
@@ -114,4 +121,4 @@ const ObservableTest = () => {
   return <div id="chart" />;
 };
 
-export default ObservableTest;
+export default IndicatorDemGraph;
