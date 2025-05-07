@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Grid} from '@trussworks/react-uswds';
-// import * as Plot from '@observablehq/plot';
+import * as styles from './newStyles.module.scss';
 
 import J40MainGridContainer from '../components/J40MainGridContainer';
 import Layout from '../components/layout';
@@ -18,7 +18,9 @@ const ContactPage = ({location}: IContactPageProps) => {
         <section className={'page-heading'}>
           <h1>Testing Observable Plots</h1>
         </section>
-        <ObservableTest></ObservableTest>
+        <div id="chart-container" className={styles.plotWrapper}>
+          <ObservableTest></ObservableTest>
+        </div>
 
         <Grid row gap={6}>
           {/* First column */}

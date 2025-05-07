@@ -92,8 +92,10 @@ const ObservableTest = () => {
           label: 'Racial/Ethnic Group',
           domain: racialOrderLegend,
         },
+        marginBottom: 45,
+        marginTop: 30,
         style: {
-          fontSize: '14',
+          fontSize: '14px',
         },
       });
 
@@ -103,6 +105,7 @@ const ObservableTest = () => {
         container.appendChild(chart);
       }
 
+      // Animation on load
       const svg = d3.select(chart);
       const bars = svg.selectAll('rect');
 
@@ -126,6 +129,22 @@ const ObservableTest = () => {
           .attr('height', (_, i, nodes) => {
             return d3.select(nodes[i]).attr('data-final-height');
           });
+
+      // Manually style legend because I couldn't get it to work inside observable
+      const legendSpans = container?.querySelectorAll('span');
+      legendSpans?.forEach((span) => {
+        span.style.fontSize = '14px';
+        span.style.display = 'inline-flex';
+        span.style.alignItems = 'center';
+        span.style.marginRight = '1em';
+        span.style.gap = '0.4em';
+
+        const svg = span.querySelector('svg');
+        if (svg) {
+          svg.setAttribute('width', '17');
+          svg.setAttribute('height', '17');
+        }
+      });
 
       return () => chart.remove();
     }
