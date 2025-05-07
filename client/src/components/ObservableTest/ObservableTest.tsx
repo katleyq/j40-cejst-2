@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import * as Plot from '@observablehq/plot';
-// import * as d3 from 'd3';
+import * as d3 from 'd3';
 
 // // Can add things from d3 as well, j40map uses
 // // d3.easecubic to zoom from place to place on click
@@ -97,7 +97,35 @@ const ObservableTest = () => {
         },
       });
 
-      document.getElementById('chart')?.appendChild(chart);
+      const container = document.getElementById('chart');
+      if (container) {
+        container.innerHTML = ''; // Clear any previous chart
+        container.appendChild(chart);
+      }
+
+      const svg = d3.select(chart);
+      const bars = svg.selectAll('rect');
+
+      // Store original values
+      bars.each((_, i, nodes) => {
+        const bar = d3.select(nodes[i]);
+        bar.attr('data-final-y', bar.attr('y'));
+        bar.attr('data-final-height', bar.attr('height'));
+      });
+
+      // Start from base (y = chart height, height = 0)
+      bars
+          .attr('y', svg.node()?.getBoundingClientRect().height || 300) // use fallback
+          .attr('height', 0)
+          .transition()
+          .duration(800)
+          .delay((_, i) => i * 10) // optional stagger
+          .attr('y', (_, i, nodes) => {
+            return d3.select(nodes[i]).attr('data-final-y');
+          })
+          .attr('height', (_, i, nodes) => {
+            return d3.select(nodes[i]).attr('data-final-height');
+          });
 
       return () => chart.remove();
     }
