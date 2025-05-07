@@ -18,7 +18,8 @@ import Language from '../Language';
 import {PAGES_ENDPOINTS, USWDS_BREAKPOINTS} from '../../data/constants';
 import * as COMMON_COPY from '../../data/copy/common';
 // import siteLogo from '../../images/j40-logo-v2.png';
-import siteLogo from '../../images/bren2.svg';
+// import siteLogo from '../../images/bren2.svg';
+import siteLogo from '../../images/circle_logo.svg';
 // import UpdateBanner from '../UpdateBanner';
 import * as styles from './J40Header.module.scss';
 
@@ -272,7 +273,7 @@ const J40Header = ({location}: IJ40Header) => {
           </Grid>
 
           {/* Logo Title */}
-          <Grid col={6}>
+          <Grid col={6} style={{alignContent: 'center'}}>
             <Link
               to={PAGES_ENDPOINTS.EXPLORE}
               key={'explore-map'}

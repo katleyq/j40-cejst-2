@@ -1,14 +1,14 @@
 // For plot wrapper observable graphs
 
 .plotWrapper{
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     margin: 0 auto;
+    font-family: 'Lexend', sans-serif;
 }
 
-:global(.plotWrapper span) {
-    font-size: 16px !important;
-    // display: inline-flex;
-    // align-items: center;
-    // gap: 0.4em;
-    // margin-right: 1em;
-  }
+.plotPageWrapper {
+    max-width: 80% !important;
+    margin: 0 auto;
+    padding: 0 1rem;
+}

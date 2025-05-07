@@ -2,10 +2,7 @@ import React, {useState, useEffect} from 'react';
 import * as Plot from '@observablehq/plot';
 import * as d3 from 'd3';
 
-// // Can add things from d3 as well, j40map uses
-// // d3.easecubic to zoom from place to place on click
-
-const IndicatorDemGraph = () => {
+const ObservableTest = () => {
   const [data, setData] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -74,31 +71,44 @@ const IndicatorDemGraph = () => {
   );
 
   useEffect(() => {
-    if (sortedData.length > 0) {
+    const timeout = setTimeout(() => {
       const chart = Plot.plot({
         marks: [
           Plot.barY(sortedData, {
             x: 'total_criteria',
             y: 'percentage',
             fill: 'racial_group',
-            tip: true,
+            tip: {
+              format: {
+                racial_group: (d) => d.replace(' and ', ' and<br>'),
+                y: (d) => `${Math.round(d)}%`,
+              },
+            },
           }),
         ],
         y: {axis: true, label: 'Percentage'},
-        x: {label: 'Total Burdens'},
+        x: {label: 'Total Indicators'},
         color: {
           range: colorPalette,
           legend: true,
-          label: 'Racial/Ethnic Group',
+          label: 'Race/Ethnicity',
           domain: racialOrderLegend,
         },
+        marginBottom: 45,
+        marginTop: 30,
         style: {
-          fontSize: '14',
+          fontFamily: 'Lexend, sans-serif',
+          fontSize: '14px',
         },
       });
 
-      document.getElementById('chart')?.appendChild(chart);
+      const container = document.getElementById('chart-container-2');
+      if (container) {
+        container.innerHTML = ''; // Clear any previous chart
+        container.appendChild(chart);
+      }
 
+      // Animation on load
       const svg = d3.select(chart);
       const bars = svg.selectAll('rect');
 
@@ -111,11 +121,12 @@ const IndicatorDemGraph = () => {
 
       // Start from base (y = chart height, height = 0)
       bars
-          .attr('y', svg.node()?.getBoundingClientRect().height || 300) // use fallback
+          .attr('y', svg.node()?.getBoundingClientRect().height || 300)
           .attr('height', 0)
           .transition()
-          .duration(800)
-          .delay((_, i) => i * 10) // optional stagger
+          .duration(600)
+      // Stagger how the bars come up
+          .delay((_, i) => i * 8)
           .attr('y', (_, i, nodes) => {
             return d3.select(nodes[i]).attr('data-final-y');
           })
@@ -123,8 +134,29 @@ const IndicatorDemGraph = () => {
             return d3.select(nodes[i]).attr('data-final-height');
           });
 
+      // Manually style legend because I couldn't get it to work inside observable
+      // The text isn't contained inside p/text tag at all, it's inside a span
+      const legendSpans = container?.querySelectorAll('span');
+      legendSpans?.forEach((span) => {
+        span.style.fontSize = '14px';
+        span.style.display = 'inline-flex';
+        span.style.alignItems = 'center';
+        span.style.marginRight = '1em';
+        span.style.gap = '0.4em';
+        span.style.fontFamily = 'Lexend, sans-serif';
+
+        // Set the dim for the little square
+        const svg = span.querySelector('svg');
+        if (svg) {
+          svg.setAttribute('width', '17');
+          svg.setAttribute('height', '17');
+        }
+      });
+
       return () => chart.remove();
-    }
+    }, 0); // Let the browser render layout first
+
+    return () => clearTimeout(timeout);
   }, [sortedData]);
 
   if (error) {
@@ -135,7 +167,7 @@ const IndicatorDemGraph = () => {
     return <div>Loading Data...</div>;
   }
 
-  return <div id="chart" />;
+  return <div id="chart-container-1" />;
 };
 
-export default IndicatorDemGraph;
+export default ObservableTest;
