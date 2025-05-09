@@ -9,7 +9,7 @@ const ObservableTest = () => {
   useEffect(() => {
     // Fetch the data
     const url =
-      'http://localhost:5001/data/data-pipeline/data_pipeline/data/score/geojson/burd_dem_long.json';
+      'https://apps.bren.ucsb.edu/data/data-pipeline/data-versions/2.0/data/score/geojson/burd_dem_long.json';
     console.log('Fetching data from:', url);
 
     fetch(url)
