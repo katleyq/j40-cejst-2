@@ -115,8 +115,14 @@ const MapTractLayers = ({
     <>
       <LayerToggleControl
         layers={[
-          {id: constants.ADD_BURDEN_LAYER_ID, name: 'Total Burdens'},
-          {id: constants.ADD_INDICATOR_LAYER_ID, name: 'Total Indicators'},
+          {
+            id: constants.ADD_BURDEN_LAYER_ID,
+            name: 'Burden Thresholds\nExceeded',
+          },
+          {
+            id: constants.ADD_INDICATOR_LAYER_ID,
+            name: 'Indicator Thresholds\nExceeded',
+          },
           {id: constants.PSIM_BURDEN_LAYER_ID, name: 'Burden Hotspots'},
           {id: constants.PSIM_INDICATOR_LAYER_ID, name: 'Indicator Hotspots'},
           {id: constants.LEGACY_LAYER_ID, name: 'Legacy Tool'},

@@ -12,7 +12,7 @@ export interface IHotspotInfoProps {
 
 const HotspotInfo = ({
   // temperatureClass,
-  zScore,
+  // zScore,
   pValue,
 }: IHotspotInfoProps) => {
   return (
@@ -21,10 +21,10 @@ const HotspotInfo = ({
         <span>Classification</span>
         <span>{` ${temperatureClass}`}</span>
       </li> */}
-      <li>
+      {/* <li>
         <span>Z-score</span>
         <span>{` ${zScore}`}</span>
-      </li>
+      </li> */}
       <li>
         <span>P-value</span>
         <span>{` ${pValue}`}</span>
