@@ -17,7 +17,7 @@ const IncomeSlider: React.FC<IncomeSliderProps> = ({
   maxIncome = 100,
   defaultMax = 60,
 }) => {
-  const [selectedPercentile, setSelectedPercentile] = useState<number>(defaultMax);
+  const [selectedIncomePercentile, setSelectedIncomePercentile] = useState<number>(defaultMax);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 685);
 
   // Handle responsive layout
@@ -34,13 +34,13 @@ const IncomeSlider: React.FC<IncomeSliderProps> = ({
 
   // Call onChange when value changes
   useEffect(() => {
-    onChange(selectedPercentile);
-  }, [selectedPercentile, onChange]);
+    onChange(selectedIncomePercentile);
+  }, [selectedIncomePercentile, onChange]);
 
   // Handle value changes from the slider
   const handleIncomeSliderChange = (newValue: number | number[]) => {
     if (typeof newValue === 'number') {
-      setSelectedPercentile(newValue);
+      setSelectedIncomePercentile(newValue);
     }
   };
 
@@ -82,14 +82,14 @@ const IncomeSlider: React.FC<IncomeSliderProps> = ({
         >
           Low Income Percentile
         </Label>
-        <span><strong>{selectedPercentile}th</strong></span>
+        <span><strong>{selectedIncomePercentile}th</strong></span>
       </div>
 
       <Slider
         min={minIncome}
         max={maxIncome}
         step={1}
-        value={selectedPercentile}
+        value={selectedIncomePercentile}
         onChange={handleIncomeSliderChange}
         className="income-slider"
         aria-label="Low income percentile"
