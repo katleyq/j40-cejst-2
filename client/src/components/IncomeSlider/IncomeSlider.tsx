@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Label} from '@trussworks/react-uswds';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import * as constants from '../../data/constants';
+// import * as constants from '../../data/constants';
 
 interface IncomeSliderProps {
   onChange: (max: number) => void;
@@ -15,9 +15,9 @@ const IncomeSlider: React.FC<IncomeSliderProps> = ({
   onChange,
   minIncome = 0,
   maxIncome = 100,
-  defaultMax = constants.LOW_MEDIAN_INCOME_PERCENTILE,
+  defaultMax = 60,
 }) => {
-  const [value, setValue] = useState<number>(defaultMax);
+  const [selectedPercentile, setSelectedPercentile] = useState<number>(defaultMax);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 685);
 
   // Handle responsive layout
@@ -34,13 +34,13 @@ const IncomeSlider: React.FC<IncomeSliderProps> = ({
 
   // Call onChange when value changes
   useEffect(() => {
-    onChange(value);
-  }, [value, onChange]);
+    onChange(selectedPercentile);
+  }, [selectedPercentile, onChange]);
 
   // Handle value changes from the slider
-  const handleSliderChange = (newValue: number | number[]) => {
+  const handleIncomeSliderChange = (newValue: number | number[]) => {
     if (typeof newValue === 'number') {
-      setValue(newValue);
+      setSelectedPercentile(newValue);
     }
   };
 
@@ -82,15 +82,15 @@ const IncomeSlider: React.FC<IncomeSliderProps> = ({
         >
           Low Income Percentile
         </Label>
-        <span><strong>{value}th</strong></span>
+        <span><strong>{selectedPercentile}th</strong></span>
       </div>
 
       <Slider
         min={minIncome}
         max={maxIncome}
         step={1}
-        value={value}
-        onChange={handleSliderChange}
+        value={selectedPercentile}
+        onChange={handleIncomeSliderChange}
         className="income-slider"
         aria-label="Low income percentile"
       />
