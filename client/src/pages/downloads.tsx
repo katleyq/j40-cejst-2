@@ -23,7 +23,7 @@ const DownloadsPage = ({location}: IDownloadsPageProps) => {
         <section className={'page-heading'}>
           <h1>Testing Inputs</h1>
           <div id="chart-container-int">
-            <InteractiveGraph url="http://localhost:5001/data/data-pipeline/data_pipeline/data/score/geojson/county_total.json"></InteractiveGraph>
+            <InteractiveGraph url="http://localhost:5001/data/data-pipeline/data_pipeline/data/score/geojson/tract_total.json"></InteractiveGraph>
           </div>
         </section>
       </J40MainGridContainer>

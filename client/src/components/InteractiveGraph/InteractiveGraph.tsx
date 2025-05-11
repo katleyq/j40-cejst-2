@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import * as Plot from '@observablehq/plot';
-// import * as d3 from "d3";
 
 interface Datum {
   state: string;
@@ -46,43 +45,67 @@ const InteractiveGraph = ({url}: Props) => {
         });
   }, [url]);
 
+  // Define states
   const states = Array.from(new Set(data.map((d) => d.state))).sort();
+  const [selectedState, setSelectedState] = useState(states[0] || '');
+  const [selectedCounty, setSelectedCounty] = useState('');
+  const [selectedBurden, setSelectedBurden] = useState('');
+  const [selectedIndicator, setSelectedIndicator] = useState('');
+
+  // Dynamically calculate counties and indicators based on current selections
+  const counties = Array.from(
+      new Set(data.filter((d) => d.state === selectedState).map((d) => d.county)),
+  ).sort();
+
   const burdenCategories = Array.from(
       new Set(data.map((d) => d.burden)),
   ).sort();
 
-  const [selectedState, setSelectedState] = useState(states[0]);
-  const [selectedBurden, setSelectedBurden] = useState(burdenCategories[0]);
-
   const indicators = Array.from(
       new Set(
-          data.filter((d) => d.burden === selectedBurden).map((d) => d.indicator),
+          data
+              .filter(
+                  (d) =>
+                    d.state === selectedState &&
+            d.county === selectedCounty &&
+            d.burden === selectedBurden,
+              )
+              .map((d) => d.indicator),
       ),
   ).sort();
 
-  const [selectedIndicator, setSelectedIndicator] = useState(indicators[0]);
+  // Update selectedCounty and selectedIndicator when dependencies change
+  useEffect(() => {
+    if (counties.length > 0) {
+      setSelectedCounty(counties[0]);
+    } else {
+      setSelectedCounty('');
+    }
+  }, [counties]);
 
   useEffect(() => {
-    // Update the selected indicator if burden changes
-    setSelectedIndicator(indicators[0]);
-  }, [selectedBurden]);
+    if (indicators.length > 0) {
+      setSelectedIndicator(indicators[0]);
+    } else {
+      setSelectedIndicator('');
+    }
+  }, [indicators]);
 
   // Filter and aggregate
   const filteredData = data.filter(
       (d) =>
         d.state === selectedState &&
+      d.county === selectedCounty &&
       d.burden === selectedBurden &&
       d.indicator === selectedIndicator,
   );
+  console.log('Filtered Data:', filteredData);
 
-  // const countyMeans = Array.from(
-  //     d3.rollup(
-  //         filteredData,
-  //         (v) => d3.mean(v, (d) => d.value),
-  //         (d) => d.county,
-  //     ),
-  //     ([county, avgValue]) => ({county, avgValue}),
-  // );
+  const scaledData = filteredData.map((d) => ({
+    ...d,
+    percentile: d.value * 100,
+  }));
+  console.log('Scaled Data:', scaledData);
 
   useEffect(() => {
     const chart = Plot.plot({
@@ -90,14 +113,16 @@ const InteractiveGraph = ({url}: Props) => {
         label: 'Average Value',
       },
       x: {
-        label: 'Indicator',
+        domain: [0, 100],
+        label: 'Percentile',
+        tickFormat: (d) => `${d}%`,
       },
       marks: [
         // Plot.boxY(filteredData, {
         //   x: 'indicator',
         //   y: 'value',
         // }),
-        Plot.rectY(filteredData, Plot.binX({y: 'count'}, {x: 'value'})),
+        Plot.rectY(scaledData, Plot.binX({y: 'count'}, {x: 'percentile'})),
         Plot.ruleY([0]),
       ],
       width: 800,
@@ -109,13 +134,7 @@ const InteractiveGraph = ({url}: Props) => {
       chartRef.current.innerHTML = '';
       chartRef.current.appendChild(chart);
     }
-  }, [filteredData]);
-
-  // const container = document.getElementById('chart-container-int');
-  //     if (container) {
-  //       container.innerHTML = ''; // Clear any previous chart
-  //       container.appendChild(chart);
-  //     }
+  }, [scaledData]);
 
   if (error) {
     return <div style={{color: 'red'}}>{error}</div>;
@@ -137,6 +156,20 @@ const InteractiveGraph = ({url}: Props) => {
             {states.map((s) => (
               <option key={s} value={s}>
                 {s}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          County:
+          <select
+            value={selectedCounty}
+            onChange={(e) => setSelectedCounty(e.target.value)}
+          >
+            {counties.map((c) => (
+              <option key={c} value={c}>
+                {c}
               </option>
             ))}
           </select>
