@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import * as Plot from '@observablehq/plot';
+// import * as d3 from 'd3';
 
 interface Datum {
   state: string;
@@ -7,6 +8,7 @@ interface Datum {
   burden: string;
   indicator: string;
   value: number;
+  percentile?: number;
 }
 
 interface Props {
@@ -66,9 +68,9 @@ const InteractiveGraph = ({url}: Props) => {
           data
               .filter(
                   (d) =>
-                    d.state === selectedState &&
-            d.county === selectedCounty &&
-            d.burden === selectedBurden,
+                    (!selectedState || d.state === selectedState) &&
+            (!selectedCounty || d.county === selectedCounty) &&
+            (!selectedBurden || d.burden === selectedBurden),
               )
               .map((d) => d.indicator),
       ),
@@ -77,27 +79,23 @@ const InteractiveGraph = ({url}: Props) => {
   // Update selectedCounty and selectedIndicator when dependencies change
   useEffect(() => {
     if (counties.length > 0) {
-      setSelectedCounty(counties[0]);
-    } else {
       setSelectedCounty('');
     }
-  }, [counties]);
+  }, [selectedState]);
 
   useEffect(() => {
     if (indicators.length > 0) {
-      setSelectedIndicator(indicators[0]);
-    } else {
       setSelectedIndicator('');
     }
-  }, [indicators]);
+  }, [selectedBurden]);
 
   // Filter and aggregate
   const filteredData = data.filter(
       (d) =>
-        d.state === selectedState &&
-      d.county === selectedCounty &&
-      d.burden === selectedBurden &&
-      d.indicator === selectedIndicator,
+        (!selectedState || d.state === selectedState) &&
+      (!selectedCounty || d.county === selectedCounty) &&
+      (!selectedBurden || d.burden === selectedBurden) &&
+      (!selectedIndicator || d.indicator === selectedIndicator),
   );
   console.log('Filtered Data:', filteredData);
 
@@ -107,22 +105,59 @@ const InteractiveGraph = ({url}: Props) => {
   }));
   console.log('Scaled Data:', scaledData);
 
+  // const bins = d3
+  //     .bin()
+  //     .domain([1, 100])
+  //     .thresholds(20) // or however many bins you want
+  //     .value((d) => d)(
+  //         filteredData
+  //             .map((d) => d.percentile)
+  //             .filter((p): p is number => p !== undefined),
+  //     )
+  //     .map((bin) => ({
+  //       ...bin,
+  //       avgPercentile: d3.mean(bin),
+  //     }));
+
   useEffect(() => {
     const chart = Plot.plot({
       y: {
-        label: 'Average Value',
+        label: 'Number of Census Tracts',
       },
       x: {
         domain: [0, 100],
         label: 'Percentile',
         tickFormat: (d) => `${d}%`,
       },
+      color: {scheme: 'PuRd'},
+      // marks: [
+      //   Plot.rectY(bins, {
+      //     x1: (d) => d.x0,
+      //     x2: (d) => d.x1,
+      //     y: (d) => d.length,
+      //     fill: (d) => d.avgPercentile,
+      //     tip: true,
+      //     title: (d) =>
+      //       [
+      //         `Range: ${d.x0}–${d.x1}`,
+      //         `Count: ${d.length}`,
+      //         // `Avg Percentile: ${d.avgPercentile.toFixed(0)}%`,
+      //       ].join('\n'),
+      //   }),
+      //   Plot.ruleY([0]),
+      // ],
       marks: [
         // Plot.boxY(filteredData, {
         //   x: 'indicator',
         //   y: 'value',
         // }),
-        Plot.rectY(scaledData, Plot.binX({y: 'count'}, {x: 'percentile'})),
+        Plot.rectY(
+            scaledData,
+            Plot.binX(
+                {y: 'count', fill: 'mean'},
+                {x: 'percentile', fill: 'percentile'},
+            ),
+        ),
         Plot.ruleY([0]),
       ],
       width: 800,

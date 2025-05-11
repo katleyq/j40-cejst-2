@@ -255,49 +255,51 @@ const J40Header = ({location}: IJ40Header) => {
       <UpdateBanner/> */}
 
       {/* Logo and Navigation */}
-      <J40MainGridContainer>
-        <Grid className={styles.logoNavRow} row>
-          {/* Logo */}
-          <Grid col={1}>
-            <Link
-              to={PAGES_ENDPOINTS.EXPLORE}
-              key={'explore-map'}
-              data-cy={'nav-link-explore-the-map'}
-            >
-              <img
-                className={styles.logo}
-                src={siteLogo}
-                alt={`${logoLine1}`}
-              />
-            </Link>
-          </Grid>
+      <J40MainGridContainer fullWidth>
+        <div style={{maxWidth: '90%', margin: 'auto'}}>
+          <Grid className={styles.logoNavRow} row>
+            {/* Logo */}
+            <Grid col={1}>
+              <Link
+                to={PAGES_ENDPOINTS.EXPLORE}
+                key={'explore-map'}
+                data-cy={'nav-link-explore-the-map'}
+              >
+                <img
+                  className={styles.logo}
+                  src={siteLogo}
+                  alt={`${logoLine1}`}
+                />
+              </Link>
+            </Grid>
 
-          {/* Logo Title */}
-          <Grid col={6} style={{alignContent: 'center'}}>
-            <Link
-              to={PAGES_ENDPOINTS.EXPLORE}
-              key={'explore-map'}
-              className="remove-link-style"
-              data-cy={'nav-link-explore-the-map'}
-            >
-              <div className={styles.logoTitle}>{logoLine1}</div>
-            </Link>
-          </Grid>
+            {/* Logo Title */}
+            <Grid col={6} style={{alignContent: 'center'}}>
+              <Link
+                to={PAGES_ENDPOINTS.EXPLORE}
+                key={'explore-map'}
+                className="remove-link-style"
+                data-cy={'nav-link-explore-the-map'}
+              >
+                <div className={styles.logoTitle}>{logoLine1}</div>
+              </Link>
+            </Grid>
 
-          {/* Nav links */}
-          <Grid col={'fill'} className={styles.navLinks}>
-            <NavMenuButton
-              key={'mobileMenuButton'}
-              onClick={toggleMobileNav}
-              label="Menu"
-            ></NavMenuButton>
-            <PrimaryNav
-              items={navLinks}
-              mobileExpanded={mobileNavOpen}
-              onToggleMobileNav={toggleMobileNav}
-            ></PrimaryNav>
+            {/* Nav links */}
+            <Grid col={'fill'} className={styles.navLinks}>
+              <NavMenuButton
+                key={'mobileMenuButton'}
+                onClick={toggleMobileNav}
+                label="Menu"
+              ></NavMenuButton>
+              <PrimaryNav
+                items={navLinks}
+                mobileExpanded={mobileNavOpen}
+                onToggleMobileNav={toggleMobileNav}
+              ></PrimaryNav>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </J40MainGridContainer>
 
       {/* Alert */}
