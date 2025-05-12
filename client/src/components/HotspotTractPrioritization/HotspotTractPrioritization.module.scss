@@ -1,0 +1,12 @@
+@use '../../styles/design-system.scss' as *;
+@import "../utils.scss";
+
+h3.invert{
+    @include invert();
+};
+
+h3.invertRed {
+  @include invert(); // use existing styles
+  background-color: #ad1e0e !important; // override blue background
+}
+
