@@ -19,7 +19,10 @@ const AdditiveSidePanelInfo = () => {
 
       {/* Paragraph 1 */}
       <p tabIndex={0}>
-        This is where the description of our cumulative approach will go
+        The cumulative approach employed in our analysis builds on established practices
+        for evaluating cumulative impacts in geospatial mapping tools. This methodology
+        aggregates burdens or indicators that exceed predefined thresholds within census
+        tracts.
       </p>
     </aside>
   );

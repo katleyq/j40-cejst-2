@@ -18,7 +18,12 @@ const HotspotSidePanelInfo = () => {
       </header>
 
       {/* Paragraph 1 */}
-      <p tabIndex={0}>This is where the description of Gi* will go</p>
+      <p tabIndex={0}>
+        Hotspot detection utilizes the Getis-Ord Gi* statistics to identify spatial
+        clusters, highlighting census tracts where burdens or indicators are significantly
+        higher (&ldquo;hot spots&rdquo;) or lower (&ldquo;cold spots&rdquo;) than the
+        national average.
+      </p>
     </aside>
   );
 };
