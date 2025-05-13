@@ -5,7 +5,7 @@ import {Grid} from '@trussworks/react-uswds';
 // import ExploreDataBox from '../components/ExploreDataBox';
 import J40Map from '../components/J40Map';
 import J40MainGridContainer from '../components/J40MainGridContainer';
-//import IncomeSlider from '../components/IncomeSlider';
+// import IncomeSlider from '../components/IncomeSlider';
 import Layout from '../components/layout';
 // import DatasetsButton from '../components/DatasetsButton';
 
@@ -26,7 +26,9 @@ const ExporeToolPage = ({location}: IMapPageProps) => {
 
     <J40MainGridContainer>
       <section className={'page-heading'}>
-        <h1>{intl.formatMessage(EXPLORE_COPY.PAGE_INTRO.PAGE_HEADING)}</h1>
+        <h1 style={{fontSize: '1.5rem'}}>
+          {intl.formatMessage(EXPLORE_COPY.PAGE_INTRO.PAGE_HEADING)}
+        </h1>
         {/* <DatasetsButton href= {intl.locale === 'es' ? DATA_SURVEY_LINKS.ES : DATA_SURVEY_LINKS.EN} /> */}
       </section>
 
@@ -35,11 +37,11 @@ const ExporeToolPage = ({location}: IMapPageProps) => {
         {/* desktop = 7 columns, tablet = 10 columns and mobile = 12 columns (full width) */}
         <Grid desktop={{col: 8}} tablet={{col: 10}} col={12}>
           <p>
-            {EXPLORE_COPY.PAGE_DESCRIPTION1}
+            <em>{EXPLORE_COPY.PAGE_DESCRIPTION1}</em>
           </p>
-          <p>
+          {/*  <p>
             {EXPLORE_COPY.PAGE_DESCRIPTION2}
-          </p>
+          </p>*/}
         </Grid>
         <Grid desktop={{col: 4}} tablet={{col: 10}} col={12}>
           {/* <ExploreDataBox /> */}
@@ -51,7 +53,7 @@ const ExporeToolPage = ({location}: IMapPageProps) => {
     {/* J40Map container*/}
     <J40MainGridContainer style={{marginTop: '2rem'}}>
       <Grid row>
-        <J40Map location={location}/>
+        <J40Map location={location} />
       </Grid>
     </J40MainGridContainer>
 
