@@ -56,7 +56,7 @@ const ExporeToolPage = ({location}: IMapPageProps) => {
     </J40MainGridContainer>
 
     {/* IncomeSlider */}
-    <J40MainGridContainer className="j40-mb-5" style={{marginBottom: '2rem'}}>
+    {/* <J40MainGridContainer className="j40-mb-5" style={{marginBottom: '2rem'}}>
       <Grid row>
         <Grid desktop={{col: 8}} tablet={{col: 10}} col={12}>
           <div style={{marginBottom: '7rem'}}>
@@ -66,7 +66,7 @@ const ExporeToolPage = ({location}: IMapPageProps) => {
           </div>
         </Grid>
       </Grid>
-    </J40MainGridContainer>
+    </J40MainGridContainer> */}
 
     <J40MainGridContainer>
       <Grid desktop={{col: 7}} tablet={{col: 10}} col={12}>
