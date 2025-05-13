@@ -5,7 +5,7 @@ import {Grid} from '@trussworks/react-uswds';
 // import ExploreDataBox from '../components/ExploreDataBox';
 import J40Map from '../components/J40Map';
 import J40MainGridContainer from '../components/J40MainGridContainer';
-import IncomeSlider from '../components/IncomeSlider';
+//import IncomeSlider from '../components/IncomeSlider';
 import Layout from '../components/layout';
 // import DatasetsButton from '../components/DatasetsButton';
 
