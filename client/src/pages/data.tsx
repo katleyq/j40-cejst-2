@@ -43,7 +43,11 @@ const DataPage = ({location}: IDataPageProps) => {
             {/* First column */}
             <Grid desktop={{col: 6}} col={12}>
               <div id="chart-container-1" className={styles.plotWrapper}>
-                <ObservableTest></ObservableTest>
+                <ObservableTest
+                  url={
+                    'http://localhost:5001/data/data-pipeline/data_pipeline/data/score/geojson/burd_dem_long.json'
+                  }
+                ></ObservableTest>
               </div>
               <div id="chart-container-int">
                 <InteractiveGraph url="http://localhost:5001/data/data-pipeline/data_pipeline/data/score/geojson/tract_total.json"></InteractiveGraph>
@@ -53,7 +57,7 @@ const DataPage = ({location}: IDataPageProps) => {
             {/* Second Column */}
             <Grid desktop={{col: 6}} col={12}>
               <div id="chart-container-2" className={styles.plotWrapper}>
-                <IndicatorDemGraph></IndicatorDemGraph>
+                <IndicatorDemGraph url="http://localhost:5001/data/data-pipeline/data_pipeline/data/score/geojson/ind_dem_long.json"></IndicatorDemGraph>
               </div>
             </Grid>
           </Grid>
