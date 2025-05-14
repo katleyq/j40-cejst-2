@@ -17,6 +17,7 @@ export const PAGES_ENDPOINTS = {
   CONTACT: "/contact",
   PREVIOUS_VERSIONS: "/previous-versions",
   PRIVACY: "/privacy",
+  DATA: "/data",
 };
 
 // Performance markers

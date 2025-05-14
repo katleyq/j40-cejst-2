@@ -163,7 +163,7 @@ export const ALERTS = {
 export const HEADER = defineMessages({
   TITLE_LINE_1: {
     id: 'common.pages.header.title.line1',
-    defaultMessage: `MEDS Justice40`,
+    defaultMessage: `Climate and Economic Justice Screen Tool+`,
     description: 'Navigate to the about page. This is Title in nav header',
   },
   ABOUT: {

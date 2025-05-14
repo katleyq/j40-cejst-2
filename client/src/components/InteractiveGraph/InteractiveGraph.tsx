@@ -105,20 +105,6 @@ const InteractiveGraph = ({url}: Props) => {
   }));
   console.log('Scaled Data:', scaledData);
 
-  // const bins = d3
-  //     .bin()
-  //     .domain([1, 100])
-  //     .thresholds(20) // or however many bins you want
-  //     .value((d) => d)(
-  //         filteredData
-  //             .map((d) => d.percentile)
-  //             .filter((p): p is number => p !== undefined),
-  //     )
-  //     .map((bin) => ({
-  //       ...bin,
-  //       avgPercentile: d3.mean(bin),
-  //     }));
-
   useEffect(() => {
     const chart = Plot.plot({
       y: {
@@ -181,13 +167,14 @@ const InteractiveGraph = ({url}: Props) => {
 
   return (
     <div>
-      <div style={{marginBottom: '1rem'}}>
-        <label>
+      <div style={{margin: '1rem'}}>
+        <label style={{marginRight: '0.8rem', marginBottom: '0.8rem'}}>
           State:
           <select
             value={selectedState}
             onChange={(e) => setSelectedState(e.target.value)}
           >
+            <option value="">All States</option>
             {states.map((s) => (
               <option key={s} value={s}>
                 {s}
@@ -202,6 +189,7 @@ const InteractiveGraph = ({url}: Props) => {
             value={selectedCounty}
             onChange={(e) => setSelectedCounty(e.target.value)}
           >
+            <option value="">All Counties</option>
             {counties.map((c) => (
               <option key={c} value={c}>
                 {c}
@@ -209,13 +197,14 @@ const InteractiveGraph = ({url}: Props) => {
             ))}
           </select>
         </label>
-
-        <label>
+        <br></br>
+        <label style={{marginRight: '0.8rem', marginTop: '0.8rem'}}>
           Burden:
           <select
             value={selectedBurden}
             onChange={(e) => setSelectedBurden(e.target.value)}
           >
+            <option value="">All Burdens</option>
             {burdenCategories.map((b) => (
               <option key={b} value={b}>
                 {b}
@@ -230,6 +219,7 @@ const InteractiveGraph = ({url}: Props) => {
             value={selectedIndicator}
             onChange={(e) => setSelectedIndicator(e.target.value)}
           >
+            <option value="">All Indicators</option>
             {indicators.map((i) => (
               <option key={i} value={i}>
                 {i}

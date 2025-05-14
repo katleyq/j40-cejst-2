@@ -87,7 +87,7 @@ const ObservableTest = () => {
           }),
         ],
         y: {axis: true, label: 'Percentage'},
-        x: {label: 'Total Indicators'},
+        x: {label: 'Indicator Thresholds Exceeded'},
         color: {
           range: colorPalette,
           legend: true,
