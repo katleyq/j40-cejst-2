@@ -77,7 +77,7 @@ export const EXPLORE_DATA_BOX = defineMessages({
 
 export const EXPLORE_DATA_BOX_BODY = <FormattedMessage
   id={'explore.map.page.explore.data.box.body'}
-  defaultMessage={ `
+  defaultMessage={`
     Download the data with documentation and shapefile from the <link1>downloads</link1> page.
   `}
   description={`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show Things to know, this is the fifth paragraph of this side pane`}
@@ -467,9 +467,9 @@ export const SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT = defineMessages({
 export const SIDE_PANEL_VERSION = {
   TITLE: <FormattedMessage
     id={'explore.map.page.side.panel.version.title'}
-    defaultMessage={ 'Methodology version {version}'}
+    defaultMessage={'Methodology version {version}'}
     description={`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show the methodology version number`}
-    values= {{
+    values={{
       /**
        * FormattedNumber currently renders 1.0 as 1. When the version number has a decimal point add back the
        * Formatted Message component. Using toFixed will render the desire, however it returns a string which
@@ -611,7 +611,7 @@ export const PRIORITIZATION_COPY = {
     id={'explore.map.page.side.panel.prio.copy.not.prio'}
     defaultMessage={'This tract is not considered disadvantaged. It does not meet any burden thresholds <bold>OR</bold> at least one associated socioeconomic threshold.'}
     description={`Navigate to the explore the map page. Click on tract, The side panel will show This tract is not considered disadvantaged. It does not meet any burden thresholds OR at least one associated socioeconomic threshold.`}
-    values = {{
+    values={{
       bold: boldFn,
     }}
   />,
@@ -619,7 +619,7 @@ export const PRIORITIZATION_COPY = {
     id={'explore.map.page.side.panel.prio.copy.not.prio.one.burden'}
     defaultMessage={'This tract is not considered disadvantaged. It meets 1 burden threshold <bold>BUT</bold> no associated socioeconomic thresholds.'}
     description={`Navigate to the explore the map page. Click on tract, The side panel will show This tract is not considered disadvantaged. It meets [1] burden threshold <bold>BUT</bold> no associated socioeconomic thresholds.`}
-    values= {{
+    values={{
       bold: boldFn,
     }}
   />,
@@ -627,7 +627,7 @@ export const PRIORITIZATION_COPY = {
     id={'explore.map.page.side.panel.prio.copy.not.prio.n.burden'}
     defaultMessage={'This tract is not considered disadvantaged. It meets more than 1 burden threshold <bold>BUT</bold> no associated socioeconomic thresholds.'}
     description={`Navigate to the explore the map page. Click on tract, The side panel will show This tract is not considered disadvantaged. It meets more than 1 burden threshold <bold>BUT</bold> no associated socioeconomic thresholds.`}
-    values= {{
+    values={{
       bold: boldFn,
     }}
   />,
@@ -673,11 +673,11 @@ export const PRIORITIZATION_COPY = {
   />,
 };
 
-export const getPrioNBurdenCopy = (burdens:string) => {
+export const getPrioNBurdenCopy = (burdens: string) => {
   return (
     <FormattedMessage
       id={'explore.map.page.side.panel.prio.copy.prio.n.burden'}
-      defaultMessage={ 'This tract is considered disadvantaged because it meets {burdens} burden threshold <bold>AND</bold> the associated socioeconomic threshold.'}
+      defaultMessage={'This tract is considered disadvantaged because it meets {burdens} burden threshold <bold>AND</bold> the associated socioeconomic threshold.'}
       description={`Navigate to the explore the map page. Click on tract, This tract is considered disadvantaged because it meets {burdens} burden thresholds <bold>AND</bold> the associated socioeconomic threshold.`}
       values={{
         burdens: burdens,
@@ -688,56 +688,56 @@ export const getPrioNBurdenCopy = (burdens:string) => {
 };
 
 // Copy around Federally recognized tribes
-export const getPrioFRTCopy = (amount:string, isAlso:boolean = false) => {
+export const getPrioFRTCopy = (amount: string, isAlso: boolean = false) => {
   return (
     <FormattedMessage
       id={'explore.map.page.side.panel.prio.copy.prio.frt'}
-      defaultMessage={ 'The lands of Federally Recognized Tribes that cover {amount} of this tract are {also} considered disadvantaged.'}
+      defaultMessage={'The lands of Federally Recognized Tribes that cover {amount} of this tract are {also} considered disadvantaged.'}
       description={`Navigate to the explore the map page. Click on tract, The lands of Federally Recognized Tribes that cover [#%] of this tract are considered disadvantaged.`}
       values={{
         amount: amount,
-        also: isAlso? 'also' : '',
+        also: isAlso ? 'also' : '',
       }}
     />
   );
 };
 
 // Copy around Federally recognized tribes points copy
-export const getPrioFRTPointsCopy = (numPoints:string, isAlso:boolean = false) => {
+export const getPrioFRTPointsCopy = (numPoints: string, isAlso: boolean = false) => {
   return (
     <FormattedMessage
       id={'explore.map.page.side.panel.prio.copy.prio.frt.n.points'}
-      defaultMessage={ 'The {numPoints} that are Federally Recognized Tribes in this tract are are {also} considered disadvantaged.'}
+      defaultMessage={'The {numPoints} that are Federally Recognized Tribes in this tract are are {also} considered disadvantaged.'}
       description={`Navigate to the explore the map page. Click on tract, The {numPoints} that are Federally Recognized Tribes in this tract ares are {also} considered disadvantaged.`}
       values={{
         numPoints: numPoints,
-        also: isAlso? 'also' : '',
+        also: isAlso ? 'also' : '',
       }}
     />
   );
 };
 
 // Copy around Alaska Native Villages
-export const getPrioANVCopy = (numPoints:number, isAlso:boolean = false) => {
+export const getPrioANVCopy = (numPoints: number, isAlso: boolean = false) => {
   return (
     <FormattedMessage
       id={'explore.map.page.side.panel.prio.copy.prio.anv'}
-      defaultMessage={ 'The {numPoints} Alaska Native Villages in this tract that are Federally Recognized are {also} considered disadvantaged.'}
+      defaultMessage={'The {numPoints} Alaska Native Villages in this tract that are Federally Recognized are {also} considered disadvantaged.'}
       description={`Navigate to the explore the map page. Click on tract, The {numPoints} of this tract that are Federally Recognized Tribal lands are {also} considered disadvantaged.`}
       values={{
         numPoints: numPoints,
-        also: isAlso? 'also' : '',
+        also: isAlso ? 'also' : '',
       }}
     />
   );
 };
 
 // Copy around Alaska Native Villages points and US points
-export const getPrioAKUSCopy = (numAKpoints:number, numUSpoints:number, isAlso:boolean = false) => {
+export const getPrioAKUSCopy = (numAKpoints: number, numUSpoints: number, isAlso: boolean = false) => {
   return (
     <FormattedMessage
       id={'explore.map.page.side.panel.prio.copy.prio.akus'}
-      defaultMessage={ 'The {numAKpoints} Alaska Native Villages and the {numUSpoints} tribes in this tract that are Federally Recognized are {also} considered disadvantaged.'}
+      defaultMessage={'The {numAKpoints} Alaska Native Villages and the {numUSpoints} tribes in this tract that are Federally Recognized are {also} considered disadvantaged.'}
       description={`Navigate to the explore the map page. Click on tract, The {numAKpoints} Alaska Native Villages and the {numUSpoints} tribes in this tract that are Federally Recognized are considered disadvantaged.`}
       values={{
         numAKpoints: numAKpoints,
@@ -749,11 +749,11 @@ export const getPrioAKUSCopy = (numAKpoints:number, numUSpoints:number, isAlso:b
 };
 
 // Copy percentile of track in FRT and number of points in FRT with "also"
-export const getPrioPercAndNumPointsAlsoCopy = (amount:string, numPoints:number) => {
+export const getPrioPercAndNumPointsAlsoCopy = (amount: string, numPoints: number) => {
   return (
     <FormattedMessage
       id={'explore.map.page.side.panel.prio.copy.prio.perc.num.points'}
-      defaultMessage={ 'The lands of Federally Recognized Tribes that cover {amount} of this tract and the {numPoints} tribes that are Federally Recognized are also considered disadvantaged.'}
+      defaultMessage={'The lands of Federally Recognized Tribes that cover {amount} of this tract and the {numPoints} tribes that are Federally Recognized are also considered disadvantaged.'}
       description={`Navigate to the explore the map page. Click on tract, The Federally Recognized Tribal lands that cover {amount} of this tract and the {numPoints} tribes that are Federally Recognized are also considered disadvantaged.`}
       values={{
         amount: amount,
@@ -785,28 +785,28 @@ export const ISLAND_COPY = defineMessages({
 export const COMMUNITY = {
   OF_FOCUS: <FormattedMessage
     id={'explore.map.page.side.panel.community.of.focus'}
-    defaultMessage={ 'YES'}
+    defaultMessage={'YES'}
     description={`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show the communities the score currently is focused on`}
   />,
   NOT_OF_FOCUS: <FormattedMessage
-    id= {'explore.map.page.side.panel.not.community.of.focus'}
-    defaultMessage= {'NO'}
+    id={'explore.map.page.side.panel.not.community.of.focus'}
+    defaultMessage={'NO'}
     description={`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show the communities the score currently is not focused on`}
   />,
   PARTIAL: <FormattedMessage
-    id= {'explore.map.page.side.panel.partial.community.of.focus'}
-    defaultMessage= {'PARTIALLY'}
+    id={'explore.map.page.side.panel.partial.community.of.focus'}
+    defaultMessage={'PARTIALLY'}
     description={`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show the communities the score currently is partially focused on`}
   />,
   IS_FOCUS: <FormattedMessage
     id={'explore.map.page.side.panel.is.community.of.focus'}
-    defaultMessage={ 'Identified as disadvantaged?'}
+    defaultMessage={'Identified as disadvantaged?'}
     description={`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show asking IF the communities is focused on`}
   />,
   SEND_FEEDBACK: {
     TITLE: <FormattedMessage
       id={'explore.map.page.side.panel.send.feedback.title'}
-      defaultMessage={ 'Send feedback'}
+      defaultMessage={'Send feedback'}
       description={`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show link to send feedback`}
     />,
     IMG_ICON: defineMessages({
@@ -819,7 +819,7 @@ export const COMMUNITY = {
   },
 };
 
-export const numberOfCategoriesExceeded = (categoryCount:number) => <FormattedMessage
+export const numberOfCategoriesExceeded = (categoryCount: number) => <FormattedMessage
   id={'explore.map.page.side.panel.num.categories.exceeded'}
   defaultMessage={`in {numberOfDisCategories, plural, one {# category} other {# categories}}`}
   description={`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show how many categories are exceeded`}
@@ -947,7 +947,8 @@ export const SIDE_PANEL_INDICATORS = defineMessages({
   LOW_INCOME: {
     id: 'explore.map.page.side.panel.indicator.low.income',
     defaultMessage: 'Low income',
-    description: `Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show low income`},
+    description: `Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show low income`,
+  },
   HIGH_ED: {
     id: 'explore.map.page.side.panel.indicator.high.ed',
     defaultMessage: 'Higher education non-enrollment',

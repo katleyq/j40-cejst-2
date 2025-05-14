@@ -504,11 +504,6 @@ const MapTractLayers = ({
             <Layer
               id={constants.ADD_BURDEN_HIGH_LAYER_ID}
               source-layer={constants.SCORE_SOURCE_LAYER}
-              filter={[
-                '>',
-                constants.TOTAL_POPULATION,
-                constants.PSIM_POP_THRESHOLD,
-              ]}
               type="fill"
               paint={{
                 'fill-color': [
@@ -623,11 +618,6 @@ const MapTractLayers = ({
             <Layer
               id={constants.ADD_INDICATOR_HIGH_LAYER_ID}
               source-layer={constants.SCORE_SOURCE_LAYER}
-              filter={[
-                '>',
-                constants.TOTAL_POPULATION,
-                constants.PSIM_POP_THRESHOLD,
-              ]}
               type="fill"
               paint={{
                 'fill-color': [
