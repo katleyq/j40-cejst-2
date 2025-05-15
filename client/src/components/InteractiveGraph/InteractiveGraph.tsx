@@ -94,7 +94,7 @@ const InteractiveGraph = ({url}: Props) => {
     FLD_PFS: 'Projected flood risk',
     WFR_PFS: 'Projected wildfire risk',
     EBF_PFS: 'Energy burden',
-    PM25_PFS: 'PM2.5 pollution',
+    PM25F_PFS: 'PM2.5 pollution',
     DSF_PFS: 'Diesel particulate matter',
     TF_PFS: 'Traffic proximity',
     TD_PFS: 'DOT travel barriers score',
@@ -117,7 +117,7 @@ const InteractiveGraph = ({url}: Props) => {
     LMI_PFS: 'Low median household income',
     LIF_PFS: 'Linguistic isolation',
     UF_PFS: 'Unemployment',
-    P100_PFS: '% Individuals below federal poverty line',
+    P100_PFS: '% below federal poverty line',
   };
 
   // Update selectedCounty and selectedIndicator when dependencies change
