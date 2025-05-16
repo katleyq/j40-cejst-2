@@ -397,7 +397,7 @@ export const SIDE_PANEL_INITIAL_STATE = defineMessages({
   PARA5_PART2: {
     id: 'explore.map.page.side.panel.info.para.2',
     defaultMessage: `
-    , or cutoffs, are used to determine if communities in a tract are disadvantaged. Certain burdens use percentages
+    , or cutoffs, are used to assign disadvantaged status. Certain burdens use percentages
     `,
     description:
       '`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show Thresholds, or cutoffs, are used to determine if communities in a tract are disadvantaged. Certain burdens use percentages or a simple yes/no.',
