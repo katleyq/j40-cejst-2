@@ -31,11 +31,6 @@ const ContactPage = ({location}: IContactPageProps) => {
       <J40MainGridContainer>
         <section className={'page-heading'}>
           <h1>{intl.formatMessage(CONTACT_COPY.PAGE_INTRO.PAGE_HEADING)}</h1>
-          {/* <DatasetsButton
-            href={
-              intl.locale === 'es' ? DATA_SURVEY_LINKS.ES : DATA_SURVEY_LINKS.EN
-            }
-          /> */}
         </section>
 
         <Grid row gap={6}>
@@ -49,7 +44,7 @@ const ContactPage = ({location}: IContactPageProps) => {
               <FormattedMessage
                 id={'contact.page.general'}
                 description={'Contact page body text'}
-                defaultMessage={`Email CEQ at: {general_email_address}.`}
+                defaultMessage={`Email us at: {general_email_address}.`}
                 values={{
                   general_email_address: (
                     <LinkTypeWrapper
@@ -62,6 +57,87 @@ const ContactPage = ({location}: IContactPageProps) => {
                 }}
               />
             </p>
+            <p>Individual contact information can be found here:</p>
+            <ul>
+              <li>
+                <p>
+                  <strong>Josephine Cardelle</strong>{' '}
+                  <a className="usa-link" href="https://github.com/jocardelle">
+                    GitHub
+                  </a>{' '}
+                  |{' '}
+                  <a className="usa-link" href="https://jocardelle.github.io/">
+                    Website
+                  </a>{' '}
+                  |{' '}
+                  <a
+                    className="usa-link"
+                    href="https://www.linkedin.com/in/josephine-cardelle/"
+                  >
+                    LinkedIn
+                  </a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Kat Le</strong>{' '}
+                  <a className="usa-link" href="https://github.com/katleyq">
+                    GitHub
+                  </a>{' '}
+                  |{' '}
+                  <a
+                    className="usa-link"
+                    href="https://www.linkedin.com/in/katherine-le/"
+                  >
+                    LinkedIn
+                  </a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Haylee Oyler</strong>{' '}
+                  <a className="usa-link" href="https://github.com/haylee360">
+                    GitHub
+                  </a>{' '}
+                  |{' '}
+                  <a className="usa-link" href="https://haylee360.github.io/">
+                    Website
+                  </a>{' '}
+                  |{' '}
+                  <a
+                    className="usa-link"
+                    href="https://www.linkedin.com/in/haylee-oyler/"
+                  >
+                    LinkedIn
+                  </a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Kimberlee Wong</strong>{' '}
+                  <a
+                    className="usa-link"
+                    href="https://github.com/kimberleewong"
+                  >
+                    GitHub
+                  </a>{' '}
+                  |{' '}
+                  <a
+                    className="usa-link"
+                    href="https://kimberleewong.github.io/"
+                  >
+                    Website
+                  </a>{' '}
+                  |{' '}
+                  <a
+                    className="usa-link"
+                    href="https://www.linkedin.com/in/kimberlee-wong/"
+                  >
+                    LinkedIn
+                  </a>
+                </p>
+              </li>
+            </ul>
           </Grid>
 
           {/* Second column, spacer */}

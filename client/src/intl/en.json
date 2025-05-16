@@ -212,7 +212,7 @@
     "description": "Navigate to the Alerts on any page. This will be the link to the technical support document."
   },
   "contact.page.census.tract.feedback.para3": {
-    "defaultMessage": "The best way to contact the Council on Environmental Quality (CEQ) is by filling out <link1>this form</link1>.",
+    "defaultMessage": "The best way to contact the MEDS Justice40 team is to email us at the link below. If you wish to get in touch with the original developers at the Council on Environmental Quality (CEQ), you may fill out <link1>this form</link1>.",
     "description": "Navigate to the survey. Spanish should substitute <link2> to get Spanish link! Already coded to support"
   },
   "contact.page.fab.survey.text": {
@@ -220,7 +220,7 @@
     "description": "Navigate to the contact page, this is the text for floating action button"
   },
   "contact.page.general": {
-    "defaultMessage": "Email CEQ at: {general_email_address}.",
+    "defaultMessage": "Email us at: {general_email_address}.",
     "description": "Contact page body text"
   },
   "contact.page.header.text": {

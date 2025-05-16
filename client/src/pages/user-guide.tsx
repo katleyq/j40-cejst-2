@@ -1,11 +1,13 @@
 import {Grid} from '@trussworks/react-uswds';
 import * as React from 'react';
 import {useWindowSize} from 'react-use';
+import {useIntl} from 'gatsby-plugin-intl';
 
 import J40MainGridContainer from '../components/J40MainGridContainer';
 import Layout from '../components/layout';
 // import ReleaseUpdate from '../components/ReleaseUpdate';
 import SubPageNav from '../components/SubPageNav';
+import * as ABOUT_COPY from '../data/copy/about';
 
 import {PAGES_ENDPOINTS, USWDS_BREAKPOINTS} from '../data/constants';
 // import * as DOWNLOADS_COPY from '../data/copy/downloads';
@@ -14,7 +16,7 @@ interface IDownloadsPageProps {
 }
 
 const DownloadsPage = ({location}: IDownloadsPageProps) => {
-  // const intl = useIntl();
+  const intl = useIntl();
   const {width} = useWindowSize();
 
   return (
@@ -37,6 +39,9 @@ const DownloadsPage = ({location}: IDownloadsPageProps) => {
               provides a comprehensive view of cumulative impacts to better
               inform resource allocation.
             </p>
+            <p>{ABOUT_COPY.CONTENT.HOW_TO_USE_PARA1}</p>
+            <p>{intl.formatMessage(ABOUT_COPY.HOW_TO_USE_TOOL.PARA2)}</p>
+            <p>{ABOUT_COPY.CONTENT.HOW_TO_USE_PARA3}</p>
             <h2>2. Getting Started</h2>
             <h3>Accessing the Application</h3>
             <ul>
