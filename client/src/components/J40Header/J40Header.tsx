@@ -155,6 +155,14 @@ const J40Header = ({location}: IJ40Header) => {
       activeClassName="usa-current"
       data-cy={'nav-link-about'}
     >
+      About
+    </Link>,
+    <Link
+      to={PAGES_ENDPOINTS.DOWNLOADS}
+      key={'downloads'}
+      activeClassName="usa-current"
+      data-cy={'nav-link-downloads'}
+    >
       User Guide
     </Link>,
     <Link
@@ -166,10 +174,10 @@ const J40Header = ({location}: IJ40Header) => {
       Methodology & Data
     </Link>,
     <Link
-      to={PAGES_ENDPOINTS.FAQS}
-      key={'faqs'}
+      to={PAGES_ENDPOINTS.CONTACT}
+      key={'contact'}
       activeClassName="usa-current"
-      data-cy={'nav-link-faqs'}
+      data-cy={'nav-link-contact'}
     >
       Contact & Acknowledgements
     </Link>,
@@ -216,7 +224,8 @@ const J40Header = ({location}: IJ40Header) => {
             ''
         }
         key="aboutDropDown"
-        label={intl.formatMessage(COMMON_COPY.HEADER.ABOUT)}
+        label="Information"
+        // label={intl.formatMessage(COMMON_COPY.HEADER.ABOUT)}
         menuId="aboutMenu"
         isOpen={isOpen[1]}
         onToggle={(): void => onToggle(1)}

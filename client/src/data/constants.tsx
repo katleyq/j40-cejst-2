@@ -9,7 +9,7 @@ export const isMobile = isMobileReactDeviceDetect;
 export const PAGES_ENDPOINTS = {
   EXPLORE: "/",
   METHODOLOGY: "/methodology",
-  DOWNLOADS: "/downloads",
+  DOWNLOADS: "/user-guide",
   TSD: "/technical-support-document",
   ABOUT: "/about",
   FAQS: "/frequently-asked-questions",

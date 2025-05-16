@@ -20,13 +20,13 @@ const AdditiveSidePanelInfo = () => {
     <aside className={styles.sidePanelInfoContainer}>
       {/* Heading 1 */}
       <header tabIndex={0} className={styles.sidePanelInfoTitle}>
-        Total Thresholds Excedded
+        Total Thresholds Exceeded
       </header>
 
       {/* Paragraph 1 */}
       <p tabIndex={0}>
-        This methodology aggregates burdens or indicators that exceed
-        predefined thresholds within census tracts.
+        This method looks at the total number of thresholds exceeded within a
+        census tracts.
       </p>
 
       {/* Heading 1 */}
@@ -37,26 +37,38 @@ const AdditiveSidePanelInfo = () => {
       {/* Paragraph 1 */}
       <p tabIndex={0}>
         {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART1)}
-        {
-          windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
-          <img tabIndex={0} className={styles.sidePanelInfoIcon} src={plusIcon}
-            alt={intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.PLUS)}
+        {windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG && (
+          <img
+            tabIndex={0}
+            className={styles.sidePanelInfoIcon}
+            src={plusIcon}
+            alt={intl.formatMessage(
+                EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.PLUS,
+            )}
           />
-        }
+        )}
         {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART2)}
-        {
-          windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
-          <img tabIndex={0} className={styles.sidePanelInfoIcon} src={searchIcon}
-            alt={intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.SEARCH)}
+        {windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG && (
+          <img
+            tabIndex={0}
+            className={styles.sidePanelInfoIcon}
+            src={searchIcon}
+            alt={intl.formatMessage(
+                EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.SEARCH,
+            )}
           />
-        }
+        )}
         {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART3)}
-        {
-          windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
-          <img tabIndex={0} className={styles.sidePanelInfoIcon} src={locateIcon}
-            alt={intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.LOCATE)}
+        {windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG && (
+          <img
+            tabIndex={0}
+            className={styles.sidePanelInfoIcon}
+            src={locateIcon}
+            alt={intl.formatMessage(
+                EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.LOCATE,
+            )}
           />
-        }
+        )}
         {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART4)}
         {/* {
           windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
@@ -66,7 +78,6 @@ const AdditiveSidePanelInfo = () => {
         } */}
         {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART5)}
       </p>
-
     </aside>
   );
 };

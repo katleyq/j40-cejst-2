@@ -23,10 +23,10 @@ const HotspotTractPrioritization = ({
     return <h3>Not Significant</h3>;
   } else {
     if (pValue >= -0.05 && pValue < -0.01) {
-      return <h3 className={styles.invert}>Cold Spot</h3>;
+      return <h3 className={styles.invertBlue}>Cold Spot</h3>;
     } else {
       if (pValue >= -0.01 && pValue < -0.000001) {
-        return <h3 className={styles.invert}>Very Cold Spot</h3>;
+        return <h3 className={styles.invertBlue}>Very Cold Spot</h3>;
       } else {
         if (pValue >= 0 && pValue <= 0.01) {
           return <h3 className={styles.invertRed}>Very Hot Spot</h3>;

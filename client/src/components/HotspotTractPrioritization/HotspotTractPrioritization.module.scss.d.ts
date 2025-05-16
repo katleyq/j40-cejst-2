@@ -2,6 +2,7 @@ declare namespace TractPrioritizationNamespace {
     export interface ITractPrioritizationScss {
       invert: string;
       invertRed: string;
+      invertBlue: string;
     }
   }
 
