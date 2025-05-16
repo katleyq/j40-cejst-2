@@ -74,7 +74,6 @@ const AboutPage = ({location}: IAboutPageProps) => {
                 approach to advancing environmental justice. The initiative was
                 reversed by the Trump administration in January 2025.
               </p>
-              <p>UPDATE THESE PARAGRAPHS</p>
               <h2>Climate and Economic Justice Screening Tool</h2>
               <p>
                 The Climate and Economic Justice Screening Tool (CEJST),
@@ -88,7 +87,114 @@ const AboutPage = ({location}: IAboutPageProps) => {
                 CEJST was removed in January 2025, though archived versions have
                 been preserved by various organizations.
               </p>
-              <p>{ABOUT_COPY.CONTENT.PARA2}</p>
+              <h2>CEJST+</h2>
+              <p>
+                This project was created as a Master of Environmental Data
+                Science Capstone Project at the{' '}
+                <a className="usa-link" href="https://bren.ucsb.edu/">
+                  Bren School of Environmental Science & Management
+                </a>
+                . This project seeks to extend and improve CEJST’s model by
+                assessing the cumulative impacts of climate and environmental
+                burdens across communities in the U.S. By analyzing and
+                incorporating cumulative burdens using cutting-edge geospatial
+                techniques, the revised screening tool will promote more
+                meaningful and equitable investment into overburdened
+                disadvantaged communities facing the greatest risk from climate
+                change. The project contributors are:
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    <strong>Josephine Cardelle</strong>{' '}
+                    <a
+                      className="usa-link"
+                      href="https://github.com/jocardelle"
+                    >
+                      GitHub
+                    </a>{' '}
+                    |{' '}
+                    <a
+                      className="usa-link"
+                      href="https://jocardelle.github.io/"
+                    >
+                      Website
+                    </a>{' '}
+                    |{' '}
+                    <a
+                      className="usa-link"
+                      href="https://www.linkedin.com/in/josephine-cardelle/"
+                    >
+                      LinkedIn
+                    </a>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>Kat Le</strong>{' '}
+                    <a className="usa-link" href="https://github.com/katleyq">
+                      GitHub
+                    </a>{' '}
+                    |{' '}
+                    <a className="usa-link" href="https://haylee360.github.io/">
+                      Website
+                    </a>{' '}
+                    |{' '}
+                    <a
+                      className="usa-link"
+                      href="https://www.linkedin.com/in/katherine-le/"
+                    >
+                      LinkedIn
+                    </a>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>Haylee Oyler</strong>{' '}
+                    <a className="usa-link" href="https://github.com/haylee360">
+                      GitHub
+                    </a>{' '}
+                    |{' '}
+                    <a className="usa-link" href="https://haylee360.github.io/">
+                      Website
+                    </a>{' '}
+                    |{' '}
+                    <a
+                      className="usa-link"
+                      href="https://www.linkedin.com/in/haylee-oyler/"
+                    >
+                      LinkedIn
+                    </a>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>Kimberlee Wong</strong>{' '}
+                    <a
+                      className="usa-link"
+                      href="https://github.com/kimberleewong"
+                    >
+                      GitHub
+                    </a>{' '}
+                    |{' '}
+                    <a
+                      className="usa-link"
+                      href="https://kimberleewong.github.io/"
+                    >
+                      Website
+                    </a>{' '}
+                    |{' '}
+                    <a
+                      className="usa-link"
+                      href="https://www.linkedin.com/in/kimberlee-wong/"
+                    >
+                      LinkedIn
+                    </a>
+                  </p>
+                </li>
+              </ul>
+
+              {/* <p>{ABOUT_COPY.CONTENT.PARA2}</p> */}
             </section>
           </Grid>
 
