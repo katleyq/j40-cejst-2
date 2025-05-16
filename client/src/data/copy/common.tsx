@@ -180,19 +180,19 @@ export const HEADER = defineMessages({
   },
   METHODOLOGY: {
     id: 'common.pages.header.methodology',
-    defaultMessage: 'Methodology & data',
+    defaultMessage: 'Methodology & Data',
     description:
       'Navigate to the about page. This is Header navigate item to the Methodology page',
   },
   CONTACT: {
     id: 'common.pages.header.contact',
-    defaultMessage: 'Contact',
+    defaultMessage: 'Contact & Acknowledgements',
     description:
       'Navigate to the about page. This is Header navigate item to the Contact page',
   },
   DOWNLOADS: {
     id: 'common.pages.header.downloads',
-    defaultMessage: 'Downloads',
+    defaultMessage: 'User Guide',
     description:
       'Navigate to the about page. This is Header navigate item to the downloads page',
   },

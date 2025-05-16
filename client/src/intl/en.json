@@ -172,11 +172,11 @@
     "description": "Navigate to the about page. This is Header navigate item to the about page"
   },
   "common.pages.header.contact": {
-    "defaultMessage": "Contact",
+    "defaultMessage": "Contact & Acknowledgements",
     "description": "Navigate to the about page. This is Header navigate item to the Contact page"
   },
   "common.pages.header.downloads": {
-    "defaultMessage": "Downloads",
+    "defaultMessage": "User Guide",
     "description": "Navigate to the about page. This is Header navigate item to the downloads page"
   },
   "common.pages.header.explore": {
@@ -188,7 +188,7 @@
     "description": "Navigate to the about page. This is Header navigate item to the faqs page"
   },
   "common.pages.header.methodology": {
-    "defaultMessage": "Methodology & data",
+    "defaultMessage": "Methodology & Data",
     "description": "Navigate to the about page. This is Header navigate item to the Methodology page"
   },
   "common.pages.header.previous_versions": {

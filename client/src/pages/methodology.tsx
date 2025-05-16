@@ -173,10 +173,12 @@ const IndexPage = ({location}: MethodPageProps) => {
           {width > USWDS_BREAKPOINTS.DESKTOP ? (
             <Grid col={12} tablet={{col: 3}}>
               <SubPageNav
+                activeSubPageIndex={2}
                 endPoints={[
                   PAGES_ENDPOINTS.ABOUT,
+                  PAGES_ENDPOINTS.DOWNLOADS,
                   PAGES_ENDPOINTS.METHODOLOGY,
-                  PAGES_ENDPOINTS.FAQS,
+                  PAGES_ENDPOINTS.CONTACT,
                 ]}
               />
             </Grid>
