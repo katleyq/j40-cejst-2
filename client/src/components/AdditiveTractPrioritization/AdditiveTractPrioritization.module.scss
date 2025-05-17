@@ -1,0 +1,52 @@
+@use '../../styles/design-system.scss' as *;
+@import "../utils.scss";
+
+h3.invert{
+    @include invert();
+};
+
+h3.invert0 {
+  @include invert(); 
+  background-color: #FBF8F3 !important; 
+}
+
+h3.invert1 {
+  @include invert(); 
+  background-color: #febb81 !important; 
+}
+
+h3.invert2 {
+  @include invert(); 
+  background-color: #f8765c !important; 
+}
+
+h3.invert3 {
+  @include invert(); 
+  background-color: #e44675 !important; 
+}
+
+h3.invert4 {
+  @include invert(); 
+  background-color: #c02d2d !important; 
+}
+
+h3.invert5 {
+  @include invert(); 
+  background-color: #7b1284 !important; 
+}
+
+h3.invert6 {
+  @include invert(); 
+  background-color: #391f80 !important; 
+}
+
+h3.invert7 {
+  @include invert(); 
+  background-color: rgb(16, 19, 87) !important; 
+}
+
+h3.invert8 {
+  @include invert(); 
+  background-color: #000004 !important; 
+}
+

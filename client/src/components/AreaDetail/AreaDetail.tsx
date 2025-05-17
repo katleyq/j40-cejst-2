@@ -14,6 +14,8 @@ import PrioritizationCopy2 from "../PrioritizationCopy2";
 import TractDemographics from "../TractDemographics";
 import TractInfo from "../TractInfo";
 import TractPrioritization from "../TractPrioritization";
+// import HotspotTractPrioritization from "../HotspotTractPrioritization";
+// import AdditiveTractPrioritization from "../AdditiveTractPrioritization";
 
 // Styles and constants
 import * as constants from "../../data/constants";
@@ -25,6 +27,7 @@ import IslandCopy from "../IslandCopy/IslandCopy";
 
 interface IAreaDetailProps {
   properties: constants.J40Properties;
+  // visibleLayer: string;
   hash: string[];
 }
 
@@ -1095,6 +1098,120 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
     expanded: false,
   }));
 
+  // let prioritizationComponent = null;
+  // switch (visibleLayer) {
+  //   case constants.ADD_BURDEN_LAYER_ID:
+  //     prioritizationComponent = (
+  //       <AdditiveTractPrioritization
+  //         threshold={properties[constants.COUNT_OF_CATEGORIES_DISADV]}
+  //       />
+  //     );
+  //     break;
+  //   case constants.ADD_INDICATOR_LAYER_ID:
+  //     prioritizationComponent = (
+  //       <AdditiveTractPrioritization
+  //         threshold={
+  //           properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS]
+  //         }
+  //       />
+  //     );
+  //     break;
+  //   case constants.PSIM_BURDEN_LAYER_ID:
+  //     prioritizationComponent = (
+  //       <HotspotTractPrioritization
+  //         pValue={properties[constants.PSIM_BURDEN]}
+  //       />
+  //     );
+  //     break;
+  //   case constants.PSIM_INDICATOR_LAYER_ID:
+  //     prioritizationComponent = (
+  //       <HotspotTractPrioritization
+  //         pValue={properties[constants.PSIM_INDICATOR]}
+  //       />
+  //     );
+  //     break;
+  //   case constants.LEGACY_LAYER_ID:
+  //     prioritizationComponent = (
+  //       <>
+  //         <TractPrioritization
+  //           scoreNCommunities={
+  //             properties[constants.SCORE_N_COMMUNITIES] === true ?
+  //               properties[constants.SCORE_N_COMMUNITIES] :
+  //               false
+  //           }
+  //           tribalCountAK={
+  //             properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+  //               properties[constants.TRIBAL_AREAS_COUNT_AK] :
+  //               null
+  //           }
+  //           tribalCountUS={
+  //             properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+  //               properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+  //               null
+  //           }
+  //           percentTractTribal={percentTractTribal}
+  //         />
+  //         <PrioritizationCopy
+  //           totalCategoriesPrioritized={
+  //             properties[constants.COUNT_OF_CATEGORIES_DISADV]
+  //           }
+  //           totalBurdensPrioritized={
+  //             properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS]
+  //           }
+  //           isAdjacencyThreshMet={
+  //             properties[constants.ADJACENCY_EXCEEDS_THRESH]
+  //           }
+  //           isAdjacencyLowIncome={
+  //             properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
+  //           }
+  //           isIslandLowIncome={
+  //             properties[constants.IS_FEDERAL_POVERTY_LEVEL_200] &&
+  //             constants.TILES_ISLAND_AREA_FIPS_CODES.some((code) => {
+  //               return properties[constants.GEOID_PROPERTY].startsWith(code);
+  //             })
+  //           }
+  //           tribalCountAK={
+  //             properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+  //               properties[constants.TRIBAL_AREAS_COUNT_AK] :
+  //               null
+  //           }
+  //           tribalCountUS={
+  //             properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+  //               properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+  //               null
+  //           }
+  //           percentTractTribal={percentTractTribal}
+  //           isGrandfathered={properties[constants.IS_GRANDFATHERED]}
+  //         />
+  //         <PrioritizationCopy2
+  //           totalCategoriesPrioritized={
+  //             properties[constants.COUNT_OF_CATEGORIES_DISADV]
+  //           }
+  //           isAdjacencyThreshMet={
+  //             properties[constants.ADJACENCY_EXCEEDS_THRESH]
+  //           }
+  //           isAdjacencyLowIncome={
+  //             properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
+  //           }
+  //           tribalCountAK={
+  //             properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+  //               properties[constants.TRIBAL_AREAS_COUNT_AK] :
+  //               null
+  //           }
+  //           tribalCountUS={
+  //             properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+  //               properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+  //               null
+  //           }
+  //           percentTractTribal={percentTractTribal}
+  //         />
+  //       </>
+  //     );
+  //     break;
+  //   default:
+  //     prioritizationComponent = null;
+  // }
+
   return (
     <aside className={styles.areaDetailContainer} data-cy={"aside"}>
       {/* Tract Info */}
@@ -1118,6 +1235,7 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
 
         {/* YES, NO or PARTIALLY disadvantaged  */}
         <div className={styles.communityOfFocus}>
+          {/* {prioritizationComponent} */}
           <TractPrioritization
             scoreNCommunities={
               properties[constants.SCORE_N_COMMUNITIES] === true ?
@@ -1204,28 +1322,6 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
         />
       )}
 
-      {/* Send Feedback button */}
-      {/* <a
-        className={styles.sendFeedbackLink}
-        href={
-          intl.locale === `es` ?
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.ES}?tractid=${blockGroup}` :
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.EN}?tractid=${blockGroup}`
-        }
-        target={"_blank"}
-        rel="noreferrer"
-      >
-        <Button type="button" className={styles.sendFeedbackBtn}>
-          <div className={styles.buttonContainer}>
-            <div className={styles.buttonText}>
-              {EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.TITLE}
-            </div>
-
-            <Icon.Launch aria-label={intl.formatMessage(EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.IMG_ICON.ALT_TAG)} />
-          </div>
-        </Button>
-      </a> */}
-
       {/* All category accordions in this component */}
       {
         <Accordion
@@ -1234,11 +1330,6 @@ const AreaDetail = ({properties}: IAreaDetailProps) => {
           className="-AreaDetail"
         />
       }
-
-      {/* Methodology version */}
-      {/* <div className={styles.versionInfo}>
-        {EXPLORE_COPY.SIDE_PANEL_VERSION.TITLE}
-      </div> */}
     </aside>
   );
 };

@@ -26,6 +26,7 @@ import HotspotTractPrioritization from "../HotspotTractPrioritization";
 interface IHotspotAreaDetailProps {
   properties: constants.J40Properties;
   hash: string[];
+  visibleLayer: string; // <-- Add this line
 }
 
 /**
@@ -127,7 +128,10 @@ export const getTribalPercentValue = (tribalPercentRaw: number) => {
  * @param {IHotspotAreaDetailProps} {}
  * @return {void}
  */
-const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
+const HotspotAreaDetail = ({
+  properties,
+  visibleLayer,
+}: IHotspotAreaDetailProps) => {
   const intl = useIntl();
 
   /**
@@ -192,6 +196,15 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
   const stateName = properties[constants.STATE_NAME] ?
     properties[constants.STATE_NAME] :
     constants.MISSING_DATA_STRING;
+
+  const isBurdenLayer = visibleLayer === constants.PSIM_BURDEN_LAYER_ID;
+  const isIndicatorLayer = visibleLayer === constants.PSIM_INDICATOR_LAYER_ID;
+
+  const pValue = isBurdenLayer ?
+    properties[constants.PSIM_BURDEN] :
+    isIndicatorLayer ?
+    properties[constants.PSIM_INDICATOR] :
+    properties[constants.PSIM_BURDEN];
 
   const sidePanelState = properties[constants.SIDE_PANEL_STATE];
   // const percentTractTribal =
@@ -1115,14 +1128,14 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
         {/* Hot spot, cold spot, NA */}
         <div className={styles.communityOfFocus}>
           <HotspotTractPrioritization
-            pValue={properties[constants.PSIM_BURDEN]}
+            pValue={pValue}
           ></HotspotTractPrioritization>
         </div>
       </div>
 
       <div style={{paddingLeft: "1.2rem"}}>
         {/* Tract Info */}
-        <HotspotInfo pValue={properties[constants.PSIM_BURDEN]} />
+        <HotspotInfo pValue={pValue} />
         {/* <HotspotInfo
           pValue={
             visibleLayer === constants.PSIM_BURDEN_LAYER_ID ||

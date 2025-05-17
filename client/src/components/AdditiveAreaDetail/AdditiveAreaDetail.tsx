@@ -1,6 +1,8 @@
 /* eslint-disable quotes */
 // External Libs:
-import {Accordion, Button, Icon} from "@trussworks/react-uswds";
+// import {Accordion, Button, Icon} from "@trussworks/react-uswds";
+import {Accordion} from "@trussworks/react-uswds";
+
 import {MessageDescriptor, useIntl} from "gatsby-plugin-intl";
 import React from "react";
 
@@ -1205,32 +1207,6 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
         />
       )}
 
-      {/* Send Feedback button */}
-      <a
-        className={styles.sendFeedbackLink}
-        href={
-          intl.locale === `es` ?
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.ES}?tractid=${blockGroup}` :
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.EN}?tractid=${blockGroup}`
-        }
-        target={"_blank"}
-        rel="noreferrer"
-      >
-        <Button type="button" className={styles.sendFeedbackBtn}>
-          <div className={styles.buttonContainer}>
-            <div className={styles.buttonText}>
-              {EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.TITLE}
-            </div>
-
-            <Icon.Launch
-              aria-label={intl.formatMessage(
-                  EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.IMG_ICON.ALT_TAG,
-              )}
-            />
-          </div>
-        </Button>
-      </a>
-
       {/* All category accordions in this component */}
       {
         <Accordion
@@ -1239,11 +1215,6 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
           className="-HotspotAreaDetail"
         />
       }
-
-      {/* Methodology version */}
-      <div className={styles.versionInfo}>
-        {EXPLORE_COPY.SIDE_PANEL_VERSION.TITLE}
-      </div>
     </aside>
   );
 };
