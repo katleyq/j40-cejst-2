@@ -26,7 +26,7 @@ import HotspotTractPrioritization from "../HotspotTractPrioritization";
 interface IHotspotAreaDetailProps {
   properties: constants.J40Properties;
   hash: string[];
-  visibleLayer: string; // <-- Add this line
+  visibleLayer: string;
 }
 
 /**
@@ -1226,32 +1226,6 @@ const HotspotAreaDetail = ({
         />
       )}
 
-      {/* Send Feedback button */}
-      {/* <a
-        className={styles.sendFeedbackLink}
-        href={
-          intl.locale === `es` ?
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.ES}?tractid=${blockGroup}` :
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.EN}?tractid=${blockGroup}`
-        }
-        target={"_blank"}
-        rel="noreferrer"
-      >
-        <Button type="button" className={styles.sendFeedbackBtn}>
-          <div className={styles.buttonContainer}>
-            <div className={styles.buttonText}>
-              {EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.TITLE}
-            </div>
-
-            <Icon.Launch
-              aria-label={intl.formatMessage(
-                  EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.IMG_ICON.ALT_TAG,
-              )}
-            />
-          </div>
-        </Button>
-      </a> */}
-
       {/* All category accordions in this component */}
       {
         <Accordion
@@ -1260,11 +1234,6 @@ const HotspotAreaDetail = ({
           className="-HotspotAreaDetail"
         />
       }
-
-      {/* Methodology version */}
-      {/* <div className={styles.versionInfo}>
-        {EXPLORE_COPY.SIDE_PANEL_VERSION.TITLE}
-      </div> */}
     </aside>
   );
 };

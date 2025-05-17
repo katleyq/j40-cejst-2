@@ -15,6 +15,8 @@ import PrioritizationCopy2 from "../PrioritizationCopy2";
 import TractDemographics from "../TractDemographics";
 import TractInfo from "../TractInfo";
 import TractPrioritization from "../TractPrioritization";
+import AdditiveTractPrioritization from "../AdditiveTractPrioritization";
+import IndAdditiveTractPrioritization from "../IndAdditiveTractPrioritization";
 
 // Styles and constants
 import * as constants from "../../data/constants";
@@ -24,9 +26,10 @@ import * as styles from "./AdditiveareaDetail.module.scss";
 // @ts-ignore
 import IslandCopy from "../IslandCopy/IslandCopy";
 
-interface IHotspotAreaDetailProps {
+interface IAdditiveAreaDetailProps {
   properties: constants.J40Properties;
   hash: string[];
+  visibleLayer: string;
 }
 
 /**
@@ -128,7 +131,10 @@ export const getTribalPercentValue = (tribalPercentRaw: number) => {
  * @param {IHotspotAreaDetailProps} {}
  * @return {void}
  */
-const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
+const AdditiveAreaDetail = ({
+  properties,
+  visibleLayer,
+}: IAdditiveAreaDetailProps) => {
   const intl = useIntl();
 
   /**
@@ -188,6 +194,15 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
   const stateName = properties[constants.STATE_NAME] ?
     properties[constants.STATE_NAME] :
     constants.MISSING_DATA_STRING;
+
+  const isBurdenLayer = visibleLayer === constants.ADD_BURDEN_LAYER_ID;
+  const isIndicatorLayer = visibleLayer === constants.ADD_INDICATOR_LAYER_ID;
+
+  const threshold = isBurdenLayer ?
+    properties[constants.COUNT_OF_CATEGORIES_DISADV] :
+    isIndicatorLayer ?
+    properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS] :
+    properties[constants.COUNT_OF_CATEGORIES_DISADV];
 
   const sidePanelState = properties[constants.SIDE_PANEL_STATE];
   const percentTractTribal =
@@ -1098,125 +1113,144 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
 
   return (
     <aside className={styles.areaDetailContainer} data-cy={"aside"}>
-      <h4>Additive Detailed info</h4>
-      <p>This information should stay nearly identical to the legacy layer</p>
-      {/* Tract Info */}
-      <TractInfo
-        blockGroup={blockGroup}
-        countyName={countyName}
-        stateName={stateName}
-        population={population}
-        sidePanelState={properties[constants.SIDE_PANEL_STATE]}
-      />
+      <div style={{paddingLeft: "1.2rem"}}>
+        <h4>Additive Detailed info</h4>
+        <p>This information should stay nearly identical to the legacy layer</p>
 
-      {/* Demographics */}
-      <TractDemographics properties={properties} />
+        {/* Cluster class */}
+        <div className={styles.categorization}>
+          {/* Questions asking if disadvantaged? */}
+          <div className={styles.isInFocus}>Thresholds exceeded:</div>
 
-      {/* Disadvantaged? */}
-      <div className={styles.categorization}>
-        {/* Questions asking if disadvantaged? */}
-        <div className={styles.isInFocus}>
-          {EXPLORE_COPY.COMMUNITY.IS_FOCUS}
+          {/* Hot spot, cold spot, NA */}
+          <div className={styles.communityOfFocus}>
+            {isBurdenLayer && (
+              <AdditiveTractPrioritization threshold={threshold} />
+            )}
+            {isIndicatorLayer && (
+              <IndAdditiveTractPrioritization threshold={threshold} />
+            )}
+          </div>
         </div>
 
-        {/* YES, NO or PARTIALLY disadvantaged  */}
-        <div className={styles.communityOfFocus}>
-          <TractPrioritization
-            scoreNCommunities={
-              properties[constants.SCORE_N_COMMUNITIES] === true ?
-                properties[constants.SCORE_N_COMMUNITIES] :
-                false
-            }
-            tribalCountAK={
-              properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_AK] :
-                null
-            }
-            tribalCountUS={
-              properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
-                null
-            }
-            percentTractTribal={percentTractTribal}
-          />
+        {/* Tract Info */}
+        <TractInfo
+          blockGroup={blockGroup}
+          countyName={countyName}
+          stateName={stateName}
+          population={population}
+          sidePanelState={properties[constants.SIDE_PANEL_STATE]}
+        />
+
+        {/* Demographics */}
+        <TractDemographics properties={properties} />
+
+        {/* Disadvantaged? */}
+        <div className={styles.categorization}>
+          {/* Questions asking if disadvantaged? */}
+          <div className={styles.isInFocus}>
+            {EXPLORE_COPY.COMMUNITY.IS_FOCUS}
+          </div>
+
+          {/* YES, NO or PARTIALLY disadvantaged  */}
+          <div className={styles.communityOfFocus}>
+            <TractPrioritization
+              scoreNCommunities={
+                properties[constants.SCORE_N_COMMUNITIES] === true ?
+                  properties[constants.SCORE_N_COMMUNITIES] :
+                  false
+              }
+              tribalCountAK={
+                properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_AK] :
+                  null
+              }
+              tribalCountUS={
+                properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+                  null
+              }
+              percentTractTribal={percentTractTribal}
+            />
+          </div>
+
+          <div className={styles.prioCopy}>
+            <PrioritizationCopy
+              totalCategoriesPrioritized={
+                properties[constants.COUNT_OF_CATEGORIES_DISADV]
+              }
+              totalBurdensPrioritized={
+                properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS]
+              }
+              isAdjacencyThreshMet={
+                properties[constants.ADJACENCY_EXCEEDS_THRESH]
+              }
+              isAdjacencyLowIncome={
+                properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
+              }
+              isIslandLowIncome={
+                properties[constants.IS_FEDERAL_POVERTY_LEVEL_200] &&
+                constants.TILES_ISLAND_AREA_FIPS_CODES.some((code) => {
+                  return properties[constants.GEOID_PROPERTY].startsWith(code);
+                })
+              }
+              tribalCountAK={
+                properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_AK] :
+                  null
+              }
+              tribalCountUS={
+                properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+                  null
+              }
+              percentTractTribal={percentTractTribal}
+              isGrandfathered={properties[constants.IS_GRANDFATHERED]}
+            />
+            <PrioritizationCopy2
+              totalCategoriesPrioritized={
+                properties[constants.COUNT_OF_CATEGORIES_DISADV]
+              }
+              isAdjacencyThreshMet={
+                properties[constants.ADJACENCY_EXCEEDS_THRESH]
+              }
+              isAdjacencyLowIncome={
+                properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
+              }
+              tribalCountAK={
+                properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_AK] :
+                  null
+              }
+              tribalCountUS={
+                properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+                  null
+              }
+              percentTractTribal={percentTractTribal}
+            />
+          </div>
         </div>
 
-        <div className={styles.prioCopy}>
-          <PrioritizationCopy
-            totalCategoriesPrioritized={
-              properties[constants.COUNT_OF_CATEGORIES_DISADV]
-            }
-            totalBurdensPrioritized={
-              properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS]
-            }
-            isAdjacencyThreshMet={
-              properties[constants.ADJACENCY_EXCEEDS_THRESH]
-            }
-            isAdjacencyLowIncome={
-              properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
-            }
-            isIslandLowIncome={
-              properties[constants.IS_FEDERAL_POVERTY_LEVEL_200] &&
-              constants.TILES_ISLAND_AREA_FIPS_CODES.some((code) => {
-                return properties[constants.GEOID_PROPERTY].startsWith(code);
-              })
-            }
-            tribalCountAK={
-              properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_AK] :
-                null
-            }
-            tribalCountUS={
-              properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
-                null
-            }
-            percentTractTribal={percentTractTribal}
-            isGrandfathered={properties[constants.IS_GRANDFATHERED]}
+        {showIslandCopy && <IslandCopy povertyPercentile={poveryPercentile} />}
+        {showDonutCopy && (
+          <DonutCopy
+            isAdjacent={properties[constants.ADJACENCY_EXCEEDS_THRESH]}
+            povertyBelow200Percentile={poveryPercentile}
           />
-          <PrioritizationCopy2
-            totalCategoriesPrioritized={
-              properties[constants.COUNT_OF_CATEGORIES_DISADV]
-            }
-            isAdjacencyThreshMet={
-              properties[constants.ADJACENCY_EXCEEDS_THRESH]
-            }
-            isAdjacencyLowIncome={
-              properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
-            }
-            tribalCountAK={
-              properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_AK] :
-                null
-            }
-            tribalCountUS={
-              properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
-                null
-            }
-            percentTractTribal={percentTractTribal}
+        )}
+
+        {/* All category accordions in this component */}
+        {
+          <Accordion
+            multiselectable={true}
+            items={categoryItems}
+            className="-AdditiveAreaDetail"
           />
-        </div>
+        }
       </div>
-
-      {showIslandCopy && <IslandCopy povertyPercentile={poveryPercentile} />}
-      {showDonutCopy && (
-        <DonutCopy
-          isAdjacent={properties[constants.ADJACENCY_EXCEEDS_THRESH]}
-          povertyBelow200Percentile={poveryPercentile}
-        />
-      )}
-
-      {/* All category accordions in this component */}
-      {
-        <Accordion
-          multiselectable={true}
-          items={categoryItems}
-          className="-HotspotAreaDetail"
-        />
-      }
     </aside>
   );
 };
 
-export default HotspotAreaDetail;
+export default AdditiveAreaDetail;

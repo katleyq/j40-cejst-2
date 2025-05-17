@@ -56,14 +56,22 @@ const MapInfoPanel = ({
 
       {visibleLayer === constants.ADD_BURDEN_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <AdditiveAreaDetail properties={featureProperties} hash={hash} />
+          <AdditiveAreaDetail
+            properties={featureProperties}
+            hash={hash}
+            visibleLayer={visibleLayer}
+          />
         ) : (
           <AdditiveSidePanelInfo />
         ))}
 
       {visibleLayer === constants.ADD_INDICATOR_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <AdditiveAreaDetail properties={featureProperties} hash={hash} />
+          <AdditiveAreaDetail
+            properties={featureProperties}
+            hash={hash}
+            visibleLayer={visibleLayer}
+          />
         ) : (
           <AdditiveSidePanelInfo />
         ))}
