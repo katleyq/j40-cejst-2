@@ -116,8 +116,11 @@ const MapTractLayers = ({
             id: constants.ADD_INDICATOR_LAYER_ID,
             name: 'Indicator Thresholds\nExceeded',
           },
-          {id: constants.PSIM_BURDEN_LAYER_ID, name: 'Burden Hotspots'},
-          {id: constants.PSIM_INDICATOR_LAYER_ID, name: 'Indicator Hotspots'},
+          {id: constants.PSIM_BURDEN_LAYER_ID, name: 'Burden Hot Spots'},
+          {
+            id: constants.PSIM_INDICATOR_LAYER_ID,
+            name: 'Indicator Hot Spots',
+          },
           {id: constants.LEGACY_LAYER_ID, name: 'Legacy Tool'},
         ]}
         visibleLayer={visibleLayer}

@@ -57,7 +57,7 @@ const HotspotInfo = ({pValue}: IHotspotInfoProps) => {
               <>
                 <p>Significance Level: 95% </p>
                 <p>
-                  This tract is considered a hotspot because it shows
+                  This tract is considered a hot spot because it shows
                   significant clustering of high thresholds exceeded.
                 </p>
               </>
@@ -66,7 +66,7 @@ const HotspotInfo = ({pValue}: IHotspotInfoProps) => {
             return (
               <>
                 <p>Significance Level: Not Significant</p>
-                <p>This tract is not identified as a hotspot or coldspot.</p>
+                <p>This tract is not identified as a hot spot or cold spot.</p>
               </>
             );
           }

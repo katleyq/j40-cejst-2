@@ -1116,46 +1116,48 @@ const AdditiveAreaDetail = ({
       <div style={{paddingLeft: "1.2rem"}}>
         {isBurdenLayer && <h4>Total Burdens</h4>}
         {isIndicatorLayer && <h4>Total Indicators</h4>}
+      </div>
 
-        {/* Cluster class */}
-        <div className={styles.categorization}>
-          {/* Questions asking if disadvantaged? */}
-          <div className={styles.isInFocus}>Thresholds exceeded:</div>
+      {/* Cluster class */}
+      <div className={styles.categorization}>
+        {/* Questions asking if disadvantaged? */}
+        <div className={styles.isInFocus}>Thresholds exceeded:</div>
 
-          {/* Hot spot, cold spot, NA */}
-          <div className={styles.communityOfFocus}>
-            {isBurdenLayer && (
-              <AdditiveTractPrioritization threshold={threshold} />
-            )}
-            {isIndicatorLayer && (
-              <IndAdditiveTractPrioritization threshold={threshold} />
-            )}
-          </div>
+        {/* Hot spot, cold spot, NA */}
+        <div className={styles.communityOfFocus}>
+          {isBurdenLayer && (
+            <AdditiveTractPrioritization threshold={threshold} />
+          )}
+          {isIndicatorLayer && (
+            <IndAdditiveTractPrioritization threshold={threshold} />
+          )}
         </div>
+      </div>
 
-        {/* Tract Info */}
-        <TractInfo
-          blockGroup={blockGroup}
-          countyName={countyName}
-          stateName={stateName}
-          population={population}
-          sidePanelState={properties[constants.SIDE_PANEL_STATE]}
-        />
+      {/* Tract Info */}
+      <TractInfo
+        blockGroup={blockGroup}
+        countyName={countyName}
+        stateName={stateName}
+        population={population}
+        sidePanelState={properties[constants.SIDE_PANEL_STATE]}
+      />
 
-        {/* Demographics */}
-        <TractDemographics properties={properties} />
-
+      {/* Demographics */}
+      <TractDemographics properties={properties} />
+      <div style={{paddingLeft: "1.2rem"}}>
         <p>Specific thresholds exceeded can be explored below:</p>
+      </div>
 
-        {/* Disadvantaged? */}
-        <div className={styles.categorization}>
-          {/* Questions asking if disadvantaged? */}
-          {/* <div className={styles.isInFocus}>
+      {/* Disadvantaged? */}
+      <div className={styles.categorization}>
+        {/* Questions asking if disadvantaged? */}
+        {/* <div className={styles.isInFocus}>
             {EXPLORE_COPY.COMMUNITY.IS_FOCUS}
           </div> */}
 
-          {/* YES, NO or PARTIALLY disadvantaged  */}
-          {/* <div className={styles.communityOfFocus}>
+        {/* YES, NO or PARTIALLY disadvantaged  */}
+        {/* <div className={styles.communityOfFocus}>
             <TractPrioritization
               scoreNCommunities={
                 properties[constants.SCORE_N_COMMUNITIES] === true ?
@@ -1176,8 +1178,8 @@ const AdditiveAreaDetail = ({
             />
           </div> */}
 
-          <div className={styles.prioCopy}>
-            {/* <PrioritizationCopy
+        <div className={styles.prioCopy}>
+          {/* <PrioritizationCopy
               totalCategoriesPrioritized={
                 properties[constants.COUNT_OF_CATEGORIES_DISADV]
               }
@@ -1209,48 +1211,47 @@ const AdditiveAreaDetail = ({
               percentTractTribal={percentTractTribal}
               isGrandfathered={properties[constants.IS_GRANDFATHERED]}
             /> */}
-            <PrioritizationCopy2
-              totalCategoriesPrioritized={
-                properties[constants.COUNT_OF_CATEGORIES_DISADV]
-              }
-              isAdjacencyThreshMet={
-                properties[constants.ADJACENCY_EXCEEDS_THRESH]
-              }
-              isAdjacencyLowIncome={
-                properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
-              }
-              tribalCountAK={
-                properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
-                  properties[constants.TRIBAL_AREAS_COUNT_AK] :
-                  null
-              }
-              tribalCountUS={
-                properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
-                  properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
-                  null
-              }
-              percentTractTribal={percentTractTribal}
-            />
-          </div>
+          <PrioritizationCopy2
+            totalCategoriesPrioritized={
+              properties[constants.COUNT_OF_CATEGORIES_DISADV]
+            }
+            isAdjacencyThreshMet={
+              properties[constants.ADJACENCY_EXCEEDS_THRESH]
+            }
+            isAdjacencyLowIncome={
+              properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
+            }
+            tribalCountAK={
+              properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+                properties[constants.TRIBAL_AREAS_COUNT_AK] :
+                null
+            }
+            tribalCountUS={
+              properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+                properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+                null
+            }
+            percentTractTribal={percentTractTribal}
+          />
         </div>
-
-        {showIslandCopy && <IslandCopy povertyPercentile={poveryPercentile} />}
-        {showDonutCopy && (
-          <DonutCopy
-            isAdjacent={properties[constants.ADJACENCY_EXCEEDS_THRESH]}
-            povertyBelow200Percentile={poveryPercentile}
-          />
-        )}
-
-        {/* All category accordions in this component */}
-        {
-          <Accordion
-            multiselectable={true}
-            items={categoryItems}
-            className="-AdditiveAreaDetail"
-          />
-        }
       </div>
+
+      {showIslandCopy && <IslandCopy povertyPercentile={poveryPercentile} />}
+      {showDonutCopy && (
+        <DonutCopy
+          isAdjacent={properties[constants.ADJACENCY_EXCEEDS_THRESH]}
+          povertyBelow200Percentile={poveryPercentile}
+        />
+      )}
+
+      {/* All category accordions in this component */}
+      {
+        <Accordion
+          multiselectable={true}
+          items={categoryItems}
+          className="-AdditiveAreaDetail"
+        />
+      }
     </aside>
   );
 };

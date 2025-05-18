@@ -60,7 +60,7 @@ const ExporeToolPage = ({location}: IMapPageProps) => {
         </div>
       </J40MainGridContainer>
 
-      <J40MainGridContainer fullWidth>
+      {/* <J40MainGridContainer fullWidth>
         <div style={{maxWidth: '90%', margin: 'auto'}}>
           <Grid desktop={{col: 7}} tablet={{col: 10}} col={12}>
             <h2>{EXPLORE_COPY.NOTE_ON_TERRITORIES.INTRO}</h2>
@@ -75,7 +75,7 @@ const ExporeToolPage = ({location}: IMapPageProps) => {
             <p>{EXPLORE_COPY.NOTE_ON_TRIBAL_NATIONS.PARA_2}</p>
           </Grid>
         </div>
-      </J40MainGridContainer>
+      </J40MainGridContainer> */}
     </Layout>
   );
 };
