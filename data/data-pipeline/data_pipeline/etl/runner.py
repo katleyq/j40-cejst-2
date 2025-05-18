@@ -12,6 +12,8 @@ from data_pipeline.etl.score.etl_score_geo_gistar_burd import GeoScoreGIStarBurd
 from data_pipeline.etl.score.etl_score_geo_gistar_ind import GeoScoreGIStarIndETL
 from data_pipeline.etl.score.etl_score_geo_add_burd import GeoScoreAddBurdETL
 from data_pipeline.etl.score.etl_score_geo_add_ind import GeoScoreAddIndETL
+from data_pipeline.etl.score.etl_score_geo_custom_burd import GeoScoreCustomBurdETL
+from data_pipeline.etl.score.etl_score_geo_custom_ind import GeoScoreCustomIndETL
 from data_pipeline.etl.score.etl_score_post import PostScoreETL
 from data_pipeline.utils import get_module_logger
 from data_pipeline.etl.base import ExtractTransformLoad
@@ -354,6 +356,53 @@ def score_geo_add_ind(data_source: str = "local") -> None:
     logger.debug(
         f"Execution time for Score Geo Additive Indicators was {time.time() - start_time}s"
     )
+
+def score_geo_custom_burd(data_source: str = "local") -> None:
+    """Generates the geojson files with score data baked in
+
+    Args:
+        data_source (str): Source for the census data (optional)
+                           Options:
+                           - local (default): fetch census data from the local data directory
+                           - aws: fetch census from AWS S3 J40 data repository
+
+    Returns:
+        None
+    """
+
+    # Score Geo
+    start_time = time.time()
+    score_geo_custom_burd = GeoScoreCustomBurdETL(data_source=data_source)
+    score_geo_custom_burd.extract()
+    score_geo_custom_burd.transform()
+    score_geo_custom_burd.load()
+    logger.debug(
+        f"Execution time for Score Geo Custom Burdens was {time.time() - start_time}s"
+    )
+
+def score_geo_custom_ind(data_source: str = "local") -> None:
+    """Generates the geojson files with score data baked in
+
+    Args:
+        data_source (str): Source for the census data (optional)
+                           Options:
+                           - local (default): fetch census data from the local data directory
+                           - aws: fetch census from AWS S3 J40 data repository
+
+    Returns:
+        None
+    """
+
+    # Score Geo
+    start_time = time.time()
+    score_geo_custom_ind = GeoScoreCustomIndETL(data_source=data_source)
+    score_geo_custom_ind.extract()
+    score_geo_custom_ind.transform()
+    score_geo_custom_ind.load()
+    logger.debug(
+        f"Execution time for Score Geo Custom Indicators was {time.time() - start_time}s"
+    )
+
 
 
 def _find_dataset_index(dataset_list, key, value):
