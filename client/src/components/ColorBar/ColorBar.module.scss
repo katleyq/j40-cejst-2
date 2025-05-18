@@ -1,0 +1,81 @@
+// ColorBar.module.scss
+
+.colorBarContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.colorBarWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.colorStrip {
+  width: 100%;
+  display: flex;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.colorBox {
+  flex: 1;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.colorBox:hover {
+  transform: scaleY(1.1);
+}
+
+.colorBox.selected {
+  box-shadow: inset 0 0 0 4px white, 0 0 0 2px black;
+  z-index: 10;
+}
+
+.labelStrip {
+  width: 100%;
+  display: flex;
+  font-size: 0.75rem;
+  text-align: center;
+  border-bottom-left-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  background-color: #f3f4f6;
+}
+
+.colorLabel {
+  flex: 1;
+  padding: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-right: 1px solid #e5e7eb;
+}
+
+.colorLabel:last-child {
+  border-right: none;
+}
+
+.selectedColorIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.selectedSwatch {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
