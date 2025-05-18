@@ -1116,8 +1116,8 @@ const HotspotAreaDetail = ({
   return (
     <aside className={styles.areaDetailContainer} data-cy={"aside"}>
       <div style={{paddingLeft: "1.2rem"}}>
-        <h4>Gi Star Detailed info</h4>
-        <p>More info here...</p>
+        {isBurdenLayer && <h4>Burden Hotspots</h4>}
+        {isIndicatorLayer && <h4>Indicator Hotspots</h4>}
       </div>
 
       {/* Cluster class */}

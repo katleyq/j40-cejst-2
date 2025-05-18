@@ -19,9 +19,17 @@ import * as styles from './AdditiveSidePanelInfo.module.scss';
 import * as constants from '../../data/constants';
 import * as EXPLORE_COPY from '../../data/copy/explore';
 
-const AdditiveSidePanelInfo = () => {
+interface IAdditiveSidePanelInfoProps {
+  visibleLayer: string;
+}
+
+const AdditiveSidePanelInfo = ({
+  visibleLayer,
+}: IAdditiveSidePanelInfoProps) => {
   const intl = useIntl();
   const {width: windowWidth} = useWindowSize();
+  const isBurdenLayer = visibleLayer === constants.ADD_BURDEN_LAYER_ID;
+  const isIndicatorLayer = visibleLayer === constants.ADD_INDICATOR_LAYER_ID;
 
   return (
     <aside className={styles.sidePanelInfoContainer}>
@@ -32,9 +40,9 @@ const AdditiveSidePanelInfo = () => {
 
       {/* Paragraph 1 */}
       <p tabIndex={0}>
-        This layer explores total burdens or indicators in a census tract. A
-        count of the thresholds exceeded can be found by selecting a specific
-        census tract.{' '}
+        This layer explores total {isBurdenLayer && 'burdens'}
+        {isIndicatorLayer && 'indicators'} in a census tract. A count of the
+        thresholds exceeded can be found by selecting a specific census tract.
       </p>
 
       {/* Heading */}

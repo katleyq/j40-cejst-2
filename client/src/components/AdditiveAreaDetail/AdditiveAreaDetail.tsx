@@ -10,11 +10,11 @@ import React from "react";
 import Category from "../Category";
 import DonutCopy from "../DonutCopy";
 import Indicator from "../Indicator";
-import PrioritizationCopy from "../PrioritizationCopy";
+// import PrioritizationCopy from "../PrioritizationCopy";
 import PrioritizationCopy2 from "../PrioritizationCopy2";
 import TractDemographics from "../TractDemographics";
 import TractInfo from "../TractInfo";
-import TractPrioritization from "../TractPrioritization";
+// import TractPrioritization from "../TractPrioritization";
 import AdditiveTractPrioritization from "../AdditiveTractPrioritization";
 import IndAdditiveTractPrioritization from "../IndAdditiveTractPrioritization";
 
@@ -1114,8 +1114,8 @@ const AdditiveAreaDetail = ({
   return (
     <aside className={styles.areaDetailContainer} data-cy={"aside"}>
       <div style={{paddingLeft: "1.2rem"}}>
-        <h4>Additive Detailed info</h4>
-        <p>This information should stay nearly identical to the legacy layer</p>
+        {isBurdenLayer && <h4>Total Burdens</h4>}
+        {isIndicatorLayer && <h4>Total Indicators</h4>}
 
         {/* Cluster class */}
         <div className={styles.categorization}>
@@ -1145,15 +1145,17 @@ const AdditiveAreaDetail = ({
         {/* Demographics */}
         <TractDemographics properties={properties} />
 
+        <p>Specific thresholds exceeded can be explored below:</p>
+
         {/* Disadvantaged? */}
         <div className={styles.categorization}>
           {/* Questions asking if disadvantaged? */}
-          <div className={styles.isInFocus}>
+          {/* <div className={styles.isInFocus}>
             {EXPLORE_COPY.COMMUNITY.IS_FOCUS}
-          </div>
+          </div> */}
 
           {/* YES, NO or PARTIALLY disadvantaged  */}
-          <div className={styles.communityOfFocus}>
+          {/* <div className={styles.communityOfFocus}>
             <TractPrioritization
               scoreNCommunities={
                 properties[constants.SCORE_N_COMMUNITIES] === true ?
@@ -1172,10 +1174,10 @@ const AdditiveAreaDetail = ({
               }
               percentTractTribal={percentTractTribal}
             />
-          </div>
+          </div> */}
 
           <div className={styles.prioCopy}>
-            <PrioritizationCopy
+            {/* <PrioritizationCopy
               totalCategoriesPrioritized={
                 properties[constants.COUNT_OF_CATEGORIES_DISADV]
               }
@@ -1206,7 +1208,7 @@ const AdditiveAreaDetail = ({
               }
               percentTractTribal={percentTractTribal}
               isGrandfathered={properties[constants.IS_GRANDFATHERED]}
-            />
+            /> */}
             <PrioritizationCopy2
               totalCategoriesPrioritized={
                 properties[constants.COUNT_OF_CATEGORIES_DISADV]

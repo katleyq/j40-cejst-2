@@ -62,7 +62,7 @@ const MapInfoPanel = ({
             visibleLayer={visibleLayer}
           />
         ) : (
-          <AdditiveSidePanelInfo />
+          <AdditiveSidePanelInfo visibleLayer={visibleLayer} />
         ))}
 
       {visibleLayer === constants.ADD_INDICATOR_LAYER_ID &&
@@ -73,7 +73,7 @@ const MapInfoPanel = ({
             visibleLayer={visibleLayer}
           />
         ) : (
-          <AdditiveSidePanelInfo />
+          <AdditiveSidePanelInfo visibleLayer={visibleLayer} />
         ))}
     </div>
   );

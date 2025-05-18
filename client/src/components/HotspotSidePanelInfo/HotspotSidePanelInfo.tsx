@@ -29,7 +29,7 @@ const HotspotSidePanelInfo = () => {
         </a>{' '}
         statistic to identify spatial clusters of similar values. Specifically,
         this statistic looks for unusually high or low values and assigns them
-        hot spots or cold spots using
+        hot spots or cold spots using{' '}
         <a
           className="usa-link"
           href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/what-is-a-z-score-what-is-a-p-value.htm"
