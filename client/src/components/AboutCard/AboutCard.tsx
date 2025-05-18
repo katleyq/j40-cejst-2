@@ -16,7 +16,7 @@ interface AboutCardProps {
   url?: string;
   openUrlNewTab?: boolean;
   className?: string;
-  internal?:boolean;
+  internal?: boolean;
   // body:string | React.ReactNode;
 }
 
@@ -25,22 +25,27 @@ const AboutCard = (props: React.PropsWithChildren<AboutCardProps>) => {
     // large are the cards on top
     // note it uses a top className='j40-aboutcard-lg-card'
     return (
-      <Grid tablet={{col: true}} gap={'lg'} className={(props.className || '')}>
+      <Grid tablet={{col: true}} gap={'lg'} className={props.className || ''}>
         <Grid row className={'j40-aboutcard-lg-card'}>
           <Grid tablet={{col: 3}} className={'j40-aboutpage-image-container'}>
-            {props.imgSrc && <img
-              className={'j40-aboutcard-image'}
-              alt={props.header}
-              src={props.imgSrc}/>}
+            {props.imgSrc && (
+              <img
+                className={'j40-aboutcard-image'}
+                alt={props.header}
+                src={props.imgSrc}
+              />
+            )}
           </Grid>
 
-          <Grid tablet={{col: 9}} data-cy={`${hyphenizeString(props.header)}-block`}>
+          <Grid
+            tablet={{col: 9}}
+            data-cy={`${hyphenizeString(props.header)}-block`}
+          >
             <Grid row>
               <h2>{props.header}</h2>
               {props.children}
             </Grid>
           </Grid>
-
         </Grid>
       </Grid>
     );
@@ -48,33 +53,40 @@ const AboutCard = (props: React.PropsWithChildren<AboutCardProps>) => {
     // small are the cards on the bottom
     // note it uses a top className='j40-aboutcard-sm-card'
     return (
-      <Grid tablet={{col: true}} gap={'lg'} className={(props.className || '')}>
+      <Grid tablet={{col: true}} gap={'lg'} className={props.className || ''}>
         <Grid row className={'j40-aboutcard-sm-card'}>
           <Grid tablet={{col: 2}} className={'j40-aboutpage-image-container'}>
             <img
               className={'j40-aboutcard-image'}
               alt={props.header}
-              src={props.imgSrc}/>
+              src={props.imgSrc}
+              style={{maxWidth: '100%'}}
+            />
           </Grid>
 
-          <Grid tablet={{col: 9}} data-cy={`${hyphenizeString(props.header)}-block`}>
+          <Grid
+            tablet={{col: 9}}
+            data-cy={`${hyphenizeString(props.header)}-block`}
+          >
             <Grid row>
               <h3>{props.header}</h3>
               {props.children}
               <div className={'j40-aboutcard-sm-link'}>
-                {props.url && <LinkTypeWrapper
-                  linkText={props.linkText}
-                  internal={props.internal}
-                  url={props.url ? props.url : ''}
-                  openUrlNewTab={props.openUrlNewTab}
-                  tag={props.linkTag}
-                  tagVariant={props.linkTagVariant}
-                  // className={'j40-aboutcard-link'}
-                />}
+                {props.url && (
+                  <LinkTypeWrapper
+                    linkText={props.linkText}
+                    internal={props.internal}
+                    url={props.url ? props.url : ''}
+                    openUrlNewTab={props.openUrlNewTab}
+                    tag={props.linkTag}
+                    tagVariant={props.linkTagVariant}
+                    // className={'j40-aboutcard-link'}
+                  />
+                )}
               </div>
             </Grid>
           </Grid>
-          <Grid col={1}>{' '}</Grid>
+          <Grid col={1}> </Grid>
         </Grid>
       </Grid>
     );

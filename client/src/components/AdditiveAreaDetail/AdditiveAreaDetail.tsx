@@ -1,6 +1,8 @@
 /* eslint-disable quotes */
 // External Libs:
-import {Accordion, Button, Icon} from "@trussworks/react-uswds";
+// import {Accordion, Button, Icon} from "@trussworks/react-uswds";
+import {Accordion} from "@trussworks/react-uswds";
+
 import {MessageDescriptor, useIntl} from "gatsby-plugin-intl";
 import React from "react";
 
@@ -8,11 +10,13 @@ import React from "react";
 import Category from "../Category";
 import DonutCopy from "../DonutCopy";
 import Indicator from "../Indicator";
-import PrioritizationCopy from "../PrioritizationCopy";
+// import PrioritizationCopy from "../PrioritizationCopy";
 import PrioritizationCopy2 from "../PrioritizationCopy2";
 import TractDemographics from "../TractDemographics";
 import TractInfo from "../TractInfo";
-import TractPrioritization from "../TractPrioritization";
+// import TractPrioritization from "../TractPrioritization";
+import AdditiveTractPrioritization from "../AdditiveTractPrioritization";
+import IndAdditiveTractPrioritization from "../IndAdditiveTractPrioritization";
 
 // Styles and constants
 import * as constants from "../../data/constants";
@@ -22,9 +26,10 @@ import * as styles from "./AdditiveareaDetail.module.scss";
 // @ts-ignore
 import IslandCopy from "../IslandCopy/IslandCopy";
 
-interface IHotspotAreaDetailProps {
+interface IAdditiveAreaDetailProps {
   properties: constants.J40Properties;
   hash: string[];
+  visibleLayer: string;
 }
 
 /**
@@ -126,7 +131,10 @@ export const getTribalPercentValue = (tribalPercentRaw: number) => {
  * @param {IHotspotAreaDetailProps} {}
  * @return {void}
  */
-const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
+const AdditiveAreaDetail = ({
+  properties,
+  visibleLayer,
+}: IAdditiveAreaDetailProps) => {
   const intl = useIntl();
 
   /**
@@ -186,6 +194,15 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
   const stateName = properties[constants.STATE_NAME] ?
     properties[constants.STATE_NAME] :
     constants.MISSING_DATA_STRING;
+
+  const isBurdenLayer = visibleLayer === constants.ADD_BURDEN_LAYER_ID;
+  const isIndicatorLayer = visibleLayer === constants.ADD_INDICATOR_LAYER_ID;
+
+  const threshold = isBurdenLayer ?
+    properties[constants.COUNT_OF_CATEGORIES_DISADV] :
+    isIndicatorLayer ?
+    properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS] :
+    properties[constants.COUNT_OF_CATEGORIES_DISADV];
 
   const sidePanelState = properties[constants.SIDE_PANEL_STATE];
   const percentTractTribal =
@@ -1096,8 +1113,27 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
 
   return (
     <aside className={styles.areaDetailContainer} data-cy={"aside"}>
-      <h4>Additive Detailed info</h4>
-      <p>This information should stay nearly identical to the legacy layer</p>
+      <div style={{paddingLeft: "1.2rem"}}>
+        {isBurdenLayer && <h4>Total Burdens</h4>}
+        {isIndicatorLayer && <h4>Total Indicators</h4>}
+      </div>
+
+      {/* Cluster class */}
+      <div className={styles.categorization}>
+        {/* Questions asking if disadvantaged? */}
+        <div className={styles.isInFocus}>Thresholds exceeded:</div>
+
+        {/* Hot spot, cold spot, NA */}
+        <div className={styles.communityOfFocus}>
+          {isBurdenLayer && (
+            <AdditiveTractPrioritization threshold={threshold} />
+          )}
+          {isIndicatorLayer && (
+            <IndAdditiveTractPrioritization threshold={threshold} />
+          )}
+        </div>
+      </div>
+
       {/* Tract Info */}
       <TractInfo
         blockGroup={blockGroup}
@@ -1109,69 +1145,72 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
 
       {/* Demographics */}
       <TractDemographics properties={properties} />
+      <div style={{paddingLeft: "1.2rem"}}>
+        <p>Specific thresholds exceeded can be explored below:</p>
+      </div>
 
       {/* Disadvantaged? */}
       <div className={styles.categorization}>
         {/* Questions asking if disadvantaged? */}
-        <div className={styles.isInFocus}>
-          {EXPLORE_COPY.COMMUNITY.IS_FOCUS}
-        </div>
+        {/* <div className={styles.isInFocus}>
+            {EXPLORE_COPY.COMMUNITY.IS_FOCUS}
+          </div> */}
 
         {/* YES, NO or PARTIALLY disadvantaged  */}
-        <div className={styles.communityOfFocus}>
-          <TractPrioritization
-            scoreNCommunities={
-              properties[constants.SCORE_N_COMMUNITIES] === true ?
-                properties[constants.SCORE_N_COMMUNITIES] :
-                false
-            }
-            tribalCountAK={
-              properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_AK] :
-                null
-            }
-            tribalCountUS={
-              properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
-                null
-            }
-            percentTractTribal={percentTractTribal}
-          />
-        </div>
+        {/* <div className={styles.communityOfFocus}>
+            <TractPrioritization
+              scoreNCommunities={
+                properties[constants.SCORE_N_COMMUNITIES] === true ?
+                  properties[constants.SCORE_N_COMMUNITIES] :
+                  false
+              }
+              tribalCountAK={
+                properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_AK] :
+                  null
+              }
+              tribalCountUS={
+                properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+                  null
+              }
+              percentTractTribal={percentTractTribal}
+            />
+          </div> */}
 
         <div className={styles.prioCopy}>
-          <PrioritizationCopy
-            totalCategoriesPrioritized={
-              properties[constants.COUNT_OF_CATEGORIES_DISADV]
-            }
-            totalBurdensPrioritized={
-              properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS]
-            }
-            isAdjacencyThreshMet={
-              properties[constants.ADJACENCY_EXCEEDS_THRESH]
-            }
-            isAdjacencyLowIncome={
-              properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
-            }
-            isIslandLowIncome={
-              properties[constants.IS_FEDERAL_POVERTY_LEVEL_200] &&
-              constants.TILES_ISLAND_AREA_FIPS_CODES.some((code) => {
-                return properties[constants.GEOID_PROPERTY].startsWith(code);
-              })
-            }
-            tribalCountAK={
-              properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_AK] :
-                null
-            }
-            tribalCountUS={
-              properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
-                properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
-                null
-            }
-            percentTractTribal={percentTractTribal}
-            isGrandfathered={properties[constants.IS_GRANDFATHERED]}
-          />
+          {/* <PrioritizationCopy
+              totalCategoriesPrioritized={
+                properties[constants.COUNT_OF_CATEGORIES_DISADV]
+              }
+              totalBurdensPrioritized={
+                properties[constants.TOTAL_NUMBER_OF_DISADVANTAGE_INDICATORS]
+              }
+              isAdjacencyThreshMet={
+                properties[constants.ADJACENCY_EXCEEDS_THRESH]
+              }
+              isAdjacencyLowIncome={
+                properties[constants.ADJACENCY_LOW_INCOME_EXCEEDS_THRESH]
+              }
+              isIslandLowIncome={
+                properties[constants.IS_FEDERAL_POVERTY_LEVEL_200] &&
+                constants.TILES_ISLAND_AREA_FIPS_CODES.some((code) => {
+                  return properties[constants.GEOID_PROPERTY].startsWith(code);
+                })
+              }
+              tribalCountAK={
+                properties[constants.TRIBAL_AREAS_COUNT_AK] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_AK] :
+                  null
+              }
+              tribalCountUS={
+                properties[constants.TRIBAL_AREAS_COUNT_CONUS] >= 1 ?
+                  properties[constants.TRIBAL_AREAS_COUNT_CONUS] :
+                  null
+              }
+              percentTractTribal={percentTractTribal}
+              isGrandfathered={properties[constants.IS_GRANDFATHERED]}
+            /> */}
           <PrioritizationCopy2
             totalCategoriesPrioritized={
               properties[constants.COUNT_OF_CATEGORIES_DISADV]
@@ -1205,47 +1244,16 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
         />
       )}
 
-      {/* Send Feedback button */}
-      <a
-        className={styles.sendFeedbackLink}
-        href={
-          intl.locale === `es` ?
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.ES}?tractid=${blockGroup}` :
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.EN}?tractid=${blockGroup}`
-        }
-        target={"_blank"}
-        rel="noreferrer"
-      >
-        <Button type="button" className={styles.sendFeedbackBtn}>
-          <div className={styles.buttonContainer}>
-            <div className={styles.buttonText}>
-              {EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.TITLE}
-            </div>
-
-            <Icon.Launch
-              aria-label={intl.formatMessage(
-                  EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.IMG_ICON.ALT_TAG,
-              )}
-            />
-          </div>
-        </Button>
-      </a>
-
       {/* All category accordions in this component */}
       {
         <Accordion
           multiselectable={true}
           items={categoryItems}
-          className="-HotspotAreaDetail"
+          className="-AdditiveAreaDetail"
         />
       }
-
-      {/* Methodology version */}
-      <div className={styles.versionInfo}>
-        {EXPLORE_COPY.SIDE_PANEL_VERSION.TITLE}
-      </div>
     </aside>
   );
 };
 
-export default HotspotAreaDetail;
+export default AdditiveAreaDetail;

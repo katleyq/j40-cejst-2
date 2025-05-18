@@ -136,10 +136,6 @@ const AboutPage = ({location}: IAboutPageProps) => {
                       GitHub
                     </a>{' '}
                     |{' '}
-                    <a className="usa-link" href="https://haylee360.github.io/">
-                      Website
-                    </a>{' '}
-                    |{' '}
                     <a
                       className="usa-link"
                       href="https://www.linkedin.com/in/katherine-le/"
@@ -193,8 +189,6 @@ const AboutPage = ({location}: IAboutPageProps) => {
                   </p>
                 </li>
               </ul>
-
-              {/* <p>{ABOUT_COPY.CONTENT.PARA2}</p> */}
             </section>
           </Grid>
 
@@ -240,37 +234,25 @@ const AboutPage = ({location}: IAboutPageProps) => {
 
       <J40MainGridContainer fullWidth={true} greenBackground={true}>
         <J40MainGridContainer>
-          <Grid col={12} tablet={{col: 8}} className="j40-mb5-mt3">
-            <h2>{intl.formatMessage(ABOUT_COPY.HOW_TO_USE_TOOL.TITLE)}</h2>
-            <p>{ABOUT_COPY.CONTENT.HOW_TO_USE_PARA1}</p>
-            <p>{intl.formatMessage(ABOUT_COPY.HOW_TO_USE_TOOL.PARA2)}</p>
-            <p>{ABOUT_COPY.CONTENT.HOW_TO_USE_PARA3}</p>
-          </Grid>
+          <h2>{intl.formatMessage(ABOUT_COPY.GET_INVOLVED.TITLE)}</h2>
+          <AboutCardsContainer>
+            <AboutCard
+              size={'small'}
+              imgSrc={githubIcon}
+              header={intl.formatMessage(
+                  ABOUT_COPY.GET_INVOLVED.JOIN_OSC_HEADING,
+              )}
+              linkText={intl.formatMessage(
+                  ABOUT_COPY.GET_INVOLVED.JOIN_OSC_LINK_TEXT,
+              )}
+              url={intl.locale === 'es' ? GITHUB_LINK_ES : GITHUB_LINK}
+              openUrlNewTab={true}
+              internal={false}
+            >
+              <p>{intl.formatMessage(ABOUT_COPY.GET_INVOLVED.JOIN_OSC_INFO)}</p>
+            </AboutCard>
+          </AboutCardsContainer>
         </J40MainGridContainer>
-      </J40MainGridContainer>
-
-      <J40MainGridContainer>
-        <h2>{intl.formatMessage(ABOUT_COPY.GET_INVOLVED.TITLE)}</h2>
-        <AboutCardsContainer>
-          <AboutCard
-            size={'small'}
-            imgSrc={githubIcon}
-            header={intl.formatMessage(
-                ABOUT_COPY.GET_INVOLVED.JOIN_OSC_HEADING,
-            )}
-            linkText={intl.formatMessage(
-                ABOUT_COPY.GET_INVOLVED.JOIN_OSC_LINK_TEXT,
-            )}
-            // linkTag={intl.formatMessage(
-            //     ABOUT_COPY.GET_INVOLVED.JOIN_OSC_LINK_TAG,
-            // )}
-            url={intl.locale === 'es' ? GITHUB_LINK_ES : GITHUB_LINK}
-            openUrlNewTab={true}
-            internal={false}
-          >
-            <p>{intl.formatMessage(ABOUT_COPY.GET_INVOLVED.JOIN_OSC_INFO)}</p>
-          </AboutCard>
-        </AboutCardsContainer>
       </J40MainGridContainer>
     </Layout>
   );

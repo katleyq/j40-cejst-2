@@ -1,75 +1,68 @@
 import React from 'react';
-import {useIntl} from 'gatsby-plugin-intl';
-import {useWindowSize} from 'react-use';
-// @ts-ignore
-import plusIcon from '/node_modules/uswds/dist/img/usa-icons/add.svg';
-// @ts-ignore
-import searchIcon from '/node_modules/uswds/dist/img/usa-icons/search.svg';
-// @ts-ignore
-import locateIcon from '/node_modules/uswds/dist/img/usa-icons/my_location.svg';
+// import {useIntl} from 'gatsby-plugin-intl';
+// import {useWindowSize} from 'react-use';
 
 import * as styles from './HotspotSidePanelInfo.module.scss';
-import * as constants from '../../data/constants';
-import * as EXPLORE_COPY from '../../data/copy/explore';
+// import * as constants from '../../data/constants';
+// import * as EXPLORE_COPY from '../../data/copy/explore';
+import {PAGES_ENDPOINTS} from '../../data/constants';
 
 const HotspotSidePanelInfo = () => {
-  const intl = useIntl();
-  const {width: windowWidth} = useWindowSize();
+  // const intl = useIntl();
+  // const {width: windowWidth} = useWindowSize();
 
   return (
     <aside className={styles.sidePanelInfoContainer}>
       {/* Heading 1 */}
       <header tabIndex={0} className={styles.sidePanelInfoTitle}>
-        Hotspots & Coldspots
+        Hot spots & Cold spots
       </header>
 
       {/* Paragraph 1 */}
       <p tabIndex={0}>
-        Hotspot detection utilizes the Getis-Ord Gi* statistics to identify spatial
-        clusters, highlighting census tracts where burdens or indicators are significantly
-        higher (&ldquo;hot spots&rdquo;) or lower (&ldquo;cold spots&rdquo;) than the
-        national average.
+        Hotspots are found using the{' '}
+        <a
+          className="usa-link"
+          href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/h-how-hot-spot-analysis-getis-ord-gi-spatial-stati.htm"
+        >
+          Getis-Ord Gi*
+        </a>{' '}
+        statistic to identify spatial clusters of similar values. Specifically,
+        this statistic looks for unusually high or low values and assigns them
+        hot spots or cold spots using{' '}
+        <a
+          className="usa-link"
+          href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/what-is-a-z-score-what-is-a-p-value.htm"
+        >
+          p-values
+        </a>
+        . More information can be found on the{' '}
+        <a className="usa-link" href={PAGES_ENDPOINTS.METHODOLOGY}>
+          methodology
+        </a>{' '}
+        page.
       </p>
 
-      {/* Heading 1 */}
-      <header tabIndex={0} className={styles.sidePanelInfoTitle}>
-        {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.HEADING1)}
-      </header>
-
-      {/* Paragraph 1 */}
-      <p tabIndex={0}>
-        {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART1)}
-        {
-          windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
-          <img tabIndex={0} className={styles.sidePanelInfoIcon} src={plusIcon}
-            alt={intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.PLUS)}
-          />
-        }
-        {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART2)}
-        {
-          windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
-          <img tabIndex={0} className={styles.sidePanelInfoIcon} src={searchIcon}
-            alt={intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.SEARCH)}
-          />
-        }
-        {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART3)}
-        {
-          windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
-          <img tabIndex={0} className={styles.sidePanelInfoIcon} src={locateIcon}
-            alt={intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.LOCATE)}
-          />
-        }
-        {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART4)}
-        {/* {
-          windowWidth > constants.USWDS_BREAKPOINTS.MOBILE_LG &&
-          <img tabIndex={0} className={styles.sidePanelInfoIcon} src={handPointIcon}
-            alt={intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INIT_STATE_ICON_ALT_TEXT.MOUSE)}
-          />
-        } */}
-        {intl.formatMessage(EXPLORE_COPY.SIDE_PANEL_INITIAL_STATE.PARA1_PART5)}
-      </p>
-
-
+      <ul style={{paddingLeft: '10px'}}>
+        <li>
+          <p style={{marginTop: '10px'}}>
+            <strong>Hot Spots:</strong> Areas where burdens or indicators are
+            significantly higher than the national average.
+          </p>
+        </li>
+        <li>
+          <p style={{marginTop: '5px'}}>
+            <strong>Cold Spots:</strong>Areas where burdens or indicators are
+            significantly lower than the national average.
+          </p>
+        </li>
+        <li>
+          <p style={{marginTop: '5px'}}>
+            <strong>No Color:</strong> Areas with no statistically significant
+            clustering.
+          </p>
+        </li>
+      </ul>
     </aside>
   );
 };

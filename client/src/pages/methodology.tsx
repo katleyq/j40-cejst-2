@@ -13,6 +13,7 @@ import SubPageNav from '../components/SubPageNav';
 // import {DATA_SURVEY_LINKS, PAGES_ENDPOINTS, USWDS_BREAKPOINTS} from '../data/constants';
 import {PAGES_ENDPOINTS, USWDS_BREAKPOINTS} from '../data/constants';
 import * as METHODOLOGY_COPY from '../data/copy/methodology';
+import * as EXPLORE_COPY from '../data/copy/explore';
 
 interface MethodPageProps {
   location: Location;
@@ -163,6 +164,15 @@ const IndexPage = ({location}: MethodPageProps) => {
                   </li>
                 </ul>
               </div>
+
+              <h2>{EXPLORE_COPY.NOTE_ON_TERRITORIES.INTRO}</h2>
+              <p>{EXPLORE_COPY.NOTE_ON_TERRITORIES.PARA_0}</p>
+              <p>{EXPLORE_COPY.NOTE_ON_TERRITORIES.PARA_1}</p>
+              <p>{EXPLORE_COPY.NOTE_ON_TERRITORIES.PARA_2}</p>
+
+              <h2>{EXPLORE_COPY.NOTE_ON_TRIBAL_NATIONS.INTRO}</h2>
+              <p>{EXPLORE_COPY.NOTE_ON_TRIBAL_NATIONS.PARA_1}</p>
+              <p>{EXPLORE_COPY.NOTE_ON_TRIBAL_NATIONS.PARA_2}</p>
             </section>
           </Grid>
 
