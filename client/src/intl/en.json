@@ -212,7 +212,7 @@
     "description": "Navigate to the Alerts on any page. This will be the link to the technical support document."
   },
   "contact.page.census.tract.feedback.para3": {
-    "defaultMessage": "The best way to contact the Council on Environmental Quality (CEQ) is by filling out <link1>this form</link1>.",
+    "defaultMessage": "The best way to contact the MEDS Justice40 team is to email us at the link below. If you wish to get in touch with the original developers at the Council on Environmental Quality (CEQ), you may fill out <link1>this form</link1>.",
     "description": "Navigate to the survey. Spanish should substitute <link2> to get Spanish link! Already coded to support"
   },
   "contact.page.fab.survey.text": {
@@ -220,7 +220,7 @@
     "description": "Navigate to the contact page, this is the text for floating action button"
   },
   "contact.page.general": {
-    "defaultMessage": "Email CEQ at: {general_email_address}.",
+    "defaultMessage": "Email us at: {general_email_address}.",
     "description": "Contact page body text"
   },
   "contact.page.header.text": {
@@ -344,7 +344,7 @@
     "description": "Navigate to the Downloads page, this will be the view of change log"
   },
   "explore.map.page.description.1": {
-    "defaultMessage": "Welcome to the CEJST+ tool. This tool is a reimagining of the <link1>Climate and Economic Justice Screening Tool</link1> created as part of the <link2>Justice 40 initiative</link2> in 2021. The original exploration of disadvantaged status has been expanded to include two new layers: <bold>cumulative</bold> and <bold>hotspot</bold>. The cumulative layer shows total exceeded threshold counts for burdens and indicators. The hotspot layer visualizes clusters of unusally high or low thresholds exceeded as hot or cold spots. The legacy layer shows the original CEJST tool. For more information on the new layers, please see the methodology tab.",
+    "defaultMessage": "Welcome to the CEJST+ tool. This tool is a reimagining of the <link1>Climate and Economic Justice Screening Tool</link1> created as part of the <link2>Justice 40 initiative</link2> in 2021. The original exploration of disadvantaged status has been expanded to include two new layers: <bold>cumulative</bold> and <bold>hot spot</bold>. The cumulative layer shows total exceeded threshold counts for burdens and indicators. The hot spot layer visualizes clusters of unusally high or low thresholds exceeded as hot or cold spots. The legacy layer shows the original CEJST tool. For more information on the new layers, please see the methodology tab.",
     "description": "On the explore the map page, the first description of the page"
   },
   "explore.map.page.description.2": {
@@ -1036,7 +1036,7 @@
     "description": "`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show to see information about any census tract"
   },
   "explore.map.page.side.panel.info.para.2": {
-    "defaultMessage": ", or cutoffs, are used to determine if communities in a tract are disadvantaged. Certain burdens use percentages",
+    "defaultMessage": ", or cutoffs, are used to assign disadvantaged status. Certain burdens use percentages",
     "description": "`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show Thresholds, or cutoffs, are used to determine if communities in a tract are disadvantaged. Certain burdens use percentages or a simple yes/no."
   },
   "explore.map.page.side.panel.info.para.2.part.1": {

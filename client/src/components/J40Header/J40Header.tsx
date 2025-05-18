@@ -332,27 +332,6 @@ const J40Header = ({location}: IJ40Header) => {
           </Grid>
         </div>
       </J40MainGridContainer>
-
-      {/* Alert */}
-      {
-        <J40MainGridContainer>
-          {/* <Alert
-          className={styles.alert}
-          type="info"
-          heading={intl.formatMessage(COMMON_COPY.ALERTS.ALERT_2_TITLE.TITLE)}
-          headingLevel={'h1'}>
-          {COMMON_COPY.ALERTS.ALERT_2_DESCRIPTION}
-        </Alert> */}
-
-          {/* <Alert
-          className={styles.alert}
-          type="info"
-          heading={intl.formatMessage(COMMON_COPY.ALERTS.ALERT_1_TITLE.TITLE)}
-          headingLevel={'h1'}>
-          {COMMON_COPY.ALERTS.ALERT_1_DESCRIPTION}
-        </Alert> */}
-        </J40MainGridContainer>
-      }
     </Header>
   );
 };

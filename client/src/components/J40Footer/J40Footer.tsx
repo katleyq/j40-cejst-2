@@ -1,6 +1,4 @@
-import {
-  NavList,
-} from '@trussworks/react-uswds';
+import {NavList} from '@trussworks/react-uswds';
 import {useIntl} from 'gatsby-plugin-intl';
 import React from 'react';
 
@@ -9,7 +7,7 @@ import LinkTypeWrapper from '../LinkTypeWrapper';
 
 // @ts-ignore
 import {GITHUB_LINK, GITHUB_LINK_ES} from '../../constants';
-import * as ABOUT_COPY from '../../data/copy/about';
+// import * as ABOUT_COPY from '../../data/copy/about';
 import * as COMMON_COPY from '../../data/copy/common';
 import brenleafart from '../../images/bren2.svg';
 
@@ -25,8 +23,10 @@ const J40Footer = () => {
       openUrlNewTab={true}
       className={'footer-link-first-child'}
       key={'contactlink'}
-      dataCy={hyphenizeString(COMMON_COPY.FOOTER.GITHUB_LINK_TEXT.defaultMessage)}
-      tag={intl.formatMessage(ABOUT_COPY.GET_INVOLVED.JOIN_OSC_LINK_TAG)}
+      dataCy={hyphenizeString(
+          COMMON_COPY.FOOTER.GITHUB_LINK_TEXT.defaultMessage,
+      )}
+      // tag={intl.formatMessage(ABOUT_COPY.GET_INVOLVED.JOIN_OSC_LINK_TAG)}
     />,
   ];
 
@@ -61,8 +61,8 @@ const J40Footer = () => {
   };
 
   // Contribute section styles
-  const contributeSectionStyle = {
-    textAlign: 'right',
+  const contributeSectionStyle: React.CSSProperties = {
+    textAlign: 'right' as const,
     padding: '1rem',
   };
 
@@ -70,11 +70,13 @@ const J40Footer = () => {
     <footer className={'j40-footer'} style={footerStyle}>
       {/* Custom logo section with image left of text */}
       <div className="usa-footer__secondary-section" style={logoSectionStyle}>
-        <img
-          style={logoImgStyle}
-          src={brenleafart}
-          alt={intl.formatMessage(COMMON_COPY.FOOTER.LOGO_ALT)}
-        />
+        <a href="https://bren.ucsb.edu/" target="_blank" rel="noreferrer">
+          <img
+            style={logoImgStyle}
+            src={brenleafart}
+            alt={intl.formatMessage(COMMON_COPY.FOOTER.LOGO_ALT)}
+          />
+        </a>
         <div className={'j40-footer-ceq-font'} style={titleStyle}>
           {intl.formatMessage(COMMON_COPY.FOOTER.TITLE)}
         </div>
@@ -91,7 +93,7 @@ const J40Footer = () => {
 const NavSection = ({
   links,
 }: {
-  links: React.ReactNode[]
+  links: React.ReactNode[];
 }): React.ReactElement => {
   const [primaryLinkOrHeading, ...secondaryLinks] = links;
   return (

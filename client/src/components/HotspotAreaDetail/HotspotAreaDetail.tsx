@@ -26,6 +26,7 @@ import HotspotTractPrioritization from "../HotspotTractPrioritization";
 interface IHotspotAreaDetailProps {
   properties: constants.J40Properties;
   hash: string[];
+  visibleLayer: string;
 }
 
 /**
@@ -127,7 +128,10 @@ export const getTribalPercentValue = (tribalPercentRaw: number) => {
  * @param {IHotspotAreaDetailProps} {}
  * @return {void}
  */
-const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
+const HotspotAreaDetail = ({
+  properties,
+  visibleLayer,
+}: IHotspotAreaDetailProps) => {
   const intl = useIntl();
 
   /**
@@ -192,6 +196,15 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
   const stateName = properties[constants.STATE_NAME] ?
     properties[constants.STATE_NAME] :
     constants.MISSING_DATA_STRING;
+
+  const isBurdenLayer = visibleLayer === constants.PSIM_BURDEN_LAYER_ID;
+  const isIndicatorLayer = visibleLayer === constants.PSIM_INDICATOR_LAYER_ID;
+
+  const pValue = isBurdenLayer ?
+    properties[constants.PSIM_BURDEN] :
+    isIndicatorLayer ?
+    properties[constants.PSIM_INDICATOR] :
+    properties[constants.PSIM_BURDEN];
 
   const sidePanelState = properties[constants.SIDE_PANEL_STATE];
   // const percentTractTribal =
@@ -1103,8 +1116,8 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
   return (
     <aside className={styles.areaDetailContainer} data-cy={"aside"}>
       <div style={{paddingLeft: "1.2rem"}}>
-        <h4>Gi Star Detailed info</h4>
-        <p>More info here...</p>
+        {isBurdenLayer && <h4>Burden Hot spots</h4>}
+        {isIndicatorLayer && <h4>Indicator Hot spots</h4>}
       </div>
 
       {/* Cluster class */}
@@ -1115,14 +1128,14 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
         {/* Hot spot, cold spot, NA */}
         <div className={styles.communityOfFocus}>
           <HotspotTractPrioritization
-            pValue={properties[constants.PSIM_BURDEN]}
+            pValue={pValue}
           ></HotspotTractPrioritization>
         </div>
       </div>
 
       <div style={{paddingLeft: "1.2rem"}}>
         {/* Tract Info */}
-        <HotspotInfo pValue={properties[constants.PSIM_BURDEN]} />
+        <HotspotInfo pValue={pValue} />
         {/* <HotspotInfo
           pValue={
             visibleLayer === constants.PSIM_BURDEN_LAYER_ID ||
@@ -1213,32 +1226,6 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
         />
       )}
 
-      {/* Send Feedback button */}
-      {/* <a
-        className={styles.sendFeedbackLink}
-        href={
-          intl.locale === `es` ?
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.ES}?tractid=${blockGroup}` :
-            `${constants.CENSUS_TRACT_SURVEY_LINKS.EN}?tractid=${blockGroup}`
-        }
-        target={"_blank"}
-        rel="noreferrer"
-      >
-        <Button type="button" className={styles.sendFeedbackBtn}>
-          <div className={styles.buttonContainer}>
-            <div className={styles.buttonText}>
-              {EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.TITLE}
-            </div>
-
-            <Icon.Launch
-              aria-label={intl.formatMessage(
-                  EXPLORE_COPY.COMMUNITY.SEND_FEEDBACK.IMG_ICON.ALT_TAG,
-              )}
-            />
-          </div>
-        </Button>
-      </a> */}
-
       {/* All category accordions in this component */}
       {
         <Accordion
@@ -1247,11 +1234,6 @@ const HotspotAreaDetail = ({properties}: IHotspotAreaDetailProps) => {
           className="-HotspotAreaDetail"
         />
       }
-
-      {/* Methodology version */}
-      {/* <div className={styles.versionInfo}>
-        {EXPLORE_COPY.SIDE_PANEL_VERSION.TITLE}
-      </div> */}
     </aside>
   );
 };

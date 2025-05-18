@@ -510,6 +510,7 @@ const J40Map = ({location}: IJ40Interface) => {
             >
               <AreaDetail
                 properties={detailViewData.properties}
+                visibleLayer={visibleLayer}
                 hash={zoomLatLngHash}
               />
             </Popup>

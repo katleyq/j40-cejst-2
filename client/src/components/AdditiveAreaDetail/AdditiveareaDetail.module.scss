@@ -29,7 +29,7 @@ $sidePanelLabelFontColor: #171716;
 
   .isInFocus {
     padding: .5rem 1rem .25rem 1.2rem;
-    font-size: small;
+    font-size: medium;
     font-weight: bold;
     @include u-margin-top(2);
   }
@@ -48,6 +48,7 @@ $sidePanelLabelFontColor: #171716;
     @include u-padding-left(2);
     @include u-padding-right(2);
     @include u-padding-top(2);
+    @include u-padding-bottom(2);
 
     p {
       font: inherit;

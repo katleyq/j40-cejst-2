@@ -12,21 +12,63 @@ export interface IHotspotInfoProps {
 
 const HotspotInfo = ({pValue}: IHotspotInfoProps) => {
   if (pValue < -0.05) {
-    return <p>Significance Leve: Not Significant</p>;
+    return (
+      <>
+        <p>Significance Level: Not Significant</p>
+        <p>This tract is not identified as a hotspot or coldspot.</p>
+      </>
+    );
   } else {
     if (pValue >= -0.05 && pValue < -0.01) {
-      return <p>Significance Level: 95% </p>;
+      return (
+        <>
+          <p>Significance Level: 95% </p>
+          <p>
+            This tract is considered a cold spot because it shows significant
+            clustering of low thresholds exceeded.
+          </p>
+        </>
+      );
     } else {
       if (pValue >= -0.01 && pValue < -0.000001) {
-        return <p>Significance Level: 99% </p>;
+        return (
+          <>
+            <p>Significance Level: 99% </p>
+            <p>
+              This tract is considered a cold spot because it shows significant
+              clustering of low thresholds exceeded.
+            </p>
+          </>
+        );
       } else {
         if (pValue >= 0 && pValue <= 0.01) {
-          return <p>Significance Level: 99% </p>;
+          return (
+            <>
+              <p>Significance Level: 99% </p>
+              <p>
+                This tract is considered a hot spot because it shows significant
+                clustering of high thresholds exceeded.
+              </p>
+            </>
+          );
         } else {
           if (pValue > 0.01 && pValue <= 0.05) {
-            return <p>Significance Level: 95% </p>;
+            return (
+              <>
+                <p>Significance Level: 95% </p>
+                <p>
+                  This tract is considered a hot spot because it shows
+                  significant clustering of high thresholds exceeded.
+                </p>
+              </>
+            );
           } else {
-            return <p>Significance Level: Not Significant</p>;
+            return (
+              <>
+                <p>Significance Level: Not Significant</p>
+                <p>This tract is not identified as a hot spot or cold spot.</p>
+              </>
+            );
           }
         }
       }

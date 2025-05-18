@@ -1,0 +1,104 @@
+@use '../../styles/design-system.scss' as *;
+@import "../utils.scss";
+
+h3.invert{
+    @include invert();
+};
+
+h3.invert0 {
+  @include invert(); 
+  background-color: #FBF8F3 !important; 
+  color: #232323 !important;
+}
+
+h3.invert1 {
+  @include invert(); 
+  background-color: #FCE5D2 !important; 
+  color: #555353 !important;
+}
+
+h3.invert2 {
+  @include invert(); 
+  background-color: #FCE5D2 !important; 
+}
+
+h3.invert3 {
+  @include invert(); 
+  background-color: #FBBEA3 !important; 
+}
+
+h3.invert4 {
+  @include invert(); 
+  background-color: #F9AA98 !important; 
+}
+
+h3.invert5 {
+  @include invert(); 
+  background-color: #EE9A9E !important; 
+}
+
+h3.invert6 {
+  @include invert(); 
+  background-color: #E38BA1 !important; 
+}
+
+h3.invert7 {
+  @include invert(); 
+  background-color: #D085A9 !important; 
+}
+
+h3.invert8 {
+  @include invert(); 
+  background-color: #C07EAE !important; 
+}
+
+h3.invert9 {
+  @include invert(); 
+  background-color: #AE79AD !important; 
+}
+
+h3.invert10 {
+  @include invert(); 
+  background-color: #9D72AE !important; 
+}
+
+h3.invert11 {
+  @include invert(); 
+  background-color: #8B6F9F !important; 
+}
+
+h3.invert12 {
+  @include invert(); 
+  // background-color: #000004 !important; 
+  background-color: #796D91 !important; 
+}
+
+h3.invert13 {
+  @include invert(); 
+  background-color: #6F687A !important; 
+}
+
+h3.invert14 {
+  @include invert(); 
+  background-color: #646364 !important; 
+}
+
+h3.invert15 {
+  @include invert(); 
+  background-color: #5c575c !important; 
+}
+
+h3.invert16 {
+  @include invert(); 
+  background-color: #4c4745 !important; 
+}
+
+h3.invert17 {
+  @include invert(); 
+  background-color: #4e4d4e !important; 
+}
+
+h3.invert18 {
+  @include invert(); 
+  background-color: #363436 !important; 
+}

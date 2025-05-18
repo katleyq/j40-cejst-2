@@ -495,7 +495,8 @@ button.usa-accordion__button[aria-expanded=true]:has(div[class*="disCategoryCont
     margin: 1.2rem 0 3rem 0;
 
     .j40-aboutpage-image-container {
-      width: 10.5rem;
+      // width: 10.5rem;
+      width: 4rem !important;
       padding: 1.24rem 1.24rem 0 .24rem;
     }
 
@@ -514,11 +515,12 @@ button.usa-accordion__button[aria-expanded=true]:has(div[class*="disCategoryCont
     margin: 1.2rem 0 3rem 0;
 
     .j40-aboutpage-image-container {
+      width: 5rem !important;
       padding: 1.24rem 1.24rem 0 .24rem;
     }
 
     .j40-aboutcard-image {
-      width: 3rem;
+      width: 4rem;
     }
 
     div.j40-aboutcard-sm-link {

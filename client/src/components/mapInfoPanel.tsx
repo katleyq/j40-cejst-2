@@ -34,30 +34,46 @@ const MapInfoPanel = ({
 
       {visibleLayer === constants.PSIM_BURDEN_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <HotspotAreaDetail properties={featureProperties} hash={hash} />
+          <HotspotAreaDetail
+            properties={featureProperties}
+            hash={hash}
+            visibleLayer={visibleLayer}
+          />
         ) : (
           <HotspotSidePanelInfo />
         ))}
 
       {visibleLayer === constants.PSIM_INDICATOR_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <HotspotAreaDetail properties={featureProperties} hash={hash} />
+          <HotspotAreaDetail
+            properties={featureProperties}
+            hash={hash}
+            visibleLayer={visibleLayer}
+          />
         ) : (
           <HotspotSidePanelInfo />
         ))}
 
       {visibleLayer === constants.ADD_BURDEN_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <AdditiveAreaDetail properties={featureProperties} hash={hash} />
+          <AdditiveAreaDetail
+            properties={featureProperties}
+            hash={hash}
+            visibleLayer={visibleLayer}
+          />
         ) : (
-          <AdditiveSidePanelInfo />
+          <AdditiveSidePanelInfo visibleLayer={visibleLayer} />
         ))}
 
       {visibleLayer === constants.ADD_INDICATOR_LAYER_ID &&
         (featureProperties && selectedFeatureId ? (
-          <AdditiveAreaDetail properties={featureProperties} hash={hash} />
+          <AdditiveAreaDetail
+            properties={featureProperties}
+            hash={hash}
+            visibleLayer={visibleLayer}
+          />
         ) : (
-          <AdditiveSidePanelInfo />
+          <AdditiveSidePanelInfo visibleLayer={visibleLayer} />
         ))}
     </div>
   );

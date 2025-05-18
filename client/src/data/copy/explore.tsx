@@ -40,7 +40,7 @@ export const PAGE_DESCRIPTION1 = (
   <FormattedMessage
     id={'explore.map.page.description.1'}
     defaultMessage={`
-    Welcome to the CEJST+ tool. This tool is a reimagining of the <link1>Climate and Economic Justice Screening Tool</link1> created as part of the <link2>Justice 40 initiative</link2> in 2021. The original exploration of disadvantaged status has been expanded to include two new layers: <bold>cumulative</bold> and <bold>hotspot</bold>. The cumulative layer shows total exceeded threshold counts for burdens and indicators. The hotspot layer visualizes clusters of unusally high or low thresholds exceeded as hot or cold spots. The legacy layer shows the original CEJST tool. For more information on the new layers, please see the methodology tab. 
+    Welcome to the CEJST+ tool. This tool is a reimagining of the <link1>Climate and Economic Justice Screening Tool</link1> created as part of the <link2>Justice 40 initiative</link2> in 2021. The original exploration of disadvantaged status has been expanded to include two new layers: <bold>cumulative</bold> and <bold>hot spot</bold>. The cumulative layer shows total exceeded threshold counts for burdens and indicators. The hot spot layer visualizes clusters of unusally high or low thresholds exceeded as hot or cold spots. The legacy layer shows the original CEJST tool. For more information on the new layers, please see the methodology tab. 
   `}
     description={
       'On the explore the map page, the first description of the page'
@@ -397,7 +397,7 @@ export const SIDE_PANEL_INITIAL_STATE = defineMessages({
   PARA5_PART2: {
     id: 'explore.map.page.side.panel.info.para.2',
     defaultMessage: `
-    , or cutoffs, are used to determine if communities in a tract are disadvantaged. Certain burdens use percentages
+    , or cutoffs, are used to assign disadvantaged status. Certain burdens use percentages
     `,
     description:
       '`Navigate to the explore the map page. When the map is in view, click on the map. The side panel will show Thresholds, or cutoffs, are used to determine if communities in a tract are disadvantaged. Certain burdens use percentages or a simple yes/no.',
