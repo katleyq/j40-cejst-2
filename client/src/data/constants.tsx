@@ -275,6 +275,9 @@ export const ADD_BURD_LOW_ZOOM_SOURCE_NAME = "add-burd-low-zoom-source-name";
 export const ADD_IND_HIGH_ZOOM_SOURCE_NAME = "add-ind-high-zoom-source-name";
 export const ADD_IND_LOW_ZOOM_SOURCE_NAME = "add-ind-low-zoom-source-name";
 
+export const CUSTOM_BURD_HIGH_ZOOM_SOURCE_NAME = "custom-burd-high-zoom-source-name";
+export const CUSTOM_IND_HIGH_ZOOM_SOURCE_NAME = "custom-ind-high-zoom-source-name";
+
 export const TRIBAL_SOURCE_NAME = "tribal-source-name";
 
 // Layer ID constants
@@ -318,6 +321,12 @@ export const ADD_BURDEN_HIGH_LAYER_ID = "add-burden-high-layer-id";
 export const ADD_INDICATOR_LAYER_ID = "add-indicator-layer-id";
 export const ADD_INDICATOR_LOW_LAYER_ID = "add-indicator-low-layer-id";
 export const ADD_INDICATOR_HIGH_LAYER_ID = "add-indicator-high-layer-id";
+
+export const CUSTOM_BURDEN_LAYER_ID = "custom-burden-layer-id";
+export const CUSTOM_BURDEN_HIGH_LAYER_ID = "custom-burden-high-layer-id";
+
+export const CUSTOM_INDICATOR_LAYER_ID = "custom-indicator-layer-id";
+export const CUSTOM_INDICATOR_HIGH_LAYER_ID = "custom-indicator-high-layer-id";
 
 export const TRIBAL_LAYER_ID = "tribal-layer-id";
 export const TRIBAL_ALASKA_POINTS_LAYER_ID = "tribal-alaska-points-layer-id";

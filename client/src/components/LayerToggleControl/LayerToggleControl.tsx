@@ -23,6 +23,10 @@ const getInteractiveLayerIdsFunc = (layerId: string): string[] => {
     return [constants.PSIM_INDICATOR_HIGH_LAYER_ID];
   } else if (layerId === constants.ADD_INDICATOR_LAYER_ID) {
     return [constants.ADD_INDICATOR_HIGH_LAYER_ID];
+  } else if (layerId === constants.CUSTOM_BURDEN_LAYER_ID) {
+    return [constants.CUSTOM_BURDEN_HIGH_LAYER_ID];
+  } else if (layerId === constants.CUSTOM_INDICATOR_LAYER_ID) {
+    return [constants.CUSTOM_INDICATOR_HIGH_LAYER_ID];
   }
   return [];
 };

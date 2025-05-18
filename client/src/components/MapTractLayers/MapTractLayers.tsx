@@ -118,6 +118,7 @@ const MapTractLayers = ({
           },
           {id: constants.PSIM_BURDEN_LAYER_ID, name: 'Burden Hotspots'},
           {id: constants.PSIM_INDICATOR_LAYER_ID, name: 'Indicator Hotspots'},
+          {id: constants.CUSTOM_BURDEN_LAYER_ID, name: 'Custom Layer'},
           {id: constants.LEGACY_LAYER_ID, name: 'Legacy Tool'},
         ]}
         visibleLayer={visibleLayer}
@@ -205,6 +206,86 @@ const MapTractLayers = ({
                   constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
               }}
               minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+            />
+
+            {/* High zoom layer (static) - controls the border between features */}
+            <Layer
+              id={constants.FEATURE_BORDER_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              type="line"
+              paint={{
+                'line-color': constants.FEATURE_BORDER_COLOR,
+                'line-width': constants.FEATURE_BORDER_WIDTH,
+                'line-opacity': constants.FEATURE_BORDER_OPACITY,
+              }}
+              maxzoom={constants.GLOBAL_MAX_ZOOM_FEATURE_BORDER}
+              minzoom={constants.GLOBAL_MIN_ZOOM_FEATURE_BORDER}
+            />
+            <Layer
+              id={constants.SELECTED_FEATURE_BORDER_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={filter} // This filter filters out all other features except the selected feature.
+              type="line"
+              paint={{
+                'line-color': constants.SELECTED_FEATURE_BORDER_COLOR,
+                'line-width': constants.SELECTED_FEATURE_BORDER_WIDTH,
+              }}
+              minzoom={constants.GLOBAL_MIN_ZOOM_HIGH}
+            />
+          </Source>
+        </>
+      )}
+
+      {/* Sources and Layers */}
+      {visibleLayer === constants.CUSTOM_BURDEN_LAYER_ID && (
+        <>
+          {/* Custom Layer High */}
+          <Source
+            id={constants.HIGH_ZOOM_SOURCE_NAME}
+            type="vector"
+            promoteId={constants.GEOID_PROPERTY}
+            tiles={[featureURLForTilesetName('custom/burd', 'high')]}
+            maxzoom={11}
+            minzoom={0}
+          >
+            {/* High zoom layer (static) - non-prioritized features only */}
+            <Layer
+              id={constants.HIGH_ZOOM_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={['==', constants.SCORE_PROPERTY_HIGH, false]}
+              type="fill"
+              paint={{
+                'fill-opacity': constants.NON_PRIORITIZED_FEATURE_FILL_OPACITY,
+              }}
+              minzoom={0}
+            />
+
+            {/* High zoom layer (static) - prioritized features only */}
+            <Layer
+              id={constants.PRIORITIZED_HIGH_ZOOM_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={['==', constants.SCORE_PROPERTY_HIGH, true]}
+              type="fill"
+              paint={{
+                'fill-color': constants.PRIORITIZED_FEATURE_FILL_COLOR,
+                'fill-opacity':
+                  constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+              }}
+              minzoom={0}
+            />
+
+            {/* High zoom layer (static) - grandfathered features only */}
+            <Layer
+              id={constants.GRANDFATHERED_HIGH_ZOOM_LAYER_ID}
+              source-layer={constants.SCORE_SOURCE_LAYER}
+              filter={['==', constants.IS_GRANDFATHERED, true]}
+              type="fill"
+              paint={{
+                'fill-color': constants.GRANDFATHERED_FEATURE_FILL_COLOR,
+                'fill-opacity':
+                  constants.HIGH_ZOOM_PRIORITIZED_FEATURE_FILL_OPACITY,
+              }}
+              minzoom={0}
             />
 
             {/* High zoom layer (static) - controls the border between features */}
